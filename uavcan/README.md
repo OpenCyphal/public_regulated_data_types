@@ -1,5 +1,5 @@
-Standard DSDL definitions
-=========================
+UAVCAN namespace
+================
 
 For details, please refer to the [UAVCAN specification](http://uavcan.org/).
 
