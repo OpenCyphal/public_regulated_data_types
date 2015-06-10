@@ -1,0 +1,7 @@
+#
+# Generic log message.
+#
+
+LogLevel level
+uint8[<32] source
+uint8[<94] text
