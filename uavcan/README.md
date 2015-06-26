@@ -3,31 +3,37 @@ UAVCAN namespace
 
 For details, please refer to the [UAVCAN specification](http://uavcan.org/).
 
-## Standard DTID ranges
-
-- Messages: [256, 1791)
-- Services: [64, 447)
-
-Rest are reserved for vendor-specific data types.
-
 ## Standard ID grouping
 
-Note that all unallocated space can be claimed later.
+The grouping documented here is essentially a mere guideline on what data type ID should be assigned to newly added
+data types. The unallocated segments of the groups can be safely changed in the future, as such a change won't affect
+backward compatibility in any way.
 
 ### Messages
 
-| ID                   | Types                                    | Note                                     |
-| -------------------- | ---------------------------------------- | ---------------------------------------- |
-| [256, 260)           | protocol.*                               | Highest priority                         |
-| [260, 900)           | equipment.*                              | High priority                            |
-| [1000, 1050)         | protocol.*                               |                                          |
-| [1400, 1700)         | equipment.*                              | Low priority                             |
-| 1780                 | mavlink.Message                          |                                          |
-| [1785, 1791)         | protocol.debug.*                         | Lowest priority                          |
+Currently used ranges are the following:
+
+- [0, 16384)
+
+| ID range             | Types                                    |
+| -------------------- | ---------------------------------------- |
+| [0, 4)               | protocol.dynamic_node_id.*               |
+| [4, 1000)            | protocol.*                               |
+| [700, 710)           | protocol.dynamic_node_id.server.*        |
+| [1000, 10000)        | equipment.*                              |
+| [16360, 16370)       | mavlink.*                                |
+| [16370, 16384)       | protocol.debug.*                         |
 
 ### Services
 
-| ID                   | Types                                    | Note                                     |
-| -------------------- | ---------------------------------------- | ---------------------------------------- |
-| [100, 110)           | equipment.*                              |                                          |
-| [200, 250)           | protocol.*                               |                                          |
+Currently used ranges are the following:
+
+- [0, 64)
+
+| ID range             | Types                                    |
+| -------------------- | ---------------------------------------- |
+| [0, 50)              | protocol.*                               |
+| [10, 20)             | protocol.param.*                         |
+| [30, 40)             | protocol.dynamic_node_id.*               |
+| [40, 50)             | protocol.file.*                          |
+| [50, 60)             | equipment.*                              |
