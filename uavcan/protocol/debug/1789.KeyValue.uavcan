@@ -8,7 +8,7 @@
 float32 value
 
 #
-# Tail array optimization is enabled, so if key length does not exceed 4 characters,
-# the whole message can fit into one CAN frame.
+# Tail array optimization is enabled, so if key length does not exceed 3 characters, the whole
+# message can fit into one CAN frame. The message always fits into one CAN FD frame.
 #
-uint8[<=34] key
+uint8[<=58] key

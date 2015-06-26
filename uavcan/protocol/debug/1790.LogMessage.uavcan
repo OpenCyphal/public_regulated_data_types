@@ -3,5 +3,5 @@
 #
 
 LogLevel level
-uint8[<32] source
-uint8[<94] text
+uint8[<=31] source
+uint8[<=90] text
