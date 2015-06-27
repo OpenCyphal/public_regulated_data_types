@@ -79,6 +79,11 @@ uint16 FOLLOWUP_TIMEOUT_MS = 500
 uint8 MAX_LENGTH_OF_UNIQUE_ID_IN_REQUEST = 6
 
 #
+# When requesting an allocation, set the field 'node_id' to this value if there's no preference.
+#
+uint7 ANY_NODE_ID = 0
+
+#
 # If transfer is anonymous, this is the preferred ID.
 # If transfer is non-anonymous, this is allocated ID.
 #
