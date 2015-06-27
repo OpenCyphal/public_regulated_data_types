@@ -21,7 +21,6 @@ Currently used ranges are the following:
 | [4, 500)             | protocol.*                               |
 | [490, 500)           | protocol.dynamic_node_id.server.*        |
 | [1000, 10000)        | equipment.*                              |
-| [16360, 16370)       | mavlink.*                                |
 | [16370, 16384)       | protocol.debug.*                         |
 
 ### Services
