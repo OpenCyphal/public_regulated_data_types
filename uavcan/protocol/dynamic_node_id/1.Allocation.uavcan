@@ -19,6 +19,10 @@
 # - Allocator - the node that serves allocation requests.
 # - Allocatee - the node that requests an allocation from the Allocator.
 #
+# The response timeout is not explicitly defined for this protocol, as the Allocatee will request the allocation
+# Trequest units of time later again, unless the allocation has been granted. Despite this, the implementation can
+# consider the value of FOLLOWUP_TIMEOUT_MS as an allocation timeout, if necessary.
+#
 # On the allocatee's side the protocol is defined through the following set of rules:
 #
 # Rule A. On initialization:
