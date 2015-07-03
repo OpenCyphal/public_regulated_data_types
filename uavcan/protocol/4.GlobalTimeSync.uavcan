@@ -8,7 +8,7 @@
 uint16 MAX_PUBLICATION_PERIOD_MS = 1100         # Milliseconds
 uint16 MIN_PUBLICATION_PERIOD_MS = 40           # Milliseconds
 
-uint16 RECOMMENDED_PUBLISHER_TIMEOUT_MS = 3000  # Milliseconds
+uint16 RECOMMENDED_PUBLISHER_TIMEOUT_MS = 2200  # Milliseconds
 
 # Time in microseconds when the PREVIOUS GlobalTimeSync message was transmitted.
 # If this message is the first one, this field must be zero.
