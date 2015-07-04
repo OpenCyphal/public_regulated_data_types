@@ -59,14 +59,20 @@
 
 #
 # Recommended randomization range for request period.
-# Request period shall not be lower than FOLLOWUP_TIMEOUT_MS, otherwise the request may conflict with a followup.
 #
-uint16 MAX_REQUEST_PERIOD_MS = 1400
-uint16 MIN_REQUEST_PERIOD_MS = 600
+# These definitions have an advisory status; it is OK to pick higher values for both bounds, as it won't affect
+# protocol compatibility. In fact, it is advised to pick higher values if the target application is not concerned
+# about the time it will spend on completing the dynamic node ID allocation procedure, as it will reduce
+# interference with other nodes, possibly of higher importance.
+#
+# The lower bound shall not be lower than FOLLOWUP_TIMEOUT_MS, otherwise the request may conflict with a followup.
+#
+uint16 MAX_REQUEST_PERIOD_MS = 1000     # It is OK to exceed this value
+uint16 MIN_REQUEST_PERIOD_MS = 600      # It is OK to exceed this value
 
 #
 # Recommended randomization range for followup delay.
-# Followup delay shall not exceed FOLLOWUP_TIMEOUT_MS, because the allocator will reset the state on its end.
+# The upper bound shall not exceed FOLLOWUP_TIMEOUT_MS, because the allocator will reset the state on its end.
 #
 uint16 MAX_FOLLOWUP_DELAY_MS = 400
 uint16 MIN_FOLLOWUP_DELAY_MS = 0        # Defined only for regularity; will always be zero.
@@ -79,6 +85,7 @@ uint16 FOLLOWUP_TIMEOUT_MS = 500
 #
 # Any request message can accommodate no more than this number of bytes of unique ID.
 # This limitation is needed to ensure that all request transfers are single-frame.
+# This limitation does not apply to CAN FD transport.
 #
 uint8 MAX_LENGTH_OF_UNIQUE_ID_IN_REQUEST = 6
 
