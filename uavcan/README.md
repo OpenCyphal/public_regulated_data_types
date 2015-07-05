@@ -18,8 +18,8 @@ Currently used ranges are the following:
 | ID range             | Types                                    |
 | -------------------- | ---------------------------------------- |
 | [0, 4)               | protocol.dynamic_node_id.*               |
-| [4, 500)             | protocol.*                               |
-| [490, 500)           | protocol.dynamic_node_id.server.*        |
+| [4, 400)             | protocol.*                               |
+| [390, 400)           | protocol.dynamic_node_id.server.*        |
 | [1000, 10000)        | equipment.*                              |
 | [16370, 16384)       | protocol.debug.*                         |
 
