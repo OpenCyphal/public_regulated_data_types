@@ -13,7 +13,7 @@
 
 uint8 MIN_MESSAGES = 3
 uint16 MAX_INTERVAL_MS = 500
-uint16 BROADCASTING_INTERVAL_MS = 100
+uint16 BROADCASTING_PERIOD_MS = 100
 
 # Short description that would fit a single CAN frame
 uint8[<=7] reason_text

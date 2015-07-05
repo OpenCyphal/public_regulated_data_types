@@ -6,7 +6,7 @@
 #
 # This message should be broadcasted by the server at this interval until all other servers are discovered.
 #
-uint16 BROADCASTING_INTERVAL_MS = 1000
+uint16 BROADCASTING_PERIOD_MS = 1000
 
 #
 # Number of servers in the cluster as configured on the sender.
