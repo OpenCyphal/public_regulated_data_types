@@ -19,23 +19,23 @@ float16 full_charge_capacity_wh # [Watt hours]  Predicted battery capacity when 
 float16 hours_to_full_charge    # [Hours]       Charging is expected to complete in this time; zero if not charging
 
 #
-# Status mask.
+# Status flags.
 # Notes:
 #  - CHARGING must be always set as long as the battery is connected to a charger, even if the charging is complete.
 #  - CHARGED must be cleared immediately when the charger is disconnected.
 #
-uint11 STATUS_MASK_IN_USE       = 1     # The battery is currently used as a power supply
-uint11 STATUS_MASK_CHARGING     = 2     # Charger is active
-uint11 STATUS_MASK_CHARGED      = 4     # Charging complete, but the charger is still active
-uint11 STATUS_MASK_TEMP_HOT     = 8     # Battery temperature is above normal
-uint11 STATUS_MASK_TEMP_COLD    = 16    # Battery temperature is below normal
-uint11 STATUS_MASK_OVERLOAD     = 32    # Safe operating area violation
-uint11 STATUS_MASK_BAD_BATTERY  = 64    # This battery should not be used anymore (e.g. low SOH)
-uint11 STATUS_MASK_NEED_SERVICE = 128   # This battery requires maintenance (e.g. balancing, full recharge)
-uint11 STATUS_MASK_BMS_ERROR    = 256   # Battery management system/controller error, smart battery interface error
-uint11 STATUS_MASK_RESERVED_A   = 512   # Keep zero
-uint11 STATUS_MASK_RESERVED_B   = 1024  # Keep zero
-uint11 status_mask
+uint11 STATUS_FLAG_IN_USE       = 1     # The battery is currently used as a power supply
+uint11 STATUS_FLAG_CHARGING     = 2     # Charger is active
+uint11 STATUS_FLAG_CHARGED      = 4     # Charging complete, but the charger is still active
+uint11 STATUS_FLAG_TEMP_HOT     = 8     # Battery temperature is above normal
+uint11 STATUS_FLAG_TEMP_COLD    = 16    # Battery temperature is below normal
+uint11 STATUS_FLAG_OVERLOAD     = 32    # Safe operating area violation
+uint11 STATUS_FLAG_BAD_BATTERY  = 64    # This battery should not be used anymore (e.g. low SOH)
+uint11 STATUS_FLAG_NEED_SERVICE = 128   # This battery requires maintenance (e.g. balancing, full recharge)
+uint11 STATUS_FLAG_BMS_ERROR    = 256   # Battery management system/controller error, smart battery interface error
+uint11 STATUS_FLAG_RESERVED_A   = 512   # Keep zero
+uint11 STATUS_FLAG_RESERVED_B   = 1024  # Keep zero
+uint11 status_flags
 
 #
 # State of Health (SOH) estimate, in percent.
