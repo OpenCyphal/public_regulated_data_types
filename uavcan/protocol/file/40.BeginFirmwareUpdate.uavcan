@@ -12,8 +12,8 @@
 # If the slave node accepts this request, the initiator will get a response immediately, before the update process
 # actually begins.
 #
-# While the firmware is being updated, the slave should set its status code (uavcan.protocol.NodeStatus.status_code)
-# to STATUS_INITIALIZING.
+# While the firmware is being updated, the slave should set its mode (uavcan.protocol.NodeStatus.mode) to
+# MODE_SOFTWARE_UPDATE.
 #
 
 uint8 source_node_id         # If there is an invalid value (e.g. zero), the caller Node ID will be used instead
