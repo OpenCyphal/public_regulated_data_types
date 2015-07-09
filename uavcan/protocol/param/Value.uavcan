@@ -4,7 +4,10 @@
 # If none of the values below are present, the value is considered empty.
 #
 
-bool[<=1] value_bool            # Preferred over int, float and string if ambiguous
-int64[<=1] value_int            # Preferred over float and string if ambiguous
-float32[<=1] value_float        # Preferred over string if ambiguous
-String[<=1] value_string        # This one will be used only if all above are empty
+@union
+
+Empty value_empty
+bool value_bool
+int64 value_int
+float32 value_float
+uint8[<=128] value_string
