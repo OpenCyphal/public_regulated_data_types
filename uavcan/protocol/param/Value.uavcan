@@ -1,13 +1,15 @@
 #
 # Single parameter value.
-# The actual type should be inferred from the available values, as described below.
-# If none of the values below are present, the value is considered empty.
+#
+# This is a union, which means that this structure can contain either one of the fields below.
+# The structure is prefixed with tag - a selector value that indicates which particular field is encoded.
 #
 
-@union
+@union                          # Tag is 3 bit long, so outer structure has 5-bit prefix to ensure proper alignment
 
-Empty value_empty
-bool value_bool
-int64 value_int
-float32 value_float
-uint8[<=128] value_string
+Empty empty                     # First field is always the default one, so the value is empty by default
+
+int64        integer_value
+float32      real_value         # 32-bit type is used to simplify implementation on low-end systems
+bool         boolean_value
+uint8[<=128] string_value       # Length prefix is exactly one byte long, which ensures proper alignment of payload
