@@ -4,5 +4,9 @@
 # If none of the values below are present, the value is considered empty.
 #
 
-int64[<=1] value_int            # Preferred over float if ambiguous
-float32[<=1] value_float        # Only if int is empty
+@union                          # Tag is 2 bits long
+
+Empty empty                     # First field is always the default one, so the value is empty by default
+
+int64   integer_value
+float32 real_value
