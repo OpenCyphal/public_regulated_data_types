@@ -5,21 +5,26 @@
 uavcan.Timestamp timestamp         # Global network-synchronized time, if available, otherwise zero
 
 #
-# Time solution
-#
-# The following rules apply:
-#  - if num_leap_seconds = 0, it is assumed that its value is unknown, and that gnss_timestamp contains UTC time.
-#  - if num_leap_seconds = 1, it is assumed that its value is unknown, and that gnss_timestamp contains GPS time.
-#  - if num_leap_seconds = 2, it is assumed that its value is unknown, and that gnss_timestamp contains TAI time.
-#  - if num_leap_seconds > 2, it is assumed that its value is KNOWN,   and that gnss_timestamp contains UTC time.
-#
-# At the time of February 2015, the number of leap seconds is 26.
+# Time solution.
+# Time standard (GPS, UTC, TAI, etc) is defined in the field below.
 #
 uavcan.Timestamp gnss_timestamp    # GNSS timestamp, if available, otherwise zero
 
-uint8 NUM_LEAP_SECONDS_UNKNOWN_GNSS_TIME_UTC = 0 # num_leap_seconds is unknown, gnss_timestamp contains UTC time
-uint8 NUM_LEAP_SECONDS_UNKNOWN_GNSS_TIME_GPS = 1 # num_leap_seconds is unknown, gnss_timestamp contains GPS time
-uint8 NUM_LEAP_SECONDS_UNKNOWN_GNSS_TIME_TAI = 2 # num_leap_seconds is unknown, gnss_timestamp contains TAI time
+#
+# Time standard used in the GNSS timestamp field.
+#
+uint3 GNSS_TIME_STANDARD_NONE = 0  # Time is unknown
+uint3 GNSS_TIME_STANDARD_TAI  = 1
+uint3 GNSS_TIME_STANDARD_UTC  = 2
+uint3 GNSS_TIME_STANDARD_GPS  = 3
+uint3 gnss_time_standard
+
+void5   # Reserved space
+
+#
+# If known, the number of leap seconds allows to perform conversions between some time standards.
+#
+uint8 NUM_LEAP_SECONDS_UNKNOWN = 0
 uint8 num_leap_seconds
 
 #
