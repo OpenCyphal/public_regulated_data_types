@@ -11,5 +11,5 @@ Empty empty                     # First field is always the default one, so the 
 
 int64        integer_value
 float32      real_value         # 32-bit type is used to simplify implementation on low-end systems
-bool         boolean_value
+uint8        boolean_value      # 8-bit value is used for alignment reasons
 uint8[<=128] string_value       # Length prefix is exactly one byte long, which ensures proper alignment of payload
