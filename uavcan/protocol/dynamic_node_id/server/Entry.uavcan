@@ -7,4 +7,4 @@
 uint32 term
 uint8[16] unique_id
 uint7 node_id
-bool alignment
+void1

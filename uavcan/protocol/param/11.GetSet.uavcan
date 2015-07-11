@@ -24,7 +24,7 @@ uint8[<=92] name
 
 ---
 
-uint5 align_a
+void5
 
 #
 # Actual parameter value.
@@ -35,16 +35,13 @@ uint5 align_a
 #
 Value value
 
-uint5 align_b
-
+void5
 Value default_value    # Optional
 
-uint6 align_c
-
+void6
 NumericValue max_value # Optional, not applicable for bool/string
 
-uint6 align_d
-
+void6
 NumericValue min_value # Optional, not applicable for bool/string
 
 #
