@@ -12,4 +12,4 @@ uint8 minor
 uint8[16] unique_id
 
 # Certificate of authenticity (COA) of the hardware, 255 bytes max.
-uint8[<256] certificate_of_authenticity
+uint8[<=255] certificate_of_authenticity

@@ -5,6 +5,8 @@
 #
 
 uint32 term
+
 uint8[16] unique_id
-uint7 node_id
+
 void1
+uint7 node_id

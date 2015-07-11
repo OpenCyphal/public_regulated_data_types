@@ -1,5 +1,6 @@
 #
 # Generic log message.
+# All items are byte aligned.
 #
 
 LogLevel level
