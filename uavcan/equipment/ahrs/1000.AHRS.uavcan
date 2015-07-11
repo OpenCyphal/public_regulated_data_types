@@ -6,10 +6,12 @@ uavcan.Timestamp timestamp
 
 # Normalized quaternion
 float16[4] orientation_xyzw
+void4
 float16[<=9] orientation_covariance
 
 # rad/sec
 float16[3] angular_velocity
+void4
 float16[<=9] angular_velocity_covariance
 
 # m/s^2

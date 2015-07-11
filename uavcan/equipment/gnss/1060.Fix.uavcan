@@ -48,5 +48,6 @@ uint2 status
 #
 float16 pdop
 
+void4
 float16[<=9] position_covariance   # m^2
 float16[<=9] velocity_covariance   # (m/s)^2
