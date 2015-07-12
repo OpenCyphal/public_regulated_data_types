@@ -23,4 +23,5 @@
 uint8 TIMEOUT_INFINITE = 0
 uint8 timeout_sec    # If the confirmation input was not detected in this time, enumeration request will be aborted
 
+void1
 uint7 node_id        # This Node ID will be assigned if the confirmation input has been detected. Must be valid.
