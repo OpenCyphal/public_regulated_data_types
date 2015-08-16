@@ -1,6 +1,8 @@
 #
 # Single battery info.
+#
 # Typical publishing rate should be around 0.2~1 Hz.
+#
 # Please refer to the Smart Battery data specification for some elaboration.
 #
 

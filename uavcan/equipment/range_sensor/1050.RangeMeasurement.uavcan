@@ -6,7 +6,7 @@ uavcan.Timestamp timestamp
 
 uint8 sensor_id
 
-uavcan.equipment.CoarseOrientation beam_orientation   # In body frame
+uavcan.equipment.CoarseOrientation beam_orientation_in_body_frame
 
 float16 field_of_view                # Radians
 
