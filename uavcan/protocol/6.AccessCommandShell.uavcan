@@ -37,12 +37,15 @@ uint8 flags
 # If the shell is idle, it will interpret this string.
 # If there's a process running, this string will be piped into its stdin.
 #
+# If RESET_SHELL is set, new input will be interpreted by the shell immediately.
+#
 uint8[<=128] input
 
 ---
 
 #
-# Exit status of the last executed process, 0 by default.
+# Exit status of the last executed process, or error code of the shell itself.
+# Default value is zero.
 #
 int32 last_exit_status
 
@@ -56,7 +59,7 @@ uint8 FLAG_HAS_PENDING_STDERR   = 128   # There is more stderr to read
 uint8 flags
 
 #
-# In case of a shell error, this string will contain ASCII string explaining the nature of the error.
+# In case of a shell error, this string may contain ASCII string explaining the nature of the error.
 # Otherwise, if stdout read is requested, this string will contain stdout data. If stderr read is requested,
 # this string will contain stderr data. If both stdout and stderr read is requested, this string will start
 # with stdout and end with stderr, with no separator in between.

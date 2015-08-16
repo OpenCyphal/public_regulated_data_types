@@ -5,7 +5,7 @@
 # In order to reduce probability of CAN ID collisions when multiple nodes are publishing this request, the CAN ID
 # field of anonymous message transfer includes a Discriminator, which is a special field that has to be filled with
 # random data by the transmitting node. Since Discriminator collisions are likely to happen (probability approx.
-# 0.007%), nodes that are requesting dynamic allocations need to be able to handle them correctly. Hence, a collision
+# 0.006%), nodes that are requesting dynamic allocations need to be able to handle them correctly. Hence, a collision
 # resolution protocol is defined (alike CSMA/CD). The collision resolution protocol is based on two randomized
 # transmission intervals:
 #
@@ -13,7 +13,8 @@
 # - Followup delay - Tfollowup.
 #
 # Recommended randomization ranges for these intervals are documented in the costants of this message type (see below).
-# Random intervals should be chosen anew per transmission.
+# Random intervals must be chosen anew per transmission, whereas the Discriminator value is allowed to stay constant
+# per node.
 #
 # In the below description the following terms are used:
 # - Allocator - the node that serves allocation requests.
@@ -102,7 +103,7 @@ uint7 node_id
 
 #
 # If transfer is anonymous, this field indicates first-stage request.
-# If transfer is non-anonymous, this field should be ignored.
+# If transfer is non-anonymous, this field should be assigned zero and ignored.
 #
 bool first_part_of_unique_id
 

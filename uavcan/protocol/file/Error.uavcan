@@ -6,7 +6,6 @@
 int16 OK                = 0
 int16 UNKNOWN_ERROR     = 32767
 
-# These error codes match some standard UNIX errno values
 int16 NOT_FOUND         = 2
 int16 IO_ERROR          = 5
 int16 ACCESS_DENIED     = 13

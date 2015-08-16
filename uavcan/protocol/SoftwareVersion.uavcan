@@ -3,17 +3,26 @@
 # Generic software version information.
 #
 
-# Primary version numbers for humans. Can be both set to zeros if not available.
+#
+# Primary version numbers.
+# If both fields are set to zero, the version is considered unknown.
+#
 uint8 major
 uint8 minor
 
-# This mask indicates which optional fields are set.
+#
+# This mask indicates which optional fields (see below) are set.
+#
 uint8 OPTIONAL_FIELD_FLAG_VCS_COMMIT = 1
 uint8 OPTIONAL_FIELD_FLAG_IMAGE_CRC  = 2
 uint8 optional_field_flags
 
-# VCS commit hash or revision number, e.g. git short commit hash. Useful for the developers. Optional.
+#
+# VCS commit hash or revision number, e.g. git short commit hash. Optional.
+#
 uint32 vcs_commit
 
+#
 # CRC-64-WE of the firmware image. CRC function is the same as in the data type signature. Optional.
+#
 uint64 image_crc

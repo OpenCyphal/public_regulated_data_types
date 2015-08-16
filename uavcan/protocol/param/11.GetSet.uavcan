@@ -28,9 +28,11 @@ void5
 
 #
 # Actual parameter value.
+#
 # For set requests, it should contain the actual parameter value after the set request was
 # executed. The objective is to let the client know if the value could not be updated, e.g.
 # due to its range violation, etc.
+#
 # Empty value indicates that there is no such parameter.
 #
 Value value

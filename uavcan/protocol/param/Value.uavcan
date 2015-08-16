@@ -7,7 +7,7 @@
 
 @union                          # Tag is 3 bit long, so outer structure has 5-bit prefix to ensure proper alignment
 
-Empty empty                     # First field is always the default one, so the value is empty by default
+Empty empty                     # Empty field, used to represent an undefined value.
 
 int64        integer_value
 float32      real_value         # 32-bit type is used to simplify implementation on low-end systems
