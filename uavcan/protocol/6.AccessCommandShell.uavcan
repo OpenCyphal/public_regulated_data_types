@@ -1,4 +1,6 @@
 #
+# THIS DEFINITION IS SUBJECT TO CHANGE.
+#
 # This service allows to execute arbitrary commands on the remote node's internal system shell.
 #
 # Essentially, this service mimics a typical terminal emulator, with one text input (stdin) and two text

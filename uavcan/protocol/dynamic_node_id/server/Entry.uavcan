@@ -1,4 +1,6 @@
 #
+# THIS DEFINITION IS SUBJECT TO CHANGE.
+#
 # One dynamic node ID allocation entry.
 # This type is a part of the Raft consensus algorithm.
 # Please refer to the specification for details.
