@@ -25,4 +25,4 @@ uint8 FLAG_PUBLISHING = 4   # Publishing messages of this type
 uint8 FLAG_SERVING    = 8   # Providing service of this type
 uint8 flags
 
-uint8[<=80] name            # Full data type name; valid only if the data type is known (see FLAG_KNOWN)
+uint8[<=80] name            # Full data type name

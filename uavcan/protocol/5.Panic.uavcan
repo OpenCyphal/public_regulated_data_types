@@ -1,6 +1,6 @@
 #
-# This message may be published with high frequency (~10..100 Hz) to inform the network participants
-# that the system has encountered an unrecoverable fault and is not capable of further operation.
+# This message may be published periodically to inform network participants that the system has encountered
+# an unrecoverable fault and is not capable of further operation.
 #
 # Nodes that are expected to react to this message should wait for at least MIN_MESSAGES subsequent messages
 # with any reason text from any sender published with the interval no higher than MAX_INTERVAL_MS before
