@@ -25,10 +25,10 @@ uint32 uptime_sec
 #
 # Abstract node health.
 #
-uint2 HEALTH_OK         = 0
-uint2 HEALTH_WARNING    = 1
-uint2 HEALTH_ERROR      = 2
-uint2 HEALTH_CRITICAL   = 3
+uint2 HEALTH_OK         = 0     # The node is functioning properly.
+uint2 HEALTH_WARNING    = 1     # A critical parameter went out of range or the node encountered a minor failure.
+uint2 HEALTH_ERROR      = 2     # The node encountered a major failure.
+uint2 HEALTH_CRITICAL   = 3     # The node suffered a fatal malfunction.
 uint2 health
 
 #
