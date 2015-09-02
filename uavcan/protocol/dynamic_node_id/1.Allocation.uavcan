@@ -99,6 +99,38 @@ uint7 ANY_NODE_ID = 0
 # If transfer is anonymous, this is the preferred ID.
 # If transfer is non-anonymous, this is allocated ID.
 #
+# If the allocatee does not have any preference, this value must be set to zero. In this case, the allocator
+# must choose the highest unused node ID value for this allocation (except 126 and 127, that are reserved for
+# network maintenance tools). E.g., if the allocation table is empty and the node has requested an allocation
+# without any preference, the allocator will grant the node ID 125.
+#
+# If the preferred node ID is not zero, the allocator will traverse the allocation table starting from the
+# prefferred node ID upward, untill a free node ID is found. If a free node ID could not be found, the
+# allocator will restart the search from the preferred node ID downward, until a free node ID is found.
+#
+# In pseudocode:
+#   int findFreeNodeID(const int preferred)
+#   {
+#       // Search up
+#       int candidate = (preferred > 0) ? preferred : 125;
+#       while (candidate <= 125)
+#       {
+#           if (!isOccupied(candidate))
+#               return candidate;
+#           candidate++;
+#       }
+#       // Search down
+#       candidate = (preferred > 0) ? preferred : 125;
+#       while (candidate > 0)
+#       {
+#           if (!isOccupied(candidate))
+#               return candidate;
+#           candidate--;
+#       }
+#       // Not found
+#       return -1;
+#   }
+#
 uint7 node_id
 
 #
