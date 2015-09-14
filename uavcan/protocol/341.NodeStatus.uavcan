@@ -14,7 +14,7 @@ uint16 MIN_BROADCASTING_PERIOD_MS = 2
 #
 # If a node fails to publish this message in this amount of time, it should be considered offline.
 #
-uint16 OFFLINE_TIMEOUT_MS = 2000
+uint16 OFFLINE_TIMEOUT_MS = 3000
 
 #
 # Uptime counter should never overflow.
