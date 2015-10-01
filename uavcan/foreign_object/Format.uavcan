@@ -1,0 +1,9 @@
+#
+# This enumeration defines the serialization format used to encode the object.
+#
+
+uint8 RAW                       = 0     # Raw data, no encoding
+uint8 BSON                      = 1     # BSON
+uint8 CAPNPROTO                 = 2     # CAP'N PROTO
+
+uint8 format
