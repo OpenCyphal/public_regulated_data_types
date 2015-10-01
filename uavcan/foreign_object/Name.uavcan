@@ -1,0 +1,6 @@
+#
+# Object name as a UTF-8 string
+#
+
+void1
+uint8[<=80] name
