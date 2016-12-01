@@ -1,0 +1,21 @@
+#
+# Raw IMU data with timestamps
+#
+
+#
+# rad/sec
+#
+uavcan.Timestamp gyro_timestamp
+float16[3] gyro_raw
+float16[3] gyro_integral
+float16 gyro_integral_dt
+
+#
+# m/sec^2
+#
+uavcan.Timestamp accel_timestamp
+float16[3] accel_raw
+float16[3] accel_integral
+float16 accel_integral_dt
+
+float16[<=36] gyro_accel_covariance

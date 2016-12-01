@@ -1,0 +1,25 @@
+#
+# This message represents array of arbitrary control input
+#
+
+#
+# Nested type.
+# Single actuator command.
+#
+uint8 controller_id
+
+#
+# Type of Control Input
+#
+uint8 CONTROL_TYPE_UNITLESS     = 0     # [-1, 1]
+uint8 CONTROL_TYPE_RC           = 1     # [900, 2100]
+uint8 CONTROL_TYPE_POSITION     = 2     # meter
+uint8 CONTROL_TYPE_SPEED        = 3     # meter per second
+uint8 CONTROL_TYPE_ATTITUDE     = 4     # radian per second
+
+uint8 control_type
+
+#
+# List of control inputs
+#
+float32[<=8] controls
