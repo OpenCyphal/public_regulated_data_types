@@ -55,7 +55,7 @@ float16 pdop
 
 float16[<=9] position_covariance   # m^2
 float16[<=9] velocity_covariance   # (m/s)^2
-float16[<=9] pos_vel_covariance    # m^2 / s - Covariance 
+float16[<=9] pos_vel_covariance    # m^2 / s - Covariance of position and velocity.
 
 #
 # Position solution in ECEF
