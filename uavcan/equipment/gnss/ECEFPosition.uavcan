@@ -1,0 +1,17 @@
+#
+# Nested type.
+# GNSS ECEF status field.
+#
+# ECEF is an acronym for Earth-Centered-Earth-Fixed, which is a cartesian
+# coordinate system which rotates with the earth. The origin (0,0,0) is
+# located at the center of the earth. The x-axis is a vector pointing from
+# the origin with positive direction towards 0 degrees latitude and
+# longitude (equator, at the prime meridian). The z-axis is a vector
+# pointing from the origin towards the north-pole. The y-axis completes a
+# right-handed coordinate system.
+
+int34 x_mm                         # X-axis coordinate in mm
+int34 y_mm                         # Y-axis coordinate in mm
+int34 z_mm                         # Y-axis coordinate in mm
+
+void2                              # Padding to make this field a multiple of 8 bits
