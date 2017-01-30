@@ -49,6 +49,34 @@ uint2 STATUS_3D_FIX    = 3
 uint2 status
 
 #
+# Mode status
+# 
+uint3 MODE_SINGLE      = 0
+uint3 MODE_DGPS        = 1
+uint3 MODE_RTK         = 2
+uint3 MODE_PPP         = 3
+uint3 mode
+
+void1   # Reserved space
+
+#
+# Submode status
+#
+uint3 SUB_MODE_SINGLE        = 0
+
+uint3 SUB_MODE_DGPS_OTHER    = 0
+uint3 SUB_MODE_DGPS_SBAS     = 1
+
+uint3 SUB_MODE_RTK_FLOAT     = 0
+uint3 SUB_MODE_RTK_FIXED     = 1
+
+uint3 SUB_MODE_PPP           = 0
+
+uint3 sub_mode
+
+void1   # Reserved space
+
+#
 # Precision
 #
 float16 pdop
