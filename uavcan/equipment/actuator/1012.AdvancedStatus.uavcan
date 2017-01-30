@@ -1,0 +1,17 @@
+#
+# Advanced actuator feedback, if available.
+# Unknown fields should be set to NAN.
+#
+
+uint8 actuator_id
+
+#
+# Advanced status fields
+#
+
+float16 temperature
+float16 voltage
+
+void16				# Reserved space
+
+uint16 error		# Actuator specific error code
