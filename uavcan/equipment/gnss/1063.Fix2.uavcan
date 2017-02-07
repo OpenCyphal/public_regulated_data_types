@@ -1,5 +1,5 @@
 #
-# GNSS ECEF navigation solution with uncertainty.
+# GNSS ECEF and LLA navigation solution with uncertainty.
 #
 
 uavcan.Timestamp timestamp         # Global network-synchronized time, if available, otherwise zero
@@ -62,15 +62,12 @@ void1   # Reserved space
 #
 # Submode status
 #
-uint3 SUB_MODE_SINGLE        = 0
 
 uint3 SUB_MODE_DGPS_OTHER    = 0
 uint3 SUB_MODE_DGPS_SBAS     = 1
 
 uint3 SUB_MODE_RTK_FLOAT     = 0
 uint3 SUB_MODE_RTK_FIXED     = 1
-
-uint3 SUB_MODE_PPP           = 0
 
 uint3 sub_mode
 
@@ -81,8 +78,8 @@ void1   # Reserved space
 #
 float16 pdop
 
-float16[<=9] position_covariance   # m^2
-float16[<=9] velocity_covariance   # (m/s)^2
+float16[<=6] position_covariance   # m^2
+float16[<=6] velocity_covariance   # (m/s)^2
 float16[<=9] pos_vel_covariance    # m^2 / s - Covariance of position and velocity.
 
 #

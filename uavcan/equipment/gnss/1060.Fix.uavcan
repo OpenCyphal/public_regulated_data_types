@@ -1,5 +1,6 @@
 #
 # GNSS navigation solution with uncertainty.
+# This message is deprecated. Use the newer 1063.Fix2.uavcan message.
 #
 
 uavcan.Timestamp timestamp         # Global network-synchronized time, if available, otherwise zero

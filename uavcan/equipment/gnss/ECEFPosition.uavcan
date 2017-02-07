@@ -10,8 +10,8 @@
 # pointing from the origin towards the north-pole. The y-axis completes a
 # right-handed coordinate system.
 
-int34 x_mm                         # X-axis coordinate in mm
-int34 y_mm                         # Y-axis coordinate in mm
-int34 z_mm                         # Y-axis coordinate in mm
+int36 x_mm                         # X-axis coordinate in mm
+int36 y_mm                         # Y-axis coordinate in mm
+int36 z_mm                         # Y-axis coordinate in mm
 
-void2                              # Padding to make this field a multiple of 8 bits
+void4                              # Padding to make this field a multiple of 8 bits
