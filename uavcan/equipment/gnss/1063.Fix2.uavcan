@@ -74,10 +74,9 @@ uint5 sub_mode
 #
 float16 pdop
 
-float16[<=21] covariance    # Position and velocity covariance. The upper-right
-                            # triangle of a 6x6 symmetric matrix, represented in
-                            # row-major order. Units are m^2 for position, (m/s)^2
-                            # for velocity and m^2/s for position/velocity.
+float16[<=36] covariance    # Position and velocity covariance. Units are
+                            # m^2 for position, (m/s)^2 for velocity and
+                            # m^2/s for position/velocity.
 
 #
 # Position solution in ECEF
