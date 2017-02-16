@@ -1,0 +1,11 @@
+#
+# Generic device temperature
+#
+
+uint16_t device_id
+
+float16 temperature
+
+uint8 ERROR_FLAG_OVERTEMPERATURE = 1
+uint8 ERROR_FLAG UNDERTEMPERATURE = 2
+uint8 error_flags
