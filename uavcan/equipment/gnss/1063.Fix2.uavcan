@@ -51,35 +51,33 @@ uint2 status
 #
 # GNSS Mode
 # 
-uint3 MODE_SINGLE      = 0
-uint3 MODE_DGPS        = 1
-uint3 MODE_RTK         = 2
-uint3 MODE_PPP         = 3
-uint3 mode
+uint4 MODE_SINGLE      = 0
+uint4 MODE_DGPS        = 1
+uint4 MODE_RTK         = 2
+uint4 MODE_PPP         = 3
+uint4 mode
 
 #
 # GNSS Sub mode
 #
+uint6 SUB_MODE_DGPS_OTHER    = 0
+uint6 SUB_MODE_DGPS_SBAS     = 1
 
-uint5 SUB_MODE_DGPS_OTHER    = 0
-uint5 SUB_MODE_DGPS_SBAS     = 1
+uint6 SUB_MODE_RTK_FLOAT     = 0
+uint6 SUB_MODE_RTK_FIXED     = 1
 
-uint5 SUB_MODE_RTK_FLOAT     = 0
-uint5 SUB_MODE_RTK_FIXED     = 1
-
-uint5 sub_mode
+uint6 sub_mode
 
 #
 # Precision
 #
-float16 pdop
-
 float16[<=36] covariance    # Position and velocity covariance. Units are
                             # m^2 for position, (m/s)^2 for velocity and
                             # m^2/s for position/velocity.
 
+float16 pdop
+
 #
 # Position solution in ECEF
 #
-
 ECEFPosition[<=1] ecef_position
