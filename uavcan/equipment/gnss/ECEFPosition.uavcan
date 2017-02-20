@@ -9,6 +9,7 @@
 # longitude (equator, at the prime meridian). The z-axis is a vector
 # pointing from the origin towards the north-pole. The y-axis completes a
 # right-handed coordinate system.
+#
 
 int36[3] xyz_mm                    # XYZ-axis coordinates in mm
 
