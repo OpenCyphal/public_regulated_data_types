@@ -1,7 +1,6 @@
 #
 # Generic actuator feedback, if available.
 # Unknown fields should be set to NAN.
-# This message is deprecated. Use the newer 1012.Status2.uavcan message.
 #
 
 uint8 actuator_id
