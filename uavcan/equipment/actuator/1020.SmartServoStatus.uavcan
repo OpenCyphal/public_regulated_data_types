@@ -1,0 +1,20 @@
+#
+# SmartServo PWM servo converter feedback
+# Aerotech LLC (c) 2017
+#
+
+uint8 actuator_id
+
+# Voltage and temperature
+float16[2] in_voltage        # 2 input voltages
+float16 out_voltage          # 1 output voltage
+float16 temperature          # Kelvins
+
+# status bits
+uint8 ERROR_FLAG_VOLTAGE_IN_1_CRITICAL = 1
+uint8 ERROR_FLAG_VOLTAGE_IN_2_CRITICAL = 2
+uint8 ERROR_FLAG_VOLTAGE_OUT_CRITICAL = 4
+uint8 ERROR_FLAG_PWM_IN_MISSING = 8
+uint8 ERROR_FLAG_PWM_OUT_OF_BAND = 16
+uint8 ERROR_FLAG_OVERHEATING = 32
+uint8 error_flags
