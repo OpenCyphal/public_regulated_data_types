@@ -2,7 +2,7 @@
 # Generic device temperature
 #
 
-uint16_t device_id
+uint16 device_id
 
 float16 temperature                  # in kelvin
 
