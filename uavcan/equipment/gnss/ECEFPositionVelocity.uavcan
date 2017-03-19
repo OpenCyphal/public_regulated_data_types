@@ -1,6 +1,6 @@
 #
 # Nested type.
-# GNSS ECEF high precision position and velocity.
+# GNSS ECEF high resolution position and velocity.
 #
 # ECEF is an acronym for Earth-Centered-Earth-Fixed, which is a cartesian
 # coordinate system which rotates with the earth. The origin (0,0,0) is
@@ -11,8 +11,11 @@
 # right-handed coordinate system.
 #
 
+float32[3] velocity_xyz            # XYZ velocity in m/s
+
 int36[3] position_xyz_mm           # XYZ-axis coordinates in mm
 
-void4                              # Padding to make this field a multiple of 8 bits
+void6                              # Aligns the following array at byte boundary
 
-float32[3] velocity_xyz            # XYZ velocity in m/s
+float16[<=36] covariance           # Position and velocity covariance in the ECEF frame. Units are m^2 for position,
+                                   # (m/s)^2 for velocity, and m^2/s for position/velocity.
