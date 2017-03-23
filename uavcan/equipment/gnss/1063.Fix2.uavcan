@@ -50,7 +50,7 @@ uint2 status
 
 #
 # GNSS Mode
-# 
+#
 uint4 MODE_SINGLE      = 0
 uint4 MODE_DGPS        = 1
 uint4 MODE_RTK         = 2
@@ -78,6 +78,6 @@ float16[<=36] covariance    # Position and velocity covariance. Units are
 float16 pdop
 
 #
-# Position solution in ECEF
+# Position and velocity solution in ECEF, if available
 #
-ECEFPosition[<=1] ecef_position
+ECEFPositionVelocity[<=1] ecef_position_velocity
