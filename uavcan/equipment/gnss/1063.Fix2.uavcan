@@ -35,7 +35,7 @@ int37 latitude_deg_1e8             # Latitude degrees multiplied by 1e8 (approx.
 int27 height_ellipsoid_mm          # Height above ellipsoid in millimeters
 int27 height_msl_mm                # Height above mean sea level in millimeters
 
-float16[3] ned_velocity            # NED frame (north-east-down) in meters per second
+float32[3] ned_velocity            # NED frame (north-east-down) in meters per second
 
 #
 # Fix status
