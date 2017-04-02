@@ -7,7 +7,7 @@
 # Common aircraft lights IDs
 #
 
-# inform the crew working on the apron around noisy airplanes, wearing hearing protection, 
+# inform the crew working on the apron around noisy airplanes, wearing hearing protection,
 # that the engines are turned on. Also called beacon light
 uint8 LIGHT_ID_ANTI_COLLISION = 246
 
@@ -16,7 +16,7 @@ uint8 LIGHT_ID_ANTI_COLLISION = 246
 uint8 LIGHT_ID_RIGHT_OF_WAY   = 247
 
 # high-intensity burst of white light, to help other pilots recognize the
-# aircraft’s position in low-visibility conditions
+# aircraft's position in low-visibility conditions
 uint8 LIGHT_ID_STROBE         = 248
 
 # positioned on the outer side just in front of the engine cowlings on the fuselage
@@ -26,7 +26,7 @@ uint8 LIGHT_ID_WING           = 249
 # Also called vertical tail flood lights
 uint8 LIGHT_ID_LOGO           = 250
 
-# help the pilots see the area in front of them and also shows other traffic that they’re on the move
+# help the pilots see the area in front of them and also shows other traffic that they're on the move
 uint8 LIGHT_ID_TAXI           = 251
 
 # light up the area in front of the airplane a bit more towards the side, easier for turns
@@ -35,8 +35,8 @@ uint8 LIGHT_ID_TURN_OFF       = 252
 # very bright, lights up the area in front but a lot more than the taxi light
 uint8 LIGHT_ID_TAKE_OFF       = 253
 
-# very bright lights on the wings to help the pilots during landing by 
-# lighting up the area where they’re going to touch down
+# very bright lights on the wings to help the pilots during landing by
+# lighting up the area where they're going to touch down
 uint8 LIGHT_ID_LANDING        = 254
 
 # usually yellow electroluminescent lightstrips designed to use
