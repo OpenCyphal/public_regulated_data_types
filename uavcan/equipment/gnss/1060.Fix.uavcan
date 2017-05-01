@@ -9,7 +9,7 @@ uavcan.Timestamp timestamp         # Global network-synchronized time, if availa
 # Time solution.
 # Time standard (GPS, UTC, TAI, etc) is defined in the field below.
 #
-uavcan.Timestamp gnss_timestamp    # GNSS timestamp, if available, otherwise zero
+uavcan.Timestamp gnss_timestamp
 
 #
 # Time standard used in the GNSS timestamp field.
