@@ -6,12 +6,24 @@ uavcan.Timestamp timestamp         # Global network-synchronized time, if availa
 
 #
 # Time solution.
-# Time standard (GPS, UTC, TAI, etc) is defined in the field below.
+# The time standard in use (GPS, UTC, TAI, etc) is defined in the field below.
 #
 uavcan.Timestamp gnss_timestamp
 
 #
 # Time standard used in the GNSS timestamp field.
+# This data type relies on the following definitions:
+#
+#   UTC timestamp - the number of microseconds between the current UTC time and
+#                   UTC 1970-01-01T00:00:00.
+#
+#   Leap seconds  - accumulated one-second adjustments applied to UTC since 1972.
+#                   For reference, on May 2017, the number of leap seconds was equal 27.
+#                   Refer to https://en.wikipedia.org/wiki/Leap_second for a general overview.
+#
+#   TAI timestamp - relates to UTC as follows: UTC = TAI - leap_seconds - 10.
+#
+#   GPS timestamp - relates to UTC as follows: UTC = GPS - leap_seconds + 9.
 #
 uint3 GNSS_TIME_STANDARD_NONE = 0  # Time is unknown
 uint3 GNSS_TIME_STANDARD_TAI  = 1
