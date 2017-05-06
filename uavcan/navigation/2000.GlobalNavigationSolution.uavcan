@@ -1,0 +1,41 @@
+#
+# Inertial data and orientation in body frame with fused location
+#
+
+uavcan.Timestamp timestamp
+
+float64 longitude                   # angular degree
+float64 latitude                    # angular degree
+float32 height_ellipsoid            # meter
+float32 height_msl                  # meter
+float32 height_baro                 # meter
+float16 qnh                         # hPa
+float32 height_agl                  # meter (with radar altimeter or LIDAR)
+
+float32[4] orientation_xyzw         # rotation quaternion, zero yaw at north
+
+#
+# Column order:
+#   longitude       [meter^2]
+#   latitude        [meter^2]
+#   height (worse)  [meter^2]
+#   roll angle      [radian^2]
+#   pitch angle     [radian^2]
+#   yaw angle       [radian^2]
+#
+float16 pose_covariance[<=36]
+
+float32[3] linear_velocity_ned      # meter/second
+float32[3] angular_velocity         # rad/sec
+float16[3] linear_acceleration      # m/s^2
+
+#
+# Column order:
+#   north velocity  [(meter/second)^2]
+#   east velocity   [(meter/second)^2]
+#   down velocity   [(meter/second)^2]
+#   roll velocity   [(radian/second)^2]
+#   pitch velocity  [(radian/second)^2]
+#   yaw velocity    [(radian/second)^2]
+#
+float16 velocity_covariance[<=36]
