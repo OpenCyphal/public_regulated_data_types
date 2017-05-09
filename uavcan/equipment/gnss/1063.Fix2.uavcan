@@ -2,16 +2,20 @@
 # GNSS ECEF and LLA navigation solution with uncertainty.
 #
 
-uavcan.Timestamp timestamp         # Global network-synchronized time, if available, otherwise zero
+#
+# Global network-synchronized time, if available, otherwise zero.
+#
+uavcan.Timestamp timestamp
 
 #
 # Time solution.
-# The time standard in use (GPS, UTC, TAI, etc) is defined in the field below.
+# The method and number of leap seconds which were in use for deriving the timestamp are
+# defined in the fields below.
 #
 uavcan.Timestamp gnss_timestamp
 
 #
-# Time standard used in the GNSS timestamp field.
+# Method used for deriving the GNSS timestamp field.
 # This data type relies on the following definitions:
 #
 #   UTC timestamp - the number of microseconds between the current UTC time and
@@ -34,7 +38,9 @@ uint3 gnss_time_standard
 void13   # Reserved space
 
 #
-# If known, the number of leap seconds allows to perform conversions between some time standards.
+# Accumulated one-second adjustments applied to UTC since 1972.
+# The number must agree with the currently correct number of UTC leap seconds. If this cannot
+# be garanteed, the field must be set to NUM_LEAP_SECONDS_UNKNOWN.
 #
 uint8 NUM_LEAP_SECONDS_UNKNOWN = 0
 uint8 num_leap_seconds
