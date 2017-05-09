@@ -20,7 +20,8 @@ Currently used ranges are the following:
 | [0, 4)               | protocol.dynamic_node_id.*               |
 | [4, 400)             | protocol.*                               |
 | [390, 400)           | protocol.dynamic_node_id.server.*        |
-| [1000, 10000)        | equipment.*                              |
+| [1000, 2000)         | equipment.*                              |
+| [2000, 2010)         | navigation.*                             |
 | [16370, 16384)       | protocol.debug.*                         |
 
 ### Services
