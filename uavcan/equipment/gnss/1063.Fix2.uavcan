@@ -20,6 +20,7 @@ uavcan.Timestamp gnss_timestamp
 #
 #   Leap seconds  - Accumulated one-second adjustments applied to UTC since 1972.
 #                   For reference, on May 2017, the number of leap seconds was equal 27.
+#                   The number of leap seconds is taken from the field num_leap_seconds.
 #                   Refer to https://en.wikipedia.org/wiki/Leap_second for a general overview.
 #
 #   TAI timestamp - The number of microseconds between the current TAI time and
@@ -28,9 +29,9 @@ uavcan.Timestamp gnss_timestamp
 #   UTC timestamp - The number of microseconds between the current UTC time and
 #                   UTC 1970-01-01T00:00:00.
 #                   UTC can be expressed via TAI as follows (in seconds):
-#                       UTC = TAI - leap_seconds - 10
+#                       UTC = TAI - num_leap_seconds - 10
 #                   And via GPS (in seconds):
-#                       UTC = GPS - leap_seconds + 9
+#                       UTC = GPS - num_leap_seconds + 9
 #
 #   GPS timestamp - The number of microseconds between the current GPS time and
 #                   the GPS time at UTC 1970-01-01T00:00:00.
