@@ -47,7 +47,7 @@ float32[4] orientation_xyzw
 #   pitch angle                                 [radian^2]
 #   yaw angle                                   [radian^2]
 #
-float16 pose_covariance[<=36]
+float16[<=36] pose_covariance
 
 #
 # Linear velocity in the body frame [meter/second].
@@ -74,4 +74,4 @@ float16[3] linear_acceleration_body
 #   pitch velocity  [(radian/second)^2]
 #   yaw velocity    [(radian/second)^2]
 #
-float16 velocity_covariance[<=36]
+float16[<=36] velocity_covariance
