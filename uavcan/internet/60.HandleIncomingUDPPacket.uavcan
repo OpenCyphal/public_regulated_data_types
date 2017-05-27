@@ -31,7 +31,15 @@
 uint16 session_id
 
 #
+# Reserved
+#
+void8
+
+#
 # Effective payload. This data will be forwarded from the remote host verbatim.
+# If the received datagram contains more data than fits into this field, it should be segmented into
+# multiple consecutive requests. It is not necessary to wait for response of the current request
+# before invoking the next one.
 # Note that tail array optimization is active here.
 #
 uint8[<=1024] payload
