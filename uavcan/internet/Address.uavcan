@@ -1,0 +1,12 @@
+#
+# This nested data type contains DNS name or IP address (as string) of a host on the Internet or a LAN.
+# The full domain name length may not exceed 253 octets, according to the DNS specification.
+#
+# Examples:
+#   "zubax.com"                                 - domain name
+#   "192.168.1.1"                               - IPv4 address
+#   "2001:0db8:85a3:0000:0000:8a2e:0370:7334"   - IPv6 address, full form
+#   "2001:db8:85a3::8a2e:370:7334"              - IPv6 address, same as above, short form (preferred)
+#
+
+uint8[<=253] address
