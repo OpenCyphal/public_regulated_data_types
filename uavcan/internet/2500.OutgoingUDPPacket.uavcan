@@ -86,6 +86,12 @@
 #     packet, they would attempt to perform reverse forwarding according to the above provided
 #     algorithm.
 #
+# It is recommended to use low priority levels, from 31 to 24, inclusive, when broadcasting
+# messages of this type, in order to avoid interference with real-time traffic on the bus.
+# Usage of higher priority levels is unlikely to be practical because latency and throughput
+# limitations introduced by on-board radio communication equipment are likely to vastly exceed
+# those of the local CAN bus.
+#
 
 #
 # Modem nodes are required to keep NAT table entries for at least this amount of time,

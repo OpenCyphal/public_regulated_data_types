@@ -22,6 +22,15 @@
 # message. This approach creates a number of concerning corner cases and adds a fair amount of
 # hidden complexities to implementation of modem nodes.
 #
+# It is recommended to perform service invocations at the same transfer priority level as was used
+# for broadcasting the latest matching message of type OutgoingUDPPacket. However, meeting this
+# recommendation would require the modem node to implement additional logic, which may be undesirable.
+# Therefore, implementers are free to deviate from this recommendation and resort to a fixed priority
+# level instead. In the case of a fixed priority level, lower priorities should be preferred in order
+# to avoid interference with real-time traffic on the bus. It is adviced to use priority level values
+# from 31 to 24, inclusive (remember that numerically higher values correspond to lower priority
+# levels).
+#
 
 #
 # This field must contain the same value that was used by the local node when sending the
