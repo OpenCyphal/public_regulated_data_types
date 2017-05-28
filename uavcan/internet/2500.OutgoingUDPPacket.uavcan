@@ -39,6 +39,7 @@
 # metadata is stored in a data structure referred to as NAT table, where every entry would normally
 # contain at least the following fields:
 #   - The local UDP port number that was used to send the outgoing datagram from.
+#     Per RFC 4787, the port number is chosen by the modem node automatically.
 #   - The IP address of the remote host.
 #   - The ID of the local node that has sent the outgoing datagram.
 #   - Value of the field session_id defined below.
@@ -98,8 +99,7 @@ uint32 NAT_ENTRY_TTL = 86400
 #
 # This field is set to an arbitrary value by the transmitting node in order to be able to
 # match the response with the locally kept context. The function of this field is virtually
-# identical to that of UDP/IP port numbers. Modem nodes do not care about specific values
-# kept in this field.
+# identical to that of UDP/IP port numbers.
 #
 uint16 session_id
 
@@ -113,6 +113,11 @@ uint8 flags
 # Domain name or IP address where the payload should be forwarded to.
 #
 Address destination_address
+
+#
+# UDP destination port number.
+#
+uint16 destination_port
 
 #
 # Effective payload. This data will be forwarded to the remote host verbatim.
