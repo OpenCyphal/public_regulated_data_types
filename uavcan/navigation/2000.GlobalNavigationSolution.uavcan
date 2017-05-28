@@ -50,12 +50,12 @@ float32[4] orientation_xyzw
 float16[<=36] pose_covariance
 
 #
-# Linear velocity in the body frame [meter/second].
+# Linear velocity in the body frame, X-Y-Z [meter/second].
 #
 float32[3] linear_velocity_body
 
 #
-# Angular velocity in the body frame [radian/second].
+# Angular velocity in the body frame, roll-pitch-yaw [radian/second].
 #
 float32[3] angular_velocity_body
 
@@ -67,9 +67,9 @@ float16[3] linear_acceleration_body
 
 #
 # Column order:
-#   north velocity  [(meter/second)^2]
-#   east velocity   [(meter/second)^2]
-#   down velocity   [(meter/second)^2]
+#   X velocity      [(meter/second)^2]
+#   Y velocity      [(meter/second)^2]
+#   Z velocity      [(meter/second)^2]
 #   roll velocity   [(radian/second)^2]
 #   pitch velocity  [(radian/second)^2]
 #   yaw velocity    [(radian/second)^2]
