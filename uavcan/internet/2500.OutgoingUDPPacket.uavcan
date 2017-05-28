@@ -116,6 +116,8 @@ Address destination_address
 
 #
 # Effective payload. This data will be forwarded to the remote host verbatim.
+# UDP packets that contain more than 508 bytes of payload may be dropped by some types of
+# communication equipment. Refer to RFC 791 and 2460 for an in-depth review.
 # Note that tail array optimization is active here.
 #
-uint8[<=1024] payload
+uint8[<=508] payload
