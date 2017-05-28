@@ -5,20 +5,20 @@
 # Any node can broadcast a message of this type.
 #
 # All nodes that are capable of communication with the Internet or a LAN should subscribe to messages
-# of this type and forward the payload to the indicated host via one or multiple UDP datagrams.
-# Such nodes will be referred to as modem nodes.
+# of this type and forward the payload to the indicated host and port via one or multiple UDP
+# datagrams. Such nodes will be referred to as "modem nodes".
 #
 # It is expected that some systems will have more than one modem node available.
 # Each modem node is supposed to forward every message it sees, which will naturally create
 # some degree of modular redundancy and fault tolerance. The remote host should therefore be able to
-# properly handle possibly duplicating messages from different source addresses, in addition to
+# properly handle possibly duplicated messages from different source addresses, in addition to
 # possible duplications introduced by the UDP protocol itself. There are at least two obvious
 # strategies that can be employed by the remote host:
 #
 #   - Accept only the first message, ignore duplicates. This approach requires that the UDP stream
-#     should contain metadata necessary for the remote host to determine the source and ordering of
-#     each received datum. This approach works best for periodic data, such as telemetry, where the
-#     sender does not expect any responses.
+#     should contain the metadata necessary for the remote host to determine the source and ordering
+#     of each received datum. This approach works best for periodic data, such as telemetry, where
+#     the sender does not expect any responses.
 #
 #   - Process all messages, including duplicates. This approach assumes that the remote host acts
 #     as a server, processing all received requests and providing responses to each. This arrangement
@@ -40,7 +40,6 @@
 # contain at least the following fields:
 #   - The local UDP port number that was used to send the outgoing datagram from.
 #     Per RFC 4787, the port number is chosen by the modem node automatically.
-#   - The IP address of the remote host.
 #   - The ID of the local node that has sent the outgoing datagram.
 #   - Value of the field session_id defined below.
 #   - Possibly some other data, depending on the implementation.
@@ -59,7 +58,7 @@
 # forwarding process.
 #
 # Modem nodes can also perform traffic shaping, shall it be needed, by means of delaying or
-# dropping UDP forwarding requests that exceed the quota.
+# dropping UDP datagrams that exceed the quota.
 #
 # To summarize, a typical data exchange occurrence should amount to the following actions:
 #
@@ -72,7 +71,7 @@
 #       - The domain name is resolved, unless the destination address provided in the message
 #         is already an IP address, in which case this step should be skipped.
 #
-#       - The domain name to IP address matching is added to a local DNS cache, although this
+#       - The domain name to IP address mapping is added to a local DNS cache, although this
 #         part is entirely implementation defined.
 #
 #       - The masquerading flag is checked. If it is set, a new entry is added to the NAT table.
