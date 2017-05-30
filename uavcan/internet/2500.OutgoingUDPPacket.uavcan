@@ -116,6 +116,10 @@ uint8 flags
 
 #
 # Domain name or IP address where the payload should be forwarded to.
+# Note that broadcast addresses are allowed here, for example, 255.255.255.255.
+# Broadcasting with masquerading enabled works the same way as unicasting with masquerading enabled:
+# the modem node should take care to channel all traffic arriving at the opened port from any source
+# to the node that requested masquerading.
 #
 Address destination_address
 
