@@ -46,12 +46,12 @@ void8
 
 #
 # Effective payload. This data will be forwarded from the remote host verbatim.
-# If the received datagram contains more data than fits into this field, it should be segmented into
-# multiple consecutive requests. It is not necessary to wait for response of the current request
-# before invoking the next one.
-# Note that tail array optimization is active here.
+# UDP packets that contain more than 508 bytes of payload may be dropped by some types of
+# communication equipment. Refer to RFC 791 and 2460 for an in-depth review.
+# Datagrams that exceed the capacity of this field should be discarded by the modem node.
+# Note that the tail array optimization is active here.
 #
-uint8[<=1024] payload
+uint8[<=508] payload
 
 ---
 
