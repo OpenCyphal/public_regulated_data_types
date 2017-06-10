@@ -1,6 +1,6 @@
 #
-# This message carries UDP packets from a node on the local bus to a remote host on
-# the Internet or a LAN.
+# This message carries UDP packets from a node on the local bus to a remote host on the Internet
+# or a LAN.
 #
 # Any node can broadcast a message of this type.
 #
@@ -53,8 +53,12 @@
 # to determine where on the UAVCAN bus the received data should be forwarded to. If the NAT table
 # contains no matches, the received data should be silently dropped. If a match is found, the
 # modem node will forward the data to the recipient node using the service HandleIncomingUDPPacket.
-# Whether the invocation of the service is successful or not is of no concern to the modem node.
-# Please refer to the definition of the service data type for a mode in depth review of the reverse
+# If the service invocation times out, the modem node should remove the corresponding entry from the
+# NAT table. This will ensure that the modem nodes will not be tasked with translations for the client
+# nodes that are no longer online or are unreachable. Additionally, client nodes will be able to
+# hint the modem nodes to remove the translation entries they no longer need by simply refusing to
+# respond to the corresponding service invocation.
+# Please refer to the definition of the service data type for a more in depth review of the reverse
 # forwarding process.
 #
 # Modem nodes can also perform traffic shaping, shall it be needed, by means of delaying or
@@ -86,14 +90,15 @@
 #     algorithm.
 #
 # It is recommended to use low priority levels, from 31 to 24, inclusive, when broadcasting
-# messages of this type, in order to avoid interference with real-time traffic on the bus.
-# Usage of higher priority levels is unlikely to be practical because latency and throughput
+# messages of this type, in order to avoid interference with a real-time traffic on the bus.
+# Normally, the lowest possible priority level, which is 31, should be preferred.
+# Usage of higher priority levels is unlikely to be practical because the latency and throughput
 # limitations introduced by on-board radio communication equipment are likely to vastly exceed
 # those of the local CAN bus.
 #
 
 #
-# Modem nodes are required to keep NAT table entries for at least this amount of time,
+# Modem nodes are required to keep the NAT table entries for at least this amount of time,
 # unless the table is overflowed, in which case it is allowed to remove least recently used
 # entries in favor of newer ones.
 # Modem nodes are required to be able to accommodate at least 100 entries in the NAT table.
@@ -132,6 +137,6 @@ uint16 destination_port
 # Effective payload. This data will be forwarded to the remote host verbatim.
 # UDP packets that contain more than 508 bytes of payload may be dropped by some types of
 # communication equipment. Refer to RFC 791 and 2460 for an in-depth review.
-# Note that tail array optimization is active here.
+# Note that the tail array optimization is active here.
 #
 uint8[<=508] payload

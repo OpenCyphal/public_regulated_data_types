@@ -1,6 +1,6 @@
 #
 # This message carries UDP packets sent from a remote host on the Internet or a LAN to a node on the
-# local UAVCAN bus. Please refer to the defintion of the message type OutgoingUDPPacket for a
+# local UAVCAN bus. Please refer to the definition of the message type OutgoingUDPPacket for a
 # general overview of the packet forwarding logic.
 #
 # This data type has been made a service type rather than a message type in order to make its transfers
@@ -26,10 +26,8 @@
 # for broadcasting the latest matching message of type OutgoingUDPPacket. However, meeting this
 # recommendation would require the modem node to implement additional logic, which may be undesirable.
 # Therefore, implementers are free to deviate from this recommendation and resort to a fixed priority
-# level instead. In the case of a fixed priority level, lower priorities should be preferred in order
-# to avoid interference with real-time traffic on the bus. It is adviced to use priority level values
-# from 31 to 24, inclusive (remember that numerically higher values correspond to lower priority
-# levels).
+# level instead. In the case of a fixed priority level, it is advised to use the lowest priority level,
+# which is 31. (remember that numerically higher values correspond to lower priority levels).
 #
 
 #
@@ -54,6 +52,11 @@ void8
 uint8[<=508] payload
 
 ---
+
+#
+# If the service invocation times out, the modem node should remove the corresponding entry from
+# the NAT table.
+#
 
 #
 # Reserved for future use.
