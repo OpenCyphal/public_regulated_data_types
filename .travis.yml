@@ -1,0 +1,7 @@
+language: python
+python:
+  - "3.5"
+before_install:
+  - pip install uavcan
+script:
+  - python3 -c "from uavcan import dsdl; parsed=dsdl.parse_namespaces(['uavcan']);"
