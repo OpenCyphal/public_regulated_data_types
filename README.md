@@ -2,6 +2,7 @@ Standard DSDL definitions
 =========================
 
 [![Build Status](https://travis-ci.org/UAVCAN/dsdl.svg?branch=master)](https://travis-ci.org/UAVCAN/dsdl)
+[![Gitter](https://img.shields.io/badge/gitter-join%20chat-green.svg)](https://gitter.im/UAVCAN/general)
 
 This repository contains DSDL definitions of the standard UAVCAN messages and services.
 It is intended for inclusion as a submodule into implementations of the UAVCAN protocol stack.
