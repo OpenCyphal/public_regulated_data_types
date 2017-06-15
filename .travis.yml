@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.5"
+  - "3.6"
 before_install:
   - pip install 'uavcan>=1.0.0.dev27'
 script:
