@@ -4,4 +4,4 @@ python:
 before_install:
   - pip install 'uavcan>=1.0.0.dev27'
 script:
-  - python3 -c "import sys, logging; logging.basicConfig(stream=sys.stderr, level='DEBUG', format='%(levelname)s: %(message)s'); from uavcan import dsdl; dsdl.parse_namespaces(['uavcan']);"
+  - python3 test.py
