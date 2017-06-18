@@ -1,0 +1,13 @@
+#
+# This union specifies the used protocol and defines its specific metadata for outgoing packets.
+# In the future, more protocols may be added here in a backward-compatible manner.
+#
+# The maximum size of each nested field MUST NOT exceed 258 bytes; otherwise, the backward
+# compatibility will be lost. The number 258 is dictated by the UDP metadata definition;
+# please refer to the data type udp.Outgoing for details.
+#
+
+@union
+
+udp.Outgoing udp
+unidirectional_udp.Outgoing unidirectional_udp

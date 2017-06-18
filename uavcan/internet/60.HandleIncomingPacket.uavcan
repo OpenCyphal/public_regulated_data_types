@@ -1,0 +1,71 @@
+#
+# This message carries data packets sent from a remote host on the Internet or a LAN to a node on the
+# local UAVCAN bus. Please refer to the definition of the message type OutgoingPacket for a general
+# overview of the packet forwarding logic.
+#
+# This data type has been made a service type rather than a message type in order to make its transfers
+# addressable, allowing the nodes to employ hardware CAN acceptance filters for filtering out
+# forwarded packets that are not addressed to them. Additionally, requiring the destination
+# nodes to always respond upon reception of the forwarded packets opens interesting opportunities
+# for future extensions of the forwarding protocol.
+#
+# It should be noted that normally this data type definition is not supposed to contain the source
+# address, regardless of the type of the underlying transport protocol used. This is made this way
+# in order to simplify the implementation, reduce the bus traffic overhead, and because the nature
+# of the communication patterns proposed by this set of messages does not provide a valid way to
+# implement server hosts on the local UAVCAN bus.
+# The protocol-specific metadata is supposed to contain enough context information for the receiving
+# local node to be able to understand and process the received data.
+#
+# It is recommended to perform service invocations at the same transfer priority level as was used
+# for broadcasting the latest matching message of type OutgoingPacket. However, meeting this
+# recommendation would require the modem node to implement additional logic, which may be undesirable.
+# Therefore, implementers are free to deviate from this recommendation and resort to a fixed priority
+# level instead. In the case of a fixed priority level, it is advised to use the lowest priority level,
+# which is 31 (remember that numerically higher values correspond to lower priority levels).
+#
+
+#
+# Reserved.
+#
+void3
+
+#
+# The protocol selector and the protocol-specific metadata.
+#
+# Please refer to the definition of the type OutgoingPacket for the explanations why the
+# void field is necessary here.
+#
+void4
+IncomingMetadata metadata
+
+#
+# The effective payload. This data will be forwarded from the remote host verbatim.
+#
+# The data field capacity is chosen to be the same as that of the outgoing packet.
+# If the amount of data in the received packet exceeds the capacity of this field,
+# the packet should be either dropped, or split over multiple subsequent invocations
+# of the service, according to the protocol-specific instructions.
+#
+# If the protocol instructs the modem node to split large packets over multiple service
+# invocations, then the modem node will be required to wait for the currently pending
+# invocation to complete before sending the next chunk. If one of the invocations times
+# out, the entire packet should be dropped. Normally, if the splitting behavior is
+# required, the protocol-specific metadata will contain some means of indication of
+# whether there will be more data to come, or if the current chunk is the last one.
+#
+# Note that the tail array optimization is active here.
+#
+uint8[<=508] payload
+
+---
+
+#
+# If the service invocation times out, the modem node should cease all reverse forwarding
+# for the node until the next outgoing packet from it is encountered.
+#
+
+#
+# Reserved for future use.
+#
+void56

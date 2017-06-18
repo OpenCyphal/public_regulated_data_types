@@ -1,0 +1,15 @@
+#
+# This union specifies the used protocol and defines its specific metadata for incoming packets.
+# In the future, more protocols may be added here in a backward-compatible manner.
+#
+# The maximum data size of each nested field MUST NOT exceed 16 bytes. This limit is chosen
+# arbitrarily; we expect that this amount of data is enough to suit all sensible protocols
+# in the future.
+#
+# THE NUMBER AND ORDERING OF FIELDS HERE MUST MATCH THESE OF THE TYPE OutgoingMetadata.
+#
+
+@union
+
+udp.Incoming udp
+unidirectional_udp.Incoming unidirectional_udp

@@ -1,0 +1,106 @@
+#
+# The pair of data types OutgoingPacket (this definition) and HandleIncomingPacket are used
+# to transfer data packets between local UAVCAN nodes and remote hosts over the Internet or LAN.
+#
+# This data type can be broadcast by any node on the bus. All nodes that are capable of
+# communicating with the Internet/LAN should subscribe to this data type and perform data forwarding
+# using the specified transport protocol. The nodes that perform forwarding operations will be
+# referred to as "modem nodes".
+#
+# It is expected that some systems will have more than one modem node available.
+# Each modem node is supposed to forward every message it sees, which will naturally create
+# some degree of modular redundancy and fault tolerance. The remote host should therefore be able to
+# properly handle possibly duplicated data packets or connections from different source addresses,
+# in addition to possible duplications introduced by some of the transport protocols (such as UDP).
+# There are several obvious strategies that can be employed by the remote host:
+#
+#   - Accept only the first packet, ignore duplicates. This approach requires that the packes
+#     should contain the metadata necessary for the remote host to determine the source and ordering
+#     of each received datum. This approach works best for periodic data, such as telemetry, where
+#     the sender does not expect any responses.
+#
+#   - Process all messages, including duplicates. This approach assumes that the remote host acts
+#     as a server, processing all received requests and providing responses to each. This arrangement
+#     implies that the client may receive duplicated responses. It is therefore the client's
+#     responsibility to resolve the possible ambiguity. An obvious solution is to accept the first
+#     arrived response and ignore the later ones.
+#
+#   - Possibly some other application-specific approach. This definition is entirely agnostic to the
+#     redundancy management techniques employed by the application.
+#
+# Some transport protocols are inherently unidirectional, meaning that they can only deliver data
+# from a local node to a remote host, unable to accept any responses. Such protocols are useful,
+# for example, for telemetry transmissions.
+#
+# Other transport protocols are bidirectional. In this case, a local node can send a data packet to
+# a remote host, and the host may (or may not) send some data back. The returned data will be
+# reverse-forwarded to the node that the outgoing packet has originated from using the service type
+# HandleIncomingPacket. Reverse forwarded packets will always use the same protocol as the respective
+# outgoing packets.
+#
+# A more detailed overview of the communication logic is provided in the protocol-specific metadata
+# definitions.
+#
+# Note that bidirectional protocols normally use some sort of identification information that allows
+# local nodes to match the received responses with the requests sent earlier. This identification
+# information is typically referred to as Session ID. The Session ID values are not expected to be
+# unique across different protocols. For example, the session identified by the Session ID value X
+# used by node Y for the protocol Z is different from the Session ID X used by the node Y over the
+# protocol W.
+#
+# It is recommended to use low priority levels, from 31 to 24, inclusive, when broadcasting
+# messages of this type, in order to avoid interference with a real-time traffic on the bus.
+# Normally, the lowest possible priority level, which is 31, should be preferred.
+# Usage of higher priority levels is unlikely to be practical because the latency and throughput
+# limitations introduced by on-board radio communication equipment are likely to vastly exceed
+# those of the local CAN bus.
+#
+
+#
+# Reserved.
+#
+void3
+
+#
+# The protocol selector and the protocol-specific metadata.
+#
+# The type OutgoingMetadata is a tagged union. The number of bits allocated for the tag is
+# chosen according to the number of fields in the union. At the moment we support a limited
+# number of transport protocols, hence the tag is small; however, in order to ensure the
+# extensibility of this data type definition, we need to allocate a few bits more in order
+# to allow the future growth of the tag field.
+# Within this definition, the tag field can be up to 5 bits wide, allowing the definition to
+# support up to 32 different transport protocols.  This table below clarifies the idea:
+#
+#   Number of Transports | Tag Size [bits] | Void Size [bits]
+#   ---------------------+-----------------+------------------
+#    2                   | 1               | 4
+#    3                   | 2               | 3
+#    4                   | 2               | 3
+#    5                   | 3               | 2
+#    7                   | 3               | 2
+#    8                   | 4               | 1
+#   15                   | 4               | 1
+#   16                   | 5               | none
+#   31                   | 5               | none
+#
+void4
+OutgoingMetadata metadata
+
+#
+# The effective payload. This data will be forwarded to the remote host verbatim using the
+# specified protocol. The maximum size is chosen according to the following considerations:
+#
+#   - The field should not be too large; otherwise, memory-limited nodes may have trouble
+#     supporting the protocol.
+#
+#   - The field should be large enough to accommodate sensibly-sized datagrams.
+#
+# Since UDP is expected to be the major transport protocol used here, we use it as a reference.
+# UDP packets that contain more than 508 bytes of payload may be dropped by some types of
+# communication equipment; therefore, we set the capacity at that value (refer to RFC 791 and
+# 2460 for an in-depth review).
+#
+# Note that the tail array optimization is active here.
+#
+uint8[<=508] payload
