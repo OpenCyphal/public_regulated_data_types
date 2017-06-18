@@ -17,6 +17,16 @@
 # The protocol-specific metadata is supposed to contain enough context information for the receiving
 # local node to be able to understand and process the received data.
 #
+# If the service invocation times out, the modem node should cease all reverse forwarding
+# for the same session ID at the same node. This logic enables two features:
+#
+#   - The local node will be able to declare to the modem node that it is no longer interested
+#     in receiving reverse-forwarded packets under this session ID. Note that the node may still
+#     be interested in receiving other reverse-forwarded data under different session ID values.
+#
+#   - If the local node did not respond due to being offline, further reverse-forwarding will be
+#     useless. The modem node will avoid useless forwarding after the first failed attempt.
+#
 # It is recommended to perform service invocations at the same transfer priority level as was used
 # for broadcasting the latest matching message of type OutgoingPacket. However, meeting this
 # recommendation would require the modem node to implement additional logic, which may be undesirable.
@@ -59,11 +69,6 @@ IncomingMetadata metadata
 uint8[<=508] payload
 
 ---
-
-#
-# If the service invocation times out, the modem node should cease all reverse forwarding
-# for the node until the next outgoing packet from it is encountered.
-#
 
 #
 # Reserved for future use.
