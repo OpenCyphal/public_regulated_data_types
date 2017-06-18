@@ -1,5 +1,9 @@
 #
+# UDP is the most important transfer protocol here because it is stateless, and therefore
+# it maps well onto the communication semantics of UAVCAN.
 #
+# This transport is bidirectional, meaning that the modem node should expect the remote host
+# to send some data back to the
 #
 
 uint16 session_id

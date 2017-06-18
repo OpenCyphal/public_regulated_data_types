@@ -13,5 +13,5 @@
 
 @union
 
-udp.Outgoing udp
-unidirectional_udp.Outgoing unidirectional_udp
+uavcan.internet.udp.Outgoing udp
+uavcan.internet.unidirectional_udp.Outgoing unidirectional_udp
