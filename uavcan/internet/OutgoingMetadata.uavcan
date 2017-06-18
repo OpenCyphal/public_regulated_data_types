@@ -6,6 +6,10 @@
 # compatibility will be lost. The number 258 is dictated by the UDP metadata definition;
 # please refer to the data type udp.Outgoing for details.
 #
+# Modem nodes are required to support all of the listed protocols, unless explicitly allowed otherwise.
+#
+# Refer to the definition of the message type OutgoingPacket for the complete specification.
+#
 
 @union
 

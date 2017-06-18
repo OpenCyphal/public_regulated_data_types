@@ -3,6 +3,10 @@
 # reverse-forward any data back from the remote host. This protocol is recommended for use
 # for one-way communications, such as telemetry transmissions.
 #
+# Please refer to the UDP protocol definition for a detailed overview. All parts of the
+# definition pertaining to reverse forwarding do not apply.
+#
 
 uint16 destination_port
+
 uint8[<=253] address

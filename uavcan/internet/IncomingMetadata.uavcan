@@ -6,7 +6,9 @@
 # arbitrarily; we expect that this amount of data is enough to suit all sensible protocols
 # in the future.
 #
-# THE NUMBER AND ORDERING OF FIELDS HERE MUST MATCH THESE OF THE TYPE OutgoingMetadata.
+# THE NUMBER AND ORDERING OF THE FIELDS HERE MUST MATCH THESE OF THE TYPE OutgoingMetadata.
+#
+# Refer to the definition of the message type OutgoingPacket for the complete specification.
 #
 
 @union
