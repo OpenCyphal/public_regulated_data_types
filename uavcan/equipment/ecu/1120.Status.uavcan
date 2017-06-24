@@ -54,6 +54,30 @@ float16 intake_manifold_temperature
 float16 coolant_temperature
 
 #
+# Exhaust gas temperature (EGT).
+# Units: kelvin.
+#
+float16[<=16] exhaust_gas_temperature
+
+#
+# Oil pressure.
+# Units: kilopascal.
+#
+float16 oil_pressure
+
+#
+# Oil temperature.
+# Units: kelvin.
+#
+float16 oil_temperature
+
+#
+# Fuel pressure.
+# Units: kilopascal.
+#
+float16 fuel_pressure
+
+#
 # Instant fuel consumption estimate.
 # The estimated value should be low-pass filtered in order to prevent aliasing effects.
 # Units: (centimeter^3)/minute.
