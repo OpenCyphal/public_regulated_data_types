@@ -14,3 +14,9 @@ float16 ignition_timing_deg
 # Units: millisecond.
 #
 float16 injection_time_ms
+
+#
+# Cylinder head temp (CHT).
+# Units: kelvin.
+#
+float16 cylinder_head_temp
