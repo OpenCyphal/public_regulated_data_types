@@ -1,0 +1,16 @@
+#
+# Cylinder state information.
+# This is a nested data type.
+#
+
+#
+# Cylinder ignition timing.
+# Units: angular degrees of the crankshaft.
+#
+float16 ignition_timing_deg
+
+#
+# Fuel injection time.
+# Units: millisecond.
+#
+float16 injection_time_ms

@@ -1,0 +1,94 @@
+#
+# Generic status message of a piston engine control system.
+#
+
+#
+# General status flags.
+#
+uint8 FLAG_STARTING                     = 1
+uint8 FLAG_CRANKSHAFT_SENSOR_ERROR      = 2
+uint8 FLAG_OVERHEATING                  = 4
+uint8 flags
+
+#
+# Engine load estimate.
+# Units: percent.
+# Range: [0, 127].
+#
+uint7 engine_load_percent
+
+#
+# Engine speed.
+# Units: revolutions per minute.
+#
+uint17 engine_speed_rpm
+
+#
+# Spark dwell time.
+# Units: millisecond.
+#
+float16 spark_dwell_time_ms
+
+#
+# Atmospheric (barometric) pressure.
+# Units: kilopascal.
+#
+float16 atmospheric_pressure_kpa
+
+#
+# Engine intake manifold pressure.
+# Units: kilopascal.
+#
+float16 intake_manifold_pressure_kpa
+
+#
+# Engine intake manifold temperature.
+# Units: kelvin.
+#
+float16 intake_manifold_temperature
+
+#
+# Engine coolant temperature.
+# Units: kelvin.
+#
+float16 coolant_temperature
+
+#
+# Instant fuel consumption estimate.
+# The estimated value should be low-pass filtered in order to prevent aliasing effects.
+# Units: (centimeter^3)/minute.
+#
+float32 fuel_consumption_rate_cm3pm
+
+#
+# Estimate of the remaining fuel.
+# Units: centimeter^3.
+#
+float32 remaining_fuel_volume_cm3
+
+#
+# Estimate of the remaining fuel.
+# Units: percent.
+#
+uint7 remaining_fuel_percent
+
+#
+# Throttle position.
+# Units: percent.
+#
+uint7 throttle_position_percent
+
+#
+# The index of the publishing ECU.
+#
+uint6 ecu_index
+
+#
+# Alignment/reserved.
+#
+void4
+
+#
+# Per-cylinder status information.
+#
+CylinderStatus[<=16] cylinder_status
