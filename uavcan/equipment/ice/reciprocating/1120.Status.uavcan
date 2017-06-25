@@ -1,6 +1,8 @@
 #
 # Generic status message of a piston engine control system.
 #
+# All unknown/unapplicable fields should be set to NaN.
+#
 
 #
 # General status flags.
