@@ -54,12 +54,6 @@ float16 intake_manifold_temperature
 float16 coolant_temperature
 
 #
-# Exhaust gas temperature (EGT).
-# Units: kelvin.
-#
-float16[<=16] exhaust_gas_temperature
-
-#
 # Oil pressure.
 # Units: kilopascal.
 #
@@ -85,16 +79,10 @@ float16 fuel_pressure
 float32 fuel_consumption_rate_cm3pm
 
 #
-# Estimate of the remaining fuel.
+# Estimate of the consumed fuel since the start of the engine.
 # Units: centimeter^3.
 #
-float32 remaining_fuel_volume_cm3
-
-#
-# Estimate of the remaining fuel.
-# Units: percent.
-#
-uint7 remaining_fuel_percent
+float32 estimated_consumed_fuel_volume_cm3
 
 #
 # Throttle position.
@@ -110,7 +98,7 @@ uint6 ecu_index
 #
 # Alignment/reserved.
 #
-void4
+void3
 
 #
 # Per-cylinder status information.
