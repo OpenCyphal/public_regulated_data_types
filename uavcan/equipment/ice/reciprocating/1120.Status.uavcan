@@ -1,94 +1,151 @@
 #
 # Generic status message of a piston engine control system.
 #
-# All unknown/unapplicable fields should be set to NaN.
+# All integer fields are required unless stated otherwise.
+# All floating point fields are optional unless stated otherwise; unknown/unapplicable fields should be set to NaN.
 #
+
+#
+# Abstract engine state. The flags defined below can provide further elaboration.
+# This is a required field.
+#
+uint2 state
+#
+# The engine is not running. This is the default state.
+# Next states: STARTING, FAULT
+#
+uint2 STATE_STOPPED = 0
+#
+# The engine is starting. This is a transient state.
+# Next states: STOPPED, RUNNING, FAULT
+#
+uint2 STATE_STARTING = 1
+#
+# The engine is running normally.
+# Some error flags may be set to indicate non-fatal issues, e.g. overheating.
+# Next states: STOPPED, FAULT
+#
+uint2 STATE_RUNNING = 2
+#
+# The engine can no longer function.
+# The error flags may contain additional information about the nature of the fault.
+# Next states: STOPPED.
+#
+uint2 STATE_FAULT = 3
 
 #
 # General status flags.
+# Note that not all flags are required. Those that aren't are prepended with a validity flag, which is, obviously,
+# always required; when the validity flag is set, it is assumed that the relevant flags are set correctly.
+# If the validity flag is cleared, then the state of the relevant flags should be ignored.
+# All unused bits must be cleared.
 #
-uint8 FLAG_STARTING                     = 1
-uint8 FLAG_CRANKSHAFT_SENSOR_ERROR      = 2
-uint8 FLAG_OVERHEATING                  = 4
-uint8 flags
+uint22 flags
+#
+# General error. This flag is required, and it can be used to indicate an error condition
+# that does not fit any of the other flags.
+# Note that the vendor may also report additional status information via the vendor specific status code
+# field of the NodeStatus message.
+#
+uint22 FLAG_GENERAL_ERROR                       = 1
+#
+# Error of the crankshaft sensor. This flag is optional.
+#
+uint22 FLAG_CRANKSHAFT_SENSOR_ERROR_SUPPORTED   = 2
+uint22 FLAG_CRANKSHAFT_SENSOR_ERROR             = 4
+#
+# Temperature levels. These flags are optional; either none of them or all of them are supported.
+#
+uint22 FLAG_TEMPERATURE_SUPPORTED               = 8
+uint22 FLAG_TEMPERATURE_BELOW_NOMINAL           = 16    # Under-temperature warning
+uint22 FLAG_TEMPERATURE_ABOVE_NOMINAL           = 32    # Over-temperature warning
+uint22 FLAG_TEMPERATURE_OVERHEATING             = 64    # Critical overheating
 
 #
 # Engine load estimate.
-# Units: percent.
+# Unit: percent.
 # Range: [0, 127].
 #
 uint7 engine_load_percent
 
 #
 # Engine speed.
-# Units: revolutions per minute.
+# Unit: revolutions per minute.
 #
 uint17 engine_speed_rpm
 
 #
+# Estimated lambda coefficient.
+# This parameter is mostly useful for monitoring and tuning purposes.
+# Unit: dimensionless ratio
+#
+float16 lambda_coefficient
+
+#
 # Spark dwell time.
-# Units: millisecond.
+# Unit: millisecond.
 #
 float16 spark_dwell_time_ms
 
 #
 # Atmospheric (barometric) pressure.
-# Units: kilopascal.
+# Unit: kilopascal.
 #
 float16 atmospheric_pressure_kpa
 
 #
 # Engine intake manifold pressure.
-# Units: kilopascal.
+# Unit: kilopascal.
 #
 float16 intake_manifold_pressure_kpa
 
 #
 # Engine intake manifold temperature.
-# Units: kelvin.
+# Unit: kelvin.
 #
 float16 intake_manifold_temperature
 
 #
 # Engine coolant temperature.
-# Units: kelvin.
+# Unit: kelvin.
 #
 float16 coolant_temperature
 
 #
 # Oil pressure.
-# Units: kilopascal.
+# Unit: kilopascal.
 #
 float16 oil_pressure
 
 #
 # Oil temperature.
-# Units: kelvin.
+# Unit: kelvin.
 #
 float16 oil_temperature
 
 #
 # Fuel pressure.
-# Units: kilopascal.
+# Unit: kilopascal.
 #
 float16 fuel_pressure
 
 #
 # Instant fuel consumption estimate.
 # The estimated value should be low-pass filtered in order to prevent aliasing effects.
-# Units: (centimeter^3)/minute.
+# Unit: (centimeter^3)/minute.
 #
 float32 fuel_consumption_rate_cm3pm
 
 #
 # Estimate of the consumed fuel since the start of the engine.
-# Units: centimeter^3.
+# This variable MUST be reset when the engine is stopped.
+# Unit: centimeter^3.
 #
 float32 estimated_consumed_fuel_volume_cm3
 
 #
 # Throttle position.
-# Units: percent.
+# Unit: percent.
 #
 uint7 throttle_position_percent
 
