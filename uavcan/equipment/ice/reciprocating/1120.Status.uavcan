@@ -57,22 +57,39 @@ uint22 FLAG_CRANKSHAFT_SENSOR_ERROR             = 4
 # Temperature levels. These flags are optional; either none of them or all of them are supported.
 #
 uint22 FLAG_TEMPERATURE_SUPPORTED               = 8
-uint22 FLAG_TEMPERATURE_BELOW_NOMINAL           = 16    # Under-temperature warning
-uint22 FLAG_TEMPERATURE_ABOVE_NOMINAL           = 32    # Over-temperature warning
-uint22 FLAG_TEMPERATURE_OVERHEATING             = 64    # Critical overheating
-uint22 FLAG_TEMPERATURE_EGT_ABOVE_NOMINAL       = 128    # Exhaust gas over-temperature warning 
+uint22 FLAG_TEMPERATURE_BELOW_NOMINAL           = 16      # Under-temperature warning
+uint22 FLAG_TEMPERATURE_ABOVE_NOMINAL           = 32      # Over-temperature warning
+uint22 FLAG_TEMPERATURE_OVERHEATING             = 64      # Critical overheating
+uint22 FLAG_TEMPERATURE_EGT_ABOVE_NOMINAL       = 128     # Exhaust gas over-temperature warning 
 #
 # Fuel pressure. These flags are optional; either none of them or all of them are supported.
 #
 uint22 FLAG_FUEL_PRESSURE_SUPPORTED             = 256
-uint22 FLAG_FUEL_PRESSURE_BELOW_NOMINAL         = 512   # Under-pressure warning
-uint22 FLAG_FUEL_PRESSURE_ABOVE_NOMINAL         = 1024  # Over-pressure warning
+uint22 FLAG_FUEL_PRESSURE_BELOW_NOMINAL         = 512     # Under-pressure warning
+uint22 FLAG_FUEL_PRESSURE_ABOVE_NOMINAL         = 1024    # Over-pressure warning
 #
-# Detonation and misfire. These flags are optional; either none of them or all of them are supported.
+# Detonation warning. These flags are optional; either none of them or all of them are supported.
+# This warning is cleared immediately after broadcasting is done if the detonation is no longer present
 #
 uint22 FLAG_DETONATION_SUPPORTED                = 2048
-uint22 FLAG_DETONATION_OBSERVED                 = 4096  # Detonation condition observed warning
-uint22 FLAG_MISFIRE_OBSERVED                    = 8192  # Misfire condition observed warning
+uint22 FLAG_DETONATION_OBSERVED                 = 4096    # Detonation condition observed warning
+#
+# Misfire warning. These flags are optional; either none of them or all of them are supported.
+# This warning is cleared immediately after broadcasting is done if the misfire is no longer present
+#
+uint22 FLAG_MISFIRE_SUPPORTED                   = 8192
+uint22 FLAG_MISFIRE_OBSERVED                    = 16384   # Misfire condition observed warning
+#
+# Oil pressure. These flags are optional; either none of them or all of them are supported.
+#
+uint22 FLAG_OIL_PRESSURE_SUPPORTED              = 32768
+uint22 FLAG_OIL_PRESSURE_BELOW_NOMINAL          = 65536   # Under-pressure warning
+uint22 FLAG_OIL_PRESSURE_ABOVE_NOMINAL          = 131072  # Over-pressure warning
+#
+# Chirp warning. These flags are optional; either none of them or all of them are supported.
+#
+uint22 FLAG_CHIRP_SUPPORTED                     = 262144
+uint22 FLAG_CHIRP_DETECTED                      = 524288  # Detection of chirps warning
 
 #
 # Engine load estimate.
@@ -86,13 +103,6 @@ uint7 engine_load_percent
 # Unit: revolutions per minute.
 #
 uint17 engine_speed_rpm
-
-#
-# Estimated lambda coefficient.
-# This parameter is mostly useful for monitoring and tuning purposes.
-# Unit: dimensionless ratio
-#
-float16 lambda_coefficient
 
 #
 # Spark dwell time.
@@ -168,9 +178,15 @@ uint7 throttle_position_percent
 uint6 ecu_index
 
 #
-# Alignment/reserved.
+# Spark plug activity report
+# Used during pre-flight tests of spark subsystem
 #
-void3
+uint3 spark_plug_usage
+#
+uint3 SPARK_PLUG_SINGLE                         = 0
+uint3 SPARK_PLUG_FIRST_ACTIVE                   = 1
+uint3 SPARK_PLUG_SECOND_ACTIVE                  = 2
+uint3 SPARK_PLUG_BOTH_ACTIVE                    = 3
 
 #
 # Per-cylinder status information.
