@@ -30,3 +30,10 @@ float16 cylinder_head_temperature
 # Units: kelvin.
 #
 float16 exhaust_gas_temperature
+
+#
+# Estimated lambda coefficient.
+# This parameter is mostly useful for monitoring and tuning purposes.
+# Unit: dimensionless ratio
+#
+float16 lambda_coefficient
