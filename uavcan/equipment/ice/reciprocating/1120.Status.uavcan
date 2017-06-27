@@ -40,56 +40,61 @@ uint2 STATE_FAULT = 3
 # If the validity flag is cleared, then the state of the relevant flags should be ignored.
 # All unused bits must be cleared.
 #
-uint22 flags
+uint30 flags
 #
 # General error. This flag is required, and it can be used to indicate an error condition
 # that does not fit any of the other flags.
 # Note that the vendor may also report additional status information via the vendor specific status code
 # field of the NodeStatus message.
 #
-uint22 FLAG_GENERAL_ERROR                       = 1
+uint30 FLAG_GENERAL_ERROR                       = 1
 #
 # Error of the crankshaft sensor. This flag is optional.
 #
-uint22 FLAG_CRANKSHAFT_SENSOR_ERROR_SUPPORTED   = 2
-uint22 FLAG_CRANKSHAFT_SENSOR_ERROR             = 4
+uint30 FLAG_CRANKSHAFT_SENSOR_ERROR_SUPPORTED   = 2
+uint30 FLAG_CRANKSHAFT_SENSOR_ERROR             = 4
 #
 # Temperature levels. These flags are optional; either none of them or all of them are supported.
 #
-uint22 FLAG_TEMPERATURE_SUPPORTED               = 8
-uint22 FLAG_TEMPERATURE_BELOW_NOMINAL           = 16      # Under-temperature warning
-uint22 FLAG_TEMPERATURE_ABOVE_NOMINAL           = 32      # Over-temperature warning
-uint22 FLAG_TEMPERATURE_OVERHEATING             = 64      # Critical overheating
-uint22 FLAG_TEMPERATURE_EGT_ABOVE_NOMINAL       = 128     # Exhaust gas over-temperature warning 
+uint30 FLAG_TEMPERATURE_SUPPORTED               = 8
+uint30 FLAG_TEMPERATURE_BELOW_NOMINAL           = 16      # Under-temperature warning
+uint30 FLAG_TEMPERATURE_ABOVE_NOMINAL           = 32      # Over-temperature warning
+uint30 FLAG_TEMPERATURE_OVERHEATING             = 64      # Critical overheating
+uint30 FLAG_TEMPERATURE_EGT_ABOVE_NOMINAL       = 128     # Exhaust gas over-temperature warning
 #
 # Fuel pressure. These flags are optional; either none of them or all of them are supported.
 #
-uint22 FLAG_FUEL_PRESSURE_SUPPORTED             = 256
-uint22 FLAG_FUEL_PRESSURE_BELOW_NOMINAL         = 512     # Under-pressure warning
-uint22 FLAG_FUEL_PRESSURE_ABOVE_NOMINAL         = 1024    # Over-pressure warning
+uint30 FLAG_FUEL_PRESSURE_SUPPORTED             = 256
+uint30 FLAG_FUEL_PRESSURE_BELOW_NOMINAL         = 512     # Under-pressure warning
+uint30 FLAG_FUEL_PRESSURE_ABOVE_NOMINAL         = 1024    # Over-pressure warning
 #
-# Detonation warning. These flags are optional; either none of them or all of them are supported.
-# This warning is cleared immediately after broadcasting is done if the detonation is no longer present
+# Detonation warning. This flag is optional.
+# This warning is cleared immediately after broadcasting is done if detonation is no longer happening.
 #
-uint22 FLAG_DETONATION_SUPPORTED                = 2048
-uint22 FLAG_DETONATION_OBSERVED                 = 4096    # Detonation condition observed warning
+uint30 FLAG_DETONATION_SUPPORTED                = 2048
+uint30 FLAG_DETONATION_OBSERVED                 = 4096    # Detonation condition observed warning
 #
-# Misfire warning. These flags are optional; either none of them or all of them are supported.
-# This warning is cleared immediately after broadcasting is done if the misfire is no longer present
+# Misfire warning. This flag is optional.
+# This warning is cleared immediately after broadcasting is done if misfire is no longer happening.
 #
-uint22 FLAG_MISFIRE_SUPPORTED                   = 8192
-uint22 FLAG_MISFIRE_OBSERVED                    = 16384   # Misfire condition observed warning
+uint30 FLAG_MISFIRE_SUPPORTED                   = 8192
+uint30 FLAG_MISFIRE_OBSERVED                    = 16384   # Misfire condition observed warning
 #
 # Oil pressure. These flags are optional; either none of them or all of them are supported.
 #
-uint22 FLAG_OIL_PRESSURE_SUPPORTED              = 32768
-uint22 FLAG_OIL_PRESSURE_BELOW_NOMINAL          = 65536   # Under-pressure warning
-uint22 FLAG_OIL_PRESSURE_ABOVE_NOMINAL          = 131072  # Over-pressure warning
+uint30 FLAG_OIL_PRESSURE_SUPPORTED              = 32768
+uint30 FLAG_OIL_PRESSURE_BELOW_NOMINAL          = 65536   # Under-pressure warning
+uint30 FLAG_OIL_PRESSURE_ABOVE_NOMINAL          = 131072  # Over-pressure warning
 #
-# Chirp warning. These flags are optional; either none of them or all of them are supported.
+# Debris warning. This flag is optional.
 #
-uint22 FLAG_CHIRP_SUPPORTED                     = 262144
-uint22 FLAG_CHIRP_DETECTED                      = 524288  # Detection of chirps warning
+uint30 FLAG_DEBRIS_SUPPORTED                    = 262144
+uint30 FLAG_DEBRIS_DETECTED                     = 524288  # Detection of debris warning
+
+#
+# Reserved space
+#
+void16
 
 #
 # Engine load estimate.
@@ -178,15 +183,15 @@ uint7 throttle_position_percent
 uint6 ecu_index
 
 #
-# Spark plug activity report
-# Used during pre-flight tests of spark subsystem
+# Spark plug activity report.
+# Can be used during pre-flight tests of the spark subsystem.
 #
 uint3 spark_plug_usage
 #
-uint3 SPARK_PLUG_SINGLE                         = 0
-uint3 SPARK_PLUG_FIRST_ACTIVE                   = 1
-uint3 SPARK_PLUG_SECOND_ACTIVE                  = 2
-uint3 SPARK_PLUG_BOTH_ACTIVE                    = 3
+uint3 SPARK_PLUG_SINGLE         = 0
+uint3 SPARK_PLUG_FIRST_ACTIVE   = 1
+uint3 SPARK_PLUG_SECOND_ACTIVE  = 2
+uint3 SPARK_PLUG_BOTH_ACTIVE    = 3
 
 #
 # Per-cylinder status information.
