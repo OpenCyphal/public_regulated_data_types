@@ -60,6 +60,19 @@ uint22 FLAG_TEMPERATURE_SUPPORTED               = 8
 uint22 FLAG_TEMPERATURE_BELOW_NOMINAL           = 16    # Under-temperature warning
 uint22 FLAG_TEMPERATURE_ABOVE_NOMINAL           = 32    # Over-temperature warning
 uint22 FLAG_TEMPERATURE_OVERHEATING             = 64    # Critical overheating
+uint22 FLAG_TEMPERATURE_EGT_ABOVE_NOMINAL       = 128    # Exhaust gas over-temperature warning 
+#
+# Fuel pressure. These flags are optional; either none of them or all of them are supported.
+#
+uint22 FLAG_FUEL_PRESSURE_SUPPORTED             = 256
+uint22 FLAG_FUEL_PRESSURE_BELOW_NOMINAL         = 512   # Under-pressure warning
+uint22 FLAG_FUEL_PRESSURE_ABOVE_NOMINAL         = 1024  # Over-pressure warning
+#
+# Detonation and misfire. These flags are optional; either none of them or all of them are supported.
+#
+uint22 FLAG_DETONATION_SUPPORTED                = 2048
+uint22 FLAG_DETONATION_OBSERVED                 = 4096  # Detonation condition observed warning
+uint22 FLAG_MISFIRE_OBSERVED                    = 8192  # Misfire condition observed warning
 
 #
 # Engine load estimate.
