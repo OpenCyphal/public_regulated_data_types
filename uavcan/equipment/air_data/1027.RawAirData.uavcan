@@ -33,7 +33,7 @@ float16 static_air_temperature          # Kelvin
 float16 pitot_temperature               # Kelvin
 
 
-float16[<=16] covariance                # order of diagonal elements : 
+float16[<=25] covariance                # order of diagonal elements : 
                                         # static_pressure, differential_pressure,
                                         # static_air_temperature, pitot_temperature
                                         # Pascal^2 for pressure variance and covariance
