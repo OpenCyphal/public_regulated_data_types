@@ -1,6 +1,6 @@
 #
 # Get or set a parameter by name or by index.
-# Note that access by index should only be used to retreive the list of parameters; it is higly
+# Note that access by index should only be used to retrieve the list of parameters; it is highly
 # discouraged to use it for anything else, because persistent ordering is not guaranteed.
 #
 

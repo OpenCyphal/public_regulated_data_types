@@ -1,7 +1,7 @@
 #
 # Abstract node status information.
 #
-# Any UAVCAN node is required to publish this message periodically.
+# All UAVCAN nodes are required to publish this message periodically.
 #
 
 #

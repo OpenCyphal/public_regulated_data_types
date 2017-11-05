@@ -24,7 +24,7 @@ Path image_file_remote_path
 #
 uint8 ERROR_OK               = 0
 uint8 ERROR_INVALID_MODE     = 1    # Cannot perform the update in the current operating mode or state.
-uint8 ERROR_IN_PROGRESS      = 2    # Firmware update is already in progess, and the slave doesn't want to restart.
+uint8 ERROR_IN_PROGRESS      = 2    # Firmware update is already in progress, and the slave doesn't want to restart.
 uint8 ERROR_UNKNOWN          = 255
 uint8 error
 
