@@ -1,0 +1,8 @@
+#
+# This is a placeholder type that is used only to keep 16 bytes reserved.
+#
+# The Unidirectional UDP protocol cannot have any incoming transfers, by definition.
+#
+
+void64
+void64

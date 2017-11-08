@@ -1,0 +1,86 @@
+#
+# UDP is the most important transfer protocol here because it is stateless, and therefore
+# it maps well onto the messaging semantics of UAVCAN.
+#
+# This transport is bidirectional, meaning that the modem node should expect the remote host
+# to send some data back to the node. The technique of reverse forwarding is known in
+# networking as IP Masquerading, or (in general) Network Address Translation (NAT).
+#
+# In order to be able to match datagrams received from remote hosts and the local nodes they should
+# be forwarded to, modem nodes are required to keep certain metadata about outgoing datagrams. Such
+# metadata is stored in a data structure referred to as NAT table, where every entry would normally
+# contain at least the following fields:
+#   - The local UDP port number that was used to send the outgoing datagram from.
+#     Per RFC 4787, the port number is chosen by the modem node automatically.
+#   - The ID of the local node that has sent the outgoing datagram.
+#   - Value of the field session_id defined below.
+#   - Possibly some other data, depending on the implementation.
+#
+# The modem nodes are required to keep each NAT table entry for at least 24 hours since the last
+# matching outgoing datagram was forwarded. Should the memory resources of the modem node be exhausted,
+# it is allowed to remove old NAT entries earlier, following the policy of least recent use.
+#
+# Having received a UDP packet from a remote host, the modem node would check the NAT table in order
+# to determine where on the UAVCAN bus the received data should be forwarded to. If the NAT table
+# contains no matches, the received data should be silently dropped. If a match is found, the
+# modem node will forward the data to the recipient node using the service HandleIncomingPacket.
+# If the service invocation times out, the modem node should remove the corresponding entry from the
+# NAT table. This will ensure that modem nodes will not be tasked with translations for the client
+# nodes that are no longer online or are unreachable. Additionally, client nodes will be able to
+# hint the modem nodes to remove the translation entries they no longer need by simply refusing to
+# respond to the corresponding service invocation.
+#
+# Modem nodes can also perform traffic shaping, shall it be needed, by means of delaying or
+# dropping UDP datagrams that exceed the quota. It is recommended to maintain a separate quota
+# per node rather than using a common quota for the entire bus, because the latter approach would
+# unfairly affect the nodes that use low bandwidth.
+#
+# To summarize, a typical data exchange occurrence should amount to the following actions:
+#
+#   - A local UAVCAN node broadcasts a message of type OutgoingPacket with the payload it needs
+#     to forward.
+#
+#   - Every modem node on the bus receives the message and performs the following actions:
+#
+#       - The domain name is resolved, unless the destination address provided in the message
+#         is already an IP address, in which case this step should be skipped.
+#
+#       - The domain name to IP address mapping is added to a local DNS cache, although this
+#         part is entirely implementation defined.
+#
+#       - A new entry is added to the NAT table. If such entry already existed, its expiration
+#         timeout is reset. If no such entry existed and a new one cannot be added because of
+#         memory limitations, the least recently used (i.e. oldest) entry of the NAT table is
+#         replaced with the new one.
+#
+#       - The payload is forwarded to the determined IP address.
+#
+#   - At this point, forwarding is complete. Should any of the modem nodes receive an incoming
+#     packet, they would attempt to perform reverse forwarding according to the above provided
+#     algorithm.
+#
+
+#
+# This value will be provided by the modem node in all reverse-forwarded (i.e. response) packets
+# sent from the remote host to the node. The node will be able to understand the context of the
+# communication using this field.
+#
+uint16 session_id
+
+#
+# The destination UDP port on the remote host.
+# Note that the source UDP port is chosen by the modem node automatically, and there is no means
+# to influence this choice.
+#
+uint16 destination_port
+
+#
+# The target Internet address: either IPv4, IPv6, or a host name.
+# The full domain name length may not exceed 253 octets, according to the DNS specification.
+# Examples:
+#   "zubax.com"                                 - domain name
+#   "192.168.1.1"                               - IPv4 address
+#   "2001:0db8:85a3:0000:0000:8a2e:0370:7334"   - IPv6 address, full form
+#   "2001:db8:85a3::8a2e:370:7334"              - IPv6 address, same as above, short form (preferred)
+#
+uint8[<=253] address
