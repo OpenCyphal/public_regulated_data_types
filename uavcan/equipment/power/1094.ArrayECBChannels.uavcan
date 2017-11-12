@@ -1,0 +1,8 @@
+#
+# ECB channels report
+# Up to 8 channels can be reported with one message
+#
+
+uint8 device_id  # id of ECB (refer to 1093 device_id)
+
+ECBChannel[<=8] channels

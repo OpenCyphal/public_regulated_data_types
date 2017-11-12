@@ -1,0 +1,12 @@
+#
+# ECB channel control command
+#
+
+uint8 device_id  # id of ECB (refer to 1093 device_id)
+uint8 channel_id # id of channel to receive command
+
+uint4 COMMAND_TURN_ON         = 1 # Turn on the channel
+uint4 COMMAND_TURN_ON_WIG_WAG = 2 # Turn on wig-wag on channel
+uint4 COMMAND_TURN_OFF        = 3 # Turn off channel
+uint4 COMMAND_RESET_TRIP      = 4 # Reset trip condition on channel
+uint4 command
