@@ -1,0 +1,7 @@
+#
+# Use this nested type to create unicast-addressable messages.
+#
+
+void1
+uint7 NODE_ID_BROADCAST = 0
+uint7 node_id
