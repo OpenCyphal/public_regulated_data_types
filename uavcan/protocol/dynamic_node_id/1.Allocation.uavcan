@@ -10,9 +10,9 @@
 # transmission intervals:
 #
 # - Request period - Trequest.
-# - Followup delay - Tfollowup.
+# - Follow up delay - Tfollowup.
 #
-# Recommended randomization ranges for these intervals are documented in the costants of this message type (see below).
+# Recommended randomization ranges for these intervals are documented in the constants of this message type (see below).
 # Random intervals must be chosen anew per transmission, whereas the Discriminator value is allowed to stay constant
 # per node.
 #
@@ -105,7 +105,7 @@ uint7 ANY_NODE_ID = 0
 # without any preference, the allocator will grant the node ID 125.
 #
 # If the preferred node ID is not zero, the allocator will traverse the allocation table starting from the
-# prefferred node ID upward, untill a free node ID is found. If a free node ID could not be found, the
+# preferred node ID upward, until a free node ID is found. If a free node ID could not be found, the
 # allocator will restart the search from the preferred node ID downward, until a free node ID is found.
 #
 # In pseudocode:

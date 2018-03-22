@@ -11,6 +11,10 @@ uint16 timeout_sec              # [Seconds]
 
 #
 # Name of the parameter to enumerate, e.g. ESC index.
+# If the name is left empty, the node will infer the parameter name automatically (autodetect).
+# It is highly recommended to always use autodetection in order to avoid dependency on hard-coded parameter names,
+# and also allow the enumeratee to possibly enumerate multiple different parameters at once.
+# The rule of thumb is to always leave this parameter empty unless you really know what you're doing.
 #
 uint8[<=92] parameter_name
 

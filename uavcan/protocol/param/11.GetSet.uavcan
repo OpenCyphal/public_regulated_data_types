@@ -1,12 +1,14 @@
 #
 # Get or set a parameter by name or by index.
-# Note that access by index should only be used to retreive the list of parameters; it is higly
+# Note that access by index should only be used to retrieve the list of parameters; it is highly
 # discouraged to use it for anything else, because persistent ordering is not guaranteed.
 #
 
 #
 # Index of the parameter starting from 0; ignored if name is nonempty.
 # Use index only to retrieve the list of parameters.
+# Parameter ordering must be well defined (e.g. alphabetical, or any other stable ordering),
+# in order for the index access to work.
 #
 uint13 index
 
@@ -33,7 +35,7 @@ void5
 # executed. The objective is to let the client know if the value could not be updated, e.g.
 # due to its range violation, etc.
 #
-# Empty value indicates that there is no such parameter.
+# Empty value (and/or empty name) indicates that there is no such parameter.
 #
 Value value
 
@@ -47,6 +49,6 @@ void6
 NumericValue min_value # Optional, not applicable for bool/string
 
 #
-# Empty name in response indicates that there is no such parameter
+# Empty name (and/or empty value) in response indicates that there is no such parameter.
 #
 uint8[<=92] name

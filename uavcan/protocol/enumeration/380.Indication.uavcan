@@ -11,5 +11,8 @@ uavcan.protocol.param.NumericValue value
 
 #
 # Name of the enumerated parameter.
+# This field must always be populated by the enumeratee.
+# If multiple parameters were enumerated at once (e.g. ESC index and the direction of rotation),
+# the field should contain the name of the most important parameter.
 #
 uint8[<=92] parameter_name
