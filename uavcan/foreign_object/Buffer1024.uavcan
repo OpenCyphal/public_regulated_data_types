@@ -1,5 +1,0 @@
-#
-# Buffer that is used to keep serialized object in a specified format.
-#
-
-uint8[<=1024] buffer
