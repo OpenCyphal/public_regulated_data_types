@@ -1,0 +1,8 @@
+#
+# This enumeration defines the serialization format used to encode the object.
+# New formats are likely to be added in the future.
+#
+
+uint8 MAVLINK                   = 0     # MAVLink
+
+uint8 format
