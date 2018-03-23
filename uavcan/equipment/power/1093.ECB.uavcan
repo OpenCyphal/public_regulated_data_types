@@ -1,0 +1,39 @@
+#
+# Electronic Circuit Breaker Device
+#
+# Typical publishing rate should be around 1 Hz.
+#
+
+#
+# ECB technical charateristics
+#
+uint4 number_of_input_channels  # Total number of power supplies
+uint4 number_of_output_channels # Total number of switched power circuits
+uint8 nominal_voltage           # Nominal voltage of ECB (for example 14 or 28 VDC)
+uint8 maximum_total_current     # Maximum total current that ECB is capable withstand
+
+#
+# Current status of ECB device
+#
+float16 temperature   # [Kelvin]
+float16 total_current # [Ampere]
+
+uint4 STATUS_FLAG_SWITCH_FAULT = 1 # One ore more switches are faulty
+uint4 STATUS_FLAG_OVERCURRENT  = 2 # Total current is more than the capability of ECB
+uint4 STATUS_FLAG_OVERHEAT     = 4 # Temperature of ECB is above limit
+uint4 status_flags
+
+#
+# ECB identification.
+# Model name is a human-readable string that normally should include the vendor name, model name and
+# type of this ECB. This field should be assumed case-insensitive. Example: "Zubax ECB-32 v1.2".
+#
+uint8 device_id          # Identifies the ECB within this vehicle
+uint8[<32] model_name    # ECB model name
+
+#
+# Input channel status.
+# All avaiilable inputs are reported together. Channel numbering in array should
+# correspond to physical numbering.
+#
+ECBInputChannel[<=8] input_channels

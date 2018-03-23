@@ -1,0 +1,32 @@
+#
+# Nested type.
+# ECB's output channel status
+#
+uint8 channel_id # id of channel being reported in this message
+
+#
+# Current status of channel
+#
+float16 voltage # Output voltage on channel
+float16 current # Current through channel
+
+uint4 ERROR_FLAG_OPEN_CIRCUIT   = 1 # The load is not connected
+uint4 ERROR_FLAG_OVERCURRENT    = 2 # Channel current is above maximum
+uint4 ERROR_FLAG_SHORT_CIRCUIT  = 4 # Channel is OFF due to short circuit
+uint4 ERROR_FLAG_THERMAL_CUTOFF = 8 # Channel is OFF due to I2t cutoff
+uint4 error_flags
+
+uint4 STATUS_FLAG_ON            = 1 # Channel is ON
+uint4 STATUS_FLAG_WIG_WAG       = 2 # Channel is ON and pulsing (wig wag).
+uint4 STATUS_FLAG_PULLED_OFF    = 4 # Channel is disabled to be turned on
+uint4 status_flags
+
+#
+# Setup of channel
+#
+float16 nominal_current       # [Ampere] Nominal current that this channel is set for
+float16 short_circuit_current # [Ampere] Current that will lead to immidiate tripping
+float16 IIt                   # [Ampere^2 * Second] Thermal protection charateristic
+
+bool controllable             # Channel can be turned on and off by command
+bool can_wig_wag              # Channel can do pulsing
