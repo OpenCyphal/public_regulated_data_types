@@ -1,0 +1,14 @@
+#
+# This service carries arbitrary data in the format of the specified high-level protocol.
+# The data will be delivered to the specified node only (not broadcast), and the addressed node
+# will be required to respond (although the response may be empty, if the chosen protocol allows so).
+# The specified protocol applies both to the request and to the response.
+#
+
+Protocol protocol
+
+uint8[<=1024] buffer    # TAO rules apply
+
+---
+
+uint8[<=1024] buffer    # TAO rules apply
