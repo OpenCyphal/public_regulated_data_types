@@ -3,6 +3,6 @@
 # New protocols are likely to be added in the future.
 #
 
-uint8 MAVLINK                   = 0     # MAVLink
+uint4 MAVLINK                   = 0     # MAVLink
 
-uint8 protocol
+uint4 protocol
