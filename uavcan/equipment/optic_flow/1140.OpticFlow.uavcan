@@ -1,0 +1,25 @@
+#
+# Optic flow raw data
+#
+
+uavcan.Timestamp timestamp
+
+#
+# raw optic flow data in x
+#
+int16 raw_flow_x
+
+#
+# raw optic flow data in y
+#
+int16 raw_flow_y
+
+#
+# quality
+#
+uint8 qaulity
+
+#
+# angular velocity in sensor frame
+#
+float32[3] optic_flow_gyro
