@@ -10,4 +10,4 @@ It is intended for inclusion as a submodule into implementations of the UAVCAN p
 UAVCAN is a lightweight protocol designed for reliable communication in aerospace and robotic applications via CAN bus.
 
 * [**UAVCAN website**](http://uavcan.org)
-* [**UAVCAN mailing list**](https://groups.google.com/forum/#!forum/uavcan)
+* [**UAVCAN forum**](https://forum.uavcan.org)
