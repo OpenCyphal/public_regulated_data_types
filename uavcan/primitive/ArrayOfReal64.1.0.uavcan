@@ -1,0 +1,6 @@
+#
+# Exactly representable integers: [-2**53, +2**53]
+#
+
+void2
+float64[<=32] value

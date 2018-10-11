@@ -1,0 +1,21 @@
+#
+# Network-wide time synchronization message.
+# Any node that publishes timestamped data should use this time reference.
+#
+# This message should always be published at the highest priority level.
+#
+# Please refer to the specification for the description of the synchronization algorithm.
+#
+
+# The publication period should be within this range.
+uint16 MAX_PUBLICATION_PERIOD_ms = 1100                 # [millisecond]
+uint16 MIN_PUBLICATION_PERIOD_ms = 40                   # [millisecond]
+
+# Synchronization slaves should normally switch to a new source if the current master was silent
+# for thrice its publication period; i.e., if the publication period is 0.5 seconds,
+# the switching timeout is 1.5 seconds.
+uint8 PUBLISHER_TIMEOUT_PERIOD_MULTIPLIER = 3
+
+# The time when the PREVIOUS message was transmitted from the current publisher.
+# If this message is published for the first time, this field must be zero.
+Point.1 previous_transmission_timestamp

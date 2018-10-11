@@ -1,0 +1,2 @@
+uavcan.time.Point.1 timestamp
+float32 value

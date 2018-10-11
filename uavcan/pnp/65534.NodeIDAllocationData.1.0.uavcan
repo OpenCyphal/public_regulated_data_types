@@ -1,0 +1,99 @@
+#
+# This message is used for dynamic node ID allocation on all transports except CAN 2.0.
+# For CAN 2.0 there is a dedicated message definition that takes into account the limitations of that transport,
+# making the allocation protocol much more complex.
+#
+# When a node needs to request a node ID dynamically, it will transmit an anonymous message transfer of this type.
+#
+# In order to reduce the probability of CAN ID collisions when multiple nodes are publishing this request over the CAN
+# bus, or any other kind of transport where similar limitations are present, the CAN ID field of the anonymous message
+# transfer includes a "discriminator", which is a special field that has to be filled with pseudo-random data by the
+# transmitting node. Since discriminator collisions are likely to happen, nodes that are requesting dynamic
+# allocations need to be able to handle them correctly. Hence, a collision resolution protocol is defined (like
+# CSMA/CD), which utilizes a randomized request period value referred to as Trequest.
+#
+# The recommended values of the request period should not exceed the maximum defined as a constant below (the minimum is
+# unrestricted). The random interval must be chosen anew per transmission, whereas the discriminator value is allowed
+# to stay constant per node.
+#
+# In the below description the following terms are used:
+# - Allocator - the node that serves allocation requests.
+# - Allocatee - the node that requests an allocation from the Allocator.
+#
+# The response timeout is not explicitly defined for this protocol, as the Allocatee will request a new allocation
+# Trequest units of time later again, unless an allocation has been granted.
+#
+# On the allocatee's side the protocol is defined through the following sets of simple rules:
+#
+#     Rule A. On initialization:
+#     1. The allocatee subscribes to this message.
+#     2. The allocatee starts the Request Timer with a random interval of Trequest.
+#
+#     Rule B. On expiration of the Request Timer:
+#     1. Request Timer restarts with a random interval of Trequest (chosen anew).
+#     2. The allocatee broadcasts an Allocation request message, where the fields are populated as follows:
+#        node_id   - the preferred node ID, or zero if the allocatee doesn't have any specific preference
+#        unique_id - the unique ID of the allocatee
+#
+#     Rule C. On any Allocation message, even if other rules also match:
+#     1. Request Timer restarts with a random interval of Trequest.
+#
+#     Rule D. On an Allocation message WHERE (source node ID is non-anonymous) AND (the field unique_id fully matches
+#             the allocatee's unique ID) AND (node_id in the received message is not zero):
+#     1. Request Timer stops.
+#     2. The allocatee initializes its node_id with the received value.
+#     3. The allocatee terminates its subscription to Allocation messages.
+#     4. Exit.
+#
+
+# A randomly chosen request period should not be greater than this limit.
+#
+# This definition has an advisory status; it is OK to pick a higher value, as it won't affect the protocol
+# compatibility. In fact, it is advised to pick higher values if the target application is not concerned
+# about the time it will spend completing the dynamic node ID allocation procedure, as it will reduce
+# interference with other nodes, possibly of higher importance.
+uint8 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
+
+# If the transfer is anonymous, this is the preferred ID.
+# If the transfer is non-anonymous, this is the allocated ID.
+#
+# If the allocatee does not have any preference, this value must be set to zero. In this case, the allocator
+# must choose the highest unused node ID value for this allocation (except 126 and 127, those are reserved for
+# network maintenance tools). E.g., if the allocation table is empty and the node has requested an allocation
+# without any preference, the allocator will grant the node ID 125.
+#
+# If the preferred node ID is not zero, the allocator will traverse the allocation table starting from the
+# preferred node ID upward, until a free node ID is found. If a free node ID could not be found, the
+# allocator will restart the search from the preferred node ID downward, until a free node ID is found.
+#
+# In pseudocode:
+#   int8_t findFreeNodeID(const uint8_t preferred)
+#   {
+#       // Search up
+#       int8_t candidate = (preferred > 0) ? preferred : 125;
+#       while (candidate <= 125)
+#       {
+#           if (!isOccupied(candidate))
+#               return candidate;
+#           candidate++;
+#       }
+#       // Search down
+#       candidate = (preferred > 0) ? preferred : 125;
+#       while (candidate > 0)
+#       {
+#           if (!isOccupied(candidate))
+#               return candidate;
+#           candidate--;
+#       }
+#       // Not found
+#       return -1;
+#   }
+uint7 NODE_ID_ANY = 0       # Valid only when requesting an allocation; means that there is no preference.
+uint7 node_id
+void1
+
+# The unique ID of the allocatee.
+# If this is a non-anonymous transfer, allocatees will match this value against their own unique ID,
+# and ignore the message if there is no match. If the IDs match, then the field node_id contains the
+# allocated node ID value for this node.
+uint8[16] unique_id

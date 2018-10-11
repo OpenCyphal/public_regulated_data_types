@@ -1,0 +1,5 @@
+#
+# An unstructured collection of bytes, e.g., raw binary image.
+#
+
+uint8[<255] value

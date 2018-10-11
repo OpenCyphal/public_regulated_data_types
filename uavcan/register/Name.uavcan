@@ -1,0 +1,6 @@
+#
+# An ASCII register name.
+#
+
+void1
+uint8[<=70] name

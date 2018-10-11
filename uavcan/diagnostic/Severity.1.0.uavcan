@@ -1,0 +1,9 @@
+#
+# Generic message severity representation.
+#
+
+uint2 TRIVIAL  = 0      # No coloring (e.g. white/black)
+uint2 ADVISORY = 1      # Cyan or blue
+uint2 CAUTION  = 2      # Amber or yellow
+uint2 WARNING  = 3      # Red
+uint2 severity

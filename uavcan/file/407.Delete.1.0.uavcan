@@ -1,0 +1,10 @@
+#
+# Delete a remote file system entry.
+# If the remote entry is a directory, all nested entries will be removed, too.
+#
+
+Path.1 path
+
+---
+
+Error.1 error

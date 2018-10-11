@@ -1,0 +1,3 @@
+int40 longitude_nanodegrees    # degree 10^-9
+int40 latitude_nanodegrees     # degree 10^-9
+uavcan.time.Point.1 timestamp

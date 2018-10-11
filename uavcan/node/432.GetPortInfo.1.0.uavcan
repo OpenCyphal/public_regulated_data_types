@@ -1,0 +1,26 @@
+#
+# This service is used to obtain information about a port (either message or service).
+# It can be used for advanced network inspections, e.g. for building computational graph maps.
+#
+
+# The port of interest; can be either a service or a message.
+void7
+PortID.1 port_id
+
+---
+
+# Flags describing the current port.
+# Note that a message port can be both subscriber and publisher at the same time.
+bool is_subscriber      # Message input port
+bool is_publisher       # Message output port
+bool is_server          # Server port
+void5
+
+# If such port exists, this field must contain the full name of its data type.
+# If the requested port does not exist, this field must be empty.
+# If this field is empty, the caller must ignore all other fields.
+void2
+uint8[<64] data_type_full_name
+
+# The semantic version number of the data type used at this port.
+SemanticVersion.1 data_type_version

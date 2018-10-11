@@ -1,0 +1,10 @@
+#
+# Nested type.
+# A file system path encoded in UTF8.
+# The only valid separator is the forward slash "/".
+# A single slash ("/") refers to the root directory.
+#
+
+uint8 SEPARATOR = '/'
+
+uint8[<=200] path

@@ -1,0 +1,47 @@
+#
+# Abstract node status information.
+#
+# All UAVCAN nodes are required to publish this message periodically.
+# This is the only data type that must be supported by all nodes.
+#
+# The default subject ID 62805 is 1111010101010101 in binary. The alternating bit pattern at the end
+# helps transceiver synchronization (e.g., on CAN-based networks) and on some transports permits
+# automatic bit rate detection (e.g., CAN bus).
+#
+
+# Publication period must not exceed this limit.
+# The period should not change as long as the node is running.
+uint16 MAX_PUBLICATION_PERIOD = 1   # [second]
+
+# If a node fails to publish this message in this amount of time, it should be considered offline.
+uint16 OFFLINE_TIMEOUT = 3          # [second]
+
+# The uptime seconds counter should never overflow. The counter will reach the upper limit in ~136 years,
+# upon which time it should stay at 0xFFFFFFFF until the node is restarted.
+#
+# Other nodes may detect that a remote node has restarted when this value jumps backwards.
+uint32 uptime                       # [second]
+
+# Abstract node health.
+uint2 HEALTH_OK         = 0         # Nominal. Color: none or green.
+uint2 HEALTH_ADVISORY   = 1         # Minor parameter deviation or minor issue. Color: blue/cyan.
+uint2 HEALTH_CAUTION    = 2         # Major problem or failure. Color: amber/yellow.
+uint2 HEALTH_WARNING    = 3         # Fault, loss of function. Color: red.
+truncated uint2 health
+
+# The current operating mode.
+#
+# The mode OFFLINE can be used for informing other network participants that the sending node has ceased its
+# activities or about to do so. In this case, other nodes will not have to wait for the OFFLINE_TIMEOUT to
+# expire before detecting that the sending node is no longer available.
+#
+# Reserved values can be used in future revisions of the specification.
+uint3 MODE_OPERATIONAL      = 0     # Normal operating mode.
+uint3 MODE_INITIALIZATION   = 1     # Initialization is in progress; this mode is entered immediately after startup.
+uint3 MODE_MAINTENANCE      = 2     # E.g. calibration, self-test, etc.
+uint3 MODE_SOFTWARE_UPDATE  = 3     # New software/firmware is being loaded or the bootloader is running.
+uint3 MODE_OFFLINE          = 7     # The node is no longer available.
+truncated uint3 mode
+
+# Optional, vendor-specific node status code, e.g. a fault code or a status bitmask.
+truncated uint19 vendor_specific_status_code

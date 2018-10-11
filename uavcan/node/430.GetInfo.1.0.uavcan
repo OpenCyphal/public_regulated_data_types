@@ -1,0 +1,69 @@
+#
+# Full node info request.
+# All of the returned information must be static (unchanged) while the node is running, excepting the Status field.
+# It is highly recommended to support this service on all nodes.
+#
+
+---
+
+# The current node status.
+# This is the same value that is periodically published by the node.
+# The objective of its inclusion here is to ensure that the node did not restart since the last time
+# this message was received from it, because a restart may invalidate the node information.
+Status.1 node_status
+
+# The UAVCAN protocol version implemented on this node, both major and minor.
+# Not to be changed while the node is running.
+SemanticVersion.1 protocol_version
+
+# The version information must not be changed while the node is running.
+# The correct hardware version must be reported at all times, excepting software-only nodes, in which
+# case it should be set to zeros.
+# If the node is equipped with a UAVCAN-capable bootloader, the bootloader should report the software
+# version of the installed application, if there is any; if no application is found, zeros should be reported.
+SemanticVersion.1 hardware_version
+SemanticVersion.1 software_version
+
+# Reserved for future use
+void23
+
+# The value of an arbitrary hash function applied to the software image. Not to be changed while the node is runnning.
+# This field can be used to detect whether the software or firmware running on the node is an exact
+# same version as a certain specific revision. This field provides a very strong identity guarantee,
+# unlike the version fields above, which can be the same for different builds of the software.
+# As can be seen from its definition, this field is optional.
+#
+# The exact hash function and the methods of its application are implementation-defined.
+# However, implementations are recommended to adhere to the following guidelines, fully or partially:
+#   - The hash function should be CRC-64-WE.
+#   - The hash function should be applied to the entire application image padded to 8 bytes.
+#   - If the computed image CRC is stored within the software image itself, the value of
+#     the hash function becomes ill-defined, because it becomes recursively dependent on itself.
+#     In order to circumvent this issue, while computing or checking the CRC, its value stored
+#     within the image should be zeroed out.
+uint64[<=1] software_image_crc
+
+# A version control system (VCS) revision number or hash. Not to be changed while the node is runnning.
+# For example, this field can be used for reporting the short git commit hash of the current
+# software revision.
+# Set to zero if not used.
+uint32 software_vcs_revision_id
+
+# The unique node ID is a 128-bit long sequence that is likely to be globally unique per node.
+# The vendor must ensure that the probability of a collision with any other node UID globally is negligibly low.
+# UID is defined once per hardware unit and should never be changed.
+# All zeros is not a valid UID.
+# If the node is equipped with a UAVCAN-capable bootloader, the bootloader must use the same UID.
+uint8[16] unique_id
+
+# The certificate of authenticity (COA) of the node, 255 bytes max, optional.
+# E.g., this field can be used for reporting RSA signatures (up to RSA-2040).
+# Leave empty if not used. Not to be changed while the node is runnning.
+uint8[<256] certificate_of_authenticity
+
+# Human-readable non-empty ASCII node name. An empty name is not permitted.
+# The name must not be changed while the node is running.
+# Allowed characters are: a-z (lowercase ASCII letters) 0-9 (decimal digits) . (dot) - (dash) _ (underscore).
+# Node name is a reversed Internet domain name (like Java packages), e.g. "com.manufacturer.project.product".
+void2
+uint8[<64] name

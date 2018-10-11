@@ -1,0 +1,11 @@
+#
+# Nested data type used for representing a point in time.
+# This data type is highly recommended for use both in standard and vendor-specific messages alike.
+#
+
+# Zero means that the time is not known.
+uint56 UNKNOWN = 0
+
+# The number of microseconds that have passed since some arbitrary moment in the past.
+# This value is to never overflow.
+truncated uint56 microseconds
