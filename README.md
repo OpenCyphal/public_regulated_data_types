@@ -47,7 +47,8 @@ Namespace                   | Lower bound (inclusive)
 ----------------------------|-------------------------
 `uavcan.time`               | 62804
 `uavcan.node`               | 62805
-`uavcan.pnp`                | 62810/65535
+`uavcan.pnp`                | 62810/65533
+`uavcan.internet`           | 65510
 `uavcan.diagnostic`         | 65520
 
 ### Services
@@ -60,6 +61,7 @@ Namespace                   | Lower bound (inclusive)
 `uavcan.pnp`                | 390
 `uavcan.file`               | 400
 `uavcan.node`               | 430
+`uavcan.internet`           | 500
 
 ## Generic data type definitions
 
