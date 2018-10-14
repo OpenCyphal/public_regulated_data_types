@@ -1,0 +1,6 @@
+#
+# Exactly representable integers: [-2048, +2048]
+#
+
+float16[<=128] value
+uavcan.time.Point.1 timestamp
