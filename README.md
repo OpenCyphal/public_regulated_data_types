@@ -73,6 +73,7 @@ physical quantities.
 Some of the messages are time stamped, in which case the time stamp is always situated at the end in order
 to facilitate binary compatibility with non-timestamped messages (both time-stamped and non-time-stamped
 messages have identical headers, so if the time stamp is not required they can be used interchangeably).
+Names of the time stamped messages have the suffux `TS`.
 
 ### Primitives
 
