@@ -8,4 +8,4 @@ uint16 index
 ---
 
 # Empty name in response means that the index is out of bounds, i.e., discovery is finished.
-Name.1 name
+Name.0 name

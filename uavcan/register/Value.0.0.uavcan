@@ -1,0 +1,30 @@
+#
+# This union contains all possible value types supported by the register protocol.
+# Numeric types can be either scalars or arrays; the former is a special case of the latter.
+# The maximum size of this union is 257 bytes + 4 bits for the tag.
+#
+# In order to ensure a byte alignment of the nested arrays, the outer type must pad this union with 4 bits.
+#
+
+@union                                         # The tag is 4 bits wide.
+
+uavcan.primitive.Empty.1        empty          # Tag 0     Used to represent an undefined value
+uavcan.primitive.String.1       string         # Tag 1     UTF-8 encoded text
+uavcan.primitive.Unstructured.1 unstructured   # Tag 2     Raw unstructured binary image
+uavcan.primitive.ArrayOfBits.1  bit            # Tag 3     Bit array
+
+uavcan.primitive.ArrayOfInteger64.1 integer64  # Tag 4
+uavcan.primitive.ArrayOfInteger32.1 integer32  # Tag 5
+uavcan.primitive.ArrayOfInteger16.1 integer16  # Tag 6
+uavcan.primitive.ArrayOfInteger8.1  integer8   # Tag 7
+
+uavcan.primitive.ArrayOfNatural64.1 natural64  # Tag 8
+uavcan.primitive.ArrayOfNatural32.1 natural32  # Tag 9
+uavcan.primitive.ArrayOfNatural16.1 natural16  # Tag 10
+uavcan.primitive.ArrayOfNatural8.1  natural8   # Tag 11
+
+uavcan.primitive.ArrayOfReal64.1 real64        # Tag 12    Exactly representable integers: [-2**53,    +2**53]
+uavcan.primitive.ArrayOfReal32.1 real32        # Tag 13    Exactly representable integers: [-16777216, +16777216]
+uavcan.primitive.ArrayOfReal16.1 real16        # Tag 14    Exactly representable integers: [-2048,     +2048]
+
+# Tag 15 is reserved

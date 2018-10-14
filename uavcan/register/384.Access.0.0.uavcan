@@ -48,11 +48,11 @@
 
 # The name of the accessed register. Must not be empty.
 # Use the Discover service to obtain the list of registers on the node.
-Name.1 name
+Name.0 name
 
 # Value to be written. Empty if no write is required.
 void4
-Value.1 value
+Value.0 value
 
 ---
 
@@ -87,4 +87,4 @@ void10
 # Empty value means that the register does not exist (in this case the flags should be cleared/ignored).
 # By comparing the returned value against the write request the caller can determine whether the register
 # was written successfully, unless write was not requested.
-Value.1 value
+Value.0 value
