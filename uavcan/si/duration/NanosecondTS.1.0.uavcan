@@ -1,2 +1,0 @@
-uint64 nanoseconds
-uavcan.time.Point.1 timestamp

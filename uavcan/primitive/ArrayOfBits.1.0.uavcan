@@ -1,6 +1,0 @@
-#
-# 2032 bits + 11 bit length + 5 bit padding = 256 bytes
-#
-
-void5
-bool[<=2032] value

@@ -1,5 +1,0 @@
-#
-# A UTF8-encoded string of text.
-#
-
-uint8[<256] value
