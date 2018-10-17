@@ -21,19 +21,18 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
-0       | 0         | Not a valid ID
-1       | 32767     | Dynamic
+0       | 32767     | Dynamic
 61440   | 62803     | Vendor-specific public static
 62804   | 65535     | Standard static
 
 ### Services
 
 For services, the following range mapping is adopted (limits inclusive).
+Unused ranges are reserved for future expansion of adjacent ranges.
 
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
-0       | 0         | Not a valid ID
-1       | 255       | Dynamic
+0       | 127       | Dynamic
 256     | 383       | Vendor-specific public static
 384     | 511       | Standard static
 
