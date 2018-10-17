@@ -6,11 +6,11 @@
 
 ---
 
-# The current node status.
+# The current node status (most recent heartbeat message).
 # This is the same value that is periodically published by the node.
 # The objective of its inclusion here is to ensure that the node did not restart since the last time
 # this message was received from it, because a restart may invalidate the node information.
-Status.1 status
+Heartbeat.1 most_recent_heartbeat
 
 # The UAVCAN protocol version implemented on this node, both major and minor.
 # Not to be changed while the node is running.

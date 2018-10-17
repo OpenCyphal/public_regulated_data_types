@@ -23,11 +23,11 @@ uint16 OFFLINE_TIMEOUT = 3          # [second]
 uint32 uptime                       # [second]
 
 # Abstract node health.
-uint2 HEALTH_OK         = 0         # Nominal. Color: none or green.
-uint2 HEALTH_ADVISORY   = 1         # Minor parameter deviation or minor issue. Color: blue/cyan.
-uint2 HEALTH_CAUTION    = 2         # Major problem or failure. Color: amber/yellow.
-uint2 HEALTH_WARNING    = 3         # Fault, loss of function. Color: red.
-truncated uint2 health
+uint2 HEALTH_STATUS_OK       = 0    # Nominal. Color: none or green.
+uint2 HEALTH_STATUS_ADVISORY = 1    # Minor parameter deviation or minor issue. Color: blue/cyan.
+uint2 HEALTH_STATUS_CAUTION  = 2    # Major problem or failure. Color: amber/yellow.
+uint2 HEALTH_STATUS_WARNING  = 3    # Fault, loss of function. Color: red.
+truncated uint2 health_status
 
 # The current operating mode.
 #
