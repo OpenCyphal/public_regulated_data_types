@@ -14,15 +14,15 @@ Heartbeat.1 most_recent_heartbeat
 
 # The UAVCAN protocol version implemented on this node, both major and minor.
 # Not to be changed while the node is running.
-SemanticVersion.1 protocol_version
+Version.1 protocol_version
 
 # The version information must not be changed while the node is running.
 # The correct hardware version must be reported at all times, excepting software-only nodes, in which
 # case it should be set to zeros.
 # If the node is equipped with a UAVCAN-capable bootloader, the bootloader should report the software
 # version of the installed application, if there is any; if no application is found, zeros should be reported.
-SemanticVersion.1 hardware_version
-SemanticVersion.1 software_version
+Version.1 hardware_version
+Version.1 software_version
 
 # Reserved for future use
 void23

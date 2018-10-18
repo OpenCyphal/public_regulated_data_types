@@ -22,5 +22,5 @@ void5
 void2
 uint8[<64] data_type_full_name
 
-# The semantic version number of the data type used at this port.
-SemanticVersion.1 data_type_version
+# The version numbers of the data type used at this port.
+Version.1 data_type_version
