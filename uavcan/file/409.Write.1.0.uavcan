@@ -15,7 +15,7 @@
 # example by maintaining a staging area for uncompleted writes (like FTP servers do).
 #
 
-uint40 offset
+truncated uint40 offset
 
 Path.1 path
 

@@ -12,7 +12,7 @@
 # code will be returned, and the data array will be empty.
 #
 
-uint40 offset
+truncated uint40 offset
 
 Path.1 path
 
