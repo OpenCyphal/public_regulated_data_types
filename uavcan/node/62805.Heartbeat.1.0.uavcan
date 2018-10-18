@@ -22,26 +22,48 @@ uint16 OFFLINE_TIMEOUT = 3          # [second]
 # Other nodes may detect that a remote node has restarted when this value jumps backwards.
 uint32 uptime                       # [second]
 
-# Abstract node health.
-uint2 HEALTH_STATUS_OK       = 0    # Nominal. Color: none or green.
-uint2 HEALTH_STATUS_ADVISORY = 1    # Minor parameter deviation or minor issue. Color: blue/cyan.
-uint2 HEALTH_STATUS_CAUTION  = 2    # Major problem or failure. Color: amber/yellow.
-uint2 HEALTH_STATUS_WARNING  = 3    # Fault, loss of function. Color: red.
-truncated uint2 health_status
+# Abstract node health information. See constants below.
+# Follows:
+#   https://www.law.cornell.edu/cfr/text/14/23.1322
+#   https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_25.1322-1.pdf section 6
+truncated uint2 health
 
-# The current operating mode.
+# The node is functioning properly (nominal).
+uint2 HEALTH_NOMINAL  = 0
+
+# A critical parameter went out of range or the node encountered a minor failure that does not prevent
+# the subsystem from performing any of its real-time functions.
+uint2 HEALTH_ADVISORY = 1
+
+# The node encountered a major failure and is performing in a degraded mode or outside of its designed limitations.
+uint2 HEALTH_CAUTION  = 2
+
+# The node suffered a fatal malfunction and is unable to perform its intended function.
+uint2 HEALTH_WARNING  = 3
+
+# The current operating mode. See constants below.
 #
 # The mode OFFLINE can be used for informing other network participants that the sending node has ceased its
 # activities or about to do so. In this case, other nodes will not have to wait for the OFFLINE_TIMEOUT to
 # expire before detecting that the sending node is no longer available.
 #
 # Reserved values can be used in future revisions of the specification.
-uint3 MODE_OPERATIONAL      = 0     # Normal operating mode.
-uint3 MODE_INITIALIZATION   = 1     # Initialization is in progress; this mode is entered immediately after startup.
-uint3 MODE_MAINTENANCE      = 2     # E.g. calibration, self-test, etc.
-uint3 MODE_SOFTWARE_UPDATE  = 3     # New software/firmware is being loaded or the bootloader is running.
-uint3 MODE_OFFLINE          = 7     # The node is no longer available.
 truncated uint3 mode
+
+# Normal operating mode.
+uint3 MODE_OPERATIONAL      = 0
+
+# Initialization is in progress; this mode is entered immediately after startup.
+uint3 MODE_INITIALIZATION   = 1
+
+# E.g. calibration, self-test, etc.
+uint3 MODE_MAINTENANCE      = 2
+
+# New software/firmware is being loaded or the bootloader is running.
+uint3 MODE_SOFTWARE_UPDATE  = 3
+
+# The node is no longer available.
+uint3 MODE_OFFLINE          = 7
 
 # Optional, vendor-specific node status code, e.g. a fault code or a status bitmask.
 truncated uint19 vendor_specific_status_code
