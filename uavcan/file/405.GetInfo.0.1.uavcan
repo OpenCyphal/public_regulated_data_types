@@ -10,7 +10,7 @@ Path.1 path
 Error.1 error
 
 # File size in bytes. Should be set to zero for directories.
-uint40 size
+truncated uint40 size
 
 # If such entry does not exist, all flags should be cleared/ignored.
 bool is_file_not_directory  # True if file, false if directory
