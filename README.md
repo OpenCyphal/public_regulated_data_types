@@ -103,7 +103,7 @@ in the namespace `uavcan.register`.
 The register protocol provides a highly generic interface to vendor-specific functionality
 and configuration parameters via named registers.
 
-## Guidelines
+## Guidelines for data type authors
 
 In order to maximize compatibility with resource-constrained nodes,
 standard messages should not be larger than 364 bytes when serialized.
