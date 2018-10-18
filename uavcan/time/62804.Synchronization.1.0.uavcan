@@ -2,8 +2,6 @@
 # Network-wide time synchronization message.
 # Any node that publishes timestamped data should use this time reference.
 #
-# This message should always be published at the highest priority level.
-#
 # Please refer to the specification for the description of the synchronization algorithm.
 #
 
