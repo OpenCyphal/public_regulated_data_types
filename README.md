@@ -85,7 +85,7 @@ For world frames, the North-East-Down (NED) notation should be preferred.
 
 Rotation and angular velocities are represented in fixed-axis roll (about X), pitch (about Y), and yaw (about Z).
 Quaternions and other redundant representations are intentionally avoided due to bandwidth and latency concerns;
-shall they ever be used, the following element ordering should be adopted: W, X, Y, Z.
+should they ever be used, the following element ordering should be adopted: W, X, Y, Z.
 
 ### Primitives
 
@@ -93,8 +93,7 @@ A collection of primitive data types is intended as a very generic solution for 
 and prototyping. They permit the user to broadcast a completely arbitrary value via the bus
 while not having to deal with custom data type design and distribution.
 
-Since these types lack any semantic information, their usage in production environments should
-be minimized.
+Since these types lack any semantic information, their usage in production environments is discouraged.
 
 Another important application of these types is in the schemaless register protocol defined
 in the namespace `uavcan.register`.
