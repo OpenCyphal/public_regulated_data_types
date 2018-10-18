@@ -145,5 +145,5 @@ Here is an example:
     void1
     float32[<100] aligned_array
 
-Remember, the set of standard data types is an integral part of the protocol specification,
+Remember, the set of standard data types is an important part of the protocol specification,
 so the quality of the documentation is very important.
