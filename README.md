@@ -103,7 +103,7 @@ in the namespace `uavcan.register`.
 The register protocol provides a highly generic interface to vendor-specific functionality
 and configuration parameters via named registers.
 
-## Guidelines
+## Guidelines for data type authors
 
 In order to maximize compatibility with resource-constrained nodes,
 standard messages should not be larger than 364 bytes when serialized.
@@ -145,5 +145,5 @@ Here is an example:
     void1
     float32[<100] aligned_array
 
-Remember, the set of standard data types is an integral part of the protocol specification,
+Remember, the set of standard data types is an important part of the protocol specification,
 so the quality of the documentation is very important.
