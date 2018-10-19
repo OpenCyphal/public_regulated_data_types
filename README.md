@@ -21,9 +21,9 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
-0       | 32767     | Dynamic
-61440   | 62803     | Vendor-specific public static
-62804   | 65535     | Standard static
+0       | 32767     | Application-specific unregulated identifiers (freely chosen by the integrator)
+57344   | 59391     | Vendor-specific fixed identifiers (stored in a public repository)
+62804   | 65535     | Standard fixed identifiers
 
 ### Services
 
@@ -32,9 +32,9 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
-0       | 127       | Dynamic
-256     | 383       | Vendor-specific public static
-384     | 511       | Standard static
+0       | 127       | Application-specific unregulated identifiers (freely chosen by the integrator)
+256     | 319       | Vendor-specific fixed identifiers (stored in a public repository)
+384     | 511       | Standard fixed identifiers
 
 ## Standard static identifier allocation
 
@@ -118,7 +118,7 @@ self-explanatory.
 An exception is made for highly generic definitions which often do not require any additional comments.
 
 Attributes must be separated by exactly one blank line, excepting tightly related attributes and
-void fields used for pre-alignment (e.g. before dynamic arrays), in which case blank lines are not necessary.
+void fields used for pre-alignment (e.g., before dynamic arrays), in which case blank lines are not necessary.
 More than one blank line is never allowed.
 There must be exactly one blank line at the end of the file.
 
