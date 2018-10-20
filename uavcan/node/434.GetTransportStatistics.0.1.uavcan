@@ -7,10 +7,10 @@
 
 # UAVCAN transfer performance statistics:
 # the number of UAVCAN transfers sent, received, and failed.
-IOStatistics.1 transfer_statistics
+IOStatistics.0 transfer_statistics
 
 # Physical interface statistics, separate per interface.
 # E.g. for a doubly redundant CAN bus interface, this array would contain two elements,
 # the one at the index zero would apply to the first interface, the other to the second interface.
 void6
-IOStatistics.1[<=3] physical_interface_statistics
+IOStatistics.0[<=3] physical_interface_statistics

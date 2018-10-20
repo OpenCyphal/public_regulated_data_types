@@ -21,4 +21,4 @@ PortID.1 port_id
 # such incident should be reported here via this field. On the other hand, if the message or service
 # call was processed properly, but the application could not act upon that data, it should not be
 # reported here because that problem should be attributed to a different level of abstraction.
-IOStatistics.1 statistics
+IOStatistics.0 statistics
