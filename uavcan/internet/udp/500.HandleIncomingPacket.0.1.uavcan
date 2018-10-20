@@ -8,7 +8,7 @@
 # to them. Additionally, requiring the destination nodes to always respond upon reception of the forwarded datagram
 # opens interesting opportunities for future extensions of the forwarding protocol.
 #
-# It should be noted that this data type definition intentionally lefts out the source address. This is done in
+# It should be noted that this data type definition intentionally leaves out the source address. This is done in
 # order to simplify the implementation, reduce the bus traffic overhead, and because the nature of the
 # communication patterns proposed by this set of messages does not provide a valid way to implement server hosts
 # on the local UAVCAN bus. It is assumed that local nodes can be only clients, and therefore, they will be able to
