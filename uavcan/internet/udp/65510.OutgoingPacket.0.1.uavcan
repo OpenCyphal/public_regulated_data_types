@@ -59,7 +59,7 @@
 # longer need by simply refusing to respond to the corresponding service invocation. Please refer to
 # the definition of that service data type for a more in-depth review of the reverse forwarding process.
 #
-# Modem nodes can also perform traffic shaping, shall it be needed, by means of delaying or dropping UDP
+# Modem nodes can also perform traffic shaping, if needed, by means of delaying or dropping UDP
 # datagrams that exceed the quota.
 #
 # To summarize, a typical data exchange occurrence should amount to the following actions:
