@@ -9,7 +9,7 @@ hardware, such as an on-board telemetry modem.
 
 ## Application examples
 
-* Direct telemetry transmission from UAVCAN nodes with no dependency on external means of broadcasting.
+* Direct telemetry transmission from UAVCAN nodes via simple modem nodes.
 * Creation of web API for on board equipment. For example, a camera vendor can provide a web API
 for their products that directly interacts with the cameras on board, bypassing all third party logic.
 * Reception of real time correction data streams (e.g. RTCM RC-104) for precise positioning applications.
