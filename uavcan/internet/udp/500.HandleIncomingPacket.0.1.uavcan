@@ -17,7 +17,7 @@
 # client nodes is: it is assumed that the local nodes will mostly use DNS names rather than IP addresses, so if there
 # was a source address field, modem nodes would have to perform reverse mapping from the IP address they received
 # the datagram from to the corresponding DNS name that was used by the local node with the outgoing message. This
-# approach creates a number of concerning corner cases and adds a fair amount of hidden complexities to
+# approach creates a number of troubling corner cases and adds a fair amount of hidden complexities to the
 # implementation of modem nodes.
 #
 # It is recommended to perform service invocations at the same transfer priority level as was used for broadcasting
