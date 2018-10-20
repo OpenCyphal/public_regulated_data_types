@@ -13,7 +13,7 @@
 # communication patterns proposed by this set of messages does not provide a valid way to implement server hosts
 # on the local UAVCAN bus. It is assumed that local nodes can be only clients, and therefore, they will be able to
 # determine the address of the sender simply by mapping the field session_id to their internally maintained states.
-# Furthermore, there is a certain uncertainty as to what is the optimal way of representing the source address for
+# Furthermore, it is uncertain what is the optimal way of representing the source address for
 # client nodes: it is assumed that the local nodes will mostly use DNS names rather than IP addresses, so if there
 # was a source address field, modem nodes would have to perform reverse mapping from the IP address they received
 # the datagram from to the corresponding DNS name that was used by the local node with the outgoing message. This
