@@ -24,8 +24,27 @@ Version.1 protocol_version
 Version.1 hardware_version
 Version.1 software_version
 
-# Reserved for future use
-void23
+# A version control system (VCS) revision number or hash. Not to be changed while the node is runnning.
+# For example, this field can be used for reporting the short git commit hash of the current
+# software revision.
+# Set to zero if not used.
+uint32 software_vcs_revision_id
+
+# The unique node ID is a 128-bit long sequence that is likely to be globally unique per node.
+# The vendor must ensure that the probability of a collision with any other node UID globally is negligibly low.
+# UID is defined once per hardware unit and should never be changed.
+# All zeros is not a valid UID.
+# If the node is equipped with a UAVCAN-capable bootloader, the bootloader must use the same UID.
+uint8[16] unique_id
+
+# Manual serialization note: only fixed-size fields up to this point. The following fields are dynamically sized.
+
+# Human-readable non-empty ASCII node name. An empty name is not permitted.
+# The name must not be changed while the node is running.
+# Allowed characters are: a-z (lowercase ASCII letters) 0-9 (decimal digits) . (dot) - (dash) _ (underscore).
+# Node name is a reversed Internet domain name (like Java packages), e.g. "com.manufacturer.project.product".
+void2
+uint8[<64] name
 
 # The value of an arbitrary hash function applied to the software image. Not to be changed while the node is runnning.
 # This field can be used to detect whether the software or firmware running on the node is an exact
@@ -41,29 +60,10 @@ void23
 #     the hash function becomes ill-defined, because it becomes recursively dependent on itself.
 #     In order to circumvent this issue, while computing or checking the CRC, its value stored
 #     within the image should be zeroed out.
+void7
 uint64[<=1] software_image_crc
-
-# A version control system (VCS) revision number or hash. Not to be changed while the node is runnning.
-# For example, this field can be used for reporting the short git commit hash of the current
-# software revision.
-# Set to zero if not used.
-uint32 software_vcs_revision_id
-
-# The unique node ID is a 128-bit long sequence that is likely to be globally unique per node.
-# The vendor must ensure that the probability of a collision with any other node UID globally is negligibly low.
-# UID is defined once per hardware unit and should never be changed.
-# All zeros is not a valid UID.
-# If the node is equipped with a UAVCAN-capable bootloader, the bootloader must use the same UID.
-uint8[16] unique_id
 
 # The certificate of authenticity (COA) of the node, 255 bytes max, optional.
 # E.g., this field can be used for reporting RSA signatures (up to RSA-2040).
 # Leave empty if not used. Not to be changed while the node is runnning.
 uint8[<256] certificate_of_authenticity
-
-# Human-readable non-empty ASCII node name. An empty name is not permitted.
-# The name must not be changed while the node is running.
-# Allowed characters are: a-z (lowercase ASCII letters) 0-9 (decimal digits) . (dot) - (dash) _ (underscore).
-# Node name is a reversed Internet domain name (like Java packages), e.g. "com.manufacturer.project.product".
-void2
-uint8[<64] name
