@@ -4,7 +4,7 @@
 #
 
 # Standard pre-defined commands are at the top of the range (defined below).
-# Vendors can define arbitrary vendor-specific commands in the bottom part of the range (starting from zero).
+# Vendors can define arbitrary, vendor-specific commands in the bottom part of the range (starting from zero).
 # Vendor-specific commands must not use identifiers above 32767.
 uint16 command
 
