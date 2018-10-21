@@ -106,7 +106,7 @@ and configuration parameters via named registers.
 ## Guidelines for data type authors
 
 In order to maximize compatibility with resource-constrained nodes,
-standard messages should not be larger than 364 bytes when serialized.
+standard messages should not be larger than 363 bytes when serialized.
 The number is dictated by the size of the largest data structure, which is the response part of the service
 `uavcan.node.GetInfo`.
 
