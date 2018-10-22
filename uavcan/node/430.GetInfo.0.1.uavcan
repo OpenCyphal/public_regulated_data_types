@@ -26,11 +26,9 @@ Version.1 software_version
 
 # A version control system (VCS) revision number or hash. Not to be changed while the node is runnning.
 # For example, this field can be used for reporting the short git commit hash of the current
-# software revision. Assuming perfect hash, the probability of collision is, approximately:
-#   0.1% at  50k commits
-#    24% at 784k commits
+# software revision.
 # Set to zero if not used.
-truncated uint40 software_vcs_revision_id
+truncated uint64 software_vcs_revision_id
 
 # The unique node ID is a 128-bit long sequence that is likely to be globally unique per node.
 # The vendor must ensure that the probability of a collision with any other node UID globally is negligibly low.
