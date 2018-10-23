@@ -1,0 +1,29 @@
+#
+# Manipulate a remote file system entry. Applies to files, directories, and links alike.
+# If the remote entry is a directory, all nested entries will be affected, too.
+#
+# Move/Copy
+#   Specify the source path and the destination path.
+#   If the source does not exist, the operation will fail.
+#   Set the preserve_source flag to copy rather than move.
+#   If the destination exists and overwrite_destination is not set, the operation will fail.
+#
+# Touch
+#   Specify the same path in the source and in the destination.
+#   Flags are ignored.
+#
+# Remove
+#   Specify the source path and make the destination path empty.
+#   Flags are ignored.
+#
+
+bool preserve_source            # Do not remove the source. Used to copy instead of moving.
+bool overwrite_destination      # If the destination exists, remove it beforehand.
+void30
+
+Path.1 source
+Path.1 destination
+
+---
+
+Error.1 error
