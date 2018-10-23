@@ -1,0 +1,8 @@
+#
+# A standard set of generic input/output statistical counters that should never overflow (in a realistic scenario).
+# If a 48-bit counter is incremented every microsecond, it will overflow in ~9 years.
+#
+
+truncated uint48 num_emitted
+truncated uint48 num_received
+truncated uint48 num_errored

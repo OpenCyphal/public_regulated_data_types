@@ -1,0 +1,24 @@
+#
+# This service is used to obtain statistical metrics of a port (either message or service).
+# It can be used for advanced network inspections, e.g. for building real-time traffic maps.
+#
+
+# The port of interest; can be either a service or a message.
+void7
+PortID.1 port_id
+
+---
+
+# For messages, "emitted" applies to publications, and "received" applies to subscribers.
+#
+# For services, "emitted" applies to responses, and "received" applies to requests. Normally, they
+# should be equal; however, under certain circumstances the number of responses ("emitted") can be
+# lower, e.g. if the server could not or chose not to send a response.
+#
+# The error counter represents how many transfers could not be successfully received or emitted due to
+# an error of any kind anywhere in the processing pipeline, excluding application-level errors.
+# For example, if the message could not be decoded because of a data type compatibility problem,
+# such incident should be reported here via this field. On the other hand, if the message or service
+# call was processed properly, but the application could not act upon that data, it should not be
+# reported here because that problem should be attributed to a different level of abstraction.
+IOStatistics.0 statistics

@@ -1,0 +1,69 @@
+#
+# Abstract node status information.
+#
+# All UAVCAN nodes are required to publish this message periodically.
+# This is the only data type that must be supported by all nodes.
+#
+# The default subject ID 62805 is 1111010101010101 in binary. The alternating bit pattern at the end
+# helps transceiver synchronization (e.g., on CAN-based networks) and on some transports permits
+# automatic bit rate detection (e.g., CAN bus).
+#
+
+# Publication period must not exceed this limit.
+# The period should not change as long as the node is running.
+uint16 MAX_PUBLICATION_PERIOD = 1   # [second]
+
+# If a node fails to publish this message in this amount of time, it should be considered offline.
+uint16 OFFLINE_TIMEOUT = 3          # [second]
+
+# The uptime seconds counter should never overflow. The counter will reach the upper limit in ~136 years,
+# upon which time it should stay at 0xFFFFFFFF until the node is restarted.
+#
+# Other nodes may detect that a remote node has restarted when this value jumps backwards.
+uint32 uptime                       # [second]
+
+# Abstract node health information. See constants below.
+# Follows:
+#   https://www.law.cornell.edu/cfr/text/14/23.1322
+#   https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_25.1322-1.pdf section 6
+truncated uint2 health
+
+# The node is functioning properly (nominal).
+uint2 HEALTH_NOMINAL  = 0
+
+# A critical parameter went out of range or the node encountered a minor failure that does not prevent
+# the subsystem from performing any of its real-time functions.
+uint2 HEALTH_ADVISORY = 1
+
+# The node encountered a major failure and is performing in a degraded mode or outside of its designed limitations.
+uint2 HEALTH_CAUTION  = 2
+
+# The node suffered a fatal malfunction and is unable to perform its intended function.
+uint2 HEALTH_WARNING  = 3
+
+# The current operating mode. See constants below.
+#
+# The mode OFFLINE can be used for informing other network participants that the sending node has ceased its
+# activities or about to do so. In this case, other nodes will not have to wait for the OFFLINE_TIMEOUT to
+# expire before detecting that the sending node is no longer available.
+#
+# Reserved values can be used in future revisions of the specification.
+truncated uint3 mode
+
+# Normal operating mode.
+uint3 MODE_OPERATIONAL      = 0
+
+# Initialization is in progress; this mode is entered immediately after startup.
+uint3 MODE_INITIALIZATION   = 1
+
+# E.g. calibration, self-test, etc.
+uint3 MODE_MAINTENANCE      = 2
+
+# New software/firmware is being loaded or the bootloader is running.
+uint3 MODE_SOFTWARE_UPDATE  = 3
+
+# The node is no longer available.
+uint3 MODE_OFFLINE          = 7
+
+# Optional, vendor-specific node status code, e.g. a fault code or a status bitmask.
+truncated uint19 vendor_specific_status_code
