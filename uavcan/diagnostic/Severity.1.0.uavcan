@@ -1,0 +1,39 @@
+#
+# Generic message severity representation.
+#
+
+# The severity level ranging from 0 to 7, where low values represent low-severity (unimportant) messages, and
+# high values represent high-severity (important) messages. Several mnemonics for the severity levels are
+# defined below. They differ quite a bit compared to the traditional mnemonics widely used in conventional
+# software systems in order to ensure conceptual compatibility with the rest of the UAVCAN specification (see
+# the standard message type uavcan.node.Heartbeat), and to emphasize the much higher cost of the medium
+# compared to regular local log files. Severity levels that don't have an associated mnemonic name should not
+# be used.
+uint3 severity
+
+# Unimportant, low-impact messages related to expected periodic events and processes.
+# Normally, messages of this level should never be enabled in deployed/in-field applications.
+uint3 TRIVIAL = 0
+
+# Messages related to expected events and unimportant decisions that can be safely ignored during normal operation.
+# Generally, messages of this severity level should not be published more often than once per second on average.
+# Normally, messages of this level (and lower) should be suppressed unless specifically requested otherwise.
+uint3 LOW = 1
+
+# Severity level 2 is reserved for future use.
+
+# Noteworthy messages about important or rare events and decisions
+# Generally, messages of this severity level should not be published more often than once per 10 seconds on average.
+# Normally, messages of this level (and lower) should be suppressed unless specifically requested otherwise.
+uint3 MODERATE = 3
+
+# Severity level 4 is reserved for future use.
+# Severity level 5 is reserved for future use.
+
+# High-impact information about unexpected events, unusual conditions, malfunctions, or errors.
+# Messages of this priority level (and higher) should be enabled (not suppressed) by default.
+uint3 HIGH = 6
+
+# Exceptionally rare circumstances or severe failures.
+# Disabling (suppressing) messages at this severity level is not recommended.
+uint3 EXCEPTIONAL = 7
