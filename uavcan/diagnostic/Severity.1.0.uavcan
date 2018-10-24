@@ -28,11 +28,12 @@ uint3 LOW = 1
 uint3 MODERATE = 3
 
 # Severity level 4 is reserved for future use.
-# Severity level 5 is reserved for future use.
 
 # High-impact information about unexpected events, unusual conditions, malfunctions, or errors.
 # Messages of this priority level (and higher) should be enabled (not suppressed) by default.
-uint3 HIGH = 6
+uint3 HIGH = 5
+
+# Severity level 6 is reserved for future use.
 
 # Exceptionally rare circumstances or severe failures.
 # Disabling (suppressing) messages at this severity level is not recommended.
