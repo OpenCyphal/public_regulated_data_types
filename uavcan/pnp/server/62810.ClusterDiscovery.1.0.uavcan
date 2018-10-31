@@ -22,3 +22,5 @@ uint3 configured_cluster_size
 # The cluster cannot contain more than 5 servers.
 void2
 uint8[<=5] known_nodes
+
+@assert offset % 8 == {0}

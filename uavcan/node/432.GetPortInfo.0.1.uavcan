@@ -7,6 +7,8 @@
 void7
 PortID.1 port_id
 
+@assert offset == {24}
+
 ---
 
 # Flags describing the current port.
@@ -24,3 +26,5 @@ uint8[<64] data_type_full_name
 
 # The version numbers of the data type used at this port.
 Version.1 data_type_version
+
+@assert offset % 8 == {0}

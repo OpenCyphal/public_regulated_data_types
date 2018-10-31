@@ -14,3 +14,5 @@ IOStatistics.0 transfer_statistics
 # the one at the index zero would apply to the first interface, the other to the second interface.
 void6
 IOStatistics.0[<=3] physical_interface_statistics
+
+@assert offset % 8 == {0}

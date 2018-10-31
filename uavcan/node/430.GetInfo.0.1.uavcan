@@ -28,7 +28,7 @@ Version.1 software_version
 # For example, this field can be used for reporting the short git commit hash of the current
 # software revision.
 # Set to zero if not used.
-truncated uint64 software_vcs_revision_id
+uint64 software_vcs_revision_id
 
 # The unique node ID is a 128-bit long sequence that is likely to be globally unique per node.
 # The vendor must ensure that the probability of a collision with any other node UID globally is negligibly low.
@@ -38,6 +38,7 @@ truncated uint64 software_vcs_revision_id
 uint8[16] unique_id
 
 # Manual serialization note: only fixed-size fields up to this point. The following fields are dynamically sized.
+@assert offset == {37 * 8}
 
 # Human-readable non-empty ASCII node name. An empty name is not permitted.
 # The name must not be changed while the node is running.
@@ -67,3 +68,5 @@ uint64[<=1] software_image_crc
 # E.g., this field can be used for reporting RSA signatures (up to RSA-2040).
 # Leave empty if not used. Not to be changed while the node is runnning.
 uint8[<256] certificate_of_authenticity
+
+@assert offset % 8 == {0}

@@ -28,6 +28,8 @@ uint8 leader_commit
 void7
 Entry.1[<=1] entries
 
+@assert offset % 8 == {0}
+
 ---
 
 # Refer to the Raft paper for explanation.
