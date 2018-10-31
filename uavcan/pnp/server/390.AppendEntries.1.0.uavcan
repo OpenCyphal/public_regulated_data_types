@@ -26,7 +26,7 @@ uint8 leader_commit
 # Worst-case replication time per Follower can be computed as:
 #   worst replication time = (127 log entries) * (2 trips of next_index) * (request interval per Follower)
 void7
-Entry[<=1] entries
+Entry.1[<=1] entries
 
 ---
 
