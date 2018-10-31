@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 
 import sys
-import logging
+import pydsdl
 
-logging.basicConfig(stream=sys.stderr, level='DEBUG', format='%(levelname)s: %(message)s')
+output = pydsdl.parse_namespace('uavcan', [])
 
-from uavcan import dsdl
-
-parsed = dsdl.parse_namespaces(['uavcan']);
-if parsed:
-    logging.info('%d data types parsed successfully', len(parsed))
+print('\n'.join(map(str, output)))
