@@ -97,3 +97,5 @@ void1
 # and ignore the message if there is no match. If the IDs match, then the field node_id contains the
 # allocated node ID value for this node.
 uint8[16] unique_id
+
+@assert offset % 8 == {0}

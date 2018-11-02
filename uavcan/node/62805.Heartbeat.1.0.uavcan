@@ -67,3 +67,6 @@ uint3 MODE_OFFLINE          = 7
 
 # Optional, vendor-specific node status code, e.g. a fault code or a status bitmask.
 truncated uint19 vendor_specific_status_code
+
+@assert offset % 8 == {0}
+@assert offset.max <= 56    # Must fit into one CAN 2.0 frame (least capable transport, smallest MTU)

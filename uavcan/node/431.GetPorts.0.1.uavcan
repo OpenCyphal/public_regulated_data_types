@@ -29,7 +29,11 @@
 void7
 PortID.1 port_id_lower_boundary
 
+@assert offset == {24}
+
 ---
 
 # See above for the full description of the logic.
 uint16[<=128] port_ids
+
+@assert offset % 8 == {0}
