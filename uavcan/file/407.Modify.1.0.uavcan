@@ -7,13 +7,18 @@
 #   If the source does not exist, the operation will fail.
 #   Set the preserve_source flag to copy rather than move.
 #   If the destination exists and overwrite_destination is not set, the operation will fail.
+#   If the target path includes non-existent directories, they will be created (like "mkdir -p").
 #
 # Touch
-#   Specify the same path in the source and in the destination.
+#   Specify the destination path and make the source path empty.
+#   If the path exists (file/directory/link), its modification time will be updated.
+#   If the path does not exist, an empty file will be created.
+#   If the target path includes non-existent directories, they will be created (like "mkdir -p").
 #   Flags are ignored.
 #
 # Remove
-#   Specify the source path and make the destination path empty.
+#   Specify the source path (file/directory/link) and make the destination path empty.
+#   Fails if the path does not exist.
 #   Flags are ignored.
 #
 
