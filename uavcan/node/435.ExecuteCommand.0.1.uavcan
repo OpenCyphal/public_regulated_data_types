@@ -54,6 +54,8 @@ uint16 COMMAND_STORE_PERSISTENT_STATES = 65530
 #   - COMMAND_BEGIN_SOFTWARE_UPDATE
 uint8[<=200] parameter
 
+@assert offset % 8 == {0}
+
 ---
 
 # The result of the request.

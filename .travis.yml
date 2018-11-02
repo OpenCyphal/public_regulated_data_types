@@ -2,6 +2,6 @@ language: python
 python:
   - "3.6"
 before_install:
-  - pip install 'uavcan>=1.0.0.dev27'
+  - pip install pydsdl
 script:
-  - python3 test.py
+  - ./test.py

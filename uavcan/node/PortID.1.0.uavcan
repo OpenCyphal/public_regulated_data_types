@@ -4,5 +4,6 @@
 #
 
 @union
-uint9  service_id
-uint16 subject_id
+ServiceID.1 service_id
+SubjectID.1 subject_id
+@assert offset == {17}
