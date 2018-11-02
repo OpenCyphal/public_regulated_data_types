@@ -7,6 +7,8 @@
 void7
 PortID.1 port_id
 
+@assert offset == {24}
+
 ---
 
 # For messages, "emitted" applies to publications, and "received" applies to subscribers.
@@ -22,3 +24,5 @@ PortID.1 port_id
 # call was processed properly, but the application could not act upon that data, it should not be
 # reported here because that problem should be attributed to a different level of abstraction.
 IOStatistics.0 statistics
+
+@assert offset % 8 == {0}

@@ -40,6 +40,8 @@ uint16 session_id
 void7
 uint8[<=320] payload
 
+@assert offset % 8 == {0}
+
 ---
 
 # If the service invocation times out, the modem node is permitted to remove the corresponding entry from

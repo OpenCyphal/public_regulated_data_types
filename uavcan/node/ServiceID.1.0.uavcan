@@ -1,0 +1,10 @@
+#
+# Service ID. The ranges are defined by the specification.
+#
+
+uint9 MAX_UNREGULATED_ID = 127
+
+void7
+uint9 value
+
+@assert offset == {16}
