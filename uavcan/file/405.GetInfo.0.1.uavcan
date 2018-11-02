@@ -24,3 +24,5 @@ void4
 
 # Reserved for future use
 void64
+
+@assert offset % 8 == {0}

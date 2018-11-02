@@ -21,6 +21,9 @@ Path.1 path
 
 uint8[<=128] data
 
+@assert offset % 8 == {0}
+@assert offset.max / 8 <= 300
+
 ---
 
 Error.1 error
