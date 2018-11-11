@@ -1,6 +1,0 @@
-#
-# An Instant is a guaranteed monotonically nondecreasing timestamp.
-#
-
-# A monotonically nondecreasing duration since boot.
-Duration.1 since_boot
