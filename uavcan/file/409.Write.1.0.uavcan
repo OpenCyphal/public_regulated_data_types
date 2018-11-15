@@ -10,10 +10,6 @@
 #
 # When the write operation is complete, the server shall truncate the resulting file past the specified offset.
 #
-# Server implementation advice:
-# It is recommended to implement proper handling of concurrent writes to the same file from different clients, for
-# example by maintaining a staging area for uncompleted writes (like FTP servers do).
-#
 
 truncated uint40 offset
 
