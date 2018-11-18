@@ -16,7 +16,7 @@ uint8 PUBLISHER_TIMEOUT_PERIOD_MULTIPLIER = 3
 
 # The time when the PREVIOUS message was transmitted from the current publisher.
 # If this message is published for the first time, this field must be zero.
-SystemTime.1 previous_transmission_timestamp
+Point.1 previous_transmission_timestamp
 
 @assert offset % 8 == {0}
 @assert offset.max <= 56    # Must fit into one CAN 2.0 frame (least capable transport, smallest MTU)
