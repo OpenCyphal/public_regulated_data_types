@@ -93,7 +93,7 @@ bool first_part_of_unique_id
 # If the array contains 17 elements (which can happen only if the transfer is non-anonymous), the first 16 bytes
 # are the unique ID of the allocatee, and the last byte is the allocated node ID.
 #
-# The allocator must choose the highest unused node ID value for every allocation (except 126 and 127, those are
+# The allocator should choose the highest unused node ID value for every allocation (except 126 and 127, those are
 # reserved for network maintenance tools); e.g., if the allocation table is empty, the allocator will grant the
 # node ID 125.
 void2

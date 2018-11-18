@@ -1,0 +1,9 @@
+#
+# Defines a node ID.
+# Per the specification, node ID ranges from 0 to 127, inclusively.
+#
+
+void1
+uint7 value
+
+@assert offset == {8}
