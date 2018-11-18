@@ -4,6 +4,11 @@
 #
 # Please refer to the specification for the description of the synchronization algorithm.
 #
+# Once a time base is chosen, it cannot be changed as long as at least one node on the network is running
+# In other words, the time base cannot be changed while the network is operating.
+# An implication of this is that if there are redundant time synchronization masters, they all must
+# use the same time base always.
+#
 
 # The publication period should be within this range.
 uint16 MAX_PUBLICATION_PERIOD_ms = 1100                 # [millisecond]
@@ -14,9 +19,9 @@ uint16 MIN_PUBLICATION_PERIOD_ms = 40                   # [millisecond]
 # the switching timeout is 1.5 seconds.
 uint8 PUBLISHER_TIMEOUT_PERIOD_MULTIPLIER = 3
 
-# The time when the PREVIOUS message was transmitted from the current publisher.
+# The time when the PREVIOUS message was transmitted from the current publisher, in microseconds.
 # If this message is published for the first time, this field must be zero.
-Point.1 previous_transmission_timestamp
+truncated uint56 previous_transmission_timestamp_microsecond
 
 @assert offset % 8 == {0}
 @assert offset.max <= 56    # Must fit into one CAN 2.0 frame (least capable transport, smallest MTU)
