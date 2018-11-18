@@ -14,12 +14,9 @@ uint16 MIN_PUBLICATION_PERIOD_ms = 40                   # [millisecond]
 # the switching timeout is 1.5 seconds.
 uint8 PUBLISHER_TIMEOUT_PERIOD_MULTIPLIER = 3
 
-# The time reference in use
-TimeReference.0.1 reference
-
 # The time when the PREVIOUS message was transmitted from the current publisher.
 # If this message is published for the first time, this field must be zero.
-truncated uint53 previous_sync_message_time
+SystemTime.1 previous_transmission_timestamp
 
 @assert offset % 8 == {0}
 @assert offset.max <= 56    # Must fit into one CAN 2.0 frame (least capable transport, smallest MTU)

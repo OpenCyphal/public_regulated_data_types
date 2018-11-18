@@ -1,0 +1,13 @@
+#
+# Data type used for representing a duration since a contextually defomed event in time with microsecond resolution.
+# This data type can both be used to build higher level abstractions such as `SystemTime` and `Instant` or be used directly.
+#
+
+# This value is to never overflow. The value is 53-bit wide because:
+#
+#   - 2^53 microseconds is about 285 years, which is enough. A 64-bit microsecond counter would be
+#     unnecessarily wide and its overflow interval of 585 thousand years induces a mild existential crisis.
+#
+#   - CAN 2.0-based transports carry up to 7 bytes per frame. Time sync messages must use single-frame
+#     transfers, which means that the `SystemTime` type can't be wider than 56 bits.
+truncated uint53 microseconds
