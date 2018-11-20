@@ -1,6 +1,8 @@
 #
-# This message is used for dynamic node ID allocation on CAN 2.0 based transports.
-# For other kinds of transports there is a generic, much simpler and more capable definition.
+# The suffix "MTU8" indicates that this message is made to be compatible with transports where the maximum
+# transmission unit size is only 8 bytes, such as CAN 2.0.
+# For other kinds of transports there is a generic, much simpler and more capable definition; it can't be
+# used with low-MTU transports, hence the need for this special case definition.
 #
 # When a node needs to request a node ID dynamically, it will transmit an anonymous message transfer of this type.
 #

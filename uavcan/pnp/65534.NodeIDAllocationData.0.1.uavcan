@@ -1,7 +1,8 @@
 #
-# This message is used for dynamic node ID allocation on all transports except CAN 2.0.
-# For CAN 2.0 there is a dedicated message definition that takes into account the limitations of that transport,
-# making the allocation protocol much more complex.
+# This message is used for dynamic node ID allocation on all transports where the maximum transmission unit
+# size is at least 18 bytes (which excludes CAN2.0).
+# For low-MTU transports such as CAN2.0 there is a dedicated message definition that takes into account the
+# limitations of that transport, making the allocation protocol much more complex.
 #
 # When a node needs to request a node ID dynamically, it will transmit an anonymous message transfer of this type.
 #
@@ -96,3 +97,4 @@ uavcan.node.NodeID.1.0 node_id
 uint8[16] unique_id
 
 @assert offset % 8 == {0}
+@assert offset.max / 8 == 17    # Plus the tail byte yields 18
