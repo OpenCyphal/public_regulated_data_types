@@ -3,7 +3,8 @@
 # Generally it should be published at the lowest priority level.
 #
 
-# Optional timestamp; zero if undefined.
+# Optional timestamp in the network-synchronized time system; zero if undefined.
+# The timestamp value conveys the exact moment when the reported event took place.
 uavcan.time.Point.1 timestamp
 
 # Standard severity, 3 bit wide.
