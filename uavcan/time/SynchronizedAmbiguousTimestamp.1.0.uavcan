@@ -1,0 +1,19 @@
+#
+# Nested data type used for representing a network-wide synchronized timestamp with microsecond resolution.
+# Unlike the wider alternative, this timestamp value expires in ~16 seconds due to integer overflow of the
+# microsecond timestamp field: 2**24 / 1e6 = 16.777216 seconds.
+# This data type should not be used unless network throughput and latency are of utmost importance,
+# because it is inherently unsafe: a delay of more than the specified above limit will invalidate the timestamp
+# and its users will not be able to detect that. Instead, the full non-overflowing non-ambiguous timestamp
+# should be preferred.
+#
+
+# Zero means that the time is not known.
+uint24 UNKNOWN = 0
+
+# Expiration timeout.
+uint25 OVERFLOW_PERIOD_MICROSECOND = 16777216
+
+# Least significant bits of the current microsecond counter synchronized with the currently active time
+# synchronization master.
+truncated uint24 microsecond
