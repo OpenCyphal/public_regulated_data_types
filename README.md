@@ -2,6 +2,7 @@ Regulated DSDL definitions
 ==========================
 
 [![Build Status](https://travis-ci.org/UAVCAN/dsdl.svg?branch=master)](https://travis-ci.org/UAVCAN/dsdl)
+[![Forum](https://img.shields.io/discourse/https/forum.uavcan.org/users.svg)](https://forum.uavcan.org)
 
 This repository contains definitions of the regulated UAVCAN data types.
 Regulated data types include the standard data types and vendor-specific public definitions.
@@ -13,7 +14,7 @@ whereas vendor-specific public definitions are contained in separate appropriate
 Vendors seeking to make their data types regulated (e.g., for easier integration of their COTS equipment,
 or if fixed port ID are desired) are advised to send a pull request to this repository.
 If a fixed regulated ID is needed, vendors are free to choose any unoccupied identifier from the ranges
-defined by the specification.
+defined by the specification before submitting the pull request.
 
 Contributors must obey the guidelines defined in this document.
 
