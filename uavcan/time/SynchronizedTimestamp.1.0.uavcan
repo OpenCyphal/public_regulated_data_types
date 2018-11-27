@@ -1,5 +1,5 @@
 #
-# Nested data type used for representing a point in time with microsecond resolution.
+# Nested data type used for representing a network-wide synchronized timestamp with microsecond resolution.
 # This data type is highly recommended for use both in standard and vendor-specific messages alike.
 #
 
@@ -7,10 +7,8 @@
 uint56 UNKNOWN = 0
 
 # The number of microseconds that have passed since some arbitrary moment in the past.
-# The moment of origin is defined per-application. Commonly chosen time bases are:
-#   - GPS time (other satellite positioning systems use different incompatible time bases)
-#   - TAI
-#   - In simple centralized applications: the local monotonic clock of the central controller
+# The moment of origin (i.e., the time base) is defined per-application. The current time base in use
+# can be requested from the time synchronization master, see the corresponding service definition.
 #
 # This value is to never overflow. The value is 56-bit wide because:
 #
@@ -19,4 +17,4 @@ uint56 UNKNOWN = 0
 #
 #   - CAN 2.0-based transports carry up to 7 bytes per frame. Time sync messages must use single-frame
 #     transfers, which means that the value can't be wider than 56 bits.
-truncated uint56 microseconds
+truncated uint56 microsecond

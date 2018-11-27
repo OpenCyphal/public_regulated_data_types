@@ -22,8 +22,8 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
 0       | 32767     | Application-specific unregulated identifiers (freely chosen by the integrator)
-57344   | 59391     | Vendor-specific fixed identifiers (stored in a public repository)
-62804   | 65535     | Standard fixed identifiers
+57344   | 59391     | Vendor-specific regulated identifiers (the definitions are stored in a public repository)
+62804   | 65535     | Standard regulated identifiers
 
 ### Services
 
@@ -33,8 +33,8 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
 0       | 127       | Application-specific unregulated identifiers (freely chosen by the integrator)
-256     | 319       | Vendor-specific fixed identifiers (stored in a public repository)
-384     | 511       | Standard fixed identifiers
+256     | 319       | Vendor-specific regulated identifiers (the definitions are stored in a public repository)
+384     | 511       | Standard regulated identifiers
 
 ## Standard static identifier allocation
 
@@ -61,6 +61,7 @@ Namespace                   | Lower bound (inclusive)
 `uavcan.file`               | 400
 `uavcan.node`               | 430
 `uavcan.internet`           | 500
+`uavcan.time`               | 510
 
 ## Generic data type definitions
 

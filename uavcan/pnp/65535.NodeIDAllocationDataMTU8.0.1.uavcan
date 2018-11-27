@@ -1,6 +1,8 @@
 #
-# This message is used for dynamic node ID allocation on CAN 2.0 based transports.
-# For other kinds of transports there is a generic, much simpler and more capable definition.
+# The suffix "MTU8" indicates that this message is made to be compatible with transports where the maximum
+# transmission unit size is only 8 bytes, such as CAN 2.0.
+# For other kinds of transports there is a generic, much simpler and more capable definition; it can't be
+# used with low-MTU transports, hence the need for this special case definition.
 #
 # When a node needs to request a node ID dynamically, it will transmit an anonymous message transfer of this type.
 #
@@ -93,7 +95,7 @@ bool first_part_of_unique_id
 # If the array contains 17 elements (which can happen only if the transfer is non-anonymous), the first 16 bytes
 # are the unique ID of the allocatee, and the last byte is the allocated node ID.
 #
-# The allocator must choose the highest unused node ID value for every allocation (except 126 and 127, those are
+# The allocator should choose the highest unused node ID value for every allocation (except 126 and 127, those are
 # reserved for network maintenance tools); e.g., if the allocation table is empty, the allocator will grant the
 # node ID 125.
 void2

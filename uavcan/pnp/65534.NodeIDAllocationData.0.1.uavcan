@@ -1,7 +1,8 @@
 #
-# This message is used for dynamic node ID allocation on all transports except CAN 2.0.
-# For CAN 2.0 there is a dedicated message definition that takes into account the limitations of that transport,
-# making the allocation protocol much more complex.
+# This message is used for dynamic node ID allocation on all transports where the maximum transmission unit
+# size is at least 18 bytes (which excludes CAN2.0).
+# For low-MTU transports such as CAN2.0 there is a dedicated message definition that takes into account the
+# limitations of that transport, making the allocation protocol much more complex.
 #
 # When a node needs to request a node ID dynamically, it will transmit an anonymous message transfer of this type.
 #
@@ -57,20 +58,19 @@ uint8 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
 # If the transfer is anonymous, this is the preferred ID.
 # If the transfer is non-anonymous, this is the allocated ID.
 #
-# If the allocatee does not have any preference, this value must be set to zero. In this case, the allocator
-# must choose the highest unused node ID value for this allocation (except 126 and 127, those are reserved for
-# network maintenance tools). E.g., if the allocation table is empty and the node has requested an allocation
-# without any preference, the allocator will grant the node ID 125.
-#
-# If the preferred node ID is not zero, the allocator will traverse the allocation table starting from the
-# preferred node ID upward, until a free node ID is found. If a free node ID could not be found, the
-# allocator will restart the search from the preferred node ID downward, until a free node ID is found.
+# If the allocatee does not have any preference, it should request the highest possible node ID, which is 125,
+# because 126 and 127 are reserved for network maintenance tools. Requesting 126 and 127 is not prohibited,
+# but the allocator is recommended to avoid granting these node ID, using nearest available lower value instead.
+# The allocator will traverse the allocation table starting from the preferred node ID upward,
+# until a free node ID is found (or the first ID reserved for network maintenance tools is reached).
+# If a free node ID could not be found, the allocator will restart the search from the preferred node ID
+# downward, until a free node ID is found.
 #
 # In pseudocode:
 #   int8_t findFreeNodeID(const uint8_t preferred)
 #   {
 #       // Search up
-#       int8_t candidate = (preferred > 0) ? preferred : 125;
+#       int8_t candidate = preferred;
 #       while (candidate <= 125)
 #       {
 #           if (!isOccupied(candidate))
@@ -78,7 +78,7 @@ uint8 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
 #           candidate++;
 #       }
 #       // Search down
-#       candidate = (preferred > 0) ? preferred : 125;
+#       candidate = preferred;
 #       while (candidate > 0)
 #       {
 #           if (!isOccupied(candidate))
@@ -88,9 +88,7 @@ uint8 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
 #       // Not found
 #       return -1;
 #   }
-uint7 NODE_ID_ANY = 0       # Valid only when requesting an allocation; means that there is no preference.
-uint7 node_id
-void1
+uavcan.node.NodeID.1.0 node_id
 
 # The unique ID of the allocatee.
 # If this is a non-anonymous transfer, allocatees will match this value against their own unique ID,
@@ -99,3 +97,4 @@ void1
 uint8[16] unique_id
 
 @assert offset % 8 == {0}
+@assert offset.max / 8 == 17    # Plus the tail byte yields 18
