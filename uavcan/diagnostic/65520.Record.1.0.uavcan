@@ -1,0 +1,22 @@
+#
+# Generic human-readable text message for logging and displaying purposes.
+# Generally it should be published at the lowest priority level.
+#
+
+# Optional timestamp in the network-synchronized time system; zero if undefined.
+# The timestamp value conveys the exact moment when the reported event took place.
+uavcan.time.SynchronizedTimestamp.1 timestamp
+
+# Standard severity, 3 bit wide.
+Severity.1 severity
+
+# Short name of the message source within the publishing node.
+uint8[<32] source
+
+@assert offset % 8 == {0}
+
+# The actual useful text of the message.
+# Normally, messages should be kept as short as possible, especially those of high severity.
+uint8[<256] text
+
+@assert offset % 8 == {0}
