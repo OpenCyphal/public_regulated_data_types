@@ -61,6 +61,7 @@ Namespace                   | Lower bound (inclusive)
 `uavcan.file`               | 400
 `uavcan.node`               | 430
 `uavcan.internet`           | 500
+`uavcan.time`               | 510
 
 ## Generic data type definitions
 
