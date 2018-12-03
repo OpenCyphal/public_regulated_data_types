@@ -36,7 +36,7 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
 0       | 32767     | Unregulated identifiers
-57344   | 59391     | Third-party regulated identifiers
+57344   | 59391     | Non-standard (vendor-specific) regulated identifiers
 62804   | 65535     | Standard regulated identifiers
 
 ### Services
@@ -47,7 +47,7 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
 0       | 127       | Unregulated identifiers
-256     | 319       | Third-party regulated identifiers
+256     | 319       | Non-standard (vendor-specific) regulated identifiers
 384     | 511       | Standard regulated identifiers
 
 ## Standard data types
@@ -114,7 +114,7 @@ in the namespace `uavcan.register`.
 The register protocol provides a highly generic interface to vendor-specific functionality
 and configuration parameters via named registers.
 
-## Third-party data types
+## Non-standard regulated data types
 
 Every vendor must have a dedicated root namespace.
 The root namespace should be named after the vendor's legal entity name.
@@ -127,7 +127,7 @@ In order to maximize compatibility with resource-constrained nodes,
 standard data structures should not be larger than 366 bytes when serialized.
 The number is dictated by the size of the largest data structure, which is the response part of the service
 `uavcan.node.GetInfo`.
-Third-party types are recommended to follow this advice as well to maximize compatibility.
+Non-standard (vendor-specific) types are recommended to follow this advice as well to maximize compatibility.
 
 Follow the naming conventions defined in the specification.
 
