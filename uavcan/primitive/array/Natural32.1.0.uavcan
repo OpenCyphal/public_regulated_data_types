@@ -1,0 +1,4 @@
+void1
+uint32[<=64] value
+@assert offset % 8 == {0}
+@assert offset.max / 8 == 257
