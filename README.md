@@ -95,10 +95,6 @@ In relation to body, the preferred standard is as follows: **X** -- forward, **Y
 In case of cameras, the following convention should be preferred: **Z** -- forward, **X** -- right, **Y** -- down.
 For world frames, the North-East-Down (NED) notation should be preferred.
 
-Rotation and angular velocities are represented in fixed-axis roll (about X), pitch (about Y), and yaw (about Z).
-Quaternions and other redundant representations are intentionally avoided due to bandwidth and latency concerns;
-should they ever be used, the following element ordering should be adopted: W, X, Y, Z.
-
 #### Primitives
 
 A collection of primitive data types is intended as a very generic solution for odd use cases
