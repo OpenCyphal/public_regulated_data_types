@@ -1,10 +1,22 @@
-Standard DSDL definitions
-=========================
+Regulated DSDL definitions
+==========================
 
 [![Build Status](https://travis-ci.org/UAVCAN/dsdl.svg?branch=master)](https://travis-ci.org/UAVCAN/dsdl)
+[![Forum](https://img.shields.io/discourse/https/forum.uavcan.org/users.svg)](https://forum.uavcan.org)
 
-This repository contains the DSDL definitions of the standard UAVCAN messages and services.
-It is intended for inclusion as a submodule into implementations of the UAVCAN protocol stack.
+This repository contains definitions of the regulated UAVCAN data types.
+Regulated data types include the standard data types and vendor-specific public definitions.
+
+Per the specification, standard data types are contained in the root namespace `uavcan`,
+whereas vendor-specific public definitions are contained in separate appropriately named root namespaces
+(e.g., `sirius_cyber_corp` for the Sirius Cybernetics Corporation).
+
+Vendors seeking to make their data types regulated (e.g., for easier integration of their COTS equipment,
+or if fixed port ID are desired) are advised to send a pull request to this repository.
+If a fixed regulated ID is needed, vendors are free to choose any unoccupied identifier from the ranges
+defined by the specification before submitting the pull request.
+
+Contributors must obey the guidelines defined in this document.
 
 UAVCAN is an open lightweight protocol designed for reliable communication in aerospace and robotic applications via
 robust vehicle bus networks.
@@ -14,6 +26,8 @@ robust vehicle bus networks.
 
 ## Identifier ranges
 
+Refer to the specification for background information and motivation.
+
 ### Subjects
 
 For message subjects, the following range mapping is adopted (limits inclusive).
@@ -21,8 +35,8 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
-0       | 32767     | Application-specific unregulated identifiers (freely chosen by the integrator)
-57344   | 59391     | Vendor-specific regulated identifiers (the definitions are stored in a public repository)
+0       | 32767     | Unregulated identifiers
+57344   | 59391     | Non-standard (vendor-specific) regulated identifiers
 62804   | 65535     | Standard regulated identifiers
 
 ### Services
@@ -32,13 +46,15 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
-0       | 127       | Application-specific unregulated identifiers (freely chosen by the integrator)
-256     | 319       | Vendor-specific regulated identifiers (the definitions are stored in a public repository)
+0       | 127       | Unregulated identifiers
+256     | 319       | Non-standard (vendor-specific) regulated identifiers
 384     | 511       | Standard regulated identifiers
 
-## Standard static identifier allocation
+## Standard data types
 
-### Subjects
+### Standard fixed identifier allocation
+
+#### Subjects
 
 Ordered by priority from high to low.
 
@@ -50,7 +66,7 @@ Namespace                   | Lower bound (inclusive)
 `uavcan.internet`           | 65510
 `uavcan.diagnostic`         | 65520
 
-### Services
+#### Services
 
 Ordered by priority from high to low.
 
@@ -63,17 +79,12 @@ Namespace                   | Lower bound (inclusive)
 `uavcan.internet`           | 500
 `uavcan.time`               | 510
 
-## Generic data type definitions
+### Generic data type definitions
 
-### SI
+#### SI
 
 The namespace `uavcan.si` contains a collection of generic data types describing commonly used
 physical quantities.
-
-Some of the messages are time stamped, in which case the time stamp is always situated at the end in order
-to facilitate binary compatibility with non-timestamped messages (both time-stamped and non-time-stamped
-messages have identical headers, so if the time stamp is not required they can be used interchangeably).
-Names of the time stamped messages have the suffux `TS`.
 
 All units follow the [International System of Units](https://en.wikipedia.org/wiki/International_System_of_Units).
 All units are unscaled basic units of measure (e.g., meters rather than kilometers, kilograms rather than milligrams),
@@ -88,7 +99,7 @@ Rotation and angular velocities are represented in fixed-axis roll (about X), pi
 Quaternions and other redundant representations are intentionally avoided due to bandwidth and latency concerns;
 should they ever be used, the following element ordering should be adopted: W, X, Y, Z.
 
-### Primitives
+#### Primitives
 
 A collection of primitive data types is intended as a very generic solution for odd use cases
 and prototyping. They permit the user to broadcast a completely arbitrary value via the bus
@@ -99,17 +110,25 @@ Since these types lack any semantic information, their usage in production envir
 Another important application of these types is in the schemaless register protocol defined
 in the namespace `uavcan.register`.
 
-### Registers
+#### Registers
 
 The register protocol provides a highly generic interface to vendor-specific functionality
 and configuration parameters via named registers.
 
+## Non-standard regulated data types
+
+Every vendor must have a dedicated root namespace.
+The root namespace should be named after the vendor's legal entity name.
+
+All root namespaces are contained in the root folder of this repository.
+
 ## Guidelines for data type authors
 
 In order to maximize compatibility with resource-constrained nodes,
-standard messages should not be larger than 366 bytes when serialized.
+standard data structures should not be larger than 366 bytes when serialized.
 The number is dictated by the size of the largest data structure, which is the response part of the service
 `uavcan.node.GetInfo`.
+Non-standard (vendor-specific) types are recommended to follow this advice as well to maximize compatibility.
 
 Follow the naming conventions defined in the specification.
 
@@ -130,7 +149,7 @@ Here is an example:
     #
     # This is a header comment.
     # It explains what this data type definition is for and why do we need it.
-    # Mind the empty lines before and after the header comment.
+    # Mind the blank comment lines before and after the header comment.
     #
 
     # This space is reserved for future use.
