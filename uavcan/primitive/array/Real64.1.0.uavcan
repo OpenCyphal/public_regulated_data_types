@@ -1,9 +1,4 @@
-#
-# Exactly representable integers: [-2**53, +2**53]
-#
-
 void2
-float64[<=32] value
-
+float64[<=32] value                     # Exactly representable integers: [-2**53, +2**53]
 @assert offset % 8 == {0}
 @assert offset.max / 8 == 257
