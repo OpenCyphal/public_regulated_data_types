@@ -1,0 +1,8 @@
+#
+# An ASCII register name.
+#
+
+void1
+uint8[<=70] name
+
+@assert offset % 8 == {0}

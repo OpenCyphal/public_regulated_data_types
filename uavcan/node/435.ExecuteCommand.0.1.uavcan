@@ -40,7 +40,6 @@ uint16 COMMAND_FACTORY_RESET = 65532
 # Further operation may no longer be possible until a restart command is executed.
 uint16 COMMAND_EMERGENCY_STOP = 65531
 
-# This is related to "uavcan.register".
 # This command instructs the node to store the current configuration parameter values and other persistent states
 # to the non-volatile storage. Nodes are allowed to manage persistent states automatically, obviating the need for
 # this command by committing all such data to the non-volatile memory automatically as necessary. However, some
