@@ -27,7 +27,7 @@
 # no port ID that is lower than the greatest value in the returned array that is not listed in the array, because
 # in that case the client will never be able to obtain that value.
 void7
-PortID.1 port_id_lower_boundary
+PortID.1.0 port_id_lower_boundary
 
 @assert offset == {24}
 

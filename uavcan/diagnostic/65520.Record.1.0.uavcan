@@ -5,10 +5,10 @@
 
 # Optional timestamp in the network-synchronized time system; zero if undefined.
 # The timestamp value conveys the exact moment when the reported event took place.
-uavcan.time.SynchronizedTimestamp.1 timestamp
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
 
 # Standard severity, 3 bit wide.
-Severity.1 severity
+Severity.1.0 severity
 
 # Short name of the message source within the publishing node.
 uint8[<32] source
