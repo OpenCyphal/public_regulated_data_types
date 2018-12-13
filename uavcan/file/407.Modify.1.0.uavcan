@@ -38,13 +38,13 @@ bool preserve_source            # Do not remove the source. Used to copy instead
 bool overwrite_destination      # If the destination exists, remove it beforehand.
 void30
 
-Path.1 source
-Path.1 destination
+Path.1.0 source
+Path.1.0 destination
 
 @assert offset % 8 == {0}
 
 ---
 
-Error.1 error
+Error.1.0 error
 
 @assert offset % 8 == {0}

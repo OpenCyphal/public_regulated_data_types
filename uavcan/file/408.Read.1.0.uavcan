@@ -31,13 +31,13 @@
 
 truncated uint40 offset
 
-Path.1 path
+Path.1.0 path
 
 @assert offset % 8 == {0}
 
 ---
 
-Error.1 error
+Error.1.0 error
 
 void7
 uint8[<=256] data

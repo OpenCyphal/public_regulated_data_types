@@ -20,7 +20,7 @@ uint32 entry_index
 
 void32                  # Reserved for future use
 
-Path.1 directory_path
+Path.1.0 directory_path
 
 @assert offset % 8 == {0}
 
@@ -35,6 +35,6 @@ void32                  # Reserved for future use
 # For example, suppose there is a file "/foo/bar/baz.bin". Listing the directory with the path "/foo/bar/" (the slash
 # at the end is optional) at the index 0 will return "baz.bin". Listing the same directory at the index 1 (or any
 # higher) will return an empty name "", indicating that the caller has reached the end of the list.
-Path.1 entry_base_name
+Path.1.0 entry_base_name
 
 @assert offset % 8 == {0}
