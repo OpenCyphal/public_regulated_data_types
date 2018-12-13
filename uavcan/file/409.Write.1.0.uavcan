@@ -13,7 +13,7 @@
 
 truncated uint40 offset
 
-Path.1 path
+Path.1.0 path
 
 uint8[<=128] data
 
@@ -22,4 +22,4 @@ uint8[<=128] data
 
 ---
 
-Error.1 error
+Error.1.0 error

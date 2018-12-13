@@ -2,12 +2,12 @@
 # Information about a remote file system entry (file, directory, etc).
 #
 
-Path.1 path
+Path.1.0 path
 
 ---
 
 # Result of the operation
-Error.1 error
+Error.1.0 error
 
 # File size in bytes. Should be set to zero for directories.
 truncated uint40 size
