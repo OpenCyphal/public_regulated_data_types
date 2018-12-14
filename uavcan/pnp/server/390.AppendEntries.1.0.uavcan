@@ -23,8 +23,10 @@ uint32 prev_log_term
 uint8 prev_log_index
 uint8 leader_commit
 
-# Worst-case replication time per Follower can be computed as:
-#   worst replication time = (127 log entries) * (2 trips of next_index) * (request interval per Follower)
+# Worst case replication time per Follower can be computed as:
+#   worst replication time = (128 log entries) * (2 trips of next_index) * (request interval per Follower)
+# E.g., given request interval of 0.5 seconds, the worst case replication time is 128*2*0.5 = 128 seconds.
+# This is the amount of time it will take for a new Follower to reconstruct a full replica of the distributed log.
 void7
 Entry.1.0[<=1] entries
 
