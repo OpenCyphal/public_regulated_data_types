@@ -1,0 +1,3 @@
+uint8[<256] value
+@assert offset % 8 == {0}
+@assert offset.max / 8 == 256

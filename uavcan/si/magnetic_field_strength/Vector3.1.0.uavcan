@@ -1,0 +1,4 @@
+uavcan.time.SynchronizedAmbiguousTimestamp.1.0 timestamp
+float32[3] tesla
+@assert offset / 8 == {15}
+@assert offset % 8 == {0}

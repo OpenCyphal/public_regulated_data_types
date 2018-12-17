@@ -1,0 +1,3 @@
+uavcan.time.SynchronizedAmbiguousTimestamp.1.0 timestamp
+float32 radian
+@assert offset / 8 == {7}               # Single CAN 2.0 frame
