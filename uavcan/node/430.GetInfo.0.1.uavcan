@@ -1,6 +1,6 @@
 #
 # Full node info request.
-# All of the returned information must be static (unchanged) while the node is running, excepting the Status field.
+# All of the returned information must be static (unchanged) while the node is running, excepting the heartbeat field.
 # It is highly recommended to support this service on all nodes.
 #
 
