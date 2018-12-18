@@ -121,7 +121,7 @@ All root namespaces are contained in the root folder of this repository.
 ## Guidelines for data type authors
 
 In order to maximize compatibility with resource-constrained nodes,
-standard data structures should not be larger than 366 bytes when serialized.
+standard data structures should not be larger than 353 bytes when serialized.
 The number is dictated by the size of the largest data structure, which is the response part of the service
 `uavcan.node.GetInfo`.
 Non-standard (vendor-specific) types are recommended to follow this advice as well to maximize compatibility.

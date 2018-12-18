@@ -45,7 +45,7 @@ uint8[16] unique_id
 # Allowed characters are: a-z (lowercase ASCII letters) 0-9 (decimal digits) . (dot) - (dash) _ (underscore).
 # Node name is a reversed Internet domain name (like Java packages), e.g. "com.manufacturer.project.product".
 void2
-uint8[<64] name
+uint8[<=50] name
 
 # The value of an arbitrary hash function applied to the software image. Not to be changed while the node is runnning.
 # This field can be used to detect whether the software or firmware running on the node is an exact
