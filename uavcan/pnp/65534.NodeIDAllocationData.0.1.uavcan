@@ -88,7 +88,7 @@ uint8 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
 #       // Not found
 #       return -1;
 #   }
-uavcan.node.NodeID.1.0 node_id
+uavcan.node.ID.1.0 node_id
 
 # The unique ID of the allocatee.
 # If this is a non-anonymous transfer, allocatees will match this value against their own unique ID,
