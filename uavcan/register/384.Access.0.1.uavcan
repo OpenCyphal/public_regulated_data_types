@@ -31,6 +31,10 @@
 #     The dimensionality requirement does not apply to inherently variable-length values such as strings and
 #     unstructured chunks.
 #
+# In order to discover the type of a register, the caller needs to invoke this service with the write request set
+# to Empty. The response will contain the current value of the register with the type information (which doesn't
+# change).
+#
 # Register name may contain:
 #   - All ASCII alphanumeric characters (a-z, A-Z, 0-9)
 #   - Dot (.)
