@@ -5,7 +5,7 @@
 
 # The port of interest; can be either a service or a message.
 void7
-PortID.1.0 port_id
+ID.1.0 port_id
 
 @assert offset == {24}
 
@@ -23,6 +23,6 @@ PortID.1.0 port_id
 # such incident should be reported here via this field. On the other hand, if the message or service
 # call was processed properly, but the application could not act upon that data, it should not be
 # reported here because that problem should be attributed to a different level of abstraction.
-IOStatistics.0.1 statistics
+uavcan.node.IOStatistics.0.1 statistics
 
 @assert offset % 8 == {0}

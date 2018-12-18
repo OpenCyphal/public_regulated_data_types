@@ -5,7 +5,7 @@
 
 # The port of interest; can be either a service or a message.
 void7
-PortID.1.0 port_id
+ID.1.0 port_id
 
 @assert offset == {24}
 
@@ -25,6 +25,6 @@ void2
 uint8[<64] data_type_full_name
 
 # The version numbers of the data type used at this port.
-Version.1.0 data_type_version
+uavcan.node.Version.1.0 data_type_version
 
 @assert offset % 8 == {0}
