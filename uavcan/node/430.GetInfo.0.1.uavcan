@@ -1,16 +1,10 @@
 #
 # Full node info request.
-# All of the returned information must be static (unchanged) while the node is running, excepting the heartbeat field.
+# All of the returned information must be static (unchanged) while the node is running.
 # It is highly recommended to support this service on all nodes.
 #
 
 ---
-
-# The current node status (most recent heartbeat message).
-# This is the same value that is periodically published by the node.
-# The objective of its inclusion here is to ensure that the node did not restart since the last time
-# this message was received from it, because a restart may invalidate the node information.
-Heartbeat.1.0 most_recent_heartbeat
 
 # The UAVCAN protocol version implemented on this node, both major and minor.
 # Not to be changed while the node is running.
@@ -38,7 +32,7 @@ uint64 software_vcs_revision_id
 uint8[16] unique_id
 
 # Manual serialization note: only fixed-size fields up to this point. The following fields are dynamically sized.
-@assert offset == {37 * 8}
+@assert offset == {30 * 8}
 
 # Human-readable non-empty ASCII node name. An empty name is not permitted.
 # The name must not be changed while the node is running.
@@ -64,9 +58,10 @@ uint8[<=50] name
 void7
 uint64[<=1] software_image_crc
 
-# The certificate of authenticity (COA) of the node, 255 bytes max, optional.
-# E.g., this field can be used for reporting RSA signatures (up to RSA-2040).
+# The certificate of authenticity (COA) of the node, 222 bytes max, optional. This field can be used for
+# reporting digital signatures (e.g., RSA-1776, or ECDSA if a higher degree of cryptographic strength is desired).
 # Leave empty if not used. Not to be changed while the node is runnning.
-uint8[<256] certificate_of_authenticity
+uint8[<=222] certificate_of_authenticity
 
 @assert offset % 8 == {0}
+@assert offset.max == (313 * 8)     # At most five CAN FD frames

@@ -5,7 +5,7 @@ import time
 import pydsdl
 
 
-MAX_SERIALIZED_BIT_LENGTH = 366 * 8     # Dictated by uavcan.node.GetInfo.Response
+MAX_SERIALIZED_BIT_LENGTH = 313 * 8     # See README
 
 
 def on_print(definition, line, value):
