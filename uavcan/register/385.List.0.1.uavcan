@@ -1,0 +1,13 @@
+#
+# This service allows the caller to discover the names of all registers available on the server
+# by iterating the index field from zero until an empty name is returned.
+#
+
+uint16 index
+
+---
+
+# Empty name in response means that the index is out of bounds, i.e., discovery is finished.
+Name.0.1 name
+
+@assert offset % 8 == {0}
