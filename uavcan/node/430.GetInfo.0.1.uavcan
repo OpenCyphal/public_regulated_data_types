@@ -18,7 +18,7 @@ Version.1.0 protocol_version
 Version.1.0 hardware_version
 Version.1.0 software_version
 
-# A version control system (VCS) revision number or hash. Not to be changed while the node is runnning.
+# A version control system (VCS) revision number or hash. Not to be changed while the node is running.
 # For example, this field can be used for reporting the short git commit hash of the current
 # software revision.
 # Set to zero if not used.
@@ -41,7 +41,7 @@ uint8[16] unique_id
 void2
 uint8[<=50] name
 
-# The value of an arbitrary hash function applied to the software image. Not to be changed while the node is runnning.
+# The value of an arbitrary hash function applied to the software image. Not to be changed while the node is running.
 # This field can be used to detect whether the software or firmware running on the node is an exact
 # same version as a certain specific revision. This field provides a very strong identity guarantee,
 # unlike the version fields above, which can be the same for different builds of the software.
@@ -60,7 +60,7 @@ uint64[<=1] software_image_crc
 
 # The certificate of authenticity (COA) of the node, 222 bytes max, optional. This field can be used for
 # reporting digital signatures (e.g., RSA-1776, or ECDSA if a higher degree of cryptographic strength is desired).
-# Leave empty if not used. Not to be changed while the node is runnning.
+# Leave empty if not used. Not to be changed while the node is running.
 uint8[<=222] certificate_of_authenticity
 
 @assert offset % 8 == {0}
