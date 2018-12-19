@@ -25,4 +25,4 @@ ID.1.0 port_id
 # reported here because that problem should be attributed to a different level of abstraction.
 uavcan.node.IOStatistics.0.1 statistics
 
-@assert offset % 8 == {0}
+@assert offset == {15 * 8}      # 15 bytes max; this service is optimized for high-frequency polling
