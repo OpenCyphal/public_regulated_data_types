@@ -6,97 +6,14 @@
 #
 # When a node needs to request a node ID dynamically, it will transmit an anonymous message transfer of this type.
 #
-# In order to reduce the probability of CAN ID collisions when multiple nodes are publishing this request over the CAN
-# bus, or any other kind of transport where similar limitations are present, the CAN ID field of the anonymous message
-# transfer includes a "discriminator", which is a special field that has to be filled with pseudo-random data by the
-# transmitting node. Since discriminator collisions are likely to happen, nodes that are requesting dynamic
-# allocations need to be able to handle them correctly. Hence, a collision resolution protocol is defined (like
-# CSMA/CD). The collision resolution protocol is based on two randomized transmission intervals:
-# - Request period - Trequest.
-# - Follow up delay - Tfollowup.
-#
-# The recommended randomization ranges for these intervals are documented in the constants of this message type
-# (see below). The random intervals must be chosen anew per transmission, whereas the discriminator value is allowed
-# to stay constant per node.
-#
-# In the below description the following terms are used:
-# - Allocator - the node that serves allocation requests.
-# - Allocatee - the node that requests an allocation from the Allocator.
-#
-# The response timeout is not explicitly defined for this protocol, as the Allocatee will request a new allocation
-# Trequest units of time later again, unless an allocation has been granted. Despite this, the implementation can
-# consider the value of FOLLOWUP_TIMEOUT_ms as an allocation timeout, if desired.
-#
-# On the allocatee's side the protocol is defined through the following sets of rules.
-#
-#     Rule A. On initialization:
-#     1. The allocatee subscribes to this message.
-#     2. The allocatee starts the Request Timer with a random interval of Trequest.
-#
-#     Rule B. On expiration of the Request Timer:
-#     1. Request Timer restarts with a random interval of Trequest.
-#     2. The allocatee broadcasts a first stage Allocation request message, where the fields are populated as follows:
-#        first_part_of_unique_id            - true
-#        unique_id_and_allocated_node_id    - first MAX_LENGTH_OF_UNIQUE_ID_IN_REQUEST bytes of the unique ID of the
-#                                             allocatee
-#
-#     Rule C. On any Allocation message, even if other rules also match:
-#     1. Request Timer restarts with a random interval of Trequest.
-#
-#     Rule D. On an Allocation message WHERE (source node ID is non-anonymous) AND (allocatee's unique ID starts with
-#             the bytes available in the field unique_id_and_allocated_node_id) AND (unique_id_and_allocated_node_id
-#             is less than 17 bytes long):
-#     1. The allocatee waits for Tfollowup units of time, while listening for other Allocation messages. If an
-#        Allocation message is received during this time, the execution of this rule will be terminated.
-#        Also see rule C.
-#     2. The allocatee broadcasts a second stage Allocation request message, where the fields are populated as follows:
-#        first_part_of_unique_id            - false
-#        unique_id_and_allocated_node_id    - at most MAX_LENGTH_OF_UNIQUE_ID_IN_REQUEST bytes of the local unique ID
-#                                             with an offset equal to number of bytes in the received unique ID
-#
-#     Rule E. On an Allocation message WHERE (source node ID is non-anonymous) AND (the array
-#             unique_id_and_allocated_node_id contains 17 bytes) AND (the first 16 bytes of the field
-#             unique_id_and_allocated_node_id fully match the allocatee's unique ID) AND (the last byte in the
-#             received array unique_id_and_allocated_node_id is not zero):
-#     1. Request Timer stops.
-#     2. The allocatee initializes its node ID with the value of the last byte in unique_id_and_allocated_node_id.
-#     3. The allocatee terminates subscription to Allocation messages.
-#     4. Exit.
-#
 
-# Recommended randomization range for request period.
-#
-# These definitions have an advisory status; it is OK to pick higher values for both bounds, as it won't affect
-# protocol compatibility. In fact, it is advised to pick higher values if the target application is not concerned
-# about the time it will spend on completing the dynamic node ID allocation procedure, as it will reduce
-# interference with other nodes, possibly of higher importance.
-#
-# The lower bound shall not be lower than FOLLOWUP_TIMEOUT_ms, otherwise the request may conflict with a followup.
-uint16 MAX_REQUEST_PERIOD_ms = 1000     # It is OK to exceed this value
-uint16 MIN_REQUEST_PERIOD_ms = 600      # It is OK to exceed this value
+uint16 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
 
-# Recommended randomization range for followup delay.
-# The upper bound shall not exceed FOLLOWUP_TIMEOUT_ms, because the allocator will reset the state on its end.
-uint16 MAX_FOLLOWUP_DELAY_ms = 400
-uint16 MIN_FOLLOWUP_DELAY_ms = 0        # Defined only for consistency; will always be zero.
+# Lower 55 bits of a CRC-64WE applied to the full unique ID
+truncated uint55 unique_id_hash
 
-# Allocator will reset its state if there was no follow-up request in this amount of time.
-uint16 FOLLOWUP_TIMEOUT_ms = 500
+# Must be empty in request messages
+uavcan.node.ID.1.0[<=1] allocated_node_id
 
-# This limitation is needed to ensure that all request transfers are single-frame.
-uint8 MAX_LENGTH_OF_UNIQUE_ID_IN_REQUEST = 6
-
-# If transfer is anonymous, this field indicates first-stage request.
-# If transfer is non-anonymous, this field should be assigned zero and ignored.
-bool first_part_of_unique_id
-
-# If the transfer is anonymous, this array must not contain more than MAX_LENGTH_OF_UNIQUE_ID_IN_REQUEST items.
-#
-# If the array contains 17 elements (which can happen only if the transfer is non-anonymous), the first 16 bytes
-# are the unique ID of the allocatee, and the last byte is the allocated node ID.
-#
-# The allocator should choose the highest unused node ID value for every allocation (except 126 and 127, those are
-# reserved for network maintenance tools); e.g., if the allocation table is empty, the allocator will grant the
-# node ID 125.
-void2
-uint8[<=17] unique_id_and_allocated_node_id
+@assert offset.min == 56        # Plus the tail byte yields 8 bytes; this is for requests only
+@assert offset.max == 64        # Responses are non-anonymous, so they can be multi-frame

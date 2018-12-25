@@ -79,14 +79,14 @@ uint8 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
 #       }
 #       // Search down
 #       candidate = preferred;
-#       while (candidate > 0)
+#       while (candidate >= 0)
 #       {
 #           if (!isOccupied(candidate))
 #               return candidate;
 #           candidate--;
 #       }
-#       // Not found
-#       return -1;
+#       // Not found, return -1
+#       return candidate;
 #   }
 uavcan.node.ID.1.0 node_id
 
@@ -94,6 +94,8 @@ uavcan.node.ID.1.0 node_id
 # If this is a non-anonymous transfer, allocatees will match this value against their own unique ID,
 # and ignore the message if there is no match. If the IDs match, then the field node_id contains the
 # allocated node ID value for this node.
+# This is the SAME value that is reported via uavcan.node.GetInfo. The value is subjected to the same
+# set of constraints; e.g., it can't be changed while the node is running.
 uint8[16] unique_id
 
 @assert offset % 8 == {0}
