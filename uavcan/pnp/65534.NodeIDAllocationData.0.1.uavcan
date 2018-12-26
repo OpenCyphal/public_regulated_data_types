@@ -2,28 +2,29 @@
 # In order to be able to operate in a UAVCAN network, a node must have a node-ID that is unique within the network.
 # Typically, a valid node-ID can be configured manually for each node; however, in certain use cases the manual
 # approach is either undesirable or impossible, therefore UAVCAN defines the high-level feature of plug-and-play
-# nodes, that allows nodes to obtain a node-ID value automatically upon connection to the network. When combined
-# with automatic bit rate detection, this feature allows one to implement nodes that can join a UAVCAN network
-# without any prior manual configuration whatsoever. These sorts of nodes are referred to as "plug-and-play nodes"
-# (or "PnP nodes" for brevity).
+# nodes that allows nodes to obtain a node-ID value automatically upon connection to the network. When combined
+# with automatic physical layer configuration (such as auto bit rate detection), this feature allows one to implement
+# nodes that can join a UAVCAN network without any prior manual configuration whatsoever. Such nodes are referred to
+# as "plug-and-play nodes" (or "PnP nodes" for brevity).
 #
 # The feature is fundamentally non-deterministic and is likely to be unfit for some high-reliability systems;
 # the designers need to carefully consider the trade-offs involved before deciding to rely on this feature.
 # Normally, static node-ID settings should be preferred.
 #
-# This feature relies on the concept of "anonymous message transfers", please consult with the UAVCAN specification
-# for details.
+# This feature relies on the concept of "anonymous message transfers", please consult with the UAVCAN transport
+# layer specification for details.
 #
-# An allocated node-ID should not be persistent. This means that if a node is configured to use plug-and-play
-# node-ID allocation, it must perform a new allocation every time it starts or reboots. The allocated node-ID value
+# An allocated node-ID should not be persistent. This means that if a node is configured to use plug-and-play node-ID
+# allocation, it must perform a new allocation every time it is started or rebooted. The allocated node-ID value
 # should not be stored on the node itself, because there exist edge cases that may lead to node-ID conflicts under
-# certain circumstances.
+# certain circumstances (reviewed later).
 #
-# The process of plug-and-play node-ID allocation always involves two types of nodes: "allocators",
-# which serve allocation requests; and "allocatees", which request PnP node-ID from allocators.
-# A UAVCAN network may implement the following configurations of allocators:
+# The process of plug-and-play node-ID allocation always involves two types of nodes: "allocators", which serve
+# allocation requests; and "allocatees", which request PnP node-ID from allocators. A UAVCAN network may implement
+# the following configurations of allocators:
 #
-#   - Zero allocators, in which case plug-and-play node-ID allocation cannot be used.
+#   - Zero allocators, in which case plug-and-play node-ID allocation cannot be used, only nodes with statically
+#     configured node-ID can communicate.
 #
 #   - One allocator, in which case the feature of plug-and-play node-ID allocation will become unavailable
 #     if the allocator fails. In this configuration, the role of the allocator can be performed even by a very
@@ -32,18 +33,18 @@
 #   - Three allocators, in which case the allocators will be using a replicated allocation table via a
 #     distributed consensus algorithm. In this configuration, the network can tolerate the loss of one
 #     allocator and continue to serve allocation requests. This configuration requires the allocators to
-#     maintain large data structures for the needs of the distributed consensus algorithm,
-#     and may therefore require a slightly more sophisticated computational platform, e.g.,
-#     a high-end microcontroller.
+#     maintain large data structures for the needs of the distributed consensus algorithm, and may therefore
+#     require a slightly more sophisticated computational platform, e.g., a high-end microcontroller.
 #
-#   - Five allocators, is the same as the three allocator configuration reviewed above except that the network
+#   - Five allocators, it is the same as the three allocator configuration reviewed above except that the network
 #     can tolerate the loss of two allocators and still continue to serve allocation requests.
 #
-# In order to get a PnP node-ID, an allocatee must have a globally unique 128-bit integer identifier,
-# known as unique-ID. This is the same value that is used in the field unique_id of the data type uavcan.node.GetInfo.
-# All PnP nodes must support the service uavcan.node.GetInfo, and they must use the same unique-ID value when
-# requesting node-ID allocation and when responding to the GetInfo requests (there may exist other usages of the
-# unique-ID value, but they lie outside of the scope of the PnP protocol).
+# In order to get a PnP node-ID, an allocatee must have a globally unique 128-bit integer identifier, known as
+# unique-ID (where "globally unique" means that the probability of having two nodes anywhere in the world that share
+# the same unique-ID is negligibly low). This is the same value that is used in the field unique_id of the data type
+# uavcan.node.GetInfo. All PnP nodes must support the service uavcan.node.GetInfo, and they must use the same
+# unique-ID value when requesting node-ID allocation and when responding to the GetInfo requests (there may exist
+# other usages of the unique-ID value, but they lie outside of the scope of the PnP protocol).
 #
 # During allocation, the allocatee communicates its unique-ID to the allocator (or allocators in the case of a
 # redundant allocator configuration), which then use it to produce an appropriate allocation response. Unique-ID
@@ -56,7 +57,7 @@
 # (a UAVCAN network cannot contain more than one allocation table, regardless of the number of allocators employed).
 # While the allocation table is a write-only data structure that can only grow, it is still possible to wipe the
 # table completely (as long as it is removed from all redundant allocators on the network simultaneously),
-# forcing the allocators to forget known nodes and perform all following allocations anew.
+# forcing the allocators to forget known nodes and perform all future allocations anew.
 #
 # In the context of the following description, nodes that use a manually-configured node-ID will be referred to as
 # "static nodes". It is assumed that allocators are always static nodes themselves since there is no other authority
@@ -83,17 +84,22 @@
 # this task due to the intrinsic properties of the distributed consensus algorithm; please refer to the documentation
 # for the data type uavcan.pnp.cluster.AppendEntries for more information.
 #
+# The unique-ID & node-ID pair of each allocator must be kept in the allocation table as well. It is allowed to replace
+# the unique-ID values of allocators with zeros at the discretion of the implementer.
+#
 # As can be inferred from the above, the process of PnP node-ID allocation involves up to two types of communications:
 #
 #   - "Allocatee-allocator exchange" - this communication is used when an allocatee requests a PnP node-ID from the
 #     allocator (or redundant allocators), and also when the allocator transmits a response back to the allocatee.
 #     This communication is invariant to the allocator configuration used, i.e., the allocatees are not aware of
-#     how many allocators are available on the network and how they are configured.
+#     how many allocators are available on the network and how they are configured. In configurations with
+#     non-redundant (i.e., single) allocator, this is the only type of PnP allocation exchanges.
 #
-#   - "Allocator-allocator exchange" - this communication is used by allocators for the maintenance of the replicated
-#     allocation table and for other needs of the distributed consensus algorithm. Allocatees are completely
-#     isolated and are unaware of these exchanges. This communication is not used with the single-allocator
-#     configuration, since there is only one server and the allocation table is not distributed.
+#   - "Allocator-allocator exchange" - this communication is used by redundant allocators for the maintenance of
+#     the replicated allocation table and for other needs of the distributed consensus algorithm. Allocatees are
+#     completely isolated and are unaware of these exchanges. This communication is not used with the single-allocator
+#     configuration, since there is only one server and the allocation table is not distributed. The data types
+#     used for the allocator-allocator exchanges are defined in the namespace uavcan.pnp.cluster.
 #
 # As has been said earlier, the logic used for communication between allocators (for the needs of the maintenance of
 # the distributed allocation table) is completely unrelated to the allocatees. The allocatees are unaware of these
@@ -131,9 +137,10 @@
 # PnP allocations need to be able to handle them correctly. Hence, a CSMA/CD collision resolution protocol is defined,
 # which utilizes a randomized request period value referred to as Trequest.
 #
-# The recommended values of the request period (Trequest) should not exceed the maximum defined as a constant below
-# (the minimum is unrestricted). The random interval must be chosen anew per transmission, whereas the pseudo node-ID
-# value is allowed to stay constant per node.
+# Generally, the randomly chosen values of the request period (Trequest) should be in the range from 0 to 1 seconds.
+# Applications that are not concerned about the allocation time are recommended to pick higher values, as it will
+# reduce interference with other nodes where faster allocations may be desirable. The random interval must be chosen
+# anew per transmission, whereas the pseudo node-ID value is allowed to stay constant per node.
 #
 # The source of random data for Trequest must be likely to yield different values for participating nodes, avoiding
 # common sequences. This implies that the time since boot alone is not a sufficiently robust source of randomness,
@@ -153,8 +160,8 @@
 #   Rule B. On expiration of the Request Timer (started as per rules A, B, or C):
 #     1. Request Timer restarts with a random interval of Trequest (chosen anew).
 #     2. The allocatee broadcasts an allocation request message, where the fields are populated as follows:
-#        node_id   - the preferred node-ID, or zero if the allocatee doesn't have any specific preference
-#        unique_id - the 128-bit unique-ID of the allocatee, same value that is reported via uavcan.node.GetInfo
+#        node_id   - the preferred node-ID, or 125 if the allocatee doesn't have any specific preference.
+#        unique_id - the 128-bit unique-ID of the allocatee, same value that is reported via uavcan.node.GetInfo.
 #
 #   Rule C. On any allocation message, even if other rules also match:
 #     1. Request Timer restarts with a random interval of Trequest (chosen anew) (this is related to CSMA/CD).
@@ -169,14 +176,6 @@
 # As can be seen, the algorithm assumes that the allocatee will continue to emit requests at random intervals
 # until an allocation is granted or the allocatee is disconnected.
 #
-
-# A randomly chosen request period should not be greater than this limit.
-#
-# This definition has an advisory status; it is OK to pick a higher value, as it won't affect the protocol
-# compatibility. In fact, it is advised to pick higher values if the target application is not concerned
-# about the time it will spend completing the PnP node-ID allocation procedure, as it will reduce interference
-# with other nodes, possibly of higher importance.
-uint8 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
 
 # If the message transfer is anonymous (i.e., allocation request), this is the preferred ID.
 # If the message transfer is non-anonymous (i.e., allocation response), this is the allocated ID.
@@ -208,7 +207,8 @@ uint8 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
 uavcan.node.ID.1.0 node_id
 
 # The unique-ID of the allocatee. This is the SAME value that is reported via uavcan.node.GetInfo.
-# The value is subjected to the same set of constraints; e.g., it can't be changed while the node is running.
+# The value is subjected to the same set of constraints; e.g., it can't be changed while the node is running,
+# and the same value must be unlikely to be used by any two different nodes anywhere in the world.
 #
 # If this is a non-anonymous transfer (i.e., allocation response), allocatees will match this value against their
 # own unique-ID, and ignore the message if there is no match (except for the CSMA/CD clause, see rule C). If the IDs

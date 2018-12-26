@@ -8,7 +8,7 @@
 # The motivation for the difference between this small-MTU case and the general case is that the full 128-bit
 # unique-ID can't be accommodated in a small-MTU single-frame anonymous message transfer. The solution is to replace
 # the full 128-bit ID with a smaller 55-bit hash of it, and remove support for preferred node-ID value in the
-# allocation requests.
+# allocation requests in order to save space.
 #
 # The 55-bit hash is obtained by applying an atbitrary hash function to the unique-ID that outputs at least 55 bit of
 # data. For example, it could be the standard CRC-64WE function where only the lowest 55 bit of the result are used.
@@ -52,9 +52,6 @@
 #     3. The allocatee terminates its subscription to allocation messages.
 #     4. Exit.
 #
-
-# See the general case for documentation.
-uint16 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
 
 # An arbitrary 55-bit hash of the unique-ID of the local node.
 truncated uint55 unique_id_hash
