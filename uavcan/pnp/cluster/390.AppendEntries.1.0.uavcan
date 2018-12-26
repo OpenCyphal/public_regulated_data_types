@@ -19,17 +19,17 @@
 # so they are not available in this implementation of the Raft algorithm.
 #
 # When an allocator becomes the leader of the Raft cluster, it checks if the Raft log contains an entry for its own
-# unique-ID, and if it doesn’t, the leader adds its own allocation entry to the log. This behavior guarantees that
+# unique-ID, and if it doesn't, the leader adds its own allocation entry to the log. This behavior guarantees that
 # the Raft log always contains at least one entry, therefore it is not necessary to support negative log indices,
 # as proposed by the Raft paper.
 #
 # Since the log is write-only and limited in growth, all allocations are permanent. This restriction is acceptable,
-# since UAVCAN is a vehicle bus, and configuration of vehicle’s components is not expected to change frequently.
+# since UAVCAN is a vehicle bus, and configuration of vehicle's components is not expected to change frequently.
 # Old allocations can be removed in order to free node-IDs for new allocations by clearing the Raft log on all
 # allocators; such clearing must be performed simultaneously while the network is down, otherwise the Raft consensus
 # will automatically attempt to restore the lost state on the allocators where the table was cleared.
 #
-# The allocators need to be aware of each other’s node-ID in order to form a cluster. In order to learn each other's
+# The allocators need to be aware of each other's node-ID in order to form a cluster. In order to learn each other's
 # node-ID values, the allocators broadcast messages of type Discovery (in the same namespace) until the cluster is
 # fully discovered and all allocators know of each other's node-ID.
 #
