@@ -51,9 +51,11 @@ uint16 COMMAND_STORE_PERSISTENT_STATES = 65530
 # A string parameter supplied to the command. The format and interpretation is command-specific.
 # The standard commands do not use this field (ignore it), excepting the following:
 #   - COMMAND_BEGIN_SOFTWARE_UPDATE
-uint8[<=200] parameter
+void1
+uint8[<=112] parameter
 
 @assert offset % 8 == {0}
+@assert offset.max <= (124 * 8)     # Two CAN FD frames max
 
 ---
 

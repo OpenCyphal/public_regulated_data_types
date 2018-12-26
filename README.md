@@ -121,9 +121,12 @@ All root namespaces are contained in the root folder of this repository.
 ## Guidelines for data type authors
 
 In order to maximize compatibility with resource-constrained nodes,
-standard data structures should not be larger than 366 bytes when serialized.
-The number is dictated by the size of the largest data structure, which is the response part of the service
-`uavcan.node.GetInfo`.
+standard data structures should not be larger than 313 bytes when serialized.
+The number is dictated by the size of the largest data structures,
+which in turn is limited to 5 CAN FD frames max
+((64 bytes per frame - 1 tail byte) * 5 frames - 2 bytes for transfer CRC = 313 bytes)
+(or 45 CAN 2.0 frames)
+in order to simplify the worst case analysis.
 Non-standard (vendor-specific) types are recommended to follow this advice as well to maximize compatibility.
 
 Follow the naming conventions defined in the specification.

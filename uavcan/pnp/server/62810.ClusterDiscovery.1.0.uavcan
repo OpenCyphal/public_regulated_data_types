@@ -21,6 +21,6 @@ uint3 configured_cluster_size
 # Node ID of the servers that are known to the publishing server, including the publishing server itself.
 # The cluster cannot contain more than 5 servers.
 void2
-uavcan.node.NodeID.1.0[<=5] known_nodes
+uavcan.node.ID.1.0[<=5] known_nodes
 
 @assert offset % 8 == {0}

@@ -7,9 +7,14 @@
 #   - A path pointing to a file or a link to file should not end with a separator.
 #   - A path pointing to a directory or to a link to directory should end with a separator.
 #
+# The maximum path length limit is chosen as a trade-off between compatibility with deep directory structures and
+# the worst-case transfer length. The limit is 112 bytes, which allows all transfers containing a single instance
+# of path and no other large data chunks to fit into two CAN FD frames.
+#
 
 uint8 SEPARATOR = '/'
 
-uint8[<=160] path
+void1
+uint8[<=112] path
 
 @assert offset % 8 == {0}
