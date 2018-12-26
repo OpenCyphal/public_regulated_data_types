@@ -6,6 +6,7 @@ import pydsdl
 
 
 MAX_SERIALIZED_BIT_LENGTH = 313 * 8     # See README
+MAX_LINE_LENGTH = 120
 
 
 def on_print(definition, line, value):
@@ -48,6 +49,13 @@ print('%d data types in %.1f seconds' % (len(output), elapsed_time),
 
 largest = None
 for t in output:
+    for index, line in enumerate(open(t.source_file_path).readlines()):
+        line_len = len(line.strip('\r\n'))
+        if line_len > MAX_LINE_LENGTH:
+            print('%s:%d: Line is too long:' % (t.source_file_path, index + 1), line_len, '>', MAX_LINE_LENGTH, 'chars',
+                  file=sys.stderr)
+            sys.exit(1)
+
     if isinstance(t, pydsdl.data_type.ServiceType):
         tt = t.request_type, t.response_type
     else:

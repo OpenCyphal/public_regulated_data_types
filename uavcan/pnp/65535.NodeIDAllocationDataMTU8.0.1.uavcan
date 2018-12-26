@@ -1,18 +1,66 @@
 #
 # The suffix "MTU8" indicates that this message is made to be compatible with transports where the maximum
-# transmission unit size is only 8 bytes, such as CAN 2.0.
-# For other kinds of transports there is a generic, much simpler and more capable definition; it can't be
-# used with low-MTU transports, hence the need for this special case definition.
+# transmission unit size is only 8 bytes, such as CAN 2.0. For other kinds of transports there is a more general,
+# more capable definition NodeIDAllocationData; it can't be used with low-MTU transports, hence the need for this
+# special case. The PnP protocol is described in the documentation for the general case data type definition. The
+# documentation provided here builds upon the general case, so read that first please.
 #
-# When a node needs to request a node ID dynamically, it will transmit an anonymous message transfer of this type.
+# The motivation for the difference between this small-MTU case and the general case is that the full 128-bit
+# unique-ID can't be accommodated in a small-MTU single-frame anonymous message transfer. The solution is to replace
+# the full 128-bit ID with a smaller 55-bit hash of it, and remove support for preferred node-ID value in the
+# allocation requests.
+#
+# The 55-bit hash is obtained by applying an atbitrary hash function to the unique-ID that outputs at least 55 bit of
+# data. For example, it could be the standard CRC-64WE function where only the lowest 55 bit of the result are used.
+# The hash function must always produce the same hash value for the same unique-ID value, and it must be likely to
+# produce a different hash value for any other unique-ID value.
+#
+# Allocators that support both the general case and the small-MTU case should maintain the same allocation table
+# for both. Requests received via the small-MTU message obviously do not contain the full unique-ID; the allocators
+# are recommended to extend the small 55-bit hash with zeros upwards (where "upwards" means that the most significant
+# bits of the unique-ID will contain zeros, and the least significant 55 bits will contain the hash) in order to
+# obtain a "pseudo unique-ID", and use this value in the allocation table as a substitute for the real unique-ID.
+# It is recognized that this behavior will have certain side effects, such as the same allocatee obtaining different
+# allocated node-ID values depending on which transport is used, but they are considered tolerable.
+#
+# In order to save space for the hash, the preferred node-ID is removed from the request. The allocated node-ID
+# is provided in the response, however; this is achieved by means of an optional field that is not populated in
+# the request but is populated in the response. This implies that the response may be a multi-frame transfer,
+# which is acceptable since responses are sent by allocators, which are regular nodes, and therefore they are
+# allowed to use regular message transfers rather than being limited to anonymous message transfers as allocatees are.
+#
+# On the allocatee's side the protocol is defined through the following set of simple rules:
+#
+#   Rule A. On initialization:
+#     1. The allocatee subscribes to this message.
+#     2. The allocatee starts the Request Timer with a random interval of Trequest.
+#
+#   Rule B. On expiration of the Request Timer (started as per rules A, B, or C):
+#     1. Request Timer restarts with a random interval of Trequest (chosen anew).
+#     2. The allocatee broadcasts an allocation request message, where the fields are populated as follows:
+#        unique_id_hash    - a 55-bit hash of the unique-ID of the allocatee.
+#        allocated_node_id - empty (not populated).
+#
+#   Rule C. On any allocation message, even if other rules also match:
+#     1. Request Timer restarts with a random interval of Trequest (chosen anew) (this is related to CSMA/CD).
+#
+#   Rule D. On an allocation message WHERE (source node-ID is non-anonymous, i.e., regular allocation response)
+#                                    AND   (the field unique_id_hash matches the allocatee's 55-bit unique-ID hash)
+#                                    AND   (the field allocated_node_id is populated):
+#     1. Request Timer stops.
+#     2. The allocatee initializes its node-ID with the received value.
+#     3. The allocatee terminates its subscription to allocation messages.
+#     4. Exit.
 #
 
+# See the general case for documentation.
 uint16 MAX_REQUEST_PERIOD = 1           # [second] It is OK to exceed this value
 
-# Lower 55 bits of a CRC-64WE applied to the full unique ID
+# An arbitrary 55-bit hash of the unique-ID of the local node.
 truncated uint55 unique_id_hash
 
-# Must be empty in request messages
+# Must be empty in request messages.
+# Must be populated in response messages.
 uavcan.node.ID.1.0[<=1] allocated_node_id
 
 @assert offset.min == 56        # Plus the tail byte yields 8 bytes; this is for requests only

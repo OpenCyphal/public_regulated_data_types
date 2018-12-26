@@ -1,6 +1,6 @@
 #
 # This message is used by allocation servers to find each other's node ID.
-# Please refer to the specification for details.
+# Please refer to the type AppendEntries for details.
 #
 # A server should stop publishing this message as soon as it has discovered all other servers in the cluster.
 #
