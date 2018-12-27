@@ -11,7 +11,7 @@
 # a temporary copy of it first, then read the copy, and delete it upon completion. Likewise,
 # a similar strategy can be employed for writing, where the file is first written at a
 # temporary location, and then moved to its final destination. These approaches, however,
-# may lead to creation of dangling temporary files if the client failed to dispose  of them
+# may lead to creation of dangling temporary files if the client failed to dispose of them
 # properly, so that risk should be taken into account.
 #
 # Move/Copy
