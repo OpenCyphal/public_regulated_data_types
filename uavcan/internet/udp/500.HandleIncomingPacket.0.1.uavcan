@@ -14,7 +14,7 @@
 # on the local UAVCAN bus. It is assumed that local nodes can be only clients, and therefore, they will be able to
 # determine the address of the sender simply by mapping the field session_id to their internally maintained states.
 # Furthermore, it is uncertain what is the optimal way of representing the source address for
-# client nodes is: it is assumed that the local nodes will mostly use DNS names rather than IP addresses, so if there
+# client nodes: it is assumed that the local nodes will mostly use DNS names rather than IP addresses, so if there
 # was a source address field, modem nodes would have to perform reverse mapping from the IP address they received
 # the datagram from to the corresponding DNS name that was used by the local node with the outgoing message. This
 # approach creates a number of troubling corner cases and adds a fair amount of hidden complexities to the

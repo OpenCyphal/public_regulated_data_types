@@ -1,6 +1,5 @@
 #
-# This type is a part of the Raft consensus algorithm.
-# Please refer to the specification for details.
+# This type is a part of the Raft consensus algorithm. Please refer to the type AppendEntries for details.
 #
 
 # Refer to the Raft paper for explanation.

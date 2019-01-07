@@ -18,18 +18,34 @@ uint16 COMMAND_POWER_OFF = 65534
 # Begin the software update process using uavcan.file.Read. This command makes use of the "parameter" field below.
 # The parameter contains the path to the new software image file to be downloaded by the server from the client
 # using the standard service uavcan.file.Read. Observe that this operation swaps the roles of the client and
-# the server. Upon reception of this command, the server (updatee) will evaluate whether it is possible to
-# begin the software update process. If that is deemed impossible, the command will be rejected with one of the
-# error codes defined in the response section of this definition (e.g., DENIED if the node is currently on-duty
-# and a sudden interruption of its activities is considered unsafe, and so on). If an update process is already
-# underway, the updatee should abort the process and restart with the new file, unless the updatee can
-# determine that the specified file is the same file that is already being downloaded, in which case it is
-# allowed to respond SUCCESS and continue the old update process. If there are no other conditions precluding
-# the requested update, the updatee will return a SUCCESS and initiate the file transfer process by invoking
-# the standard service uavcan.file.Read repeatedly until the file is transferred fully (please refer to the
-# documentation for that data type for more information on its usage). While the software is being updated, the
-# updatee should set its mode (the field "mode" in uavcan.node.Status) to MODE_SOFTWARE_UPDATE. Please refer to
-# the documentation for uavcan.node.Status for more information.
+# the server.
+#
+# Upon reception of this command, the server (updatee) will evaluate whether it is possible to begin the
+# software update process. If that is deemed impossible, the command will be rejected with one of the
+# error codes defined in the response section of this definition (e.g., BAD_STATE if the node is currently
+# on-duty and a sudden interruption of its activities is considered unsafe, and so on).
+# If an update process is already underway, the updatee should abort the process and restart with the new file,
+# unless the updatee can determine that the specified file is the same file that is already being downloaded,
+# in which case it is allowed to respond SUCCESS and continue the old update process.
+# If there are no other conditions precluding the requested update, the updatee will return a SUCCESS and
+# initiate the file transfer process by invoking the standard service uavcan.file.Read repeatedly until the file
+# is transferred fully (please refer to the documentation for that data type for more information about its usage).
+#
+# While the software is being updated, the updatee should set its mode (the field "mode" in uavcan.node.Heartbeat)
+# to MODE_SOFTWARE_UPDATE. Please refer to the documentation for uavcan.node.Heartbeat for more information.
+#
+# It is recognized that most systems will have to interrupt their normal services to perform the software update
+# (unless some form of software hot swapping is implemented, as is the case in some high-availability systems).
+#
+# Microcontrollers that are requested to update their firmware may need to stop execution of their current firmware
+# and start the embedded bootloader (although other approaches are possible as well). In that case,
+# while the embedded bootloader is running, the mode reported via the message uavcan.node.Heartbeat should be
+# MODE_SOFTWARE_UPDATE as long as the bootloader is runing, even if no update-related activities
+# are currently underway. For example, if the update process failed and the bootloader cannot load the software,
+# the same mode MODE_SOFTWARE_UPDATE will be reported.
+# It is also recognized that in a microcontroller setting, the application that served the update request will have
+# to pass the update-related metadata (such as the node ID of the server and the firmware image file path) to
+# the embedded bootloader. The tactics of that transaction lie outside of the scope of this specification.
 uint16 COMMAND_BEGIN_SOFTWARE_UPDATE = 65533
 
 # Return the node's configuration back to the factory default settings (may require restart).

@@ -40,9 +40,9 @@
 #   - Dot (.)
 #   - Underscore (_)
 #   - Minus (-)
-# All other ASCII characters are reserved for standard functions; they may appear in register names to support
-# such standard functions defined by the register protocol, but they cannot be freely used by applications outside
-# of such standard functions.
+# All other printable non-whitespace ASCII characters are reserved for standard functions;
+# they may appear in register names to support such standard functions defined by the register protocol,
+# but they cannot be freely used by applications outside of such standard functions.
 #
 # The following optional special function register names are defined:
 #   - suffix '<' is used to define an immutable persistent value that contains the maximum value
@@ -55,6 +55,21 @@
 #   - maximum value is contained in the register named "system.parameter<" (optional)
 #   - minimum value is contained in the register named "system.parameter>" (optional)
 #   - default value is contained in the register named "system.parameter=" (optional)
+#
+# The following table specifies the register name patterns that are reserved by the specification for
+# common functions. Implementers should always follow these conventions whenever applicable.
+# The table uses the following abbreviations for register flags:
+#   - M - mutable, I - immutable
+#   - P - persistent, V - volatile
+#
+#   Name pattern        | Flags | Type      | Purpose
+# ----------------------+-------+-----------+--------------------------------------------------------------------------
+#   uavcan.node_id      | MP    | uint8     | Contains the node ID of the local node. Values above 127 indicate that
+#                       |       |           | the node ID is not set; if plug-and-play is supported, it will be
+#                       |       |           | used by the node to obtain an automatic node ID. Values above 128 should
+#                       |       |           | be avoided for consistency. The factory-default value should be 128.
+# ----------------------+-------+-----------+--------------------------------------------------------------------------
+#
 #
 
 # The name of the accessed register. Must not be empty.

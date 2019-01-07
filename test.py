@@ -2,10 +2,13 @@
 
 import sys
 import time
+import string
 import pydsdl
 
 
 MAX_SERIALIZED_BIT_LENGTH = 313 * 8     # See README
+MAX_LINE_LENGTH = 120
+ALLOWED_CHARACTERS = set(string.digits + string.ascii_letters + string.punctuation + ' ')
 
 
 def on_print(definition, line, value):
@@ -48,6 +51,24 @@ print('%d data types in %.1f seconds' % (len(output), elapsed_time),
 
 largest = None
 for t in output:
+    for index, line in enumerate(open(t.source_file_path).readlines()):
+        line = line.strip('\r\n')
+
+        # Check line length limit
+        if len(line) > MAX_LINE_LENGTH:
+            print('%s:%d: Line is too long:' % (t.source_file_path, index + 1),
+                  len(line), '>', MAX_LINE_LENGTH, 'chars',
+                  file=sys.stderr)
+            sys.exit(1)
+
+        # Make sure we're not using any weird characters such as tabs or non-ASCII-printable
+        for char_index, char in enumerate(line):
+            if char not in ALLOWED_CHARACTERS:
+                print('%s:%d: Disallowed character' % (t.source_file_path, index + 1),
+                      repr(char), 'code', ord(char), 'at column', char_index + 1,
+                      file=sys.stderr)
+                sys.exit(1)
+
     if isinstance(t, pydsdl.data_type.ServiceType):
         tt = t.request_type, t.response_type
     else:
