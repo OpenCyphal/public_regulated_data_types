@@ -76,14 +76,14 @@
 # Use the List service to obtain the list of registers on the node.
 Name.0.1 name
 
-@assert offset % 8 == {0}
+@assert _offset_ % 8 == {0}
 
 # Value to be written. Empty if no write is required.
 void4
 Value.0.1 value
 
-@assert offset.min % 8 == 0
-@assert offset.max % 8 == 0
+@assert _offset_.min % 8 == 0
+@assert _offset_.max % 8 == 0
 
 ---
 
@@ -121,5 +121,5 @@ void2
 # was written successfully, unless write was not requested.
 Value.0.1 value
 
-@assert offset.min % 8 == 0
-@assert offset.max % 8 == 0
+@assert _offset_.min % 8 == 0
+@assert _offset_.max % 8 == 0

@@ -5,4 +5,4 @@
 void2
 uint8[<=50] name
 
-@assert offset % 8 == {0}
+@assert _offset_ % 8 == {0}

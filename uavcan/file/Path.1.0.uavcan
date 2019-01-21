@@ -17,4 +17,4 @@ uint8 SEPARATOR = '/'
 void1
 uint8[<=112] path
 
-@assert offset % 8 == {0}
+@assert _offset_ % 8 == {0}

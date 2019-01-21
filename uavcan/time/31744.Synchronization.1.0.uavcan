@@ -179,5 +179,5 @@ uint8 PUBLISHER_TIMEOUT_PERIOD_MULTIPLIER = 3
 # one second ago, this field must be zero.
 truncated uint56 previous_transmission_timestamp_microsecond
 
-@assert offset % 8 == {0}
-@assert offset.max <= 56    # Must fit into one CAN 2.0 frame (least capable transport, smallest MTU)
+@assert _offset_ % 8 == {0}
+@assert _offset_.max <= 56    # Must fit into one CAN 2.0 frame (least capable transport, smallest MTU)

@@ -1,9 +1,10 @@
 #
 # Defines a node ID.
-# Per the specification, node ID ranges from 0 to 127, inclusively.
+# The maximum valid value is dependent on the underlying transport layer.
+# Values lower than 128 are always valid for all transports.
+# Refer to the specification for more info.
 #
 
-void1
-uint7 value
+uint16 value
 
-@assert offset == {8}
+@assert _offset_ == {16}

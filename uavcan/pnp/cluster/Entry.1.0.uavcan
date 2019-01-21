@@ -9,4 +9,4 @@ uint8[16] unique_id             # Unique-ID of this allocation; zero if unknown.
 
 uavcan.node.ID.1.0 node_id      # Node-ID of this allocation.
 
-@assert offset % 8 == {0}
+@assert _offset_ % 8 == {0}
