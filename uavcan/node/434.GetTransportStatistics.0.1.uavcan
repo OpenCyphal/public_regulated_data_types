@@ -15,5 +15,5 @@ IOStatistics.0.1 transfer_statistics
 void6
 IOStatistics.0.1[<=3] physical_interface_statistics
 
-@assert offset % 8 == {0}
-@assert offset.max <= (63 * 8)      # One CAN FD frame
+@assert _offset_ % 8 == {0}
+@assert _offset_.max <= (63 * 8)      # One CAN FD frame

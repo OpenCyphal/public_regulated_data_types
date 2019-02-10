@@ -4,9 +4,9 @@
 # All UAVCAN nodes are required to publish this message periodically.
 # This is the only high-level function that must be implemented by all nodes.
 #
-# The default subject ID 62805 is 1111010101010101 in binary. The alternating bit pattern at the end
+# The default subject ID 32085 is 111110101010101 in binary. The alternating bit pattern at the end
 # helps transceiver synchronization (e.g., on CAN-based networks) and on some transports permits
-# automatic bit rate detection (e.g., CAN bus).
+# automatic bit rate detection.
 #
 
 # The publication period must not exceed this limit.
@@ -68,5 +68,5 @@ uint3 MODE_OFFLINE          = 7
 # Optional, vendor-specific node status code, e.g. a fault code or a status bitmask.
 truncated uint19 vendor_specific_status_code
 
-@assert offset % 8 == {0}
-@assert offset.max <= 56    # Must fit into one CAN 2.0 frame (least capable transport, smallest MTU)
+@assert _offset_ % 8 == {0}
+@assert _offset_.max <= 56    # Must fit into one CAN 2.0 frame (least capable transport, smallest MTU)

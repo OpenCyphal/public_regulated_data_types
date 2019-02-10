@@ -126,10 +126,10 @@
 # for any reason is recommended to emit a diagnostic message with a human-readable description of the problem.
 # For allocatees, the logic is described below.
 #
-# This message is used for PnP node-ID allocation on all transports where the maximum transmission unit
-# size is at least 18 bytes (which excludes CAN 2.0). For low-MTU transports such as CAN 2.0 there is a dedicated
-# message definition that takes into account the limitations of that transport (namely, the unique-ID value is
-# replaced with a short hash in order to fit the data into one low-MTU single-frame transfer).
+# This message is used for PnP node-ID allocation on all transports where the maximum transmission unit size is
+# sufficiently large. For low-MTU transports such as CAN 2.0 there is a dedicated message definition that takes into
+# account the limitations of that transport (namely, the unique-ID value is replaced with a short hash in order to
+# fit the data into one low-MTU single-frame transfer).
 #
 # When a node needs to request a PnP node-ID, it will transmit an anonymous message transfer of this type. The pseudo
 # node-ID value of the anonymous transfer should be populated with pseudorandom data as described in the UAVCAN
@@ -215,5 +215,5 @@ uavcan.node.ID.1.0 node_id
 # match, then the field node_id contains the allocated node-ID value for this node.
 uint8[16] unique_id
 
-@assert offset % 8 == {0}
-@assert offset.max / 8 == 17    # Plus the tail byte yields 18
+@assert _offset_ % 8 == {0}
+@assert _offset_.max / 8 == 18

@@ -22,7 +22,7 @@ void32                  # Reserved for future use
 
 Path.1.0 directory_path
 
-@assert offset % 8 == {0}
+@assert _offset_ % 8 == {0}
 
 ---
 
@@ -37,4 +37,4 @@ void32                  # Reserved for future use
 # higher) will return an empty name "", indicating that the caller has reached the end of the list.
 Path.1.0 entry_base_name
 
-@assert offset % 8 == {0}
+@assert _offset_ % 8 == {0}

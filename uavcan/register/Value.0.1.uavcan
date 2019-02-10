@@ -28,5 +28,5 @@ uavcan.primitive.array.Real16.1.0 real16        # Tag 14    Exactly representabl
 
 # Tag 15 is reserved
 
-@assert offset.min == 4                 # Empty and the tag
-@assert offset.max == 257 * 8 + 4       # 257 bytes per field max and the tag
+@assert _offset_.min == 4                 # Empty and the tag
+@assert _offset_.max == 257 * 8 + 4       # 257 bytes per field max and the tag

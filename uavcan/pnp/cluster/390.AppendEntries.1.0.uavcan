@@ -15,8 +15,8 @@
 # node). Therefore, the Raft log is the allocation table itself.
 #
 # Since the maximum number of entries in the allocation table is limited by the range of node-ID values, the log
-# cannot contain more than 128 entries. Therefore, the snapshot transfer and log compaction functions are not required,
-# so they are not available in this implementation of the Raft algorithm.
+# capacity is bounded. Therefore, the snapshot transfer and log compaction functions are not required,
+# so they are not used in this implementation of the Raft algorithm.
 #
 # When an allocator becomes the leader of the Raft cluster, it checks if the Raft log contains an entry for its own
 # node-ID, and if it doesn't, the leader adds its own allocation entry to the log (the unique-ID can be replaced with
@@ -79,14 +79,17 @@ uint8 leader_commit
 
 # Worst case replication time per Follower can be computed as:
 #
-#   worst replication time = (128 log entries) * (2 trips of next_index) * (request interval per Follower)
+#   worst replication time = (node-ID capacity) * (2 trips of next_index) * (request interval per Follower)
 #
-# E.g., given the request interval of 0.5 seconds, the worst case replication time is 128*2*0.5 = 128 seconds.
+# E.g., given the request interval of 0.5 seconds, the worst case replication time for CAN bus is:
+#
+#   128 nodes * 2 trips * 0.5 seconds = 128 seconds.
+#
 # This is the amount of time it will take for a new Follower to reconstruct a full replica of the distributed log.
 void7
 Entry.1.0[<=1] entries
 
-@assert offset % 8 == {0}
+@assert _offset_ % 8 == {0}
 
 ---
 

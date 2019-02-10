@@ -70,8 +70,8 @@ uint16 COMMAND_STORE_PERSISTENT_STATES = 65530
 void1
 uint8[<=112] parameter
 
-@assert offset % 8 == {0}
-@assert offset.max <= (124 * 8)     # Two CAN FD frames max
+@assert _offset_ % 8 == {0}
+@assert _offset_.max <= (124 * 8)     # Two CAN FD frames max
 
 ---
 

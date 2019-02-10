@@ -33,11 +33,11 @@ Refer to the specification for background information and motivation.
 For message subjects, the following range mapping is adopted (limits inclusive).
 Unused ranges are reserved for future expansion of adjacent ranges.
 
-From    | To        | Purpose
+From    | To        | Capacity | Purpose
 --------|-----------|------------------------------------------------
-0       | 32767     | Unregulated identifiers
-57344   | 59391     | Non-standard (vendor-specific) regulated identifiers
-62804   | 65535     | Standard regulated identifiers
+0       | 24575     | 24576    | Unregulated identifiers
+28672   | 29695     | 1024     | Non-standard (vendor-specific) regulated identifiers
+31744   | 32767     | 1024     | Standard regulated identifiers
 
 ### Services
 
@@ -60,11 +60,14 @@ Ordered by priority from high to low.
 
 Namespace                   | Lower bound (inclusive)
 ----------------------------|-------------------------
-`uavcan.time`               | 62804
-`uavcan.node`               | 62805
-`uavcan.pnp`                | 62810/65533
-`uavcan.internet`           | 65510
-`uavcan.diagnostic`         | 65520
+`uavcan.time`               | 31744
+`uavcan.node`               | 32085
+`uavcan.pnp`                | 32740
+`uavcan.internet`           | 32750
+`uavcan.diagnostic`         | 32760
+
+The value 32085 contains the longest possible sequence of alternating bits,
+which can be leveraged for automatic bit rate detection (depending on the physical layer).
 
 #### Services
 

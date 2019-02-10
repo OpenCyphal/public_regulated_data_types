@@ -60,5 +60,5 @@ truncated uint55 unique_id_hash
 # Must be populated in response messages.
 uavcan.node.ID.1.0[<=1] allocated_node_id
 
-@assert offset.min == 56        # Plus the tail byte yields 8 bytes; this is for requests only
-@assert offset.max == 64        # Responses are non-anonymous, so they can be multi-frame
+@assert _offset_.min == 56        # Plus the tail byte yields 8 bytes; this is for requests only
+@assert _offset_.max == 72        # Responses are non-anonymous, so they can be multi-frame

@@ -37,5 +37,5 @@ uint12 time_difference_tai_minus_utc
 # Reserved for future use
 void8
 
-@assert offset % 8 == {0}
-@assert offset.max <= 56   # It is nice to have the response fit into one transport frame, although not required.
+@assert _offset_ % 8 == {0}
+@assert _offset_.max <= 56   # It is nice to have the response fit into one transport frame, although not required.

@@ -132,4 +132,4 @@ uint8[<=45] destination_address
 # UAVCAN further limits the maximum packet size to reduce the memory and traffic burden on the nodes.
 uint8[<256] payload
 
-@assert offset % 8 == {0}
+@assert _offset_ % 8 == {0}

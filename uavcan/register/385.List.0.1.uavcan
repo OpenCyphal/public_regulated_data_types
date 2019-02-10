@@ -10,4 +10,4 @@ uint16 index
 # Empty name in response means that the index is out of bounds, i.e., discovery is finished.
 Name.0.1 name
 
-@assert offset % 8 == {0}
+@assert _offset_ % 8 == {0}

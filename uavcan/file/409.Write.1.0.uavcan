@@ -17,8 +17,8 @@ Path.1.0 path
 
 uint8[<=128] data
 
-@assert offset % 8 == {0}
-@assert offset.max / 8 <= 300
+@assert _offset_ % 8 == {0}
+@assert _offset_.max / 8 <= 300
 
 ---
 
