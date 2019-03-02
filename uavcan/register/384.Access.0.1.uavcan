@@ -64,10 +64,11 @@
 #
 #   Name pattern        | Flags | Type      | Purpose
 # ----------------------+-------+-----------+--------------------------------------------------------------------------
-#   uavcan.node_id      | MP    | uint8     | Contains the node ID of the local node. Values above 127 indicate that
-#                       |       |           | the node ID is not set; if plug-and-play is supported, it will be
-#                       |       |           | used by the node to obtain an automatic node ID. Values above 128 should
-#                       |       |           | be avoided for consistency. The factory-default value should be 128.
+#   uavcan.node_id      | MP    | uint16    | Contains the node ID of the local node. Values above the maximum valid
+#                       |       |           | node ID for the current transport indicate that the node ID is not set;
+#                       |       |           | if plug-and-play is supported, it will be used by the node to obtain an
+#                       |       |           | automatic node ID. Invalid values other than 65535 should be avoided for
+#                       |       |           | consistency. The factory-default value should be 65535.
 # ----------------------+-------+-----------+--------------------------------------------------------------------------
 #
 #
