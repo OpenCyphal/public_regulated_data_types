@@ -5,6 +5,9 @@
 
 ---
 
+# UAVCAN supports up to triply modular redundant interfaces.
+uint8 MAX_PHYSICAL_INTERFACES = 3
+
 # UAVCAN transfer performance statistics:
 # the number of UAVCAN transfers sent, received, and failed.
 IOStatistics.0.1 transfer_statistics
@@ -13,7 +16,7 @@ IOStatistics.0.1 transfer_statistics
 # E.g., for a doubly redundant transport, this array would contain two elements,
 # the one at the index zero would apply to the first interface, the other to the second interface.
 void6
-IOStatistics.0.1[<=3] physical_interface_statistics
+IOStatistics.0.1[<=MAX_PHYSICAL_INTERFACES] physical_interface_statistics
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.max <= (63 * 8)      # One CAN FD frame
