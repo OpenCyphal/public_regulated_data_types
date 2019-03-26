@@ -25,7 +25,7 @@ def compute_max_num_frames_canfd(bit_length):
 
 
 started_at = time.monotonic()
-output = pydsdl.parse_namespace('uavcan', [], print_directive_output_handler=on_print)
+output = pydsdl.read_namespace('uavcan', [], print_output_handler=on_print)
 elapsed_time = time.monotonic() - started_at
 
 print('Full data type name'.center(58),
@@ -34,7 +34,7 @@ print('Full data type name'.center(58),
 
 for t in output:
     num_frames_to_str = lambda x: str(x) if x > 1 else ' '      # Return empty for single-frame transfers
-    if isinstance(t, pydsdl.data_type.ServiceType):
+    if isinstance(t, pydsdl.ServiceType):
         max_canfd_frames = '  '.join([
             num_frames_to_str(compute_max_num_frames_canfd(x.bit_length_range.max))
             for x in (t.request_type, t.response_type)
@@ -69,7 +69,7 @@ for t in output:
                       file=sys.stderr)
                 sys.exit(1)
 
-    if isinstance(t, pydsdl.data_type.ServiceType):
+    if isinstance(t, pydsdl.ServiceType):
         tt = t.request_type, t.response_type
     else:
         tt = t,
