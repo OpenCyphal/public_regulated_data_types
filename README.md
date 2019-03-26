@@ -34,7 +34,7 @@ For message subjects, the following range mapping is adopted (limits inclusive).
 Unused ranges are reserved for future expansion of adjacent ranges.
 
 From    | To        | Capacity | Purpose
---------|-----------|------------------------------------------------
+--------|-----------|----------|-------------------------------------
 0       | 24575     | 24576    | Unregulated identifiers
 28672   | 29695     | 1024     | Non-standard (vendor-specific) regulated identifiers
 31744   | 32767     | 1024     | Standard regulated identifiers
