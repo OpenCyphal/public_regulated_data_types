@@ -94,7 +94,7 @@
 # Modem nodes are required to keep the NAT table entries alive for at least this amount of time, unless the
 # table is overflowed, in which case they are allowed to remove least recently used entries in favor of
 # newer ones. Modem nodes are required to be able to accommodate at least 100 entries in the NAT table.
-uint32 NAT_ENTRY_MIN_TTL = 86400        # [second]
+uint32 NAT_ENTRY_MIN_TTL = 24 * 60 * 60  # [second]
 
 # This field is set to an arbitrary value by the transmitting node in order to be able to match the response
 # with the locally kept context. The function of this field is virtually identical to that of UDP/IP port
@@ -104,10 +104,6 @@ uint16 session_id
 
 # UDP destination port number.
 uint16 destination_port
-
-# Option flags.
-bool use_masquerading   # Expect data back (i.e. instruct the modem to use the NAT table)
-void7
 
 # Domain name or IP address where the payload should be forwarded to.
 # Note that broadcast addresses are allowed here, for example, 255.255.255.255.
@@ -126,10 +122,17 @@ void7
 void2
 uint8[<=45] destination_address
 
+@assert _offset_ % 8 == {0}
+
+# Option flags.
+bool use_masquerading   # Expect data back (i.e., instruct the modem to use the NAT table)
+void6
+
 # Effective payload. This data will be forwarded to the remote host verbatim.
 # UDP packets that contain more than 508 bytes of payload may be dropped by some types of
 # communication equipment. Refer to RFC 791 and 2460 for an in-depth review.
 # UAVCAN further limits the maximum packet size to reduce the memory and traffic burden on the nodes.
-uint8[<256] payload
+uint8[<=261] payload
 
 @assert _offset_ % 8 == {0}
+@assert _offset_.max / 8 == 313
