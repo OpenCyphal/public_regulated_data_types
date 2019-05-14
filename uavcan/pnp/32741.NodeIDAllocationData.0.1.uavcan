@@ -122,9 +122,11 @@
 # The allocatee-allocator exchange logic differs between allocators and allocatees. For allocators, the logic is
 # trivial: upon reception of a request, the allocator performs an allocation and sends a response back. If the
 # allocation could not be performed for any reason (e.g., the allocation table is full, or there was a failure),
-# no response is sent back (i.e., the request is simply ignored). The allocator that could not complete an allocation
-# for any reason is recommended to emit a diagnostic message with a human-readable description of the problem.
-# For allocatees, the logic is described below.
+# no response is sent back (i.e., the request is simply ignored); the recommended strategy for the allocatee is to
+# continue sending new allocation requests until a response is granted or a higher-level system (e.g., a maintenance
+# technician or some automation) intervenes to rectify the problem (e.g., by purging the allocation table).
+# The allocator that could not complete an allocation for any reason is recommended to emit a diagnostic message
+# with a human-readable description of the problem. For allocatees, the logic is described below.
 #
 # This message is used for PnP node-ID allocation on all transports where the maximum transmission unit size is
 # sufficiently large. For low-MTU transports such as CAN 2.0 there is a dedicated message definition that takes into
