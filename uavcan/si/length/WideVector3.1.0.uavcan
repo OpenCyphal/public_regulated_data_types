@@ -1,4 +1,0 @@
-uavcan.time.SynchronizedAmbiguousTimestamp.1.0 timestamp
-float64[3] meter
-@assert _offset_ / 8 == {27}
-@assert _offset_ % 8 == {0}

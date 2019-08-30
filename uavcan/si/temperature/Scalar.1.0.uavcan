@@ -1,3 +1,0 @@
-uavcan.time.SynchronizedAmbiguousTimestamp.1.0 timestamp
-float32 kelvin
-@assert _offset_ / 8 == {7}               # Single CAN 2.0 frame
