@@ -1,0 +1,6 @@
+#
+# 11-bit identifier.
+#
+
+uint11 value
+void18

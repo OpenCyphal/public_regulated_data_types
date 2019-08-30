@@ -1,0 +1,10 @@
+#
+# CAN frame arbitration field.
+#
+
+@union
+
+BaseArbitrationID.1.0     base
+ExtendedArbitrationID.1.0 extended
+
+@assert _offset_ == {30}

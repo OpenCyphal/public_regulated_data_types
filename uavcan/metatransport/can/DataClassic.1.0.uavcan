@@ -1,0 +1,7 @@
+#
+# Classic data frame payload.
+#
+
+ArbitrationID.1.0 arbitration_id
+void4
+uint8[<=8] data
