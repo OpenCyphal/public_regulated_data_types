@@ -2,6 +2,6 @@
 # CAN FD data frame payload.
 #
 
-ArbitrationID.1.0 arbitration_id
+ArbitrationID.0.1 arbitration_id
 void1
 uint8[<=64] data

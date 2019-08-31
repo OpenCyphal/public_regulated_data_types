@@ -4,7 +4,7 @@
 
 @union
 
-BaseArbitrationID.1.0     base
-ExtendedArbitrationID.1.0 extended
+BaseArbitrationID.0.1     base
+ExtendedArbitrationID.0.1 extended
 
 @assert _offset_ == {30}

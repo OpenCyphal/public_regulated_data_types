@@ -2,4 +2,4 @@
 # 29-bit identifier.
 #
 
-uint29 value
+truncated uint29 value

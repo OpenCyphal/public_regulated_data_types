@@ -56,7 +56,6 @@ for t in output:
 print('%d data types in %.1f seconds' % (len(output), elapsed_time),
       file=sys.stderr)
 
-largest = None
 for t in output:
     text = open(t.source_file_path).read()
     for index, line in enumerate(text.split('\n')):
@@ -93,18 +92,19 @@ for t in output:
     if not text.endswith('\n') or text.endswith('\n' * 2):
         abort('A file must contain exactly one blank line at the end')
 
-    if isinstance(t, pydsdl.ServiceType):
-        tt = t.request_type, t.response_type
+
+def get_max_bit_length(ty) -> int:
+    if isinstance(ty, pydsdl.ServiceType):
+        return max(map(max, (ty.request_type.bit_length_set,
+                             ty.response_type.bit_length_set)))
     else:
-        tt = t,
+        return max(ty.bit_length_set)
 
-    for t in tt:
-        largest = largest if largest and (max(largest.bit_length_set) >= max(t.bit_length_set)) else t
 
-if max(largest.bit_length_set) > MAX_SERIALIZED_BIT_LENGTH:
-    print('The largest data type', largest, 'exceeds the bit length limit of', MAX_SERIALIZED_BIT_LENGTH,
-          file=sys.stderr)
-    sys.exit(1)
-else:
-    print('Largest data type is', largest, 'up to', (max(largest.bit_length_set) + 7) // 8, 'bytes',
-          file=sys.stderr)
+for t in output:
+    max_bit_length = get_max_bit_length(t)
+    if max_bit_length > MAX_SERIALIZED_BIT_LENGTH:
+        text = open(t.source_file_path).read()
+        if '#pragma:no-bit-length-limit' not in text.replace(' ', ''):
+            print('The data type', t, 'exceeds the bit length limit of', MAX_SERIALIZED_BIT_LENGTH, file=sys.stderr)
+            sys.exit(1)

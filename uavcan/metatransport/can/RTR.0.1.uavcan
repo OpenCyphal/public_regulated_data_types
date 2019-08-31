@@ -2,4 +2,4 @@
 # Classic remote transmission request (not defined for CAN FD).
 #
 
-ArbitrationID.1.0 arbitration_id
+ArbitrationID.0.1 arbitration_id
