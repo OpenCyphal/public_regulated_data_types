@@ -4,16 +4,23 @@ import sys
 import time
 import string
 import pydsdl
+from functools import partial
 
 
 MAX_SERIALIZED_BIT_LENGTH = 313 * 8     # See README
 MAX_LINE_LENGTH = 120
+NAMESPACES_EXEMPTED_FROM_HEADER_COMMENT_REQUIREMENT = 'uavcan.primitive', 'uavcan.si'
 ALLOWED_CHARACTERS = set(string.digits + string.ascii_letters + string.punctuation + ' ')
 
 
-def on_print(definition, line, value):
-    print('%s:%d: %s' % (definition.file_path, line, value),
-          file=sys.stderr)
+def die_at(ty, line_index, *text):
+    prefix = '%s:%d:' % (ty.source_file_path, line_index + 1)
+    print(prefix, *text, file=sys.stderr)
+    sys.exit(1)
+
+
+def on_print(file_path, line, value):
+    print('%s:%d: %s' % (file_path, line, value), file=sys.stderr)
 
 
 def compute_max_num_frames_canfd(bit_length):
@@ -36,11 +43,11 @@ for t in output:
     num_frames_to_str = lambda x: str(x) if x > 1 else ' '      # Return empty for single-frame transfers
     if isinstance(t, pydsdl.ServiceType):
         max_canfd_frames = '  '.join([
-            num_frames_to_str(compute_max_num_frames_canfd(x.bit_length_range.max))
+            num_frames_to_str(compute_max_num_frames_canfd(max(x.bit_length_set)))
             for x in (t.request_type, t.response_type)
         ])
     else:
-        max_canfd_frames = num_frames_to_str(compute_max_num_frames_canfd(t.bit_length_range.max))
+        max_canfd_frames = num_frames_to_str(compute_max_num_frames_canfd(max(t.bit_length_set)))
 
     print(str(t).ljust(58),
           str(t.fixed_port_id if t.has_fixed_port_id else '').rjust(5),
@@ -51,23 +58,40 @@ print('%d data types in %.1f seconds' % (len(output), elapsed_time),
 
 largest = None
 for t in output:
-    for index, line in enumerate(open(t.source_file_path).readlines()):
+    text = open(t.source_file_path).read()
+    for index, line in enumerate(text.split('\n')):
         line = line.strip('\r\n')
+        abort = partial(die_at, t, index)
+
+        # Check header comment
+        if index == 0 and line != '#':
+            if not any(map(lambda e: t.full_namespace.startswith(e),
+                           NAMESPACES_EXEMPTED_FROM_HEADER_COMMENT_REQUIREMENT)):
+                abort('Every data type definition must have a header comment surrounded with "#\\n",',
+                      'unless it is a member of:', NAMESPACES_EXEMPTED_FROM_HEADER_COMMENT_REQUIREMENT)
+
+        # Check trailing comment placement
+        # TODO: this test breaks on string literals containing "#"
+        if not line.startswith('#') and '#' in line and '  #' not in line:
+            abort('Trailing line comments must be separated from the preceding text with at least two spaces')
+
+        if line != '#' and '#' in line and '# ' not in line:
+            abort('The text of a comment must be separated from the comment character with a single space')
+
+        if line.endswith(' '):
+            abort('Trailing spaces are not permitted')
 
         # Check line length limit
         if len(line) > MAX_LINE_LENGTH:
-            print('%s:%d: Line is too long:' % (t.source_file_path, index + 1),
-                  len(line), '>', MAX_LINE_LENGTH, 'chars',
-                  file=sys.stderr)
-            sys.exit(1)
+            abort('Line is too long:', len(line), '>', MAX_LINE_LENGTH, 'chars')
 
         # Make sure we're not using any weird characters such as tabs or non-ASCII-printable
         for char_index, char in enumerate(line):
             if char not in ALLOWED_CHARACTERS:
-                print('%s:%d: Disallowed character' % (t.source_file_path, index + 1),
-                      repr(char), 'code', ord(char), 'at column', char_index + 1,
-                      file=sys.stderr)
-                sys.exit(1)
+                abort('Disallowed character', repr(char), 'code', ord(char), 'at column', char_index + 1)
+
+    if not text.endswith('\n') or text.endswith('\n' * 2):
+        abort('A file must contain exactly one blank line at the end')
 
     if isinstance(t, pydsdl.ServiceType):
         tt = t.request_type, t.response_type
@@ -75,12 +99,12 @@ for t in output:
         tt = t,
 
     for t in tt:
-        largest = largest if largest and (largest.bit_length_range.max >= t.bit_length_range.max) else t
+        largest = largest if largest and (max(largest.bit_length_set) >= max(t.bit_length_set)) else t
 
-if largest.bit_length_range.max > MAX_SERIALIZED_BIT_LENGTH:
+if max(largest.bit_length_set) > MAX_SERIALIZED_BIT_LENGTH:
     print('The largest data type', largest, 'exceeds the bit length limit of', MAX_SERIALIZED_BIT_LENGTH,
           file=sys.stderr)
     sys.exit(1)
 else:
-    print('Largest data type is', largest, 'up to', (largest.bit_length_range.max + 7) // 8, 'bytes',
+    print('Largest data type is', largest, 'up to', (max(largest.bit_length_set) + 7) // 8, 'bytes',
           file=sys.stderr)

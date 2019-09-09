@@ -122,9 +122,11 @@
 # The allocatee-allocator exchange logic differs between allocators and allocatees. For allocators, the logic is
 # trivial: upon reception of a request, the allocator performs an allocation and sends a response back. If the
 # allocation could not be performed for any reason (e.g., the allocation table is full, or there was a failure),
-# no response is sent back (i.e., the request is simply ignored). The allocator that could not complete an allocation
-# for any reason is recommended to emit a diagnostic message with a human-readable description of the problem.
-# For allocatees, the logic is described below.
+# no response is sent back (i.e., the request is simply ignored); the recommended strategy for the allocatee is to
+# continue sending new allocation requests until a response is granted or a higher-level system (e.g., a maintenance
+# technician or some automation) intervenes to rectify the problem (e.g., by purging the allocation table).
+# The allocator that could not complete an allocation for any reason is recommended to emit a diagnostic message
+# with a human-readable description of the problem. For allocatees, the logic is described below.
 #
 # This message is used for PnP node-ID allocation on all transports where the maximum transmission unit size is
 # sufficiently large. For low-MTU transports such as CAN 2.0 there is a dedicated message definition that takes into
@@ -160,7 +162,7 @@
 #   Rule B. On expiration of the Request Timer (started as per rules A, B, or C):
 #     1. Request Timer restarts with a random interval of Trequest (chosen anew).
 #     2. The allocatee broadcasts an allocation request message, where the fields are populated as follows:
-#        node_id   - the preferred node-ID, or 125 if the allocatee doesn't have any specific preference.
+#        node_id   - the preferred node-ID, or the highest valid value if the allocatee doesn't have any preference.
 #        unique_id - the 128-bit unique-ID of the allocatee, same value that is reported via uavcan.node.GetInfo.
 #
 #   Rule C. On any allocation message, even if other rules also match:
@@ -180,18 +182,18 @@
 # If the message transfer is anonymous (i.e., allocation request), this is the preferred ID.
 # If the message transfer is non-anonymous (i.e., allocation response), this is the allocated ID.
 #
-# If the allocatee does not have any preference, it should request the highest possible node-ID, which is 125,
-# because 126 and 127 are reserved for network maintenance tools. Requesting 126 and 127 is not prohibited,
+# If the allocatee does not have any preference, it should request the highest possible node-ID. Keep in mind that
+# the two highest node ID values are reserved for network maintenance tools; requesting those is not prohibited,
 # but the allocator is recommended to avoid granting these node-ID, using nearest available lower value instead.
 # The allocator will traverse the allocation table starting from the preferred node-ID upward,
 # until a free node-ID is found (or the first ID reserved for network maintenance tools is reached).
 # If a free node-ID could not be found, the allocator will restart the search from the preferred node-ID
 # downward, until a free node-ID is found. In pseudocode:
 #
-#   uint8_t findFreeNodeID(const uint8_t preferred)     // Returns >127 on failure (valid node-ID range from 0 to 127)
+#   uint16_t findFreeNodeID(const uint16_t preferred)   // Returns 0xFFFF on failure
 #   {
 #       uint8_t candidate = preferred;
-#       while (candidate <= 125)
+#       while (candidate <= MAX_VALID_NODE_ID)          // MAX_VALID_NODE_ID is transport-dependent
 #       {
 #           if (!isOccupied(candidate)) { return candidate; }
 #           candidate++;
@@ -202,7 +204,7 @@
 #           if (!isOccupied(candidate)) { return candidate; }
 #           candidate--;
 #       }
-#       return isOccupied(0) ? 255 : 0;
+#       return isOccupied(0) ? 0xFFFF : 0;
 #   }
 uavcan.node.ID.1.0 node_id
 

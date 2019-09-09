@@ -1,4 +1,0 @@
-uavcan.time.SynchronizedAmbiguousTimestamp.1.0 timestamp
-float32[4] wxyz
-@assert _offset_ / 8 == {19}              # Optimized for three CAN 2.0 frames
-@assert _offset_ % 8 == {0}

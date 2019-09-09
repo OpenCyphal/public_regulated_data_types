@@ -1,3 +1,0 @@
-uavcan.time.SynchronizedAmbiguousTimestamp.1.0 timestamp
-float64 second
-@assert _offset_ / 8 == {11}              # Two CAN 2.0 frames

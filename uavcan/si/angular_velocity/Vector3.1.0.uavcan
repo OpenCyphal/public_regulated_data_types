@@ -1,4 +1,0 @@
-uavcan.time.SynchronizedAmbiguousTimestamp.1.0 timestamp
-float32[3] radian_per_second
-@assert _offset_ / 8 == {15}
-@assert _offset_ % 8 == {0}

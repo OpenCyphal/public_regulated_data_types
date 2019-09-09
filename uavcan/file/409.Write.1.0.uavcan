@@ -15,10 +15,10 @@ truncated uint40 offset
 
 Path.1.0 path
 
-uint8[<=128] data
+uint8[<=192] data   # 192 = 128 + 64; the write protocol permits usage of smaller chunks.
 
 @assert _offset_ % 8 == {0}
-@assert _offset_.max / 8 <= 300
+@assert _offset_.max / 8 <= 313
 
 ---
 
