@@ -125,8 +125,9 @@ uint8[<=45] destination_address
 @assert _offset_ % 8 == {0}
 
 # Option flags.
-bool use_masquerading   # Expect data back (i.e., instruct the modem to use the NAT table)
-void6
+bool use_masquerading   # Expect data back (i.e., instruct the modem to use the NAT table).
+bool use_dtls           # Use Datagram Transport Layer Security. Drop the packet if DTLS is not supported.
+void5
 
 # Effective payload. This data will be forwarded to the remote host verbatim.
 # UDP packets that contain more than 508 bytes of payload may be dropped by some types of
