@@ -3,7 +3,8 @@
 # Since the string is represented as a dynamic array of bytes, it is not null-terminated. Like Pascal string.
 #
 
-uint8[<256] value
+void7
+uint8[<=256] value
 
 @assert _offset_ % 8 == {0}
-@assert _offset_.max / 8 == 256
+@assert _offset_.max / 8 == 258
