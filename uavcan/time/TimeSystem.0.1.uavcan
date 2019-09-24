@@ -8,7 +8,8 @@
 # Monotonic time is a time reference that doesn't change rate or make leaps.
 uint4 MONOTONIC_SINCE_BOOT = 0
 
-# International Atomic Time; https://en.wikipedia.org/wiki/International_Atomic_Time
+# International Atomic Time; https://en.wikipedia.org/wiki/International_Atomic_Time.
+# The timestamp value contains the number of microseconds elapsed since 1970-01-01T00:00:00Z TAI.
 # TAI is always a fixed integer number of seconds ahead of GPS time.
 # Systems that use GPS time as a reference should convert that to TAI by adding the fixed difference.
 # UAVCAN does not support GPS time directly on purpose, for reasons of consistency.
