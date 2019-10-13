@@ -128,6 +128,7 @@ void2
 # Empty value means that the register does not exist (in this case the flags should be cleared/ignored).
 # By comparing the returned value against the write request the caller can determine whether the register
 # was written successfully, unless write was not requested.
+# An empty value shall never be returned for an existing register.
 Value.1.0 value
 
 @assert _offset_.min % 8 == 0

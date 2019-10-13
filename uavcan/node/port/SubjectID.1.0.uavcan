@@ -1,5 +1,5 @@
 #
-# Subject ID. The ranges are defined by the specification.
+# Subject-ID. The ranges are defined by the specification.
 #
 
 uint16 MAX_UNREGULATED_ID = 24575

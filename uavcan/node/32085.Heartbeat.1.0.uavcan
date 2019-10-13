@@ -1,8 +1,9 @@
 #
 # Abstract node status information.
-#
-# All UAVCAN nodes are required to publish this message periodically.
 # This is the only high-level function that must be implemented by all nodes.
+#
+# All UAVCAN nodes that have a node-ID are required to publish this message periodically.
+# Nodes that do not have a node-ID (also known as "anonymous nodes") shall not publish this message.
 #
 # The default subject ID 32085 is 111110101010101 in binary. The alternating bit pattern at the end
 # helps transceiver synchronization (e.g., on CAN-based networks) and on some transports permits
