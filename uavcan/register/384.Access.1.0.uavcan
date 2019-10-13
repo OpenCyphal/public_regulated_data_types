@@ -56,6 +56,14 @@
 #   - minimum value is contained in the register named "system.parameter>" (optional)
 #   - default value is contained in the register named "system.parameter=" (optional)
 #
+# The type and dimensionality of the special function registers containing the minimum, maximum, and the default
+# value of a register shall be the same as those of the register.
+#
+# If a written value exceeds the minimum/maximum specified by the respective special function registers,
+# the server may either adjust the value automatically, or to retain the old value, depending on which behavior
+# suits the objectives of the application better.
+# The values of registers containing non-scalar numerical entities should be compared elementwise.
+#
 # The following table specifies the register name patterns that are reserved by the specification for
 # common functions. Implementers should always follow these conventions whenever applicable.
 # The table uses the following abbreviations for register flags:
