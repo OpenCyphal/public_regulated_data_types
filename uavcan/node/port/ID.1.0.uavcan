@@ -4,6 +4,6 @@
 #
 
 @union
-ServiceID.1.0 service_id
 SubjectID.1.0 subject_id
-@assert _offset_ == {17}
+ServiceID.1.0 service_id
+@assert _offset_ == {16}

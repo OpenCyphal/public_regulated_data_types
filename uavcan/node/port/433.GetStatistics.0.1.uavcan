@@ -4,10 +4,9 @@
 #
 
 # The port of interest; can be either a service or a message.
-void7
 ID.1.0 port_id
 
-@assert _offset_ == {24}
+@assert _offset_ == {16}
 
 ---
 
