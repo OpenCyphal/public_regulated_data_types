@@ -74,8 +74,8 @@ uint8 DEFAULT_MAX_ELECTION_TIMEOUT = 4      # [second]
 # Refer to the Raft paper for explanation.
 uint32 term
 uint32 prev_log_term
-uint8 prev_log_index
-uint8 leader_commit
+uint16 prev_log_index
+uint16 leader_commit
 
 # Worst case replication time per Follower can be computed as:
 #

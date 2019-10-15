@@ -5,7 +5,7 @@
 # Refer to the Raft paper for explanation.
 uint32 term
 uint32 last_log_term
-uint8 last_log_index
+uint16 last_log_index
 
 ---
 

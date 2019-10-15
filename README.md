@@ -1,10 +1,14 @@
 Regulated DSDL definitions
 ==========================
 
-[![Build Status](https://travis-ci.org/UAVCAN/dsdl.svg?branch=master)](https://travis-ci.org/UAVCAN/dsdl)
+[![Build Status](https://travis-ci.org/UAVCAN/public_regulated_data_types.svg?branch=master)](https://travis-ci.org/UAVCAN/public_regulated_data_types)
 [![Forum](https://img.shields.io/discourse/https/forum.uavcan.org/users.svg)](https://forum.uavcan.org)
 
 This repository contains definitions of the regulated UAVCAN data types.
+[UAVCAN](http://uavcan.org) is an open lightweight protocol designed for reliable communication
+in aerospace and robotic applications via robust vehicle bus networks such as CAN, Ethernet, and similar.
+The name stands for *Uncomplicated Application-level Vehicular Communication And Networking*.
+
 Regulated data types include the standard data types and vendor-specific public definitions.
 
 Per the specification, standard data types are contained in the root namespace `uavcan`,
@@ -18,11 +22,7 @@ defined by the specification before submitting the pull request.
 
 Contributors must obey the guidelines defined in this document.
 
-UAVCAN is an open lightweight protocol designed for reliable communication in aerospace and robotic applications via
-robust vehicle bus networks.
-
-* [**UAVCAN website**](http://uavcan.org)
-* [**UAVCAN forum**](https://forum.uavcan.org)
+Feedback and proposals are welcome on the [UAVCAN forum](https://forum.uavcan.org).
 
 ## Identifier ranges
 

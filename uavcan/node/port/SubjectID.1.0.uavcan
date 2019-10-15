@@ -1,10 +1,9 @@
 #
-# Subject ID. The ranges are defined by the specification.
+# Subject-ID. The ranges are defined by the specification.
 #
 
 uint16 MAX_UNREGULATED_ID = 24575
 
-void1
 uint15 value
 
-@assert _offset_ == {16}
+@assert _offset_ == {15}

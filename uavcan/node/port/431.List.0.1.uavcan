@@ -1,21 +1,20 @@
 #
-# Returns a subset of all ports of the specified kind (service or message) on the remote node.
+# Returns a subset of all ports of the specified kind (subject or service) on the remote node.
 # As the number of ports may exceed the capacity of the output array, the server will return only those which are
-# greater than the number specified in the request. The caller should sweep the lower boundary upwards until
-# the size of the returned array is less than its capacity. For example:
+# not less than the number specified in the request. The caller should sweep the lower boundary upwards until
+# the size of the returned array is strictly less than its capacity. For example:
 # 1. port_id_lower_boundary =    0; port_ids = [42, 567, ... 920]    (=128 elements, continue)
 # 2. port_id_lower_boundary =  920; port_ids = [1052,    ... 5049]   (=128 elements, continue)
 # 3. port_id_lower_boundary = 5049; port_ids = [6973,    ..., 24593] (<128 elements, stop)
 #
-
-# The server will return as many IDs as possible which are numerically greater than this lower boundary,
-# and which are of the same kind as specified in the request (i.e., if the lower boundary is a service ID, only
-# service IDs will be returned).
+# The server will return as many IDs as possible which are numerically not less than port_id_lower_boundary,
+# and which are of the same kind as specified in the request (i.e., if the lower boundary is a service-ID, only
+# service-IDs will be returned).
 #
-# If the number of matching (i.e., greater than this limit) IDs exceeds the capacity of the output array,
-# the caller will need to repeat the call with this boundary set to the maximum value found in the returned array.
-# The calls should be repeated while advancing the boundary as described until the returned array is not full
-# (e.g. the number of elements is less than its capacity, possibly zero).
+# If the number of matching (i.e., not less than port_id_lower_boundary) IDs exceeds the capacity of the output array,
+# the caller will need to repeat the call with this boundary set to the value one greater than the maximum found
+# in the returned array. The calls should be repeated while advancing the boundary as described until
+# the returned array is not full (e.g. the number of elements is less than its capacity, possibly zero).
 #
 # The server is NOT required to ensure any ordering in the output array, meaning that the caller will have to
 # search through the array in order to find the greatest value in it.
@@ -23,13 +22,20 @@
 # The server is REQUIRED to ensure that every element in the returned array is unique.
 #
 # The server is REQUIRED to ensure that by performing the above actions the client will end up with a full set of
-# port IDs, assuming that the set is not modified between invocations. This implicitly requires that there must be
-# no port ID that is lower than the greatest value in the returned array that is not listed in the array, because
+# port-IDs, assuming that the set is not modified between invocations. This implicitly requires that there must be
+# no port-ID that is lower than the greatest value in the returned array that is not listed in the array, because
 # in that case the client will never be able to obtain that value.
-void7
+#
+# For subjects, both subscription (input) and publication (output) ports shall be returned.
+# If necessary, the caller will be able to differentiate between those by using the sibling service type GetInfo.
+#
+# For services, server ports shall be returned. Whether client ports are returned is implementation-defined.
+# As in the case of subjects, further differentiation is possible via GetInfo.
+#
+
 ID.1.0 port_id_lower_boundary
 
-@assert _offset_ == {24}
+@assert _offset_ == {16}
 
 ---
 

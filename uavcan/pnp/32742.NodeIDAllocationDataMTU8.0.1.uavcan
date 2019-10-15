@@ -10,9 +10,9 @@
 # the full 128-bit ID with a smaller 55-bit hash of it, and remove support for preferred node-ID value in the
 # allocation requests in order to save space.
 #
-# The 55-bit hash is obtained by applying an atbitrary hash function to the unique-ID that outputs at least 55 bit of
+# The 55-bit hash is obtained by applying an arbitrary hash function to the unique-ID that outputs at least 55 bit of
 # data. For example, it could be the standard CRC-64WE function where only the lowest 55 bit of the result are used.
-# The hash function must always produce the same hash value for the same unique-ID value, and it must be likely to
+# The hash function shall produce the same hash value for the same unique-ID value, and it should be likely to
 # produce a different hash value for any other unique-ID value.
 #
 # Allocators that support both the general case and the small-MTU case should maintain the same allocation table
@@ -22,6 +22,9 @@
 # obtain a "pseudo unique-ID", and use this value in the allocation table as a substitute for the real unique-ID.
 # It is recognized that this behavior will have certain side effects, such as the same allocatee obtaining different
 # allocated node-ID values depending on which transport is used, but they are considered tolerable.
+#
+# Allocatees that may need to operate over low-MTU transports along with high-MTU transports may choose to use
+# only this constrained method of allocation for consistency and simplification of the behaviors.
 #
 # In order to save space for the hash, the preferred node-ID is removed from the request. The allocated node-ID
 # is provided in the response, however; this is achieved by means of an optional field that is not populated in

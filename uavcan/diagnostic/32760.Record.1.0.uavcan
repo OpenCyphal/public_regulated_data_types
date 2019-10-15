@@ -1,6 +1,6 @@
 #
 # Generic human-readable text message for logging and displaying purposes.
-# Generally it should be published at the lowest priority level.
+# Generally, it should be published at the lowest priority level.
 #
 
 # Optional timestamp in the network-synchronized time system; zero if undefined.

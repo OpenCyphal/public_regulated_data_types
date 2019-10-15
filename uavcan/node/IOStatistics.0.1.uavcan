@@ -1,8 +1,18 @@
 #
-# A standard set of generic input/output statistical counters that should never overflow (in a realistic scenario).
+# A standard set of generic input/output statistical counters that generally should not overflow.
 # If a 40-bit counter is incremented every millisecond, it will overflow in ~35 years.
+# If an overflow occurs, the value will wrap over to zero.
+#
+# The values should not be reset while the node is running.
 #
 
+# The number of successfully emitted entities.
 truncated uint40 num_emitted
+
+# The number of successfully received entities.
 truncated uint40 num_received
+
+# How many errors have occurred.
+# The exact definition of "error" and how they are counted are implementation-defined,
+# unless specifically defined otherwise.
 truncated uint40 num_errored
