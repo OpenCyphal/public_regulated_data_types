@@ -4,7 +4,7 @@ Regulated DSDL definitions
 [![Build Status](https://travis-ci.org/UAVCAN/public_regulated_data_types.svg?branch=master)](https://travis-ci.org/UAVCAN/public_regulated_data_types)
 [![Forum](https://img.shields.io/discourse/https/forum.uavcan.org/users.svg)](https://forum.uavcan.org)
 
-This repository contains definitions of the regulated UAVCAN data types.
+This repository contains definitions of the regulated UAVCAN v1 data types.
 [UAVCAN](http://uavcan.org) is an open lightweight protocol designed for reliable communication
 in aerospace and robotic applications via robust vehicle bus networks such as CAN, Ethernet, and similar.
 The name stands for *Uncomplicated Application-level Vehicular Communication And Networking*.
