@@ -1,8 +1,8 @@
 Standard DSDL definitions
 =========================
 
-[![Build Status](https://travis-ci.org/UAVCAN/dsdl.svg?branch=master)](https://travis-ci.org/UAVCAN/dsdl)
-[![Gitter](https://img.shields.io/badge/gitter-join%20chat-green.svg)](https://gitter.im/UAVCAN/general)
+[![Build Status](https://travis-ci.org/UAVCAN/public_regulated_data_types.svg?branch=legacy-v0)](https://travis-ci.org/UAVCAN/public_regulated_data_types)
+[![Forum](https://img.shields.io/discourse/https/forum.uavcan.org/users.svg)](https://forum.uavcan.org)
 
 This repository contains the DSDL definitions of the standard UAVCAN v0 messages and services.
 
