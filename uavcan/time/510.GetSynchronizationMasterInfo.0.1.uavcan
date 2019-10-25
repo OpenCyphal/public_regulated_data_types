@@ -23,19 +23,9 @@ float32 error_variance      # [second^2]
 # Cannot be changed while the network is operating.
 TimeSystem.0.1 time_system
 
-# The fixed difference, in seconds, between TAI and GPS time. Does not change ever.
-uint12 TIME_DIFFERENCE_TAI_MINUS_GPS = 19    # [second]
-
-# The current difference between TAI and UTC (a.k.a. leap seconds), if known.
-# If unknown, set to zero. This value can change states between known and unknown while the master is running,
-# depending on its ability to obtain robust values from external sources.
-# This value can change twice a year, possibly while the system is running; https://en.wikipedia.org/wiki/Leap_second
-# Since Earth is decelerating, this value can be only positive. Do not use outside Earth.
-uint12 TIME_DIFFERENCE_TAI_MINUS_UTC_UNKNOWN = 0
-uint12 time_difference_tai_minus_utc
-
-# Reserved for future use
-void8
+# Actual information about TAI provided by this master, if supported.
+# The fields in this data type are optional.
+TAIInfo.0.1 tai_info
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.max <= 56   # It is nice to have the response fit into one transport frame, although not required.
