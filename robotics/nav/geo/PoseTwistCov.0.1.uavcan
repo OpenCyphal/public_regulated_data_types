@@ -1,0 +1,8 @@
+#
+# Pose and motion of a body relative to the surface of a planet.
+#
+
+PoseCov.0.1 pose
+robotics.mechanics.TwistCov.0.1 twist
+
+@assert _offset_ % 8 == {0}

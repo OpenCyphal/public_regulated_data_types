@@ -1,0 +1,52 @@
+#
+# Smart battery parameter message. This is a top-level data type.
+# This message is modeled after the Smart Battery Data Specification (SBS) and the MAVLink battery status messages.
+#
+# The values carried by this message are either constant or slow-changing,
+# so the publishing frequency should not be higher than 0.1 Hz.
+#
+# Vehicular systems that leverage multiple batteries concurrently should be configured to publish the parameters
+# of each battery on a separate subject.
+#
+
+# The total mass of the battery pack, including the packaging, electronics, cabling, and all auxiliary items, if any.
+uavcan.si.unit.mass.Scalar.1.0 mass
+
+# The maximum charge of the battery specified by the manufacturer.
+uavcan.si.unit.electric_charge.Scalar.1.0 design_capacity
+
+# The number of charge-discharge cycles. Zero if the battery is new. May increase at runtime.
+# What constitutes a charge-discharge cycle is implementation-defined.
+uint32 cycle_count
+uint32 CYCLE_COUNT_UNKNOWN = 2 ** 32 - 1
+
+# Shall not change at runtime.
+Chemistry.0.1 chemistry
+
+void1
+
+# The SoH of the pack, ranges from 0 to 100. May change at runtime.
+# If not provided by the BMS, use best guess or report 100%.
+uint7 state_of_health
+
+void64
+void64
+
+# Vendor-specific identification or diagnostic information. May change at runtime depending on its use.
+uint64 vendor_specific_parameter
+
+# The unique identifier of the battery whose parameters are reported.
+# Vendors should obtain a random ID for every manufactured battery.
+# If the battery is interfaced via SBS, the unique ID can be computed as a hash
+# of the manufacturer name, device name, serial number, and the manufacture date.
+uint64 unique_id
+
+@assert (_offset_ % 8 == {0}) && (_offset_.count == 1)
+
+void2
+
+# The name of the vendor and model encoded in UTF8.
+# Example: "MyBattCo MBC101 v1.1"
+uint8[<64] name
+
+@assert _offset_ % 8 == {0}

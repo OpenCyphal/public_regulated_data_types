@@ -1,0 +1,32 @@
+#
+# A global time estimate computed by a GNSS receiver. This is a top-level data type for this namespace.
+# TAI is short for International Atomic Time; https://en.wikipedia.org/wiki/International_Atomic_Time.
+#
+# TAI is always a fixed integer number of seconds ahead of GPS time.
+# Systems that use GPS time as a reference should convert that to TAI by adding the fixed difference.
+# GPS time is not supported for reasons of consistency across different positioning systems and applications.
+#
+
+# The timestamp of these estimates in the network-syncrhonized time system (not to be confused with GNSS time).
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+
+# The navigation fix timestamp in the TAI system. Zero if unknown.
+# This value contains the number of nanoseconds elapsed since 1970-01-01T00:00:00Z TAI.
+uint64 tai_ns               # [nanosecond]
+
+# Error variance, in second squared, of the time estimate.
+# This value is allowed to change freely while the receiver is running.
+# Infinity indicates that the time estimates are not yet available.
+# NaN indicates that the error variance is unknown.
+#
+# The error variance is expected to increase if the GNSS signal deteriorates.
+# If the signal is lost, this value is expected to grow steadily, the rate of growth dependent on the quality of
+# the time keeping hardware available locally (bad hardware yields faster growth).
+# Once the signal is regained, this value would drop back to nominal.
+float32 error_variance      # [second^2]
+
+# Actual information about TAI provided by this GNSS receiver, including the number of leap seconds.
+# This information can be used to convert TAI into UTC.
+uavcan.time.TAIInfo.0.1 info
+
+@assert _offset_ % 8 == {0}

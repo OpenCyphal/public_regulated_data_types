@@ -1,0 +1,102 @@
+#
+# Smart battery status message. This is a top-level data type.
+# This message is modeled after the Smart Battery Data Specification (SBS) and the MAVLink battery status messages.
+#
+# The values carried by this message are expected to change rapidly while the vehicle is operating,
+# so the publishing frequency should not be lower than 0.1 Hz.
+# Published values should be low-pass filtered to avoid aliasing effects.
+# Publishers should strive to sample all parameters atomically.
+#
+# Vehicular systems that leverage multiple batteries concurrently should be configured to publish the status
+# of each battery on a separate subject.
+#
+# pragma: no-bit-length-limit
+#
+
+# The network-synchronized timestamp of the moment where the values contained in this message have been sampled.
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+
+# --------------------------  ESTIMATES  --------------------------
+
+void1
+
+# The instant SoC of the pack, ranges from 0 to 100. Mandatory.
+# The methods of estimation are implementation-defined.
+uint7 state_of_charge  # [percent]
+
+@assert _offset_ % 32 == {0}
+
+# Total instant pack voltage. Low-pass filtering should be applied to avoid aliasing effects.
+uavcan.si.unit.voltage.Scalar.1.0 voltage
+
+# Total instant pack current. Low-pass filtering should be applied to avoid aliasing effects.
+# Positive current flows from the battery to the load (discharging).
+# Negative current flows into the battery (charging).
+uavcan.si.unit.electric_current.Scalar.1.0 current
+
+# A pessimistic estimate of the amount of energy that can be reclaimed from the battery in its current state.
+# This may be dependent on the state of charge (SoC), state of health (SoH), temperature, load profile, etc.
+# Negative values may be reported to indicate overdischarge.
+# The methods of estimation are implementation-defined.
+#
+# The remaining time to depletion can be estimated through trivial transformations.
+# First, the current power consumption has to be estimated. This can be done by computing the power directly
+# (voltage*current), or by computing the time derivative of estimated energy (dE/dt). The latter approach takes
+# into accout other environmental changes that may affect the amount of available energy, so it may be preferable.
+# Having the current power consumption rate, the time to depletion is estimated as (full_energy - energy) / power.
+# When charging, the remaining time to full charge can be found similarly.
+uavcan.si.unit.energy.Scalar.1.0 energy
+
+# A pessimistic estimate of the amount of energy that can be reclaimed from a fully charged battery
+# under the current conditions (SoH, temperature, load profile, etc).
+# The methods of estimation are implementation-defined.
+uavcan.si.unit.energy.Scalar.1.0 full_energy
+
+# If there are multiple temperature sensors, reduction is implementation-defined. NaN if not defined.
+float16 temperature  # [kelvin]
+
+@assert _offset_ % 8 == {0}
+
+# --------------------------  STATUS FLAGS  --------------------------
+
+# An external power source is connected, which can be used to charge the battery.
+# Whether the charge is in progress is reflected via the current sample: a negative value indicates that
+# the battery is being charged.
+bool charger_connected
+
+# The temperature of at least one cell/section of the battery is above or below the safe operating limits.
+# Note that the flags are not mutually exclusive.
+bool temperature_hot
+bool temperature_cold
+
+# The charge or discharge rate exceeds the safe operating limits.
+bool overload
+
+# The cells require rebalancing. This may be an indicator of deterioration of the battery.
+bool disbalance
+
+# The battery requires other type of maintenance (not balancing).
+# Use vendor-specific interfaces to obtain further information.
+bool needs_service
+
+# Internal error in the battery management system, not related to the battery itself.
+# Use vendor-specific interfaces to obtain further information.
+bool bms_error
+
+# Reserved for future flags.
+void9
+
+# Vendor-specific values or flags for extended diagnostics and troubleshooting.
+uint16 vendor_specific_status_code
+
+@assert (_offset_ % 8 == {0}) && (_offset_.count == 1) && (_offset_.max / 8 <= 63)  # One CAN FD frame up to this point.
+
+# --------------------------  PER CELL ESTIMATES  --------------------------
+
+# Individual cell voltages.
+# The number of elements shall match the number of cells in the battery.
+# If the number of cells is unknown, the array shall be empty.
+# If the number of cells is known, but their voltages cannot be estimated, the elements shall be NaN.
+float16[<256] cell_voltages  # [volt]
+
+@assert _offset_ % 8 == {0}

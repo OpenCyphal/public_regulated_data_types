@@ -1,0 +1,11 @@
+#
+# Setpoints for the mechanical speed control loop of an ESC.
+# Each setpoint value contains the target mechanical angular velocity of the motor in rad/s.
+# Negative values indicate reverse rotation.
+# If reversal is not supported, negative values should be treated as zero setpoint.
+#
+
+void2
+uavcan.si.unit.angular_velocity.Scalar.1.0[<64] motor_mechanical_angular_velocity
+
+@assert _offset_ % 8 == {0}

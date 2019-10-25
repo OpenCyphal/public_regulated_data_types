@@ -1,0 +1,9 @@
+#
+# Setpoints for the torque control loop of an ESC.
+# Each setpoint value contains the target torque applied to the mechanical load in newton*meters.
+#
+
+void2
+uavcan.si.unit.torque.Scalar.1.0[<64] motor_torque
+
+@assert _offset_ % 8 == {0}
