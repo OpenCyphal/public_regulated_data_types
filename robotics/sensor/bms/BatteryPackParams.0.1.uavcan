@@ -1,19 +1,41 @@
 #
 # Smart battery parameter message. This is a top-level data type.
 # This message is modeled after the Smart Battery Data Specification (SBS) and the MAVLink battery status messages.
+# Please read the documentation for the pack status message type first.
 #
-# The values carried by this message are either constant or slow-changing,
-# so the publishing frequency should not be higher than 0.1 Hz.
+# The values carried by this message are either constant or slow-changing, so, generally, the publishing frequency
+# should not be higher than 0.2 Hz.
 #
-# Vehicular systems that leverage multiple batteries concurrently should be configured to publish the parameters
-# of each battery on a separate subject.
+# Systems that leverage multiple battery packs concurrently should be configured to publish the parameters of
+# each pack on a separate subject.
+#
+# Parameters are specified for the pack rather than per-cell, unless explicitly stated otherwise.
 #
 
-# The total mass of the battery pack, including the packaging, electronics, cabling, and all auxiliary items, if any.
+# The total mass of the pack, including the packaging, electronics, cabling, and all auxiliary items, if any.
+# NaN if unknown.
 uavcan.si.unit.mass.Scalar.1.0 mass
 
-# The maximum charge of the battery specified by the manufacturer.
+# The maximum total charge of the pack, at 100% SoH, specified by the manufacturer.
+# NaN if unknown.
 uavcan.si.unit.electric_charge.Scalar.1.0 design_capacity
+
+# The maximum load current of the pack specified by the manufacturer.
+# NaN if unknown.
+uavcan.si.unit.electric_current.Scalar.1.0 design_load_current
+
+# The minimum (end of discharge), nominal (resting), and the maximum (end of charge) cell voltages
+# specified by the manufacturer. The number of cells is reported in the status message.
+# Constraints: minimum <= nominal <= maximum.
+# Use best guess or NaN if any of the values are unknown.
+# Example: [2.8, 3.6, 4.2] V.
+uavcan.si.unit.voltage.Scalar.1.0[3] design_cell_voltage_min_typ_max
+
+# The charging parameters specified by the manufacturer for the pack.
+# This is a reflection of similar parameters from the Smart Battery Data Specification.
+# NaN if unknown.
+uavcan.si.unit.voltage.Scalar.1.0          design_charging_voltage
+uavcan.si.unit.electric_current.Scalar.1.0 design_charging_current
 
 # The number of charge-discharge cycles. Zero if the battery is new. May increase at runtime.
 # What constitutes a charge-discharge cycle is implementation-defined.
@@ -21,7 +43,7 @@ uint32 cycle_count
 uint32 CYCLE_COUNT_UNKNOWN = 2 ** 32 - 1
 
 # Shall not change at runtime.
-Chemistry.0.1 chemistry
+Technology.0.1 technology
 
 void1
 

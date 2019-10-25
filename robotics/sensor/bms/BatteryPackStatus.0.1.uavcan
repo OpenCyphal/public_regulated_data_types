@@ -3,12 +3,28 @@
 # This message is modeled after the Smart Battery Data Specification (SBS) and the MAVLink battery status messages.
 #
 # The values carried by this message are expected to change rapidly while the vehicle is operating,
-# so the publishing frequency should not be lower than 0.1 Hz.
+# so the publishing frequency should not be lower than 0.2 Hz (1 Hz recommended). There is a secondary message
+# that carries constant or slow-changing parameters of the battery such as its mass, unique identifier,
+# the state-of-health (SOH), and so on; that message is expected to be published on a separate subject at a
+# much lower rate. Subscribers that are interested in the full information about the battery should subscribe
+# to both subjects.
+#
 # Published values should be low-pass filtered to avoid aliasing effects.
 # Publishers should strive to sample all parameters atomically.
 #
-# Vehicular systems that leverage multiple batteries concurrently should be configured to publish the status
-# of each battery on a separate subject.
+# Systems that leverage multiple battery packs concurrently should be configured to publish the status of each
+# pack on a separate subject.
+#
+# The reported quantities are focused on the amount of energy that can be reclaimed from the battery. In a
+# simplified view, this can be seen as the amount of energy that is "stored" in the battery; however, this
+# interpretation is not strictly correct because the amount of retrievable energy may be dependent on external
+# factors such as the temperature of the battery or the load current. Energy estimation is hard and requires
+# accurate modeling of the state of the battery, which may be impossible to do without precise tracking of each
+# charging cycle. Despite the complications, this is considered to be a superior approach compared to the commonly
+# used alternative where the state estimation is focused on the electric charge, because the latter cannot be used
+# directly to predict the endurance of the system.
+#
+# The methods of energy estimation are implementation-defined.
 #
 # pragma: no-bit-length-limit
 #
@@ -37,19 +53,16 @@ uavcan.si.unit.electric_current.Scalar.1.0 current
 # A pessimistic estimate of the amount of energy that can be reclaimed from the battery in its current state.
 # This may be dependent on the state of charge (SoC), state of health (SoH), temperature, load profile, etc.
 # Negative values may be reported to indicate overdischarge.
-# The methods of estimation are implementation-defined.
 #
-# The remaining time to depletion can be estimated through trivial transformations.
-# First, the current power consumption has to be estimated. This can be done by computing the power directly
-# (voltage*current), or by computing the time derivative of estimated energy (dE/dt). The latter approach takes
-# into accout other environmental changes that may affect the amount of available energy, so it may be preferable.
-# Having the current power consumption rate, the time to depletion is estimated as (full_energy - energy) / power.
-# When charging, the remaining time to full charge can be found similarly.
+# The instant power consumption can be computed directly from the voltage and current measurements, or as
+# the time derivative of estimated energy (dE/dt). The latter approach takes into accout other environmental
+# factors that may affect the amount of reclaimable energy, so it may be preferable. Having the instant power,
+# the time to depletion is estimated as ((full_energy - energy) / power). When charging, the remaining time to
+# full charge can be found similarly.
 uavcan.si.unit.energy.Scalar.1.0 energy
 
 # A pessimistic estimate of the amount of energy that can be reclaimed from a fully charged battery
 # under the current conditions (SoH, temperature, load profile, etc).
-# The methods of estimation are implementation-defined.
 uavcan.si.unit.energy.Scalar.1.0 full_energy
 
 # If there are multiple temperature sensors, reduction is implementation-defined. NaN if not defined.
@@ -59,9 +72,8 @@ float16 temperature  # [kelvin]
 
 # --------------------------  STATUS FLAGS  --------------------------
 
-# An external power source is connected, which can be used to charge the battery.
-# Whether the charge is in progress is reflected via the current sample: a negative value indicates that
-# the battery is being charged.
+# Whether the charging is in progress is observable though the reported instant current: a negative value
+# indicates that the battery is being charged. Time to full charge can be derived from the energy estimate.
 bool charger_connected
 
 # The temperature of at least one cell/section of the battery is above or below the safe operating limits.
