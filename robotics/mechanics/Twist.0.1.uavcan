@@ -1,9 +1,0 @@
-#
-# Movement of a rigid body in 3D space.
-# See the UAVCAN specification for the applicable conventions.
-#
-
-uavcan.si.unit.velocity.Vector3.1.0 linear
-
-# Angular velocity around fixed axes (extrinsic).
-uavcan.si.unit.angular_velocity.Vector3.1.0 angular
