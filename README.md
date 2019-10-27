@@ -130,10 +130,18 @@ in the namespace `uavcan.register`.
 The register protocol provides a highly generic interface to vendor-specific functionality
 and configuration parameters via named registers.
 
-## Non-standard regulated data types
+## Non-standard data types
 
-Non-standard data types are contained in the root namespace `com`.
+Non-standard regulated data types are contained in the root namespace `com`.
 The root namespace contains nested namespaces, one per vendor, named after the vendor.
+
+Note for authors of ***unregulated*** data type definitions:
+the UAVCAN specification explicitly bans namespaces that share the same name but differ in their contents.
+This is done in order to avoid complicated edge cases jeopardizing the strong wire compatibility guarantees
+provided by UAVCAN that would have arisen if the ban was not in place.
+It follows then that vendors seeking to define unregulated data types shall not put those into the `com` namespace;
+instead, a new root namespace named after the vendor shall be used: `my_namespace`, not `com.my_namespace`.
+Failure to observe this requirement may lead to data type compatibility issues.
 
 ## Guidelines for data type authors
 
