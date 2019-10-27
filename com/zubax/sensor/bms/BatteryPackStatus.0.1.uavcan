@@ -57,8 +57,8 @@ uavcan.si.unit.electric_current.Scalar.1.0 current
 # The instant power consumption can be computed directly from the voltage and current measurements, or as
 # the time derivative of estimated energy (dE/dt). The latter approach takes into accout other environmental
 # factors that may affect the amount of reclaimable energy, so it may be preferable. Having the instant power,
-# the time to depletion is estimated as ((full_energy - energy) / power). When charging, the remaining time to
-# full charge can be found similarly.
+# the time to depletion is estimated as (energy / power). When charging, the remaining time to full charge
+# can be found similarly as ((full_energy - energy) / abs(power)).
 uavcan.si.unit.energy.Scalar.1.0 energy
 
 # A pessimistic estimate of the amount of energy that can be reclaimed from a fully charged battery
