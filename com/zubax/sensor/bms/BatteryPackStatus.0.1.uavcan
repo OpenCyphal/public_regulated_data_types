@@ -87,6 +87,9 @@ bool overload
 # The cells require rebalancing. This may be an indicator of deterioration of the battery.
 bool disbalance
 
+# Cell balancing is currently in progress.
+bool balancing
+
 # The battery requires other type of maintenance (not balancing).
 # Use vendor-specific interfaces to obtain further information.
 bool needs_service
@@ -96,7 +99,7 @@ bool needs_service
 bool bms_error
 
 # Reserved for future flags.
-void9
+void8
 
 # Vendor-specific values or flags for extended diagnostics and troubleshooting.
 uint16 vendor_specific_status_code
