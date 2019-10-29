@@ -65,8 +65,12 @@ uavcan.si.unit.energy.Scalar.1.0 energy
 # under the current conditions (SoH, temperature, load profile, etc).
 uavcan.si.unit.energy.Scalar.1.0 full_energy
 
-# If there are multiple temperature sensors, reduction is implementation-defined. NaN if not defined.
-float16 temperature  # [kelvin]
+# The minimum and maximum readings of the pack temperature sensors. For example, if a pack is equipped with
+# three distributed temperature sensors that read [288, 258.15, 360.5] kelvin, the reported array value would be
+# [258.15, 360.5].
+# If there is only one temperature sensor, both elements shall be of the same value.
+# If there are no temperature sensors, both elements shall be NaN.
+float16[2] temperature_min_max  # [kelvin]
 
 @assert _offset_ % 8 == {0}
 
