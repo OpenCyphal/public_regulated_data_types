@@ -42,13 +42,10 @@ uint7 state_of_charge  # [percent]
 
 @assert _offset_ % 32 == {0}
 
-# Total instant pack voltage. Low-pass filtering should be applied to avoid aliasing effects.
-uavcan.si.unit.voltage.Scalar.1.0 voltage
-
-# Total instant pack current. Low-pass filtering should be applied to avoid aliasing effects.
+# Total instant pack power. Low-pass filtering should be applied to avoid aliasing effects.
 # Positive current flows from the battery to the load (discharging).
 # Negative current flows into the battery (charging).
-uavcan.si.unit.electric_current.Scalar.1.0 current
+com.zubax.sensor.wattmeter.DCSample.0.1 power
 
 # A pessimistic estimate of the amount of energy that can be reclaimed from the battery in its current state.
 # This may be dependent on the state of charge (SoC), state of health (SoH), temperature, load profile, etc.
