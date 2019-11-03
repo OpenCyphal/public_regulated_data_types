@@ -3,7 +3,7 @@
 # It can be used for advanced network inspections, e.g., for building computational graph maps.
 #
 # If this service is implemented, it shall report information for all subject ports (both publishers and subscribers)
-# and service server ports Support for service client ports is optional (implementation-defined);
+# and service server ports. Support for service client ports is optional (implementation-defined);
 # if not supported, client ports may be reported as non-existent.
 #
 # The reason client ports are treated differently is due to their inherent volatility: services are often
