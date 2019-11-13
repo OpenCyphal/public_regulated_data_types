@@ -34,7 +34,7 @@ def compute_max_num_frames_canfd(bit_length):
 started_at = time.monotonic()
 ns_list = [
     'uavcan',
-    'com',
+    'regulated',
 ]
 output = []
 for ns in ns_list:

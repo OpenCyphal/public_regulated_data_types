@@ -68,7 +68,7 @@ uavcan.si.unit.torque.Scalar.1.0           motor_torque                       # 
 uavcan.si.unit.frequency.Scalar.1.0 motor_electrical_frequency
 
 # DC link parameters. Negative current indicates regeneration.
-com.zubax.sensor.wattmeter.DCSample.0.1 dc_link_power
+regulated.zubax.sensor.wattmeter.DCSample.0.1 dc_link_power
 
 # Sampled temperatures. If multiple values are available, reduction is implementation-defined.
 # We use raw float16 here instead of the more type-safe SI types to reduce the footprint.
