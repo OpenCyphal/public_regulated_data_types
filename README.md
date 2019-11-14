@@ -17,9 +17,9 @@ Feedback and proposals are welcome on the [UAVCAN forum](https://forum.uavcan.or
 Regulated data types include the standard data types and vendor-specific public definitions.
 
 Per the specification, standard data types are contained in the root namespace `uavcan`,
-and vendor-specific public definitions are in the root namespace `com`.
+and vendor-specific public regulated definitions are in the root namespace `regulated`.
 The latter contains nested namespaces, one per vendor, named after the vendor
-(e.g., `com.sirius_cyber_corp` for the Sirius Cybernetics Corporation).
+(e.g., `regulated.sirius_cyber_corp` for the Sirius Cybernetics Corporation).
 
 Vendors are encouraged to define interfaces to their products or systems using the definitions available
 in this repository instead of defining custom types in order to facilitate reusability and reduce the
@@ -50,7 +50,7 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 From    | To        | Capacity | Purpose
 --------|-----------|----------|-------------------------------------
 0       | 24575     | 24576    | Unregulated identifiers
-28672   | 29695     | 1024     | Non-standard regulated identifiers (namespace `com`)
+28672   | 29695     | 1024     | Non-standard regulated identifiers (namespace `regulated`)
 31744   | 32767     | 1024     | Standard regulated identifiers (namespace `uavcan`)
 
 ### Services
@@ -61,7 +61,7 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
 0       | 127       | Unregulated identifiers
-256     | 319       | Non-standard regulated identifiers (namespace `com`)
+256     | 319       | Non-standard regulated identifiers (namespace `regulated`)
 384     | 511       | Standard regulated identifiers (namespace `uavcan`)
 
 ## Standard data types
@@ -132,15 +132,16 @@ and configuration parameters via named registers.
 
 ## Non-standard data types
 
-Non-standard regulated data types are contained in the root namespace `com`.
+Non-standard regulated data types are contained in the root namespace `regulated`.
 The root namespace contains nested namespaces, one per vendor, named after the vendor.
 
 Note for authors of ***unregulated*** data type definitions:
 the UAVCAN specification explicitly bans namespaces that share the same name but differ in their contents.
 This is done in order to avoid complicated edge cases jeopardizing the strong wire compatibility guarantees
 provided by UAVCAN that would have arisen if the ban was not in place.
-It follows then that vendors seeking to define unregulated data types shall not put those into the `com` namespace;
-instead, a new root namespace named after the vendor shall be used: `my_namespace`, not `com.my_namespace`.
+It follows then that vendors seeking to define unregulated data types shall not put those into the
+`regulated` namespace;
+instead, a new root namespace named after the vendor shall be used: `my_namespace`, not `regulated.my_namespace`.
 Failure to observe this requirement may lead to data type compatibility issues.
 
 ## Guidelines for data type authors
