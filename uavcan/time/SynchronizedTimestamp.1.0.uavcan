@@ -2,6 +2,10 @@
 # Nested data type used for representing a network-wide synchronized timestamp with microsecond resolution.
 # This data type is highly recommended for use both in standard and vendor-specific messages alike.
 #
+# If a data type is available in timestamped and non-timestamped form, its timestamped version should put
+# the timestamp at the end, in order to make the timestamped version a structural subtype of the non-timestamped
+# one, thus enhancing interoperability.
+#
 
 # Zero means that the time is not known.
 uint56 UNKNOWN = 0

@@ -1,2 +1,2 @@
-uavcan.time.SynchronizedTimestamp.1.0 timestamp
 float32 radian_per_second
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
