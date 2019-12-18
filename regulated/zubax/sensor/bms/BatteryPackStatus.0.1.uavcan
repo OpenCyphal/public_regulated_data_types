@@ -1,0 +1,118 @@
+#
+# Smart battery status message. This is a top-level data type.
+# This message is modeled after the Smart Battery Data Specification (SBS) and the MAVLink battery status messages.
+#
+# The values carried by this message are expected to change rapidly while the vehicle is operating,
+# so the publishing frequency should not be lower than 0.2 Hz (1 Hz recommended). There is a secondary message
+# that carries constant or slow-changing parameters of the battery such as its mass, unique identifier,
+# the state-of-health (SOH), and so on; that message is expected to be published on a separate subject at a
+# much lower rate. Subscribers that are interested in the full information about the battery should subscribe
+# to both subjects.
+#
+# Published values should be low-pass filtered to avoid aliasing effects.
+# Publishers should strive to sample all parameters atomically.
+#
+# Systems that leverage multiple battery packs concurrently should be configured to publish the status of each
+# pack on a separate subject.
+#
+# The reported quantities are focused on the amount of energy that can be reclaimed from the battery. In a
+# simplified view, this can be seen as the amount of energy that is "stored" in the battery; however, this
+# interpretation is not strictly correct because the amount of retrievable energy may be dependent on external
+# factors such as the temperature of the battery or the load current. Energy estimation is hard and requires
+# accurate modeling of the state of the battery, which may be impossible to do without precise tracking of each
+# charging cycle. Despite the complications, this is considered to be a superior approach compared to the commonly
+# used alternative where the state estimation is focused on the electric charge, because the latter cannot be used
+# directly to predict the endurance of the system.
+#
+# The methods of energy estimation are implementation-defined.
+#
+# pragma: no-bit-length-limit
+#
+
+# The network-synchronized timestamp of the moment where the values contained in this message have been sampled.
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+
+# --------------------------  ESTIMATES  --------------------------
+
+void1
+
+# The instant SoC of the pack, ranges from 0 to 100. Mandatory.
+# The methods of estimation are implementation-defined.
+uint7 state_of_charge  # [percent]
+
+@assert _offset_ % 32 == {0}
+
+# Total instant pack power. Low-pass filtering should be applied to avoid aliasing effects.
+# Positive current flows from the battery to the load (discharging).
+# Negative current flows into the battery (charging).
+regulated.zubax.sensor.wattmeter.DCSample.0.1 power
+
+# A pessimistic estimate of the amount of energy that can be reclaimed from the battery in its current state.
+# This may be dependent on the state of charge (SoC), state of health (SoH), temperature, load profile, etc.
+# Negative values may be reported to indicate overdischarge.
+#
+# The instant power consumption can be computed directly from the voltage and current measurements, or as
+# the time derivative of estimated energy (dE/dt). The latter approach takes into accout other environmental
+# factors that may affect the amount of reclaimable energy, so it may be preferable. Having the instant power,
+# the time to depletion is estimated as (energy / power). When charging, the remaining time to full charge
+# can be found similarly as ((full_energy - energy) / abs(power)).
+uavcan.si.unit.energy.Scalar.1.0 energy
+
+# A pessimistic estimate of the amount of energy that can be reclaimed from a fully charged battery
+# under the current conditions (SoH, temperature, load profile, etc).
+uavcan.si.unit.energy.Scalar.1.0 full_energy
+
+# The minimum and maximum readings of the pack temperature sensors. For example, if a pack is equipped with
+# three distributed temperature sensors that read [288, 258.15, 360.5] kelvin, the reported array value would be
+# [258.15, 360.5].
+# If there is only one temperature sensor, both elements shall be of the same value.
+# If there are no temperature sensors, both elements shall be NaN.
+float16[2] temperature_min_max  # [kelvin]
+
+@assert _offset_ % 8 == {0}
+
+# --------------------------  STATUS FLAGS  --------------------------
+
+# Whether the charging is in progress is observable though the reported instant current: a negative value
+# indicates that the battery is being charged. Time to full charge can be derived from the energy estimate.
+bool charger_connected
+
+# The temperature of at least one cell/section of the battery is above or below the safe operating limits.
+# Note that the flags are not mutually exclusive.
+bool temperature_hot
+bool temperature_cold
+
+# The charge or discharge rate exceeds the safe operating limits.
+bool overload
+
+# The cells require rebalancing. This may be an indicator of deterioration of the battery.
+bool disbalance
+
+# Cell balancing is currently in progress.
+bool balancing
+
+# The battery requires other type of maintenance (not balancing).
+# Use vendor-specific interfaces to obtain further information.
+bool needs_service
+
+# Internal error in the battery management system, not related to the battery itself.
+# Use vendor-specific interfaces to obtain further information.
+bool bms_error
+
+# Reserved for future flags.
+void8
+
+# Vendor-specific values or flags for extended diagnostics and troubleshooting.
+uint16 vendor_specific_status_code
+
+@assert (_offset_ % 8 == {0}) && (_offset_.count == 1) && (_offset_.max / 8 <= 63)  # One CAN FD frame up to this point.
+
+# --------------------------  PER CELL ESTIMATES  --------------------------
+
+# Individual cell voltages.
+# The number of elements shall match the number of cells in the battery.
+# If the number of cells is unknown, the array shall be empty.
+# If the number of cells is known, but their voltages cannot be estimated, the elements shall be NaN.
+float16[<256] cell_voltages  # [volt]
+
+@assert _offset_ % 8 == {0}

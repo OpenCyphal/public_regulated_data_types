@@ -1,0 +1,21 @@
+#
+# A unitless ratiometric setpoint value belongs to [-512, 511].
+# -512 maps to full reverse, and 511 maps to full forward motion.
+# The width of the deadband is strictly zero (no deadband).
+#
+# full reverse               idle                   full forward
+#   <--------------------------|-------------------------->
+# -512                         0 (no deadband)          +511
+#
+# If reversal is not supported, negative values should be treated as zero setpoint.
+# Upon rescaling, the ratiometric setpoint is mapped to the actual controlled quantity, which is implementation-defined
+# and may be configurable.
+# For example, conventional trapezoidal (six-step) ESCs generally map the setpoint to the phase PWM duty cycle setting;
+# a vector control ESC may map the setpoint to the Q-axis voltage vector projection or torque.
+#
+# The scalar type is chosen to make five setpoints fit into one classic CAN frame (max 7 bytes of payload per frame).
+#
+
+int10[<64] ratiometric
+
+@assert _offset_.min == 6

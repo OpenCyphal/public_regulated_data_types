@@ -1,0 +1,82 @@
+#
+# Electronic speed controller (ESC) group status.
+#
+# This interface assumes that ESCs are segregated into groups.
+# Each ESC in a group has a 6-bit index (range [0, 63]), which may or may not be unique within the group.
+# ESCs in a group are commanded synchronously by publishing a message containing an array of setpoints.
+# All ESC in a given group subscribe to a particular setpoint subject which is the same for all group participants,
+# and publish this status message to a particular subject, which is also the same for all participants.
+# Usage of the same setpoint and status subject identifiers defines the group.
+#
+# Upon reception of a setpoint message, a group participant fetches its setpoint from the array using the array
+# element whose index equals the index of the ESC in the group.
+# If the array is too short, the message is ignored, as if no setpoint was received.
+# Multiple ESC in the group may use the same setpoint index to implement lockstep control; in this case,
+# ESCs sharing the same index should run separate UAVCAN nodes in order to make their status messages distinguishable.
+#
+# The setpoint message types that can be used to command a group of ESC are defined in this namespace.
+# Additional setpoint message types may also be supported on an implementation-specific basis.
+# If a group is controlled using different setpoint subjects concurrently (e.g., ratiometric and torque),
+# the behavior is implementation-defined.
+#
+# ESC should stop automatically if no setpoint was received in one second; this limit may be configurable.
+# The minimum setpoint publication period should be at least twice lower than the safety timeout.
+#
+# All ESC in a group should be configured to publish their status messages at the same frequency,
+# which should adhere to the limits defined below.
+# If it is desired to achieve exact synchronization, all ESC may be configured to publish their status
+# messages immediately upon reception of a setpoint message.
+#
+# The published status values should be low-pass filtered with an adequate cutoff frequency to avoid aliasing effects.
+# Implementations should strive to sample all parameters atomically whenever possible.
+# If a parameter is unknown, NaN should be used.
+#
+
+# Publication frequency limits.
+uint8 MAX_PUBLICATION_PERIOD = 1  # [second]
+
+void2
+
+# The index in the setpoint array that this status message refers to.
+# This value should never be changed while the node is running.
+uint6 index
+
+# Percentage of the maximum rated power output. May exceed 100% in case of overload.
+uint8 demand_factor  # [percent]
+
+# A warning flag is set when the corresponding parameter exceeds the safe operating area (SOA) of the ESC.
+bool dc_voltage_warning             # DC link voltage above or below the SOA.
+bool overload_warning               # Output power/current above SOA or regeneration below the SOA.
+bool motor_temperature_warning      # Temperature above or below the SOA.
+bool inverter_temperature_warning   # Temperature above or below the SOA.
+void12
+
+@assert _offset_ % 32 == {0}
+
+# Incremented once per occurrence. The exact definition of what constitutes an error is implementation-dependent.
+uint32 error_count
+
+# Real-time motion parameters.
+# If the mechanical load consumes the power (motoring), the torque and the angular velocity have the same sign.
+# If the mechanical load delivers the power (regeneration), the torque and the angular velocity have opposite signs.
+# Therefore, negative mechanical power (ang_vel*torque) indicates regeneration.
+uavcan.si.unit.angular_velocity.Scalar.1.0 motor_mechanical_angular_velocity  # Negative indicates reverse rotation.
+uavcan.si.unit.torque.Scalar.1.0           motor_torque                       # Opposite sign indicates regeneration.
+
+# Electric field frequency is always non-negative, irrespective of the direction.
+# For synchronous motors, this is a function of the mechanical angular velocity and the number of rotor poles.
+uavcan.si.unit.frequency.Scalar.1.0 motor_electrical_frequency
+
+# DC link parameters. Negative current indicates regeneration.
+regulated.zubax.sensor.wattmeter.DCSample.0.1 dc_link_power
+
+# Sampled temperatures. If multiple values are available, reduction is implementation-defined.
+# We use raw float16 here instead of the more type-safe SI types to reduce the footprint.
+float16 motor_temperature     # [kelvin]
+float16 inverter_temperature  # [kelvin]
+
+void32  # Reserved for future use.
+
+@assert _offset_ % 8 == {0}
+@assert _offset_.count == 1     # Fixed-size
+@assert _offset_.max / 8 <= 63  # Fits into one CAN FD frame

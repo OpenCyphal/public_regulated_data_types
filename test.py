@@ -32,7 +32,13 @@ def compute_max_num_frames_canfd(bit_length):
 
 
 started_at = time.monotonic()
-output = pydsdl.read_namespace('uavcan', [], print_output_handler=on_print)
+ns_list = [
+    'uavcan',
+    'regulated',
+]
+output = []
+for ns in ns_list:
+    output += pydsdl.read_namespace(ns, ns_list, print_output_handler=on_print)
 elapsed_time = time.monotonic() - started_at
 
 print('Full data type name'.center(58),

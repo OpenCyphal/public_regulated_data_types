@@ -4,6 +4,9 @@
 # It cannot be changed while the network is running.
 #
 
+void4
+truncated uint4 value
+
 # Monotonic time since boot.
 # Monotonic time is a time reference that doesn't change rate or make leaps.
 uint4 MONOTONIC_SINCE_BOOT = 0
@@ -12,10 +15,10 @@ uint4 MONOTONIC_SINCE_BOOT = 0
 # The timestamp value contains the number of microseconds elapsed since 1970-01-01T00:00:00Z TAI.
 # TAI is always a fixed integer number of seconds ahead of GPS time.
 # Systems that use GPS time as a reference should convert that to TAI by adding the fixed difference.
-# UAVCAN does not support GPS time directly on purpose, for reasons of consistency.
+# GPS time is not supported for reasons of consistency across different positioning systems and applications.
 uint4 TAI = 1
 
 # Application-specific time system of unknown properties.
 uint4 APPLICATION_SPECIFIC = 15
 
-truncated uint4 value
+@assert _offset_ % 8 == {0}

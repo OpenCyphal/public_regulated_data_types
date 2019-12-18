@@ -9,20 +9,34 @@ This repository contains definitions of the regulated UAVCAN v1 data types.
 in aerospace and robotic applications via robust vehicle bus networks such as CAN, Ethernet, and similar.
 The name stands for *Uncomplicated Application-level Vehicular Communication And Networking*.
 
+Contributors must obey the guidelines defined in this document.
+Feedback and proposals are welcome on the [UAVCAN forum](https://forum.uavcan.org).
+
+## Namespaces
+
 Regulated data types include the standard data types and vendor-specific public definitions.
 
 Per the specification, standard data types are contained in the root namespace `uavcan`,
-whereas vendor-specific public definitions are contained in separate appropriately named root namespaces
-(e.g., `sirius_cyber_corp` for the Sirius Cybernetics Corporation).
+and vendor-specific public regulated definitions are in the root namespace `regulated`.
+The latter contains nested namespaces, one per vendor, named after the vendor
+(e.g., `regulated.sirius_cyber_corp` for the Sirius Cybernetics Corporation).
+
+Vendors are encouraged to define interfaces to their products or systems using the definitions available
+in this repository instead of defining custom types in order to facilitate reusability and reduce the
+fragmentation of the ecosystem.
+This advice applies to the existing vendor-specific messages published by *other vendors*, too,
+because the MIT license permits their free reuse with minimal legal restrictions
+(tl;dr: must include copyright, cannot hold liable; *this is not a legal advice*).
+
+Remember that for a public data type, genericity and clarity of the interface is more important
+than its resource utilization efficiency.
+When proposing or using public regulated data types, vendors should not attempt to trade-off abstraction
+for the needs of their particular application at hand.
 
 Vendors seeking to make their data types regulated (e.g., for easier integration of their COTS equipment,
-or if fixed port ID are desired) are advised to send a pull request to this repository.
-If a fixed regulated ID is needed, vendors are free to choose any unoccupied identifier from the ranges
+or if fixed port-ID are desired) are advised to send a pull request to this repository.
+If a fixed regulated port-ID is needed, vendors are free to choose any unoccupied identifier from the ranges
 defined by the specification before submitting the pull request.
-
-Contributors must obey the guidelines defined in this document.
-
-Feedback and proposals are welcome on the [UAVCAN forum](https://forum.uavcan.org).
 
 ## Identifier ranges
 
@@ -36,8 +50,8 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 From    | To        | Capacity | Purpose
 --------|-----------|----------|-------------------------------------
 0       | 24575     | 24576    | Unregulated identifiers
-28672   | 29695     | 1024     | Non-standard (vendor-specific) regulated identifiers
-31744   | 32767     | 1024     | Standard regulated identifiers
+28672   | 29695     | 1024     | Non-standard regulated identifiers (namespace `regulated`)
+31744   | 32767     | 1024     | Standard regulated identifiers (namespace `uavcan`)
 
 ### Services
 
@@ -47,10 +61,12 @@ Unused ranges are reserved for future expansion of adjacent ranges.
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
 0       | 127       | Unregulated identifiers
-256     | 319       | Non-standard (vendor-specific) regulated identifiers
-384     | 511       | Standard regulated identifiers
+256     | 319       | Non-standard regulated identifiers (namespace `regulated`)
+384     | 511       | Standard regulated identifiers (namespace `uavcan`)
 
 ## Standard data types
+
+The standard data types are contained in the root namespace `uavcan`.
 
 ### Standard fixed identifier allocation
 
@@ -114,12 +130,19 @@ in the namespace `uavcan.register`.
 The register protocol provides a highly generic interface to vendor-specific functionality
 and configuration parameters via named registers.
 
-## Non-standard regulated data types
+## Non-standard data types
 
-Every vendor must have a dedicated root namespace.
-The root namespace should be named after the vendor's legal entity name.
+Non-standard regulated data types are contained in the root namespace `regulated`.
+The root namespace contains nested namespaces, one per vendor, named after the vendor.
 
-All root namespaces are contained in the root folder of this repository.
+Note for authors of ***unregulated*** data type definitions:
+the UAVCAN specification explicitly bans namespaces that share the same name but differ in their contents.
+This is done in order to avoid complicated edge cases jeopardizing the strong wire compatibility guarantees
+provided by UAVCAN that would have arisen if the ban was not in place.
+It follows then that vendors seeking to define unregulated data types shall not put those into the
+`regulated` namespace;
+instead, a new root namespace named after the vendor shall be used: `my_namespace`, not `regulated.my_namespace`.
+Failure to observe this requirement may lead to data type compatibility issues.
 
 ## Guidelines for data type authors
 
@@ -134,17 +157,17 @@ Non-standard (vendor-specific) types are recommended to follow this advice as we
 
 Follow the naming conventions defined in the specification.
 
-Every data type definition must have a header comment, where the first and the last lines are empty;
-every field must be preceded by a comment, unless it is absolutely certain that it is completely
+Every data type definition shall have a header comment, where the first and the last lines are empty;
+every field shall be preceded by a comment, unless it is absolutely certain that it is completely
 self-explanatory.
-An exception is made for highly generic definitions which often do not require any additional comments.
+An exception is made for trivial definitions which often do not require any additional comments.
 
-Attributes must be separated by exactly one blank line, excepting tightly related attributes and
+Attributes shall be separated by exactly one blank line, excepting tightly related attributes and
 void fields used for pre-alignment (e.g., before dynamic arrays), in which case blank lines are not necessary.
 More than one blank line is never allowed.
-There must be exactly one blank line at the end of the file.
+There shall be exactly one blank line at the end of the file.
 
-The lines of text must not be longer than 120 characters.
+The lines of text should not be longer than 120 characters.
 
 Here is an example:
 
