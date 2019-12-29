@@ -105,9 +105,17 @@ Namespace                   | Lower bound (inclusive)
 The namespace `uavcan.si` contains a collection of generic data types describing commonly used
 physical quantities.
 
+The namespace `uavcan.si.unit` contains basic units that can be used as type-safe wrappers over native `float32`
+and other scalar and array types.
+
+The namespace `uavcan.si.sample` contains time-stamped versions of the above, where the timestamp field is
+always located at the end in order to make the time-stamped types structural sub-types of the non-timestamped ones.
+The structural sub-typing enhances interoperability.
+At some point in the future, when the DSDL has advanced sufficiently, it may be possible to express the subtyping
+relationships explicitly.
+
 All units follow the [International System of Units](https://en.wikipedia.org/wiki/International_System_of_Units).
-All units are unscaled basic units of measure (e.g., meters rather than kilometers, kilograms rather than milligrams),
-unless a different multiplier is explicitly specified in the definition (e.g., nanosecond).
+All units are unscaled basic units of measure -- meters rather than kilometers, kilograms rather than milligrams.
 
 All coordinate systems are right-handed.
 In relation to body, the preferred standard is as follows: **X** -- forward, **Y** -- right, **Z** -- down.
