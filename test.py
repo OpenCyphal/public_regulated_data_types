@@ -69,7 +69,7 @@ for t in output:
         abort = partial(die_at, t, index)
 
         # Check header comment.
-        if index == 0 and not line.startswith('#'):
+        if index == 0 and not line.startswith('# '):
             if not any(map(lambda e: t.full_namespace.startswith(e),
                            NAMESPACES_EXEMPTED_FROM_HEADER_COMMENT_REQUIREMENT)):
                 abort('Every data type definition shall have a header comment unless it is a member of:',
