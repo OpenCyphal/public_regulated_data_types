@@ -23,7 +23,7 @@ uint64 software_vcs_revision_id
 # Set to zero if not used.
 
 uint8[16] unique_id
-# The unique node ID is a 128-bit long sequence that is likely to be globally unique per node.
+# The unique-ID (UID) is a 128-bit long sequence that is likely to be globally unique per node.
 # The vendor shall ensure that the probability of a collision with any other node UID globally is negligibly low.
 # UID is defined once per hardware unit and should never be changed.
 # All zeros is not a valid UID.

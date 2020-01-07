@@ -39,7 +39,7 @@
 # contain at least the following fields:
 #   - The local UDP port number that was used to send the outgoing datagram from.
 #     Per RFC 4787, the port number is chosen by the modem node automatically.
-#   - The node ID of the local node that has sent the outgoing datagram.
+#   - The node-ID of the local node that has sent the outgoing datagram.
 #   - Value of the field session_id defined below.
 #   - Possibly some other data, depending on the implementation.
 #

@@ -43,7 +43,7 @@ uint16 COMMAND_BEGIN_SOFTWARE_UPDATE = 65533
 # are currently underway. For example, if the update process failed and the bootloader cannot load the software,
 # the same mode MODE_SOFTWARE_UPDATE will be reported.
 # It is also recognized that in a microcontroller setting, the application that served the update request will have
-# to pass the update-related metadata (such as the node ID of the server and the firmware image file path) to
+# to pass the update-related metadata (such as the node-ID of the server and the firmware image file path) to
 # the embedded bootloader. The tactics of that transaction lie outside of the scope of this specification.
 
 uint16 COMMAND_FACTORY_RESET = 65532

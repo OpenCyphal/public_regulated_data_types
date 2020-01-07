@@ -27,19 +27,19 @@
 # The risk of undesirable transients while the masters are swapped is mitigated by the requirement that all masters
 # use the same time base at all times, as described above.
 #
-# The master with the lowest node ID is called the "dominant master". The current dominant master ceases to be one
+# The master with the lowest node-ID is called the "dominant master". The current dominant master ceases to be one
 # if its last synchronization message was published more than 3X seconds ago, where X is the time interval
-# between the last and the previous messages published by it. In this case, the master with the next-higher node ID
+# between the last and the previous messages published by it. In this case, the master with the next-higher node-ID
 # will take over as the new dominant master. The current dominant master will be displaced immediately as soon as
-# the first message from a new master with a lower node ID is seen on the bus.
+# the first message from a new master with a lower node-ID is seen on the bus.
 #
 # In the presence of multiple masters, they all publish their time synchronization messages concurrently at all times.
-# The slaves shall listen to the master with the lowest node ID and ignore the messages published by masters with
-# higher node ID values.
+# The slaves shall listen to the master with the lowest node-ID and ignore the messages published by masters with
+# higher node-ID values.
 #
 # Currently, there is a work underway to develop and validate a highly robust fault-operational time synchronization
 # algorithm where the slaves select the median time base among all available masters rather than using only the
-# one with the lowest node ID value. Follow the work at https://forum.uavcan.org. When complete, this algorithm
+# one with the lowest node-ID value. Follow the work at https://forum.uavcan.org. When complete, this algorithm
 # will be added in a backward-compatible way as an option for high-reliability systems.
 #
 # For networks with redundant transports, the timestamp value published on different interfaces is likely to be
@@ -56,7 +56,7 @@
 #       transfer_id := 0;
 #       previous_tx_timestamp_per_iface[NUM_IFACES] := {0};
 #
-#       // This function publishes a message with a specified Transfer ID using only one transport interface.
+#       // This function publishes a message with a specified transfer-ID using only one transport interface.
 #       function publishMessage(transfer_id, iface_index, msg);
 #
 #       // This callback is invoked when the transport layer completes the transmission of a time sync message.
@@ -167,10 +167,9 @@ uint8 PUBLISHER_TIMEOUT_PERIOD_MULTIPLIER = 3
 # Synchronization slaves should normally switch to a new master if the current master was silent
 # for thrice the interval between the reception of the last two messages published by it.
 # For example, imagine that the last message was received at the time X, and the previous message
-# was received at the time (X - 0.5 seconds); the period is 0.5 seconds, and therefore the
-# publisher timeout is (0.5 seconds * 3) = 1.5 seconds. If there was no message from the current
-# master in this amount of time, all slaves will synchronize with another master with the next-higher
-# node ID.
+# was received at the time (X - 0.5 seconds); the period is 0.5 seconds, and therefore the publisher
+# timeout is (0.5 seconds * 3) = 1.5 seconds. If there was no message from the current master in
+# this amount of time, all slaves will synchronize with another master with the next-higher node-ID.
 
 truncated uint56 previous_transmission_timestamp_microsecond
 # The time when the PREVIOUS message was transmitted from the current publisher, in microseconds.

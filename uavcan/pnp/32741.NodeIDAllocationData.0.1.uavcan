@@ -182,7 +182,7 @@ uavcan.node.ID.1.0 node_id
 # If the message transfer is non-anonymous (i.e., allocation response), this is the allocated ID.
 #
 # If the allocatee does not have any preference, it should request the highest possible node-ID. Keep in mind that
-# the two highest node ID values are reserved for network maintenance tools; requesting those is not prohibited,
+# the two highest node-ID values are reserved for network maintenance tools; requesting those is not prohibited,
 # but the allocator is recommended to avoid granting these node-ID, using nearest available lower value instead.
 # The allocator will traverse the allocation table starting from the preferred node-ID upward,
 # until a free node-ID is found (or the first ID reserved for network maintenance tools is reached).
