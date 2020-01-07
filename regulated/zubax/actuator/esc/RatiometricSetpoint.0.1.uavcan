@@ -1,4 +1,3 @@
-#
 # A unitless ratiometric setpoint value belongs to [-512, 511].
 # -512 maps to full reverse, and 511 maps to full forward motion.
 # The width of the deadband is strictly zero (no deadband).
@@ -14,7 +13,6 @@
 # a vector control ESC may map the setpoint to the Q-axis voltage vector projection or torque.
 #
 # The scalar type is chosen to make five setpoints fit into one classic CAN frame (max 7 bytes of payload per frame).
-#
 
 int10[<64] ratiometric
 

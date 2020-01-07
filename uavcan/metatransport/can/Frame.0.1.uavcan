@@ -1,6 +1,4 @@
-#
 # CAN 2.0 or CAN FD frame representation. This is the top-level data type in its namespace.
-#
 
 uavcan.time.SynchronizedTimestamp.1.0 timestamp
 

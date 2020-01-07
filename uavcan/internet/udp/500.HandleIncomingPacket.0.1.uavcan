@@ -1,4 +1,3 @@
-#
 # This message carries UDP packets sent from a remote host on the Internet or a LAN to a node on the local UAVCAN bus.
 # Please refer to the definition of the message type OutgoingPacket for a general overview of the packet forwarding
 # logic.
@@ -6,7 +5,9 @@
 # This data type has been made a service type rather than a message type in order to make its transfers addressable,
 # allowing nodes to employ hardware acceptance filters for filtering out forwarded datagrams that are not addressed
 # to them. Additionally, requiring the destination nodes to always respond upon reception of the forwarded datagram
-# opens interesting opportunities for future extensions of the forwarding protocol.
+# opens interesting opportunities for future extensions of the forwarding protocol. If the service invocation times
+# out, the modem node is permitted to remove the corresponding entry from the NAT table immediately, not waiting
+# for its TTL to expire.
 #
 # It should be noted that this data type definition intentionally leaves out the source address. This is done in
 # order to simplify the implementation, reduce the bus traffic overhead, and because the nature of the
@@ -25,27 +26,23 @@
 # node to implement additional logic, which may be undesirable. Therefore, implementers are free to deviate from
 # this recommendation and resort to a fixed priority level instead. In the case of a fixed priority level, it is
 # advised to use the lowest transfer priority level.
-#
 
-# This field must contain the same value that was used by the local node when sending the corresponding outgoing
+uint16 session_id
+# This field shall contain the same value that was used by the local node when sending the corresponding outgoing
 # packet using the message type OutgoingPacket. This value will be used by the local node to match the response
 # with its local context.
-uint16 session_id
 
+void7
+uint8[<=309] payload
 # Effective payload. This data will be forwarded from the remote host verbatim.
 # UDP packets that contain more than 508 bytes of payload may be dropped by some types of
 # communication equipment. Refer to RFC 791 and 2460 for an in-depth review.
 # UAVCAN further limits the maximum packet size to reduce the memory and traffic burden on the nodes.
 # Datagrams that exceed the capacity of this field should be discarded by the modem node.
-void7
-uint8[<=309] payload
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.max == (313 * 8)     # At most five CAN FD frames
 
 ---
 
-# If the service invocation times out, the modem node is permitted to remove the corresponding entry from
-# the NAT table immediately, not waiting for its TTL to expire.
-
-void56      # Reserved for future use.
+void56

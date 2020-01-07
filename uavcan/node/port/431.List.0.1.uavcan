@@ -1,4 +1,3 @@
-#
 # Returns a subset of all ports of the specified kind (subject or service) on the remote node.
 # As the number of ports may exceed the capacity of the output array, the server will return only those which are
 # not less than the number specified in the request. The caller should sweep the lower boundary upwards until
@@ -22,7 +21,7 @@
 # The server is REQUIRED to ensure that every element in the returned array is unique.
 #
 # The server is REQUIRED to ensure that by performing the above actions the client will end up with a full set of
-# port-IDs, assuming that the set is not modified between invocations. This implicitly requires that there must be
+# port-IDs, assuming that the set is not modified between invocations. This implicitly requires that there shall be
 # no port-ID that is lower than the greatest value in the returned array that is not listed in the array, because
 # in that case the client will never be able to obtain that value.
 #
@@ -31,7 +30,6 @@
 #
 # For services, server ports shall be returned. Whether client ports are returned is implementation-defined.
 # As in the case of subjects, further differentiation is possible via GetInfo.
-#
 
 ID.1.0 port_id_lower_boundary
 
@@ -39,7 +37,6 @@ ID.1.0 port_id_lower_boundary
 
 ---
 
-# See above for the full description of the logic.
-uint16[<=128] port_ids
+uint16[<=128] port_ids  # See above for the full description of the logic.
 
 @assert _offset_ % 8 == {0}

@@ -1,5 +1,4 @@
-#
-# In order to be able to operate in a UAVCAN network, a node must have a node-ID that is unique within the network.
+# In order to be able to operate in a UAVCAN network, a node shall have a node-ID that is unique within the network.
 # Typically, a valid node-ID can be configured manually for each node; however, in certain use cases the manual
 # approach is either undesirable or impossible, therefore UAVCAN defines the high-level feature of plug-and-play
 # nodes that allows nodes to obtain a node-ID value automatically upon connection to the network. When combined
@@ -15,7 +14,7 @@
 # layer specification for details.
 #
 # An allocated node-ID should not be persistent. This means that if a node is configured to use plug-and-play node-ID
-# allocation, it must perform a new allocation every time it is started or rebooted. The allocated node-ID value
+# allocation, it shall perform a new allocation every time it is started or rebooted. The allocated node-ID value
 # should not be stored on the node itself, because there exist edge cases that may lead to node-ID conflicts under
 # certain circumstances (reviewed later).
 #
@@ -39,10 +38,10 @@
 #   - Five allocators, it is the same as the three allocator configuration reviewed above except that the network
 #     can tolerate the loss of two allocators and still continue to serve allocation requests.
 #
-# In order to get a PnP node-ID, an allocatee must have a globally unique 128-bit integer identifier, known as
+# In order to get a PnP node-ID, an allocatee shall have a globally unique 128-bit integer identifier, known as
 # unique-ID (where "globally unique" means that the probability of having two nodes anywhere in the world that share
 # the same unique-ID is negligibly low). This is the same value that is used in the field unique_id of the data type
-# uavcan.node.GetInfo. All PnP nodes must support the service uavcan.node.GetInfo, and they must use the same
+# uavcan.node.GetInfo. All PnP nodes shall support the service uavcan.node.GetInfo, and they shall use the same
 # unique-ID value when requesting node-ID allocation and when responding to the GetInfo requests (there may exist
 # other usages of the unique-ID value, but they lie outside of the scope of the PnP protocol).
 #
@@ -75,7 +74,7 @@
 # Due to the possibility of coexistence of static nodes with PnP nodes, allocators are tasked with monitoring
 # the nodes present in the network. If the allocator detects an online node in the network the node-ID of which is
 # not found in the allocation table (or the local copy thereof in the case of redundant allocators), the allocator
-# must create a new mock entry where the node-ID matches that of the newly detected node and the unique-ID is set to
+# shall create a new mock entry where the node-ID matches that of the newly detected node and the unique-ID is set to
 # zero (i.e., a 128-bit long sequence of zero bits). This behavior ensures that PnP nodes will never be granted
 # node-ID values that are already taken by static nodes. Allocators are allowed to request the true unique-ID of the
 # newly detected nodes by issuing requests uavcan.node.GetInfo instead of using mock zero unique-IDs, but this is not
@@ -84,7 +83,7 @@
 # this task due to the intrinsic properties of the distributed consensus algorithm; please refer to the documentation
 # for the data type uavcan.pnp.cluster.AppendEntries for more information.
 #
-# The unique-ID & node-ID pair of each allocator must be kept in the allocation table as well. It is allowed to replace
+# The unique-ID & node-ID pair of each allocator shall be kept in the allocation table as well. It is allowed to replace
 # the unique-ID values of allocators with zeros at the discretion of the implementer.
 #
 # As can be inferred from the above, the process of PnP node-ID allocation involves up to two types of communications:
@@ -141,10 +140,10 @@
 #
 # Generally, the randomly chosen values of the request period (Trequest) should be in the range from 0 to 1 seconds.
 # Applications that are not concerned about the allocation time are recommended to pick higher values, as it will
-# reduce interference with other nodes where faster allocations may be desirable. The random interval must be chosen
+# reduce interference with other nodes where faster allocations may be desirable. The random interval shall be chosen
 # anew per transmission, whereas the pseudo node-ID value is allowed to stay constant per node.
 #
-# The source of random data for Trequest must be likely to yield different values for participating nodes, avoiding
+# The source of random data for Trequest shall be likely to yield different values for participating nodes, avoiding
 # common sequences. This implies that the time since boot alone is not a sufficiently robust source of randomness,
 # as that would be probable to cause nodes powered up at the same time to emit colliding messages repeatedly.
 #
@@ -177,8 +176,8 @@
 #
 # As can be seen, the algorithm assumes that the allocatee will continue to emit requests at random intervals
 # until an allocation is granted or the allocatee is disconnected.
-#
 
+uavcan.node.ID.1.0 node_id
 # If the message transfer is anonymous (i.e., allocation request), this is the preferred ID.
 # If the message transfer is non-anonymous (i.e., allocation response), this is the allocated ID.
 #
@@ -206,16 +205,15 @@
 #       }
 #       return isOccupied(0) ? 0xFFFF : 0;
 #   }
-uavcan.node.ID.1.0 node_id
 
+uint8[16] unique_id
 # The unique-ID of the allocatee. This is the SAME value that is reported via uavcan.node.GetInfo.
 # The value is subjected to the same set of constraints; e.g., it can't be changed while the node is running,
-# and the same value must be unlikely to be used by any two different nodes anywhere in the world.
+# and the same value should be unlikely to be used by any two different nodes anywhere in the world.
 #
 # If this is a non-anonymous transfer (i.e., allocation response), allocatees will match this value against their
 # own unique-ID, and ignore the message if there is no match (except for the CSMA/CD clause, see rule C). If the IDs
 # match, then the field node_id contains the allocated node-ID value for this node.
-uint8[16] unique_id
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.max / 8 == 18

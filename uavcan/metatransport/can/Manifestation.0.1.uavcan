@@ -1,6 +1,4 @@
-#
 # CAN frame properties that can be manifested on the bus.
-#
 
 @union
 

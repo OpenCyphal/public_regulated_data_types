@@ -1,4 +1,3 @@
-#
 # Write into a remote file.
 # The server shall place the contents of the field 'data' into the file pointed by 'path' at the offset specified by
 # the field 'offset'.
@@ -9,7 +8,6 @@
 # transfer is finished.
 #
 # When the write operation is complete, the server shall truncate the resulting file past the specified offset.
-#
 
 truncated uint40 offset
 

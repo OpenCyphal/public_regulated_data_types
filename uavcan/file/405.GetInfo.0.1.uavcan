@@ -1,28 +1,25 @@
-#
 # Information about a remote file system entry (file, directory, etc).
-#
 
 Path.1.0 path
 
 ---
 
-# Result of the operation
 Error.1.0 error
+# Result of the operation.
 
-# File size in bytes. Should be set to zero for directories.
 truncated uint40 size
+# File size in bytes. Should be set to zero for directories.
 
-# The UNIX Epoch time when the entry was last modified. Zero if unknown.
 truncated uint40 unix_timestamp_of_last_modification
+# The UNIX Epoch time when the entry was last modified. Zero if unknown.
 
-# If such entry does not exist, all flags should be cleared/ignored.
-bool is_file_not_directory  # True if file, false if directory
-bool is_link                # This is a link to another entry; the above flag indicates the type of the target
-bool is_readable            # The item can be read by the caller (applies to files and directories)
-bool is_writeable           # The item can be written by the caller (applies to files and directories)
 void4
+bool is_file_not_directory  # True if file, false if directory.
+bool is_link                # This is a link to another entry; the above flag indicates the type of the target.
+bool is_readable            # The item can be read by the caller (applies to files and directories).
+bool is_writeable           # The item can be written by the caller (applies to files and directories).
+# If such entry does not exist, all flags should be cleared/ignored.
 
-# Reserved for future use
 void64
 
 @assert _offset_ % 8 == {0}

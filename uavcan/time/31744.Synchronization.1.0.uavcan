@@ -1,4 +1,3 @@
-#
 # Network-wide time synchronization message.
 # Any node that publishes timestamped data should use this time reference.
 #
@@ -11,7 +10,7 @@
 #
 # Once a time base is chosen, it cannot be changed as long as at least one node on the network is running.
 # In other words, the time base cannot be changed while the network is operating.
-# An implication of this is that if there are redundant time synchronization masters, they all must
+# An implication of this is that if there are redundant time synchronization masters, they all shall
 # use the same time base.
 #
 # The resolution is dependent on the transport and its physical layer, but generally it can be assumed
@@ -35,7 +34,7 @@
 # the first message from a new master with a lower node ID is seen on the bus.
 #
 # In the presence of multiple masters, they all publish their time synchronization messages concurrently at all times.
-# The slaves must listen to the master with the lowest node ID and ignore the messages published by masters with
+# The slaves shall listen to the master with the lowest node ID and ignore the messages published by masters with
 # higher node ID values.
 #
 # Currently, there is a work underway to develop and validate a highly robust fault-operational time synchronization
@@ -79,7 +78,7 @@
 #               previous_tx_timestamp_per_iface[i] := 0;
 #               publishMessage(transfer_id, i, message);
 #           }
-#           transfer_id++; // Overflow must be handled correctly
+#           transfer_id++; // Overflow shall be handled correctly
 #       }
 #
 # (end of the master-side logic pseudocode)
@@ -138,7 +137,7 @@
 #               if (state == STATE_ADJUST)
 #               {
 #                   msg_invalid := message.previous_transmission_timestamp_microsecond == 0;
-#                   // Overflow must be handled correctly
+#                   // Overflow shall be handled correctly
 #                   wrong_tid := message.transfer_id != (previous_transfer_id + 1);
 #                   wrong_timing := time_since_previous_msg > MAX_PUBLICATION_PERIOD;
 #                   if (msg_invalid or wrong_tid or wrong_timing)
@@ -159,12 +158,12 @@
 #       }
 #
 # (end of the slave-side logic pseudocode)
-#
 
+uint8 MAX_PUBLICATION_PERIOD = 1                 # [second]
 # Publication period limits.
 # A master should not change its publication period while running.
-uint8 MAX_PUBLICATION_PERIOD = 1                 # [second]
 
+uint8 PUBLISHER_TIMEOUT_PERIOD_MULTIPLIER = 3
 # Synchronization slaves should normally switch to a new master if the current master was silent
 # for thrice the interval between the reception of the last two messages published by it.
 # For example, imagine that the last message was received at the time X, and the previous message
@@ -172,12 +171,11 @@ uint8 MAX_PUBLICATION_PERIOD = 1                 # [second]
 # publisher timeout is (0.5 seconds * 3) = 1.5 seconds. If there was no message from the current
 # master in this amount of time, all slaves will synchronize with another master with the next-higher
 # node ID.
-uint8 PUBLISHER_TIMEOUT_PERIOD_MULTIPLIER = 3
 
+truncated uint56 previous_transmission_timestamp_microsecond
 # The time when the PREVIOUS message was transmitted from the current publisher, in microseconds.
 # If this message is published for the first time, or if the previous transmission was more than
-# one second ago, this field must be zero.
-truncated uint56 previous_transmission_timestamp_microsecond
+# one second ago, this field shall be zero.
 
 @assert _offset_ % 8 == {0}
-@assert _offset_.max <= 56    # Must fit into one CAN 2.0 frame (least capable transport, smallest MTU)
+@assert _offset_.max <= 56    # Shall fit into one CAN 2.0 frame (least capable transport, smallest MTU)

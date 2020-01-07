@@ -1,7 +1,5 @@
-#
 # One PnP node-ID allocation entry.
 # This type is a part of the Raft consensus algorithm. Please refer to the type AppendEntries for details.
-#
 
 uint32 term                     # Refer to the Raft paper for explanation.
 

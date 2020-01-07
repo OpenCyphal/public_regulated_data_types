@@ -1,9 +1,7 @@
-#
 # A generic UDP/IP frame.
 # Jumboframes are supported in the interest of greater application compatibility.
 #
 # pragma: no-bit-length-limit
-#
 
 uavcan.time.SynchronizedTimestamp.1.0 timestamp
 
@@ -15,8 +13,7 @@ Endpoint.0.1 destination
 
 @assert _offset_ % 64 == {0}
 
-# Max jumbo frame 9 KiB, IP header min 20 B, UDP header 8 B.
-uint14 MTU = 1024 * 9 - 20 - 8
+uint14 MTU = 1024 * 9 - 20 - 8  # Max jumbo frame 9 KiB, IP header min 20 B, UDP header 8 B.
 void2
 uint8[<=MTU] data
 

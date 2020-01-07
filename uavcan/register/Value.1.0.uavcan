@@ -1,9 +1,7 @@
-#
 # This union contains all possible value types supported by the register protocol.
 # Numeric types can be either scalars or arrays; the former is a special case of the latter.
 #
-# In order to ensure a byte alignment of the nested arrays, the outer type must pad this union with 4 bits.
-#
+# In order to ensure a byte alignment of the nested arrays, the outer type should pad this union with 4 bits.
 
 @union                                          # The tag is 4 bits wide.
 
@@ -28,5 +26,5 @@ uavcan.primitive.array.Real16.1.0 real16        # Tag 14    Exactly representabl
 
 # Tag 15 is reserved
 
-@assert _offset_.min == 4                 # Empty and the tag
-@assert _offset_.max == 258 * 8 + 4       # 258 bytes per field max and the tag
+@assert _offset_.min == 4                       # Empty and the tag
+@assert _offset_.max == 258 * 8 + 4             # 258 bytes per field max and the tag

@@ -1,4 +1,3 @@
-#
 # This message carries UDP packets from a node on the local bus to a remote host on the Internet or a LAN.
 #
 # Any node can broadcast a message of this type.
@@ -28,7 +27,7 @@
 #
 # Applications are free to choose whatever redundancy management strategy works best for them.
 #
-# If the source node expects that the remote host will send some data back, it must explicitly notify
+# If the source node expects that the remote host will send some data back, it shall explicitly notify
 # the modem nodes about this, so that they could prepare to perform reverse forwarding when the
 # expected data arrives from the remote host. The technique of reverse forwarding is known in
 # networking as IP Masquerading, or (in general) Network Address Translation (NAT). The notification
@@ -89,22 +88,23 @@
 # in order to avoid interference with a real-time traffic on the bus. Usage of higher priority levels is
 # unlikely to be practical because the latency and throughput limitations introduced by the on-board radio
 # communication equipment are likely to vastly exceed those of the local CAN bus.
-#
 
+uint32 NAT_ENTRY_MIN_TTL = 24 * 60 * 60  # [second]
 # Modem nodes are required to keep the NAT table entries alive for at least this amount of time, unless the
 # table is overflowed, in which case they are allowed to remove least recently used entries in favor of
 # newer ones. Modem nodes are required to be able to accommodate at least 100 entries in the NAT table.
-uint32 NAT_ENTRY_MIN_TTL = 24 * 60 * 60  # [second]
 
+uint16 session_id
 # This field is set to an arbitrary value by the transmitting node in order to be able to match the response
 # with the locally kept context. The function of this field is virtually identical to that of UDP/IP port
 # numbers. This value can be set to zero safely if the sending node does not have multiple contexts to
 # distinguish between.
-uint16 session_id
 
-# UDP destination port number.
 uint16 destination_port
+# UDP destination port number.
 
+void2
+uint8[<=45] destination_address
 # Domain name or IP address where the payload should be forwarded to.
 # Note that broadcast addresses are allowed here, for example, 255.255.255.255.
 # Broadcasting with masquerading enabled works the same way as unicasting with masquerading enabled: the modem
@@ -119,21 +119,19 @@ uint16 destination_port
 #   "2001:0db8:85a3:0000:0000:8a2e:0370:7334"       - IPv6 address, full form
 #   "2001:db8:85a3::8a2e:370:7334"                  - IPv6 address, same as above, short form (preferred)
 #   "ABCD:ABCD:ABCD:ABCD:ABCD:ABCD:192.168.158.190" - IPv4-mapped IPv6, full form (length limit, 45 characters)
-void2
-uint8[<=45] destination_address
 
 @assert _offset_ % 8 == {0}
 
-# Option flags.
+void5
 bool use_masquerading   # Expect data back (i.e., instruct the modem to use the NAT table).
 bool use_dtls           # Use Datagram Transport Layer Security. Drop the packet if DTLS is not supported.
-void5
+# Option flags.
 
+uint8[<=261] payload
 # Effective payload. This data will be forwarded to the remote host verbatim.
 # UDP packets that contain more than 508 bytes of payload may be dropped by some types of
 # communication equipment. Refer to RFC 791 and 2460 for an in-depth review.
 # UAVCAN further limits the maximum packet size to reduce the memory and traffic burden on the nodes.
-uint8[<=261] payload
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.max / 8 == 313

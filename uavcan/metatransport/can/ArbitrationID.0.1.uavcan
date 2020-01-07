@@ -1,6 +1,4 @@
-#
 # CAN frame arbitration field.
-#
 
 @union
 

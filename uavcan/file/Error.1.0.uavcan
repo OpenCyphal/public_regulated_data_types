@@ -1,7 +1,5 @@
-#
 # Nested type.
 # Result of a file system operation.
-#
 
 uint16 OK                = 0
 uint16 UNKNOWN_ERROR     = 65535

@@ -68,20 +68,20 @@ for t in output:
         line = line.strip('\r\n')
         abort = partial(die_at, t, index)
 
-        # Check header comment
-        if index == 0 and line != '#':
+        # Check header comment.
+        if index == 0 and line[0] != '#':
             if not any(map(lambda e: t.full_namespace.startswith(e),
                            NAMESPACES_EXEMPTED_FROM_HEADER_COMMENT_REQUIREMENT)):
-                abort('Every data type definition must have a header comment surrounded with "#\\n",',
-                      'unless it is a member of:', NAMESPACES_EXEMPTED_FROM_HEADER_COMMENT_REQUIREMENT)
+                abort('Every data type definition shall have a header comment unless it is a member of:',
+                      NAMESPACES_EXEMPTED_FROM_HEADER_COMMENT_REQUIREMENT)
 
-        # Check trailing comment placement
-        # TODO: this test breaks on string literals containing "#"
+        # Check trailing comment placement.
+        # TODO: this test breaks on string literals containing "#".
         if not line.startswith('#') and '#' in line and '  #' not in line:
-            abort('Trailing line comments must be separated from the preceding text with at least two spaces')
+            abort('Trailing line comments shall be separated from the preceding text with at least two spaces')
 
         if line != '#' and '#' in line and '# ' not in line:
-            abort('The text of a comment must be separated from the comment character with a single space')
+            abort('The text of a comment shall be separated from the comment character with a single space')
 
         if line.endswith(' '):
             abort('Trailing spaces are not permitted')
@@ -96,7 +96,7 @@ for t in output:
                 abort('Disallowed character', repr(char), 'code', ord(char), 'at column', char_index + 1)
 
     if not text.endswith('\n') or text.endswith('\n' * 2):
-        abort('A file must contain exactly one blank line at the end')
+        abort('A file shall contain exactly one blank line at the end')
 
 
 def get_max_bit_length(ty) -> int:

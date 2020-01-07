@@ -1,4 +1,3 @@
-#
 # This type is a part of the Raft consensus algorithm. The Raft consensus is used for the maintenance of the
 # distributed allocation table between redundant allocators. The following description is focused on the exchanges
 # between redundant PnP node-ID allocators. It does not apply to the case of non-redundant allocators, because
@@ -26,20 +25,20 @@
 # Since the log is write-only and limited in growth, all allocations are permanent. This restriction is acceptable,
 # since UAVCAN is a vehicle bus, and configuration of vehicle's components is not expected to change frequently.
 # Old allocations can be removed in order to free node-IDs for new allocations by clearing the Raft log on all
-# allocators; such clearing must be performed simultaneously while the network is down, otherwise the Raft cluster
+# allocators; such clearing shall be performed simultaneously while the network is down, otherwise the Raft cluster
 # will automatically attempt to restore the lost state on the allocators where the table was cleared.
 #
 # The allocators need to be aware of each other's node-ID in order to form a cluster. In order to learn each other's
 # node-ID values, the allocators broadcast messages of type Discovery (in the same namespace) until the cluster is
 # fully discovered and all allocators know of each other's node-ID. This extension to the Raft algorithm makes the
-# cluster almost configuration-free - the only parameter that must be configured on all allocators of the cluster
+# cluster almost configuration-free - the only parameter that shall be configured on all allocators of the cluster
 # is the number of nodes in the cluster (everything else will be auto-detected).
 #
 # Runtime cluster membership changes are not supported, since they are not needed for a vehicle bus.
 #
-# As has been explained in the general description of the PnP node-ID allocation feature, allocators must watch for
+# As has been explained in the general description of the PnP node-ID allocation feature, allocators shall watch for
 # unknown static nodes appearing on the bus. In the case of a non-redundant allocator, the task is trivial, since the
-# allocation table can be updated locally. In the case of a Raft cluster, however, the network monitoring task must
+# allocation table can be updated locally. In the case of a Raft cluster, however, the network monitoring task shall
 # be performed by the leader only, since other cluster members cannot commit to the shared allocation table (i.e.,
 # the Raft log) anyway. Redundant allocators should not attempt to obtain the true unique-ID of the newly detected
 # static nodes (use zeros instead), because the allocation table is write-only: if the unique-ID of a static node
@@ -54,8 +53,9 @@
 #     completed successfully).
 #
 # All cluster maintenance traffic should normally use either the lowest or the next-to-lowest transfer priority level.
-#
 
+uint8 DEFAULT_MIN_ELECTION_TIMEOUT = 2      # [second]
+uint8 DEFAULT_MAX_ELECTION_TIMEOUT = 4      # [second]
 # Given the minimum election timeout and the cluster size,
 # the maximum recommended request interval can be derived as follows:
 #
@@ -68,15 +68,15 @@
 #
 # The timeout value is randomized in the range (MIN, MAX], according to the Raft paper. The randomization granularity
 # should be at least one millisecond or higher.
-uint8 DEFAULT_MIN_ELECTION_TIMEOUT = 2      # [second]
-uint8 DEFAULT_MAX_ELECTION_TIMEOUT = 4      # [second]
 
-# Refer to the Raft paper for explanation.
 uint32 term
 uint32 prev_log_term
 uint16 prev_log_index
 uint16 leader_commit
+# Refer to the Raft paper for explanation.
 
+void7
+Entry.1.0[<=1] entries
 # Worst case replication time per Follower can be computed as:
 #
 #   worst replication time = (node-ID capacity) * (2 trips of next_index) * (request interval per Follower)
@@ -86,13 +86,11 @@ uint16 leader_commit
 #   128 nodes * 2 trips * 0.5 seconds = 128 seconds.
 #
 # This is the amount of time it will take for a new Follower to reconstruct a full replica of the distributed log.
-void7
-Entry.1.0[<=1] entries
 
 @assert _offset_ % 8 == {0}
 
 ---
 
-# Refer to the Raft paper for explanation.
 uint32 term
 bool success
+# Refer to the Raft paper for explanation.
