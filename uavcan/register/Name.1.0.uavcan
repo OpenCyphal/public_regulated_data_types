@@ -1,6 +1,4 @@
-#
 # An ASCII register name.
-#
 
 void2
 uint8[<=50] name

@@ -1,4 +1,3 @@
-#
 # Smart battery status message. This is a top-level data type.
 # This message is modeled after the Smart Battery Data Specification (SBS) and the MAVLink battery status messages.
 #
@@ -27,26 +26,25 @@
 # The methods of energy estimation are implementation-defined.
 #
 # pragma: no-bit-length-limit
-#
 
-# The network-synchronized timestamp of the moment where the values contained in this message have been sampled.
 uavcan.time.SynchronizedTimestamp.1.0 timestamp
+# The network-synchronized timestamp of the moment where the values contained in this message have been sampled.
 
 # --------------------------  ESTIMATES  --------------------------
 
 void1
-
+uint7 state_of_charge  # [percent]
 # The instant SoC of the pack, ranges from 0 to 100. Mandatory.
 # The methods of estimation are implementation-defined.
-uint7 state_of_charge  # [percent]
 
 @assert _offset_ % 32 == {0}
 
+regulated.zubax.sensor.wattmeter.DCSample.0.1 power
 # Total instant pack power. Low-pass filtering should be applied to avoid aliasing effects.
 # Positive current flows from the battery to the load (discharging).
 # Negative current flows into the battery (charging).
-regulated.zubax.sensor.wattmeter.DCSample.0.1 power
 
+uavcan.si.unit.energy.Scalar.1.0 energy
 # A pessimistic estimate of the amount of energy that can be reclaimed from the battery in its current state.
 # This may be dependent on the state of charge (SoC), state of health (SoH), temperature, load profile, etc.
 # Negative values may be reported to indicate overdischarge.
@@ -56,63 +54,61 @@ regulated.zubax.sensor.wattmeter.DCSample.0.1 power
 # factors that may affect the amount of reclaimable energy, so it may be preferable. Having the instant power,
 # the time to depletion is estimated as (energy / power). When charging, the remaining time to full charge
 # can be found similarly as ((full_energy - energy) / abs(power)).
-uavcan.si.unit.energy.Scalar.1.0 energy
 
+uavcan.si.unit.energy.Scalar.1.0 full_energy
 # A pessimistic estimate of the amount of energy that can be reclaimed from a fully charged battery
 # under the current conditions (SoH, temperature, load profile, etc).
-uavcan.si.unit.energy.Scalar.1.0 full_energy
 
+float16[2] temperature_min_max  # [kelvin]
 # The minimum and maximum readings of the pack temperature sensors. For example, if a pack is equipped with
 # three distributed temperature sensors that read [288, 258.15, 360.5] kelvin, the reported array value would be
 # [258.15, 360.5].
 # If there is only one temperature sensor, both elements shall be of the same value.
 # If there are no temperature sensors, both elements shall be NaN.
-float16[2] temperature_min_max  # [kelvin]
 
 @assert _offset_ % 8 == {0}
 
 # --------------------------  STATUS FLAGS  --------------------------
 
+bool charger_connected
 # Whether the charging is in progress is observable though the reported instant current: a negative value
 # indicates that the battery is being charged. Time to full charge can be derived from the energy estimate.
-bool charger_connected
 
-# The temperature of at least one cell/section of the battery is above or below the safe operating limits.
-# Note that the flags are not mutually exclusive.
 bool temperature_hot
 bool temperature_cold
+# The temperature of at least one cell/section of the battery is above or below the safe operating limits.
+# Note that the flags are not mutually exclusive.
 
-# The charge or discharge rate exceeds the safe operating limits.
 bool overload
+# The charge or discharge rate exceeds the safe operating limits.
 
-# The cells require rebalancing. This may be an indicator of deterioration of the battery.
 bool disbalance
+# The cells require rebalancing. This may be an indicator of deterioration of the battery.
 
-# Cell balancing is currently in progress.
 bool balancing
+# Cell balancing is currently in progress.
 
+bool needs_service
 # The battery requires other type of maintenance (not balancing).
 # Use vendor-specific interfaces to obtain further information.
-bool needs_service
 
+bool bms_error
 # Internal error in the battery management system, not related to the battery itself.
 # Use vendor-specific interfaces to obtain further information.
-bool bms_error
 
-# Reserved for future flags.
 void8
 
-# Vendor-specific values or flags for extended diagnostics and troubleshooting.
 uint16 vendor_specific_status_code
+# Vendor-specific values or flags for extended diagnostics and troubleshooting.
 
 @assert (_offset_ % 8 == {0}) && (_offset_.count == 1) && (_offset_.max / 8 <= 63)  # One CAN FD frame up to this point.
 
 # --------------------------  PER CELL ESTIMATES  --------------------------
 
+float16[<256] cell_voltages  # [volt]
 # Individual cell voltages.
 # The number of elements shall match the number of cells in the battery.
 # If the number of cells is unknown, the array shall be empty.
 # If the number of cells is known, but their voltages cannot be estimated, the elements shall be NaN.
-float16[<256] cell_voltages  # [volt]
 
 @assert _offset_ % 8 == {0}

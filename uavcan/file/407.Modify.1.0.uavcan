@@ -1,4 +1,3 @@
-#
 # Manipulate a remote file system entry. Applies to files, directories, and links alike.
 # If the remote entry is a directory, all nested entries will be affected, too.
 #
@@ -32,7 +31,6 @@
 #   Specify the source path (file/directory/link) and make the destination path empty.
 #   Fails if the path does not exist.
 #   Flags are ignored.
-#
 
 bool preserve_source            # Do not remove the source. Used to copy instead of moving.
 bool overwrite_destination      # If the destination exists, remove it beforehand.

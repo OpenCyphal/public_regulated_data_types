@@ -1,4 +1,3 @@
-#
 # This service is used to write and read a register. Write is optional, it is performed if the value provided in
 # the request is not empty.
 #
@@ -18,16 +17,16 @@
 # The timestamp provided in the response corresponds to the time when the register was read. The timestamp may
 # be empty if the server does not support timestamping or its clock is not yet synchronized with the bus.
 #
-# If only read is desired, but not write, the caller must provide a value of type Empty. That will signal the server
-# that the write operation must be skipped, and it will proceed to read the register immediately.
+# If only read is desired, but not write, the caller shall provide a value of type Empty. That will signal the server
+# that the write operation shall be skipped, and it will proceed to read the register immediately.
 #
 # If the requested register does not exist, the write operation will have no effect and the returned value will be
 # empty. Existing registers should not return Empty when read since that would make them indistinguishable from
 # nonexistent registers.
 #
-# Registers must never change their type or flags as long as the server is running. Meaning that:
+# Registers shall never change their type or flags as long as the server is running. Meaning that:
 #   - Mutability and persistence flags cannot change their states.
-#   - Read operations must always return values of the same type and same dimensionality.
+#   - Read operations shall always return values of the same type and same dimensionality.
 #     The dimensionality requirement does not apply to inherently variable-length values such as strings and
 #     unstructured chunks.
 #
@@ -78,32 +77,31 @@
 #                       |       |           | automatic node ID. Invalid values other than 65535 should be avoided for
 #                       |       |           | consistency. The factory-default value should be 65535.
 # ----------------------+-------+-----------+--------------------------------------------------------------------------
-#
-#
 
-# The name of the accessed register. Must not be empty.
-# Use the List service to obtain the list of registers on the node.
 Name.1.0 name
+# The name of the accessed register. Shall not be empty.
+# Use the List service to obtain the list of registers on the node.
 
 @assert _offset_ % 8 == {0}
 
-# Value to be written. Empty if no write is required.
 void4
 Value.1.0 value
+# Value to be written. Empty if no write is required.
 
 @assert _offset_.min % 8 == 0
 @assert _offset_.max % 8 == 0
 
 ---
 
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
 # The moment of time when the register was read (not written).
 # Zero if the server does not support timestamping.
-uavcan.time.SynchronizedTimestamp.1.0 timestamp
 
+bool mutable
 # Mutable means that the register can be written using this service.
 # Immutable registers cannot be written, but that doesn't imply that their values are constant (unchanging).
-bool mutable
 
+bool persistent
 # Persistence means that the register retains its value permanently across power cycles or any other changes
 # in the state of the server, until it is explicitly overwritten (either via UAVCAN, any other interface,
 # or by the device itself).
@@ -119,17 +117,15 @@ bool mutable
 #   - Registers that trigger an activity when written are typically mutable but non-persisient.
 #   - Registers that contain factory-programmed values such as calibration coefficients that can't
 #     be changed are typically immutable but persistent.
-bool persistent
 
 void2
-
+Value.1.0 value
 # The value of the register when it was read (beware of race conditions).
 # Registers never change their type and dimensionality while the node is running.
 # Empty value means that the register does not exist (in this case the flags should be cleared/ignored).
 # By comparing the returned value against the write request the caller can determine whether the register
 # was written successfully, unless write was not requested.
 # An empty value shall never be returned for an existing register.
-Value.1.0 value
 
 @assert _offset_.min % 8 == 0
 @assert _offset_.max % 8 == 0

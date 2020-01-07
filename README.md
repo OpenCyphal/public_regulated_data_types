@@ -166,7 +166,7 @@ Non-standard (vendor-specific) types are recommended to follow this advice as we
 Follow the naming conventions defined in the specification.
 
 Every data type definition shall have a header comment, where the first and the last lines are empty;
-every field shall be preceded by a comment, unless it is absolutely certain that it is completely
+every field shall be followed by a comment, unless it is absolutely certain that it is completely
 self-explanatory.
 An exception is made for trivial definitions which often do not require any additional comments.
 
@@ -179,24 +179,20 @@ The lines of text should not be longer than 120 characters.
 
 Here is an example:
 
-    #
     # This is a header comment.
     # It explains what this data type definition is for and why do we need it.
-    # Mind the blank comment lines before and after the header comment.
-    #
 
-    # This space is reserved for future use.
-    void42
+    void42  # This space is reserved for future use.
 
+    uint8 VALUE_A = 1       # A comment describing the constant.
+    uint8 VALUE_B = 2       # Another one. Constants go before the field they relate to.
+    uint8 value
     # This is an enumeration.
     # We don't need blank lines because the items are tightly related.
-    uint8 VALUE_A = 1       # A comment describing the constant.
-    uint8 VALUE_B = 2       # Another one.
-    uint8 value
 
-    # This is a new field, mind the blank line above.
     void1
     float32[<100] aligned_array
+    # This is a new field, mind the blank line above.
 
 Remember, the set of standard data types is an important part of the protocol specification,
 so the quality of the documentation is very important.

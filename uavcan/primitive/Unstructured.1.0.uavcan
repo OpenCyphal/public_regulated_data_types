@@ -1,6 +1,4 @@
-#
 # An unstructured collection of bytes, e.g., raw binary image.
-#
 
 void7
 uint8[<=256] value

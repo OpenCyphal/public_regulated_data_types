@@ -1,8 +1,6 @@
-#
 # Subject-ID. The ranges are defined by the specification.
-#
 
-uint16 MAX_UNREGULATED_ID = 24575
+uint15 MAX_UNREGULATED_ID = 24575
 
 uint15 value
 

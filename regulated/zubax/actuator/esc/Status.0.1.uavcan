@@ -1,4 +1,3 @@
-#
 # Electronic speed controller (ESC) group status.
 #
 # This interface assumes that ESCs are segregated into groups.
@@ -30,52 +29,50 @@
 # The published status values should be low-pass filtered with an adequate cutoff frequency to avoid aliasing effects.
 # Implementations should strive to sample all parameters atomically whenever possible.
 # If a parameter is unknown, NaN should be used.
-#
 
-# Publication frequency limits.
 uint8 MAX_PUBLICATION_PERIOD = 1  # [second]
+# Publication frequency limits.
 
 void2
-
+uint6 index
 # The index in the setpoint array that this status message refers to.
 # This value should never be changed while the node is running.
-uint6 index
 
-# Percentage of the maximum rated power output. May exceed 100% in case of overload.
 uint8 demand_factor  # [percent]
+# Percentage of the maximum rated power output. May exceed 100% in case of overload.
 
-# A warning flag is set when the corresponding parameter exceeds the safe operating area (SOA) of the ESC.
+void12
 bool dc_voltage_warning             # DC link voltage above or below the SOA.
 bool overload_warning               # Output power/current above SOA or regeneration below the SOA.
 bool motor_temperature_warning      # Temperature above or below the SOA.
 bool inverter_temperature_warning   # Temperature above or below the SOA.
-void12
+# A warning flag is set when the corresponding parameter exceeds the safe operating area (SOA) of the ESC.
 
 @assert _offset_ % 32 == {0}
 
-# Incremented once per occurrence. The exact definition of what constitutes an error is implementation-dependent.
 uint32 error_count
+# Incremented once per occurrence. The exact definition of what constitutes an error is implementation-dependent.
 
+uavcan.si.unit.angular_velocity.Scalar.1.0 motor_mechanical_angular_velocity  # Negative indicates reverse rotation.
+uavcan.si.unit.torque.Scalar.1.0           motor_torque                       # Opposite sign indicates regeneration.
 # Real-time motion parameters.
 # If the mechanical load consumes the power (motoring), the torque and the angular velocity have the same sign.
 # If the mechanical load delivers the power (regeneration), the torque and the angular velocity have opposite signs.
 # Therefore, negative mechanical power (ang_vel*torque) indicates regeneration.
-uavcan.si.unit.angular_velocity.Scalar.1.0 motor_mechanical_angular_velocity  # Negative indicates reverse rotation.
-uavcan.si.unit.torque.Scalar.1.0           motor_torque                       # Opposite sign indicates regeneration.
 
+uavcan.si.unit.frequency.Scalar.1.0 motor_electrical_frequency
 # Electric field frequency is always non-negative, irrespective of the direction.
 # For synchronous motors, this is a function of the mechanical angular velocity and the number of rotor poles.
-uavcan.si.unit.frequency.Scalar.1.0 motor_electrical_frequency
 
-# DC link parameters. Negative current indicates regeneration.
 regulated.zubax.sensor.wattmeter.DCSample.0.1 dc_link_power
+# DC link parameters. Negative current indicates regeneration.
 
-# Sampled temperatures. If multiple values are available, reduction is implementation-defined.
-# We use raw float16 here instead of the more type-safe SI types to reduce the footprint.
 float16 motor_temperature     # [kelvin]
 float16 inverter_temperature  # [kelvin]
+# Sampled temperatures. If multiple values are available, reduction is implementation-defined.
+# We use raw float16 here instead of the more type-safe SI types to reduce the footprint.
 
-void32  # Reserved for future use.
+void32
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.count == 1     # Fixed-size

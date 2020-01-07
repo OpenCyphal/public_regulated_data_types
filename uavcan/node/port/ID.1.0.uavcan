@@ -1,7 +1,5 @@
-#
 # Used to refer either to a Service or to a Subject.
 # The chosen tag identifies the kind of the port, then the numerical ID identifies the port within the kind.
-#
 
 @union
 SubjectID.1.0 subject_id

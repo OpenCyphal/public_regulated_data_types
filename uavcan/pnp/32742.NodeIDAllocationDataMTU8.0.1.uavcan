@@ -1,4 +1,3 @@
-#
 # The suffix "MTU8" indicates that this message is made to be compatible with transports where the maximum
 # transmission unit size is only 8 bytes, such as CAN 2.0. For other kinds of transports there is a more general,
 # more capable definition NodeIDAllocationData; it can't be used with low-MTU transports, hence the need for this
@@ -54,14 +53,13 @@
 #     2. The allocatee initializes its node-ID with the received value.
 #     3. The allocatee terminates its subscription to allocation messages.
 #     4. Exit.
-#
 
-# An arbitrary 55-bit hash of the unique-ID of the local node.
 truncated uint55 unique_id_hash
+# An arbitrary 55-bit hash of the unique-ID of the local node.
 
-# Must be empty in request messages.
-# Must be populated in response messages.
 uavcan.node.ID.1.0[<=1] allocated_node_id
+# Shall be empty in request messages.
+# Shall be populated in response messages.
 
 @assert _offset_.min == 56        # Plus the tail byte yields 8 bytes; this is for requests only
 @assert _offset_.max == 72        # Responses are non-anonymous, so they can be multi-frame

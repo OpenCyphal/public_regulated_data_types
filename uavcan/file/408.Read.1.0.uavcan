@@ -1,4 +1,3 @@
-#
 # Read file from a remote node.
 #
 # There are two possible outcomes of a successful call:
@@ -16,7 +15,7 @@
 # application designers are recommended to adhere to the following convention. Let every file whose integrity
 # is of interest have a hash or a digital signature, which is stored in an adjacent file under the same name
 # suffixed with the appropriate extension according to the type of hash or digital signature used.
-# For example, let there be file "image.bin", integrity of which must be ensured by the client upon downloading.
+# For example, let there be file "image.bin", integrity of which shall be ensured by the client upon downloading.
 # Suppose that the file is hashed using SHA-256, so the appropriate file extension for the hash would be
 # ".sha256". Following this convention, the hash of "image.bin" would be stored in "image.bin.sha256".
 # After downloading the file, the client would read the hash (being small, the hash can be read in a single
@@ -27,7 +26,6 @@
 # in that case, hash/signature should be pre-computed and stored in a real file. If this approach is followed,
 # implementers are advised to use only SHA-256 for hashing, in order to reduce the number of fielded
 # incompatible implementations.
-#
 
 truncated uint40 offset
 

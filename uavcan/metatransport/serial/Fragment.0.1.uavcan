@@ -1,7 +1,5 @@
-#
 # A chunk of raw bytes exchanged over a serial transport. Serial links do not support framing natively.
 # The chunk may be of arbitrary size.
-#
 
 uavcan.time.SynchronizedTimestamp.1.0 timestamp
 
