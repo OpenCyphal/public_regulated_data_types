@@ -1,5 +1,4 @@
 # CAN FD data frame payload.
 
 ArbitrationID.0.1 arbitration_id
-void1
 uint8[<=64] data

@@ -37,7 +37,6 @@ Path.1.0 path
 
 Error.1.0 error
 
-void7
 uint8[<=256] data
 
 @assert _offset_ % 8 == {0}

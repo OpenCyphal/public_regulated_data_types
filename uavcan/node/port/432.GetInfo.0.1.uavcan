@@ -31,7 +31,6 @@ bool is_output      # Publisher or client
 #   Subject     | Subscriber    | Publisher
 #   Service     | Server        | Client
 
-void2
 uint8[<=50] data_type_full_name
 # If such port exists, this field shall contain the full name of its data type.
 # If the requested port does not exist, this field shall be empty.

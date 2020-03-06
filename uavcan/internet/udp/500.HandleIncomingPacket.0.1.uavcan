@@ -32,7 +32,6 @@ uint16 session_id
 # packet using the message type OutgoingPacket. This value will be used by the local node to match the response
 # with its local context.
 
-void7
 uint8[<=309] payload
 # Effective payload. This data will be forwarded from the remote host verbatim.
 # UDP packets that contain more than 508 bytes of payload may be dropped by some types of

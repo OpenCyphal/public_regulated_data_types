@@ -75,7 +75,6 @@ uint16 prev_log_index
 uint16 leader_commit
 # Refer to the Raft paper for explanation.
 
-void7
 Entry.1.0[<=1] entries
 # Worst case replication time per Follower can be computed as:
 #

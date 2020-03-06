@@ -103,7 +103,6 @@ uint16 session_id
 uint16 destination_port
 # UDP destination port number.
 
-void2
 uint8[<=45] destination_address
 # Domain name or IP address where the payload should be forwarded to.
 # Note that broadcast addresses are allowed here, for example, 255.255.255.255.
@@ -122,12 +121,12 @@ uint8[<=45] destination_address
 
 @assert _offset_ % 8 == {0}
 
-void5
+void6
 bool use_masquerading   # Expect data back (i.e., instruct the modem to use the NAT table).
 bool use_dtls           # Use Datagram Transport Layer Security. Drop the packet if DTLS is not supported.
 # Option flags.
 
-uint8[<=261] payload
+uint8[<=260] payload
 # Effective payload. This data will be forwarded to the remote host verbatim.
 # UDP packets that contain more than 508 bytes of payload may be dropped by some types of
 # communication equipment. Refer to RFC 791 and 2460 for an in-depth review.

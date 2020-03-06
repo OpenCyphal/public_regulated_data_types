@@ -190,7 +190,6 @@ Here is an example:
     # This is an enumeration.
     # We don't need blank lines because the items are tightly related.
 
-    void1
     float32[<100] aligned_array
     # This is a new field, mind the blank line above.
 

@@ -11,7 +11,6 @@ IOStatistics.0.1 transfer_statistics
 # the number of UAVCAN transfers successfully sent, successfully received, and failed.
 # The methods of error counting are implementation-defined.
 
-void6
 IOStatistics.0.1[<=MAX_NETWORK_INTERFACES] network_interface_statistics
 # Network interface statistics, separate per interface.
 # E.g., for a doubly redundant transport, this array would contain two elements,

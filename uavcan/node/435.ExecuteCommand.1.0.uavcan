@@ -62,7 +62,6 @@ uint16 COMMAND_STORE_PERSISTENT_STATES = 65530
 # invoke this command in order to ensure that the data is stored even if the node doesn't implement automatic
 # persistence management.
 
-void1
 uint8[<=uavcan.file.Path.1.0.MAX_LENGTH] parameter
 # A string parameter supplied to the command. The format and interpretation is command-specific.
 # The standard commands do not use this field (ignore it), excepting the following:

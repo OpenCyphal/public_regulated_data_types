@@ -62,7 +62,6 @@ uint64 unique_id
 
 @assert (_offset_ % 8 == {0}) && (_offset_.count == 1)
 
-void2
 uint8[<64] name
 # The name of the vendor and model encoded in UTF8.
 # Example: "MyBattCo MBC101 v1.1"
