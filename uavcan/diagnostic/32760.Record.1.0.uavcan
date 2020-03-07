@@ -6,9 +6,6 @@ uavcan.time.SynchronizedTimestamp.1.0 timestamp
 # The timestamp value conveys the exact moment when the reported event took place.
 
 Severity.1.0 severity
-# Standard severity, 3 bit wide.
-
-void5
 
 uint8[<=112] text
 # Message text.

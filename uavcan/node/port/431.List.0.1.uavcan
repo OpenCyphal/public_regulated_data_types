@@ -33,7 +33,7 @@
 
 ID.1.0 port_id_lower_boundary
 
-@assert _offset_ == {16}
+@assert _offset_ == {24}
 
 ---
 

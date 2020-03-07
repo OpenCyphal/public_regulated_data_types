@@ -121,10 +121,10 @@ uint8[<=45] destination_address
 
 @assert _offset_ % 8 == {0}
 
-void6
 bool use_masquerading   # Expect data back (i.e., instruct the modem to use the NAT table).
 bool use_dtls           # Use Datagram Transport Layer Security. Drop the packet if DTLS is not supported.
 # Option flags.
+void6
 
 uint8[<=260] payload
 # Effective payload. This data will be forwarded to the remote host verbatim.

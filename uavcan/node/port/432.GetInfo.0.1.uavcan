@@ -11,11 +11,10 @@
 
 ID.1.0 port_id  # The port of interest; can be either a service or a subject.
 
-@assert _offset_ == {16}
+@assert _offset_ == {24}
 
 ---
 
-void6
 bool is_input       # Subscriber or server
 bool is_output      # Publisher or client
 # For subject ports, "input" means subscriber and "output" means publisher.
@@ -30,6 +29,7 @@ bool is_output      # Publisher or client
 # --------------+---------------+----------------
 #   Subject     | Subscriber    | Publisher
 #   Service     | Server        | Client
+void6
 
 uint8[<=50] data_type_full_name
 # If such port exists, this field shall contain the full name of its data type.

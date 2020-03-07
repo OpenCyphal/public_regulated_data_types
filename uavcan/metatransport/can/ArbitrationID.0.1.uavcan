@@ -5,4 +5,4 @@
 BaseArbitrationID.0.1     base
 ExtendedArbitrationID.0.1 extended
 
-@assert _offset_ == {30}
+@assert _offset_ == {40}

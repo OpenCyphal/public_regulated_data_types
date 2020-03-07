@@ -170,8 +170,12 @@ every field shall be followed by a comment, unless it is absolutely certain that
 self-explanatory.
 An exception is made for trivial definitions which often do not require any additional comments.
 
+When using void fields for alignment, insert them after the alignee.
+For example, `bool foo` followed by `void7` is the recommended sequence; the opposite is to be avoided.
+To understand the motivation, read the DSDL serialization specification.
+
 Attributes shall be separated by exactly one blank line, excepting tightly related attributes and
-void fields used for pre-alignment (e.g., before dynamic arrays), in which case blank lines are not necessary.
+void fields used for post-alignment (e.g., after bit fields), in which case blank lines are not necessary.
 More than one blank line is never allowed.
 There shall be exactly one blank line at the end of the file.
 

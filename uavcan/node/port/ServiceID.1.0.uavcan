@@ -2,7 +2,7 @@
 
 uint9 MAX_UNREGULATED_ID = 127
 
-void6
 uint9 value
+void7
 
-@assert _offset_ == {15}
+@assert _offset_ == {16}
