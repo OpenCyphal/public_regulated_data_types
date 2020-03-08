@@ -15,7 +15,7 @@
 #
 # The setpoint message types that can be used to command a group of ESC are defined in this namespace.
 # Additional setpoint message types may also be supported on an implementation-specific basis.
-# If a group is controlled using different setpoint subjects concurrently (e.g., ratiometric and torque),
+# If a group is controlled using different setpoint subjects concurrently (e.g., ratiometric and speed),
 # the behavior is implementation-defined.
 #
 # ESC should stop automatically if no setpoint was received in one second; this limit may be configurable.
@@ -33,20 +33,20 @@
 uint8 MAX_PUBLICATION_PERIOD = 1  # [second]
 # Publication frequency limits.
 
-void2
 uint6 index
 # The index in the setpoint array that this status message refers to.
 # This value should never be changed while the node is running.
+void2
 
 uint8 demand_factor  # [percent]
 # Percentage of the maximum rated power output. May exceed 100% in case of overload.
 
-void12
 bool dc_voltage_warning             # DC link voltage above or below the SOA.
 bool overload_warning               # Output power/current above SOA or regeneration below the SOA.
 bool motor_temperature_warning      # Temperature above or below the SOA.
 bool inverter_temperature_warning   # Temperature above or below the SOA.
 # A warning flag is set when the corresponding parameter exceeds the safe operating area (SOA) of the ESC.
+void12
 
 @assert _offset_ % 32 == {0}
 
@@ -71,8 +71,6 @@ float16 motor_temperature     # [kelvin]
 float16 inverter_temperature  # [kelvin]
 # Sampled temperatures. If multiple values are available, reduction is implementation-defined.
 # We use raw float16 here instead of the more type-safe SI types to reduce the footprint.
-
-void32
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.count == 1     # Fixed-size

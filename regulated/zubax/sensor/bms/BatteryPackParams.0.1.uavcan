@@ -43,10 +43,10 @@ uint32 cycle_count
 Technology.0.1 technology
 # Shall not change at runtime.
 
-void1
 uint7 state_of_health
 # The SoH of the pack, ranges from 0 to 100. May change at runtime.
 # If not provided by the BMS, use best guess or report 100%.
+void1
 
 void64
 void64

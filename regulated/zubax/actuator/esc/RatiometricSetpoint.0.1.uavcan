@@ -12,6 +12,9 @@
 # For example, conventional trapezoidal (six-step) ESCs generally map the setpoint to the phase PWM duty cycle setting;
 # a vector control ESC may map the setpoint to the Q-axis voltage vector projection or torque.
 
+int16 FULL_REVERSE = -32768
+int16 FULL_FORWARD = +32767
+
 int16[<64] ratiometric
 
 @assert _offset_ % 8 == {0}
