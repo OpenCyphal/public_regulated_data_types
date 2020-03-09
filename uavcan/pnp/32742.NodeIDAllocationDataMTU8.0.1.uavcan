@@ -6,18 +6,18 @@
 #
 # The motivation for the difference between this small-MTU case and the general case is that the full 128-bit
 # unique-ID can't be accommodated in a small-MTU single-frame anonymous message transfer. The solution is to replace
-# the full 128-bit ID with a smaller 55-bit hash of it, and remove support for preferred node-ID value in the
+# the full 128-bit ID with a smaller 48-bit hash of it, and remove support for preferred node-ID value in the
 # allocation requests in order to save space.
 #
-# The 55-bit hash is obtained by applying an arbitrary hash function to the unique-ID that outputs at least 55 bit of
-# data. For example, it could be the standard CRC-64WE function where only the lowest 55 bit of the result are used.
+# The 48-bit hash is obtained by applying an arbitrary hash function to the unique-ID that outputs at least 48 bit of
+# data. For example, it could be the standard CRC-64WE function where only the lowest 48 bit of the result are used.
 # The hash function shall produce the same hash value for the same unique-ID value, and it should be likely to
 # produce a different hash value for any other unique-ID value.
 #
 # Allocators that support both the general case and the small-MTU case should maintain the same allocation table
 # for both. Requests received via the small-MTU message obviously do not contain the full unique-ID; the allocators
-# are recommended to extend the small 55-bit hash with zeros upwards (where "upwards" means that the most significant
-# bits of the unique-ID will contain zeros, and the least significant 55 bits will contain the hash) in order to
+# are recommended to extend the small 48-bit hash with zeros upwards (where "upwards" means that the most significant
+# bits of the unique-ID will contain zeros, and the least significant 48 bits will contain the hash) in order to
 # obtain a "pseudo unique-ID", and use this value in the allocation table as a substitute for the real unique-ID.
 # It is recognized that this behavior will have certain side effects, such as the same allocatee obtaining different
 # allocated node-ID values depending on which transport is used, but they are considered tolerable.
@@ -40,22 +40,22 @@
 #   Rule B. On expiration of the Request Timer (started as per rules A, B, or C):
 #     1. Request Timer restarts with a random interval of Trequest (chosen anew).
 #     2. The allocatee broadcasts an allocation request message, where the fields are populated as follows:
-#        unique_id_hash    - a 55-bit hash of the unique-ID of the allocatee.
+#        unique_id_hash    - a 48-bit hash of the unique-ID of the allocatee.
 #        allocated_node_id - empty (not populated).
 #
 #   Rule C. On any allocation message, even if other rules also match:
 #     1. Request Timer restarts with a random interval of Trequest (chosen anew) (this is related to CSMA/CD).
 #
 #   Rule D. On an allocation message WHERE (source node-ID is non-anonymous, i.e., regular allocation response)
-#                                    AND   (the field unique_id_hash matches the allocatee's 55-bit unique-ID hash)
+#                                    AND   (the field unique_id_hash matches the allocatee's 48-bit unique-ID hash)
 #                                    AND   (the field allocated_node_id is populated):
 #     1. Request Timer stops.
 #     2. The allocatee initializes its node-ID with the received value.
 #     3. The allocatee terminates its subscription to allocation messages.
 #     4. Exit.
 
-truncated uint55 unique_id_hash
-# An arbitrary 55-bit hash of the unique-ID of the local node.
+truncated uint48 unique_id_hash
+# An arbitrary 48-bit hash of the unique-ID of the local node.
 
 uavcan.node.ID.1.0[<=1] allocated_node_id
 # Shall be empty in request messages.

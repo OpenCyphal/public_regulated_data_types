@@ -13,12 +13,12 @@ truncated uint40 size
 truncated uint40 unix_timestamp_of_last_modification
 # The UNIX Epoch time when the entry was last modified. Zero if unknown.
 
-void4
 bool is_file_not_directory  # True if file, false if directory.
 bool is_link                # This is a link to another entry; the above flag indicates the type of the target.
 bool is_readable            # The item can be read by the caller (applies to files and directories).
 bool is_writeable           # The item can be written by the caller (applies to files and directories).
 # If such entry does not exist, all flags should be cleared/ignored.
+void4
 
 void64
 

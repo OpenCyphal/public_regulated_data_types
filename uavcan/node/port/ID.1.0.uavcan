@@ -4,4 +4,4 @@
 @union
 SubjectID.1.0 subject_id
 ServiceID.1.0 service_id
-@assert _offset_ == {16}
+@assert _offset_ == {24}

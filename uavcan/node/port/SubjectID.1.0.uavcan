@@ -3,5 +3,6 @@
 uint15 MAX_UNREGULATED_ID = 24575
 
 uint15 value
+void1
 
-@assert _offset_ == {15}
+@assert _offset_ == {16}

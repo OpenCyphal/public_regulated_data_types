@@ -3,7 +3,7 @@
 
 ID.1.0 port_id  # The port of interest; can be either a service or a message.
 
-@assert _offset_ == {16}
+@assert _offset_ == {24}
 
 ---
 

@@ -32,10 +32,10 @@ uavcan.time.SynchronizedTimestamp.1.0 timestamp
 
 # --------------------------  ESTIMATES  --------------------------
 
-void1
 uint7 state_of_charge  # [percent]
 # The instant SoC of the pack, ranges from 0 to 100. Mandatory.
 # The methods of estimation are implementation-defined.
+void1
 
 @assert _offset_ % 32 == {0}
 

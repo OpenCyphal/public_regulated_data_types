@@ -2,8 +2,8 @@
 # The time system shall be the same for all masters in the network.
 # It cannot be changed while the network is running.
 
-void4
 truncated uint4 value
+void4
 
 uint4 MONOTONIC_SINCE_BOOT = 0
 # Monotonic time since boot.

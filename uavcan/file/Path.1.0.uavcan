@@ -13,7 +13,6 @@
 uint8 SEPARATOR = '/'
 uint8 MAX_LENGTH = 112
 
-void1
 uint8[<=MAX_LENGTH] path
 
 @assert _offset_ % 8 == {0}

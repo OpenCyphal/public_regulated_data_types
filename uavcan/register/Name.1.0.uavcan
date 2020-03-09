@@ -1,6 +1,5 @@
 # An ASCII register name.
 
-void2
 uint8[<=50] name
 
 @assert _offset_ % 8 == {0}

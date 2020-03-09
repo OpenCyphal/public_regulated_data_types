@@ -1,7 +1,7 @@
 # Battery chemistry type and its form-factor. This is a nested type.
 
-void1
 uint7 value
+void1
 
 uint7 UNKNOWN = 0
 uint7 OTHER   = 1  # The technology is not specified in this enumeration. Please submit a pull request.

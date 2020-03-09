@@ -7,6 +7,8 @@ uint3 value
 # the minimal severity for emitted messages; messages of the selected and higher severity levels will
 # be published, and messages of lower severity will be suppressed (discarded).
 
+void5  # Align to byte.
+
 uint3 TRACE = 0
 # Messages of this severity can be used only during development.
 # They shall not be used in a fielded operational system.
@@ -38,3 +40,5 @@ uint3 CRITICAL = 6
 uint3 ALERT = 7
 # Notifications of dangerous circumstances that demand immediate attention.
 # Messages of this severity should be always enabled.
+
+@assert _offset_ == {8}

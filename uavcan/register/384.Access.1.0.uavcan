@@ -84,7 +84,6 @@ Name.1.0 name
 
 @assert _offset_ % 8 == {0}
 
-void4
 Value.1.0 value
 # Value to be written. Empty if no write is required.
 
@@ -118,7 +117,8 @@ bool persistent
 #   - Registers that contain factory-programmed values such as calibration coefficients that can't
 #     be changed are typically immutable but persistent.
 
-void2
+void6
+
 Value.1.0 value
 # The value of the register when it was read (beware of race conditions).
 # Registers never change their type and dimensionality while the node is running.

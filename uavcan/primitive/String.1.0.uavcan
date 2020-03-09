@@ -1,7 +1,6 @@
 # A UTF8-encoded string of text.
 # Since the string is represented as a dynamic array of bytes, it is not null-terminated. Like Pascal string.
 
-void7
 uint8[<=256] value
 
 @assert _offset_ % 8 == {0}

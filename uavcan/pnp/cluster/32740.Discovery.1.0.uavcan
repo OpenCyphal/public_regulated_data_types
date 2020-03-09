@@ -17,7 +17,8 @@ uint3 configured_cluster_size
 # The number of allocators in the cluster as configured on the sender.
 # This value shall be the same across all allocators.
 
-void2
+void5
+
 uavcan.node.ID.1.0[<=5] known_nodes
 # Node-IDs of the allocators that are known to the publishing allocator, including the publishing allocator itself.
 
