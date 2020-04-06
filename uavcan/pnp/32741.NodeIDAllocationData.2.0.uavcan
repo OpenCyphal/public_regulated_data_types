@@ -128,9 +128,9 @@
 # with a human-readable description of the problem. For allocatees, the logic is described below.
 #
 # This message is used for PnP node-ID allocation on all transports where the maximum transmission unit size is
-# sufficiently large. For low-MTU transports such as CAN 2.0 there is a dedicated message definition that takes into
-# account the limitations of that transport (namely, the unique-ID value is replaced with a short hash in order to
-# fit the data into one low-MTU single-frame transfer).
+# sufficiently large. For low-MTU transports such as Classic CAN there is an older version of the definition (v1)
+# that takes the low MTU into account (the unique-ID value is replaced with a short hash in order to fit the data
+# into one 7-byte-long transfer).
 #
 # When a node needs to request a PnP node-ID, it will transmit an anonymous message transfer of this type. The pseudo
 # node-ID value of the anonymous transfer should be populated with pseudorandom data as described in the UAVCAN
