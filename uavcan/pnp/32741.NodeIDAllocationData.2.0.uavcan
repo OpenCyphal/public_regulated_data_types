@@ -132,12 +132,6 @@
 # that takes the low MTU into account (the unique-ID value is replaced with a short hash in order to fit the data
 # into one 7-byte-long transfer).
 #
-# When a node needs to request a PnP node-ID, it will transmit an anonymous message transfer of this type. The pseudo
-# node-ID value of the anonymous transfer should be populated with pseudorandom data as described in the UAVCAN
-# transport layer specification. Since pseudo node-ID collisions are likely to happen, nodes that are requesting
-# PnP allocations need to be able to handle them correctly. Hence, a CSMA/CD collision resolution protocol is defined,
-# which utilizes a randomized request period value referred to as Trequest.
-#
 # Generally, the randomly chosen values of the request period (Trequest) should be in the range from 0 to 1 seconds.
 # Applications that are not concerned about the allocation time are recommended to pick higher values, as it will
 # reduce interference with other nodes where faster allocations may be desirable. The random interval shall be chosen
@@ -152,22 +146,19 @@
 # are fully idempotent, accidentally repeated messages (e.g., due to benign race conditions that are inherent to this
 # protocol) are harmless.
 #
-# On the allocatee's side the protocol is defined through the following set of simple rules:
+# On the allocatee's side the protocol is defined through the following set of rules:
 #
 #   Rule A. On initialization:
 #     1. The allocatee subscribes to this message.
 #     2. The allocatee starts the Request Timer with a random interval of Trequest.
 #
-#   Rule B. On expiration of the Request Timer (started as per rules A, B, or C):
+#   Rule B. On expiration of the Request Timer:
 #     1. Request Timer restarts with a random interval of Trequest (chosen anew).
 #     2. The allocatee broadcasts an allocation request message, where the fields are populated as follows:
 #        node_id   - the preferred node-ID, or the highest valid value if the allocatee doesn't have any preference.
 #        unique_id - the 128-bit unique-ID of the allocatee, same value that is reported via uavcan.node.GetInfo.
 #
-#   Rule C. On any allocation message, even if other rules also match:
-#     1. Request Timer restarts with a random interval of Trequest (chosen anew) (this is related to CSMA/CD).
-#
-#   Rule D. On an allocation message WHERE (source node-ID is non-anonymous, i.e., regular allocation response)
+#   Rule C. On an allocation message WHERE (source node-ID is non-anonymous, i.e., regular allocation response)
 #                                    AND   (the field unique_id matches the allocatee's unique-ID):
 #     1. Request Timer stops.
 #     2. The allocatee initializes its node-ID with the received value.
@@ -187,24 +178,7 @@ uavcan.node.ID.1.0 node_id
 # The allocator will traverse the allocation table starting from the preferred node-ID upward,
 # until a free node-ID is found (or the first ID reserved for network maintenance tools is reached).
 # If a free node-ID could not be found, the allocator will restart the search from the preferred node-ID
-# downward, until a free node-ID is found. In pseudocode:
-#
-#   uint16_t findFreeNodeID(const uint16_t preferred)   // Returns 0xFFFF on failure
-#   {
-#       uint8_t candidate = preferred;
-#       while (candidate <= MAX_VALID_NODE_ID)          // MAX_VALID_NODE_ID is transport-dependent
-#       {
-#           if (!isOccupied(candidate)) { return candidate; }
-#           candidate++;
-#       }
-#       candidate = preferred;
-#       while (candidate > 0)
-#       {
-#           if (!isOccupied(candidate)) { return candidate; }
-#           candidate--;
-#       }
-#       return isOccupied(0) ? 0xFFFF : 0;
-#   }
+# downward, until a free node-ID is found.
 
 uint8[16] unique_id
 # The unique-ID of the allocatee. This is the SAME value that is reported via uavcan.node.GetInfo.
@@ -212,8 +186,8 @@ uint8[16] unique_id
 # and the same value should be unlikely to be used by any two different nodes anywhere in the world.
 #
 # If this is a non-anonymous transfer (i.e., allocation response), allocatees will match this value against their
-# own unique-ID, and ignore the message if there is no match (except for the CSMA/CD clause, see rule C). If the IDs
-# match, then the field node_id contains the allocated node-ID value for this node.
+# own unique-ID, and ignore the message if there is no match. If the IDs match, then the field node_id contains
+# the allocated node-ID value for this node.
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.max / 8 == 18
