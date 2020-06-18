@@ -1,2 +1,2 @@
-float64 second
 uavcan.time.SynchronizedTimestamp.1.0 timestamp
+float64 second
