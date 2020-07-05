@@ -1,5 +1,0 @@
-# Generic DC voltage/current sample.
-# Low-pass filtering should be applied to avoid aliasing effects.
-
-uavcan.si.unit.voltage.Scalar.1.0          voltage
-uavcan.si.unit.electric_current.Scalar.1.0 current
