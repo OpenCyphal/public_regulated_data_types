@@ -14,28 +14,18 @@ Feedback and proposals are welcome on the [UAVCAN forum](https://forum.uavcan.or
 
 ## Namespaces
 
-Regulated data types include the standard data types and vendor-specific public definitions.
+Regulated data types include the standard data types and domain-specific public definitions.
 
 Per the specification, standard data types are contained in the root namespace `uavcan`,
-and vendor-specific public regulated definitions are in the root namespace `regulated`.
-The latter contains nested namespaces, one per vendor, named after the vendor
-(e.g., `regulated.sirius_cyber_corp` for the Sirius Cybernetics Corporation).
+and domain-specific public regulated definitions are in the root namespace `regulated`.
+The latter contains nested namespaces named after the domain.
 
 Vendors are encouraged to define interfaces to their products or systems using the definitions available
 in this repository instead of defining custom types in order to facilitate reusability and reduce the
 fragmentation of the ecosystem.
-This advice applies to the existing vendor-specific messages published by *other vendors*, too,
-because the MIT license permits their free reuse with minimal legal restrictions
-(tl;dr: must include copyright, cannot hold liable; *this is not a legal advice*).
 
-Remember that for a public data type, genericity and clarity of the interface is more important
-than its resource utilization efficiency.
-When proposing or using public regulated data types, vendors should not attempt to trade-off abstraction
-for the needs of their particular application at hand.
-
-Vendors seeking to make their data types regulated (e.g., for easier integration of their COTS equipment,
-or if fixed port-ID are desired) are advised to send a pull request to this repository.
-If a fixed regulated port-ID is needed, vendors are free to choose any unoccupied identifier from the ranges
+If a fixed regulated port-ID is needed for a new type,
+developers are free to choose any unoccupied identifier from the ranges
 defined by the specification before submitting the pull request.
 
 ## Identifier ranges
@@ -135,34 +125,20 @@ and configuration parameters via named registers.
 ## Non-standard data types
 
 Non-standard regulated data types are contained in the root namespace `regulated`.
-The root namespace contains nested namespaces, one per vendor, named after the vendor.
+The root namespace contains nested namespaces, one per application domain, named after the domain.
 
 Note for authors of ***unregulated*** data type definitions:
 the UAVCAN specification explicitly bans namespaces that share the same name but differ in their contents.
-This is done in order to avoid complicated edge cases jeopardizing the strong wire compatibility guarantees
-provided by UAVCAN that would have arisen if the ban was not in place.
-It follows then that vendors seeking to define unregulated data types shall not put those into the
-`regulated` namespace;
-instead, a new root namespace named after the vendor shall be used: `my_namespace`, not `regulated.my_namespace`.
-Failure to observe this requirement may lead to data type compatibility issues.
+Users seeking to define unregulated data types shall not put those into the `regulated` namespace;
+instead, a new root namespace (named after the vendor) shall be used.
 
 ## Guidelines for data type authors
 
-In order to maximize compatibility with resource-constrained nodes,
-standard data structures should not be larger than 313 bytes when serialized.
-The number is dictated by the size of the largest data structures,
-which in turn is limited to 5 CAN FD frames max
-((64 bytes per frame - 1 tail byte) * 5 frames - 2 bytes for transfer CRC = 313 bytes)
-(or 45 CAN 2.0 frames)
-in order to simplify the worst case analysis.
-Non-standard (vendor-specific) types are recommended to follow this advice as well to maximize compatibility.
+Follow the interface design guidelines provided in [**The UAVCAN Guide**](https://uavcan.org/guide).
 
-Follow the naming conventions defined in the specification.
-
-Every data type definition shall have a header comment, where the first and the last lines are empty;
-every field shall be followed by a comment, unless it is absolutely certain that it is completely
-self-explanatory.
-An exception is made for trivial definitions which often do not require any additional comments.
+Every data type definition should have a header comment.
+Every field should be followed by a comment, unless it is certain that it is completely self-explanatory.
+An exception is made for trivial definitions where the comment would not add useful information.
 
 When using void fields for alignment, insert them after the alignee.
 For example, `bool foo` followed by `void7` is the recommended sequence; the opposite is to be avoided.
@@ -180,7 +156,7 @@ Here is an example:
     # This is a header comment.
     # It explains what this data type definition is for and why do we need it.
 
-    void42  # This space is reserved for future use.
+    void48  # This space is reserved for future use.
 
     uint8 VALUE_A = 1       # A comment describing the constant.
     uint8 VALUE_B = 2       # Another one. Constants go before the field they relate to.
