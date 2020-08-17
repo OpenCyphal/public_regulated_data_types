@@ -2,6 +2,6 @@ language: python
 python:
   - "3.6"
 before_install:
-  - pip install pydsdl~=1.2
+  - pip install pydsdl~=1.5
 script:
   - ./test.py
