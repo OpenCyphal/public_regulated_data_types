@@ -3,5 +3,6 @@
 ArbitrationID.0.1 arbitration_id
 uint8[<=8] data
 
+@final
 @assert _offset_.min == 48
 @assert _offset_ % 8 == {0}

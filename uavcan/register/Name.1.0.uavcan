@@ -2,4 +2,5 @@
 
 uint8[<=50] name
 
+@final
 @assert _offset_ % 8 == {0}

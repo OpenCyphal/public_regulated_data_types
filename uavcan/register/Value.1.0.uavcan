@@ -22,5 +22,6 @@ uavcan.primitive.array.Real64.1.0 real64        # Tag 12    Exactly representabl
 uavcan.primitive.array.Real32.1.0 real32        # Tag 13    Exactly representable integers: [-16777216, +16777216]
 uavcan.primitive.array.Real16.1.0 real16        # Tag 14    Exactly representable integers: [-2048,     +2048]
 
+@final
 @assert _offset_.min == 8                       # Empty and the tag
 @assert _offset_.max == 258 * 8 + 8             # 258 bytes per field max and the tag

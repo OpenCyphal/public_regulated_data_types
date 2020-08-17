@@ -5,4 +5,5 @@
 
 uint16 value
 
+@final
 @assert _offset_ == {16}

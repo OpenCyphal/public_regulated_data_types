@@ -15,4 +15,5 @@ uint8 MAX_LENGTH = 112
 
 uint8[<=MAX_LENGTH] path
 
+@final
 @assert _offset_ % 8 == {0}

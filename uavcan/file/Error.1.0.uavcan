@@ -14,3 +14,5 @@ uint16 OUT_OF_SPACE      = 28
 uint16 NOT_SUPPORTED     = 38
 
 uint16 value
+
+@final

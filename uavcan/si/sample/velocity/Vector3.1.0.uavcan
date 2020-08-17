@@ -1,3 +1,4 @@
 uavcan.time.SynchronizedTimestamp.1.0 timestamp
 float32[3] meter_per_second
 @assert _offset_ % 8 == {0}
+@final

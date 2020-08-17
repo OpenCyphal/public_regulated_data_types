@@ -176,5 +176,6 @@ truncated uint56 previous_transmission_timestamp_microsecond
 # If this message is published for the first time, or if the previous transmission was more than
 # one second ago, this field shall be zero.
 
+@final
 @assert _offset_ % 8 == {0}
 @assert _offset_.max <= 56    # Shall fit into one CAN 2.0 frame (least capable transport, smallest MTU)

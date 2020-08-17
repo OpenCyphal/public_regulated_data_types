@@ -13,4 +13,5 @@ uint16 port
 
 void64
 
+@final
 @assert _offset_ == {32} * 8
