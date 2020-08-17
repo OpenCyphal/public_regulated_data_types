@@ -31,27 +31,26 @@ defined by the specification before submitting the pull request.
 ## Identifier ranges
 
 Refer to the specification for background information and motivation.
+The limits specified here are inclusive.
+
+The upper part of the non-standard ranges may be repurposed for standard types shall that become necessary,
+so new non-standard regulated fixed port-ID allocations should be done near the bottom.
+Likewise, the non-standard ranges may be expanded into the unregulated area if their exhaustion becomes imminent.
 
 ### Subjects
 
-For message subjects, the following range mapping is adopted (limits inclusive).
-Unused ranges are reserved for future expansion of adjacent ranges.
-
-From    | To        | Capacity | Purpose
---------|-----------|----------|-------------------------------------
-0       | 24575     | 24576    | Unregulated identifiers
-28672   | 29695     | 1024     | Non-standard regulated identifiers (namespace `regulated`)
-31744   | 32767     | 1024     | Standard regulated identifiers (namespace `uavcan`)
+From    | To        | Purpose
+--------|-----------|-------------------------------------
+0       | 6143      | Unregulated identifiers
+6144    | 7167      | Non-standard regulated identifiers (namespace `regulated`)
+7168    | 8191      | Standard regulated identifiers (namespace `uavcan`)
 
 ### Services
 
-For services, the following range mapping is adopted (limits inclusive).
-Unused ranges are reserved for future expansion of adjacent ranges.
-
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
-0       | 127       | Unregulated identifiers
-256     | 319       | Non-standard regulated identifiers (namespace `regulated`)
+0       | 255       | Unregulated identifiers
+256     | 383       | Non-standard regulated identifiers (namespace `regulated`)
 384     | 511       | Standard regulated identifiers (namespace `uavcan`)
 
 ## Standard data types
@@ -66,13 +65,13 @@ Ordered by priority from high to low.
 
 Namespace                   | Lower bound (inclusive)
 ----------------------------|-------------------------
-`uavcan.time`               | 31744
-`uavcan.node`               | 32085
-`uavcan.pnp`                | 32740
-`uavcan.internet`           | 32750
-`uavcan.diagnostic`         | 32760
+`uavcan.time`               | 7168
+`uavcan.node`               | 7509
+`uavcan.pnp`                | 8164
+`uavcan.internet`           | 8174
+`uavcan.diagnostic`         | 8184
 
-The value 32085 contains the longest possible sequence of alternating bits,
+The value 7509 contains the longest possible sequence of alternating bits,
 which can be leveraged for automatic bit rate detection (depending on the physical layer).
 
 #### Services
