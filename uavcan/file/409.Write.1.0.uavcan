@@ -15,9 +15,6 @@ Path.1.0 path
 
 uint8[<=192] data   # 192 = 128 + 64; the write protocol permits usage of smaller chunks.
 
-@assert _offset_ % 8 == {0}
-@assert _offset_.max / 8 <= 313
-
 ---
 
 Error.1.0 error

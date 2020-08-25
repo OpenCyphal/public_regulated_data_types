@@ -31,12 +31,8 @@ truncated uint40 offset
 
 Path.1.0 path
 
-@assert _offset_ % 8 == {0}
-
 ---
 
 Error.1.0 error
 
 uint8[<=256] data
-
-@assert _offset_ % 8 == {0}

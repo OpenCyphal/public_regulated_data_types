@@ -38,5 +38,3 @@ ID.1.0 port_id_lower_boundary
 ---
 
 uint16[<=128] port_ids  # See above for the full description of the logic.
-
-@assert _offset_ % 8 == {0}

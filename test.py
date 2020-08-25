@@ -100,9 +100,10 @@ for t in output:
 
 
 def get_max_bit_length(ty) -> int:
+    if isinstance(ty, pydsdl.DelimitedType):
+        ty = ty.inner_type
     if isinstance(ty, pydsdl.ServiceType):
-        return max(map(max, (ty.request_type.bit_length_set,
-                             ty.response_type.bit_length_set)))
+        return max(map(get_max_bit_length, [ty.request_type, ty.response_type]))
     else:
         return max(ty.bit_length_set)
 
