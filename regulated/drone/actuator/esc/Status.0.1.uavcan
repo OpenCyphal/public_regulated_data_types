@@ -18,3 +18,5 @@ float16 motor_temperature   # [kelvin]
 float16 driver_temperature  # [kelvin]
 # Sampled temperatures. If multiple values are available, reduction is implementation-defined.
 # We use raw float16 here instead of the more type-safe SI types to reduce the footprint.
+
+# TODO: Add mechanical vibration estimate.

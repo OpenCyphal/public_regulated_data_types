@@ -10,7 +10,7 @@
 
 uint8                                       index
 regulated.drone.util.ServiceHealth.0.1      health
-int8                                        demand_factor
+int8                                        demand_factor_pct
 uavcan.si.unit.angular_velocity.Scalar.1.0  load_angular_velocity
 @extent Feedback.0.2._extent_
 @assert _offset_.max / 8 == 7

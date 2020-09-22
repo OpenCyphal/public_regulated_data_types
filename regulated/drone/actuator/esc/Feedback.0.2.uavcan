@@ -11,21 +11,19 @@ regulated.drone.util.ServiceHealth.0.1 health
 # The abstract health assessment reflecting the status of this propulsor.
 # Extended health information is available in the slow status message.
 
-int8 demand_factor  # [percent]
+int8 demand_factor_pct  # [percent]
 # Percentage of the maximum rated power output, regardless of the direction of rotation.
-# A positive percentage indicates motoring, negative indicates regeneration.
+# The sign indicates the direction of energy transfer: positive indicates motoring, negative indicates regeneration.
 # May exceed +-100% in case of overload.
 # The consumer of this message may leverage this information to manage the control loop saturation.
 
 uavcan.si.unit.angular_velocity.Scalar.1.0 load_angular_velocity  # [radian/second]
 uavcan.si.unit.torque.Scalar.1.0           load_torque            # [newton*meter]
-# Motion parameters.
-# Negative torque indicates braking.
+# Motion parameters. Negative torque indicates braking.
 
 float16 dc_voltage  # [volt]
 float16 dc_current  # [ampere]
-# DC link parameters.
-# Negative current indicates regeneration.
+# DC link parameters. Negative current indicates regeneration.
 
 @extent 63 * 8  # We won't ever need to exceed the size of one single-frame CAN FD transfer.
 @assert _offset_ % 8 == {0}     # Aligned
