@@ -1,0 +1,8 @@
+# A generic light source control.
+#
+# For reasons of unification, a monochrome light source is controlled using the same interface,
+# where the brightness is defined as the length of the RGB vector.
+#
+# Lights controlled in lockstep subscribe to the same subject.
+
+RGB565.0.1 levels

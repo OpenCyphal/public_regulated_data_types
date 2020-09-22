@@ -1,0 +1,23 @@
+# Generic monophonic sound emitter control.
+#
+# Upon reception of this message, the service provider should emit sound of the specified frequency and power
+# for the specified duration. Invalid commands should be ignored.
+#
+# Emitters controlled in lockstep subscribe to the same subject.
+
+float16 frequency           # [hertz]
+# If the requested frequency is outside of the supported range, the command should be ignored.
+# A non-positive or non-finite value here renders the command invalid.
+
+float16 duration            # [second]
+# If the requested duration is longer than the supported maximum, the maximum valid duration should be assumed.
+# If a new command is received while another one is being played, the new command takes precedence and the old one
+# is canceled.
+# A non-positive or non-finite value here renders the command invalid.
+
+float16 acoustic_power_mW   # [milliwatt]
+# Desired acoustic power output.
+# The emitter should apply best effort to comply, but there are no accuracy requirements.
+# Emitters that are unable to adjust the acoustic power would ignore this parameter.
+
+@assert _offset_ == {48}  # Single-frame Classic CAN.

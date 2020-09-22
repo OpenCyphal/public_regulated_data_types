@@ -1,0 +1,26 @@
+# Abstract service health information.
+# The health of a node that provides a set of services should reflect the health of its worst-performing service.
+#
+# Related regulations:
+#   https://www.law.cornell.edu/cfr/text/14/23.1322
+#   https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_25.1322-1.pdf section 6
+
+truncated uint2 health
+
+uint2 HEALTH_NOMINAL  = 0
+# The service is functioning properly (nominal).
+
+uint2 HEALTH_ADVISORY = 1
+# A critical parameter went out of range or the service encountered a minor failure
+# that does not affect its availability.
+
+uint2 HEALTH_CAUTION  = 2
+# The service encountered a major failure and is being provided in a degraded mode
+# or outside of its designed limitations.
+
+uint2 HEALTH_WARNING  = 3
+# The service is no longer provided.
+
+# TODO: there are 6 unused bits. Add a vendor-specific health field?
+
+@final

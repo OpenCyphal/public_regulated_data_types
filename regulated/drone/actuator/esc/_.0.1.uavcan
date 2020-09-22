@@ -1,0 +1,43 @@
+# The electronic speed controller (ESC) service is designed for controlling and monitoring electric propulsion systems.
+#
+# This interface assumes that ESCs (propulsors) are segregated into groups.
+# Each ESC in a group has an index that is unique within the group.
+# ESCs in a group are commanded synchronously by publishing a message containing an array of setpoints.
+# All ESC in a given group subscribe to a particular setpoint subject which is the same for all group participants,
+# and publish this status message to another subject, which is also the same for all group participants.
+# Usage of the same setpoint and status subject identifiers defines the group.
+# There may be an arbitrary number of such groups.
+#
+# Upon reception of a setpoint message, a group participant fetches its setpoint from the array using the array
+# element whose index equals the index of the group participant.
+# If the array is too short, the message is ignored, as if no setpoint was received.
+#
+# The setpoint message types that can be used to command a group of ESC are defined in this namespace.
+# Additional setpoint message types may also be supported on an implementation-specific basis
+# (for example, the primitive-typed arrays defined in uavcan.primitive.array may be used).
+# If a group is controlled using different setpoint subjects concurrently, the behavior is implementation-defined.
+#
+# ESC should stop automatically if no valid setpoint was received in DEFAULT_SETPOINT_EXPIRATION_TIMEOUT seconds;
+# this limit may be configurable.
+# The minimum setpoint publication period should be at least twice lower than the safety timeout.
+#
+# The measurements carried by the status monitoring messages should be low-pass filtered with an adequate cutoff
+# frequency to avoid aliasing effects.
+# Implementations should strive to sample all parameters atomically whenever possible.
+#
+# In status monitoring messages, if a float-typed parameter is unknown, the corresponding value should be NaN.
+#
+# STANDARD REGISTER NAMES
+#
+# Currently, there are none.
+#
+
+uint8 GROUP_CAPACITY = 32
+# The maximum number of unique indices in a group.
+# More than one participant may use the same index if lockstep control is desired.
+
+float32 DEFAULT_SETPOINT_EXPIRATION_TIMEOUT = 0.2  # [seconds]
+# If no setpoint was received in this amount of time, the drive should be stopped automatically.
+# Implementations are allowed to override this setting, which should be documented explicitly.
+
+@extent 0  # This type is not intended for runtime use.
