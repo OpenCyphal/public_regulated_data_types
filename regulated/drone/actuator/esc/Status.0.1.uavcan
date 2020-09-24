@@ -8,10 +8,10 @@ Feedback.0.2 feedback
 # would not have to subscribe to both Feedback and Status separately.
 # The member index is contained in the feedback.
 
-_FaultFlags.0.1 fault_flags
+FaultFlags.0.1 fault_flags
 
 uint32 error_count
-# Incremented once per occurrence. Reset to zero at power-up.
+# Incremented once per occurrence. Reset to zero when started.
 # The exact definition of what constitutes an error is implementation-dependent.
 
 float16 motor_temperature   # [kelvin]

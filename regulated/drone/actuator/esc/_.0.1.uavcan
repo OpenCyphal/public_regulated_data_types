@@ -85,15 +85,17 @@
 # The opposite -- braking/regeneration -- is represented by negative current.
 #
 # Excepting edge cases and transients, torque and current are generally of the same sign.
+# The above is summarized on the following four-quadrant diagram:
 #
 #                                   +velocity
 #                                       ^
-#                                       | driving
-#                               braking | forward
+#                               braking,| forward,
+#                               negative| positive
+#                               power   | power
 #                            -----------+---------->  +torque/current
-#                               driving | braking
-#                               reverse |
-#                                       |
+#                               reverse,| braking,
+#                               positive| negative
+#                               power   | power
 #
 #
 #   STANDARD REGISTER NAMES
