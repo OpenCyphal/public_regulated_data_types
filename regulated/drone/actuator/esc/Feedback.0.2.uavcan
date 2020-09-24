@@ -4,11 +4,14 @@
 #
 # The priority of this message should be the same as that of the corresponding setpoint message.
 
-uint8 index
+uint7 index
 # The index of the publishing group participant.
 
+bool engaged
+# The drive is ready to deliver mechanical power according to its nominal performance characteristics.
+
 regulated.drone.util.ServiceHealth.0.1 health
-# The abstract health assessment reflecting the status of this propulsor.
+# The abstract health assessment reflecting the status of this drive.
 # Extended health information is available in the slow status message.
 
 int8 demand_factor_pct  # [percent]
