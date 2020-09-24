@@ -1,7 +1,8 @@
 # Color in the standard 16-bit 5-6-5 RGB format (green is wider due to non-uniform color sensitivity of the human eye).
+# https://en.wikipedia.org/wiki/High_color
 #
-# For reasons of unification, a monochrome light source can be controlled using the same interface,
-# where the brightness is defined as the length of the RGB vector.
+# For reasons of unification, a monochrome light can be modeled using the same type,
+# where the brightness is defined as the mean of the color components normalized to one.
 
 uint5 red
 uint6 green

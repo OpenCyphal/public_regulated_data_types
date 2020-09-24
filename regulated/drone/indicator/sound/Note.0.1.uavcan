@@ -1,9 +1,5 @@
-# Generic monophonic sound emitter control.
-#
-# Upon reception of this message, the service provider should emit sound of the specified frequency and power
-# for the specified duration. Invalid commands should be ignored.
-#
-# Emitters controlled in lockstep subscribe to the same subject.
+# Description of a generic musical note in terms of basic physical quantities.
+# This type may be used to control sound notification emitters.
 
 float16 frequency           # [hertz]
 # If the requested frequency is outside of the supported range, the command should be ignored.
