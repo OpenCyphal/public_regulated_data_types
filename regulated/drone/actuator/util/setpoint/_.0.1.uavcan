@@ -1,0 +1,12 @@
+# This is a collection of weakly-typed primitives used to control groups of actuators synchronously.
+#
+# Actuators are expected to subscribe using the largest array type. Publishers would choose the array type
+# depending on the number of actuators in the group. The actuators would be expecting the largest array type,
+# where the missing elements will be zero-filled automatically by the protocol stack thanks to the
+# Implicit Zero Extension Rule (refer to the UAVCAN Specification for details).
+#
+# The physical meaning of the values contained in the array is defined by the respective actuator service specification.
+#
+# The UAVCAN Specification might benefit from supporting flexible array fields to avoid having to deal with redundant
+# similar types: https://en.wikipedia.org/wiki/Flexible_array_member, so that instead of having multiple types that
+# differ only in size of the array fields, one could just say `float16[...] value`.

@@ -109,10 +109,6 @@
 #
 # Currently, there are none. If introduced, such names will likely follow the wildcard "drone.actuator.esc.*".
 
-uint8 GROUP_CAPACITY = 32
-# The maximum number of unique indices in a group.
-# More than one participant may use the same index if lockstep control is desired.
-
 float32 DEFAULT_SETPOINT_EXPIRATION_TIMEOUT = 0.2  # [seconds]
 # If no setpoint was received in this amount of time, the drive should be stopped automatically.
 # Implementations are allowed to override this setting, which should be documented explicitly.
