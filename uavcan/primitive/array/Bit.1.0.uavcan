@@ -1,4 +1,7 @@
+# 2048 bits + 11 bit length + 4 bit padding = 2064 bits = 258 bytes
+
 bool[<=2048] value
-@assert _offset_.min == 16
-@assert _offset_.max / 8 == 258  # 2048 bits + 11 bit length + 4 bit padding = 2064 bits = 258 bytes
+
 @final
+@assert _offset_.min == 16
+@assert _offset_.max / 8 == 258

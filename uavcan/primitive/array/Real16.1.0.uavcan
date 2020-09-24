@@ -1,4 +1,7 @@
-float16[<=128] value                    # Exactly representable integers: [-2048, +2048]
+# Exactly representable integers: [-2048, +2048]
+
+float16[<=128] value
+
+@final
 @assert _offset_ % 8 == {0}
 @assert _offset_.max / 8 == 257
-@final
