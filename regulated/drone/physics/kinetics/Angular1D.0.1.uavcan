@@ -1,5 +1,5 @@
 # Positive torque is co-directed with positive position/velocity/acceleration.
 # Provided states may allow the consumer to deduce certain hidden states such as the moment of inertia.
-regulated.drone.physics.kinematics.Angular1D16.0.1 kinematics
-float16 torque  # [newton*meter] NaN if unknown
+regulated.drone.physics.kinematics.Angular1D.0.1 kinematics
+uavcan.si.unit.torque.Scalar.1.0 torque  # NaN if unknown
 @final

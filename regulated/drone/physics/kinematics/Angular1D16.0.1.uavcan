@@ -1,5 +1,0 @@
-# Rotation about an axis.
-float16 angular_position        # [radian]              Required
-float16 angular_velocity        # [radian/second]       Required, best guess if unknown
-float16 angular_acceleration    # [radian/second^2]     Required, best guess if unknown
-@final

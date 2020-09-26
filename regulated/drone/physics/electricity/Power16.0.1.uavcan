@@ -1,7 +1,0 @@
-# DC or AC line electric power quantities.
-# The resolution of float16 at |100| is ~0.06.
-
-float16 current     # [ampere]
-float16 voltage     # [volt]
-
-@final

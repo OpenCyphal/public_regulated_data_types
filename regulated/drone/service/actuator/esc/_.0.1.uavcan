@@ -22,8 +22,8 @@
 #   | | | |  | | | |     | | | |      | | | |
 #   | | | |  | | | +-----+ | | |      | | | |       feedback            ...actuator.util.Feedback       S+i*5+1
 #   | | | |  | | +---------+ | |      | | | |       status              Status                          S+i*5+2
-#   | | | |  | +-------------+ |      | | | |       electric power      ...physics.electricity.Power16  S+i*5+3
-#   | | | |  +-----------------+      | | | |       angular kinetics    ...physics.kinetics.Angular1D16 S+i*5+4
+#   | | | |  | +-------------+ |      | | | |       electric power      ...physics.electricity.Power    S+i*5+3
+#   | | | |  +-----------------+      | | | |       angular kinetics    ...physics.kinetics.Angular1D   S+i*5+4
 #   | | | |                           | | | |
 #   | | | +---------------------------+ | | |
 #   | | +-------------------------------+ | |
@@ -34,10 +34,6 @@
 # the group member index.
 #
 # Vendor/application-specific subjects are not shown here; their subject-IDs are implementation-defined.
-#
-# Nodes operating over Classic CAN (where the MTU is severely limited) may replace the angular kinetics with
-# angular kinematics; i.e., they are allowed to omit the torque from the message in order to make the data fit
-# into a single-frame Classic CAN transfer. This option may be deprecated when Classic CAN networks become obsolete.
 #
 #
 #   SETPOINT SUBJECT
