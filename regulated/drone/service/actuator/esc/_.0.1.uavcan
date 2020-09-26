@@ -51,9 +51,6 @@
 # Additional setpoint message types may also be supported on an implementation-specific basis.
 # If the group is controlled using different setpoint subjects concurrently, the behavior is implementation-defined.
 #
-# If the group is commanded using `uint8`-type setpoint, only ratiometric unidirectional control is available.
-# In this case, the setpoint scales linearly between 0 and 255.
-#
 # TODO: document the control modes properly.
 #
 #
