@@ -1,0 +1,5 @@
+# Movement along an axis.
+float16 position        # [meter]           Required
+float16 velocity        # [meter/second]    Required, best guess if unknown
+float16 acceleration    # [meter/second^2]  Required, best guess if unknown
+@final

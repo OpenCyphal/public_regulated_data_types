@@ -8,12 +8,12 @@ bool overload
 bool dc_voltage
 # DC link voltage above or below the SOA.
 
-bool temperature_motor
-bool temperature_driver
+bool motor_temperature
+bool driver_temperature
 # Temperature is above or below the SOA.
 
 bool angular_velocity
-# Mechanical angular velocity of the load is above or below the SOA.
+# Angular velocity of the load is above or below the SOA.
 
 bool stuck
 # The load cannot be driven due to a mechanical failure.
@@ -21,10 +21,13 @@ bool stuck
 bool vibration
 # The mechanical vibration level exceeds the SOA.
 
+bool configuration
+# Configuration is missing or invalid.
+
+void7
+
 bool other
 # None of the above (vendor-specific).
-
-void8
 
 @assert _offset_ == {16}
 @final

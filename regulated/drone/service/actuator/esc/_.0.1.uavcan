@@ -1,0 +1,121 @@
+# The electronic speed controller (ESC) service is designed for controlling and monitoring electric drives.
+#
+# ESCs (drives) are segregated into groups. Each ESC in a group has an index that is unique within the group.
+# Drives in a group are commanded synchronously by publishing a message containing an array of setpoints.
+# There are several subjects defined:
+#
+#   - Setpoint array subject. Every participant subscribes to the same setpoint subject.
+#     Every message is consumed by all participants according to their index in the group.
+#     The setpoint subject defines the group. There may be an arbitrary number of such groups in the network.
+#
+#   - Individual subjects, whose subject-ID is offset from the setpoint subject-ID `S` as a function of
+#     group member index `i` as specified below.
+#
+#                                                   SUBJECT             TYPE                            SUBJECT-ID
+#  +----------------+
+#  |   Controller   |-------+------------+------... setpoint            ...actuator.util.sp.*           S
+#  +----------------+       |            |
+#   ^ ^ ^ ^  ^ ^ ^ ^        v            v
+#   | | | |  | | | |   +---------+  +---------+
+#   | | | |  | | | |   |Drive i=0|  |Drive i=1| ...
+#   | | | |  | | | |   +---------+  +---------+
+#   | | | |  | | | |     | | | |      | | | |
+#   | | | |  | | | +-----+ | | |      | | | |       feedback            ...actuator.util.Feedback       S+i*5+1
+#   | | | |  | | +---------+ | |      | | | |       status              Status                          S+i*5+2
+#   | | | |  | +-------------+ |      | | | |       electric power      ...physics.electricity.Power16  S+i*5+3
+#   | | | |  +-----------------+      | | | |       angular kinetics    ...physics.kinetics.Angular1D16 S+i*5+4
+#   | | | |                           | | | |
+#   | | | +---------------------------+ | | |
+#   | | +-------------------------------+ | |
+#   | +-----------------------------------+ |
+#   +---------------------------------------+
+#
+# Therefore, in order to configure a group member, one has to set up two parameters: the setpoint subject-ID and
+# the group member index.
+#
+# Vendor/application-specific subjects are not shown here; their subject-IDs are implementation-defined.
+#
+# Nodes operating over Classic CAN (where the MTU is severely limited) may replace the angular kinetics with
+# angular kinematics; i.e., they are allowed to omit the torque from the message in order to make the data fit
+# into a single-frame Classic CAN transfer. This option may be deprecated when Classic CAN networks become obsolete.
+#
+#
+#   SETPOINT SUBJECT
+#
+# Upon reception of a setpoint message, a group participant fetches its setpoint from the array using the array
+# element whose index equals the index of the group participant. By virtue of the Implicit Zero Extension Rule,
+# if the message is too short, the setpoint will be interpreted as zero.
+#
+# The drive should stop automatically if no valid setpoint was received in the specified timeout;
+# this limit may be configurable.
+# The minimum setpoint publication period should be at least twice lower than the safety timeout.
+#
+# The setpoint message types that can be used to command a group of drives are defined in
+# regulated.drone.service.actuator.util.setpoint.
+# Additional setpoint message types may also be supported on an implementation-specific basis.
+# If the group is controlled using different setpoint subjects concurrently, the behavior is implementation-defined.
+#
+# If the group is commanded using `uint8`-type setpoint, only ratiometric unidirectional control is available.
+# In this case, the setpoint scales linearly between 0 and 255.
+#
+# TODO: document the control modes properly.
+#
+#
+#   PUBLISHED SUBJECTS
+#
+# The following subjects shall be published immediately after a new setpoint is applied:
+#
+#   SUBJECT             RECOMMENDED PRIORITY
+#   ---------------------------------------------
+#   feedback            same as the setpoint
+#   electric power      second to the setpoint
+#   angular kinetics    second to the setpoint
+#
+# The other subjects may be published at an implementation-defined rate and priority,
+# which should be consistent across the group.
+#
+# The feedback data contains a flag that indicates if the publishing drive is armed. An armed drive is a drive
+# that is ready to deliver full rated power at the nominal performance characteristics. For example, the flight
+# management unit of an aircraft would check if all relevant drives are in the armed state before executing a
+# take off. For example, a sensorless motor drive may need to spool up the rotor before being able to operate normally.
+#
+# The measurements carried by the published messages should be low-pass filtered with an adequate cutoff frequency to
+# avoid aliasing effects.
+#
+# Implementations should strive to sample all parameters simultaneously.
+#
+# If a float-typed reported quantity is unknown, the corresponding value should be NaN.
+#
+#
+#   CONVENTIONS AND ASSUMPTIONS
+#
+# A drive powers a rotary mechanical load that may be connected via a gearbox. It is the responsibility of
+# the drive to account for the gear ratio of the gearbox when calculating related parameters such as angular
+# velocity or torque.
+#
+# It is assumed that there is a well-defined direction of rotation that is referred to as forward rotation.
+# A positive angular velocity represents forward rotation. Likewise, forward torque is positive.
+#
+# It is assumed that the drive is powered from a DC electric power supply network. A positive electric current
+# represents current flowing from the network into the drive, also referred to as the state of driving/motoring.
+# The opposite -- braking/regeneration -- is represented by negative current.
+#
+# Excepting edge cases and transients, torque and current are generally of the same sign.
+# The above is summarized on the following four-quadrant diagram:
+#
+#                                   +velocity
+#                                       ^
+#                               braking,| forward,
+#                               negative| positive
+#                               power   | power
+#                            -----------+---------->  +torque/current
+#                               reverse,| braking,
+#                               positive| negative
+#                               power   | power
+#
+#
+#   STANDARD REGISTER NAMES
+#
+# Currently, there are none. If introduced, such names will likely follow the name of the current DSDL namespace.
+
+@extent 0  # This type is not intended for runtime use.

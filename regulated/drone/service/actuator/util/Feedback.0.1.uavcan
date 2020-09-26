@@ -1,0 +1,26 @@
+# This high-rate feedback should be published once immediately after a setpoint is applied.
+# It follows that the publication rate of these messages equals that of the setpoint messages.
+# When setpoint messages are not being emitted, the publication rate is implementation-defined.
+# The priority of this message should be the same as that of the corresponding setpoint message.
+
+float32 SETPOINT_EXPIRATION_TIMEOUT = 1.0  # [seconds]
+# The actuator is allowed to disarm/disengage itself (e.g., by entering a power-down mode, stopping the controlled
+# mechanism, disconnecting itself from the controlled entity, etc. depending on the specifics of the application
+# at hand) if no setpoint messages have been received in this amount of time.
+# In this case, the arming flag would be cleared.
+
+regulated.drone.service.util.Health.0.1 health
+# The abstract health assessment reflecting the status of this actuator.
+# Extended health information is available in the actuator-specific slow status message.
+
+int8 demand_factor_pct  # [percent]
+# Percentage of the maximum rated output intensity. May exceed +-100% in case of overload.
+# Positive value indicates that power is applied to the load; negative indicates that power is being sunk from the
+# load into the actuator power source.
+# The consumer of this message may leverage this information to manage the control loop saturation.
+
+bool armed
+# The actuator provides service according to its nominal performance characteristics.
+# If not set, no availability guarantees are provided.
+
+@extent 14 * 8

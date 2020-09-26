@@ -6,6 +6,11 @@
 # Implicit Zero Extension Rule (refer to the UAVCAN Specification for details).
 #
 # The physical meaning of the values contained in the array is defined by the respective actuator service specification.
+# The small unsigned integer type is intended for unipolar ratiometric control of large groups only.
+# For all other purposes the floating point type should be used; if ratiometric, then the range should be [-1, +1].
+#
+# It follows that a standalone actuator (that is not a member of any group) is just a special case of a group of 1,
+# where the setpoint type is a single scalar.
 #
 # The UAVCAN Specification might benefit from supporting flexible array fields to avoid having to deal with redundant
 # similar types: https://en.wikipedia.org/wiki/Flexible_array_member, so that instead of having multiple types that
