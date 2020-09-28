@@ -9,7 +9,7 @@ float32 SETPOINT_EXPIRATION_TIMEOUT = 1.0  # [seconds]
 # at hand) if no setpoint messages have been received in this amount of time.
 # In this case, the arming flag would be cleared.
 
-regulated.drone.service.util.Health.0.1 health
+reg.drone.service.util.Health.0.1 health
 # The abstract health assessment reflecting the status of this actuator.
 # Extended health information is available in the actuator-specific slow status message.
 

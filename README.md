@@ -17,7 +17,7 @@ Feedback and proposals are welcome on the [UAVCAN forum](https://forum.uavcan.or
 Regulated data types include the standard data types and domain-specific public definitions.
 
 Per the specification, standard data types are contained in the root namespace `uavcan`,
-and domain-specific public regulated definitions are in the root namespace `regulated`.
+and domain-specific public regulated definitions are in the root namespace `reg`.
 The latter contains nested namespaces named after the domain.
 
 Vendors are encouraged to define interfaces to their products or systems using the definitions available
@@ -42,7 +42,7 @@ Likewise, the non-standard ranges may be expanded into the unregulated area if t
 From    | To        | Purpose
 --------|-----------|-------------------------------------
 0       | 6143      | Unregulated identifiers
-6144    | 7167      | Non-standard regulated identifiers (namespace `regulated`)
+6144    | 7167      | Non-standard regulated identifiers (namespace `reg`)
 7168    | 8191      | Standard regulated identifiers (namespace `uavcan`)
 
 ### Services
@@ -50,7 +50,7 @@ From    | To        | Purpose
 From    | To        | Purpose
 --------|-----------|------------------------------------------------
 0       | 255       | Unregulated identifiers
-256     | 383       | Non-standard regulated identifiers (namespace `regulated`)
+256     | 383       | Non-standard regulated identifiers (namespace `reg`)
 384     | 511       | Standard regulated identifiers (namespace `uavcan`)
 
 ## Standard data types
@@ -123,12 +123,12 @@ and configuration parameters via named registers.
 
 ## Non-standard data types
 
-Non-standard regulated data types are contained in the root namespace `regulated`.
+Non-standard regulated data types are contained in the root namespace `reg`.
 The root namespace contains nested namespaces, one per application domain, named after the domain.
 
 Note for authors of ***unregulated*** data type definitions:
 the UAVCAN specification explicitly bans namespaces that share the same name but differ in their contents.
-Users seeking to define unregulated data types shall not put those into the `regulated` namespace;
+Users seeking to define unregulated data types shall not put those into the regulated namespace;
 instead, a new root namespace (named after the vendor) shall be used.
 
 ## Guidelines for data type authors

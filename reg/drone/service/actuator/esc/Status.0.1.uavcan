@@ -9,7 +9,7 @@ uint32 error_count
 
 FaultFlags.0.1 fault_flags
 
-regulated.drone.service.actuator.util.Feedback.0.1 feedback
+reg.drone.service.actuator.util.Feedback.0.1 feedback
 # The feedback is included in its entirety so that a subscriber interested in receiving full information
 # at a low rate (e.g., for monitoring) would not have to subscribe to both Feedback and Status separately.
 
