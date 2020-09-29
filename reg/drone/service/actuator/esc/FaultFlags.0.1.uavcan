@@ -15,7 +15,7 @@ bool driver_temperature
 bool angular_velocity
 # Angular velocity of the load is above or below the SOA.
 
-bool stuck
+bool mechanical_fault
 # The load cannot be driven due to a mechanical failure.
 
 bool vibration
