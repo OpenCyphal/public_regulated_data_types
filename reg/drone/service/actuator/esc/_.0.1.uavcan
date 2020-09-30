@@ -64,6 +64,10 @@
 #   electric power      second to the setpoint
 #   angular kinetics    second to the setpoint
 #
+# If the setpoint publication rate exceeds 100 Hz, implementations are allowed (but not required) to throttle these
+# subjects by dropping some of the messages such that the publication rate of each subject does not exceed 100 Hz.
+# Implementations operating over Classic CAN are recommended to do this.
+#
 # The other subjects may be published at an implementation-defined rate and priority,
 # which should be consistent across the group.
 #

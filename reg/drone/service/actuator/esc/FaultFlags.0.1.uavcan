@@ -1,5 +1,6 @@
 # A collection of detailed fault flags indicating problems detected by the service provider.
-# A fault flag is set when the corresponding parameter exceeds its safe operating area (SOA).
+# A fault flag is set when the corresponding parameter exceeds its safe operating area (SOA) as defined by the vendor;
+# see https://en.wikipedia.org/wiki/Safe_operating_area.
 # As long as at least one flag is set, the service health should not be NOMINAL.
 
 bool overload

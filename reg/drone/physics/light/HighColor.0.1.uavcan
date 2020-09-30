@@ -2,7 +2,9 @@
 # https://en.wikipedia.org/wiki/High_color
 #
 # For reasons of unification, a monochrome light can be modeled using the same type,
-# where the brightness is defined as the mean of the color components normalized to one.
+# where the brightness is defined as the mean of the color components normalized to one:
+#
+#   brightness = (red/MAX_RED + green/MAX_GREEN + blue/MAX_BLUE) / 3
 
 uint5 red
 uint6 green
