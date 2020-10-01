@@ -10,3 +10,10 @@ This namespace contains two nested namespaces:
 
 The motivation for such design is provided in [The UAVCAN Guide](https://uavcan.org/guide),
 chapter "Interface Design Guidelines".
+
+The value of this or any other interoperability standard is in enabling compatible, composable, and extensible
+complex systems.
+A design that does not put these capabilities above the resource utilization concerns would defeat the purpose
+of the standard.
+Hence, when designing a new network service, put the clarity of your models first, then think about their performance
+implications.
