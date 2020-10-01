@@ -1,4 +1,5 @@
 # TODO: the documentation is missing.
+# pragma: no-bit-length-limit
 
 reg.drone.service.util.Health.0.1 health
 # The abstract health assessment reflecting the status of this battery.
