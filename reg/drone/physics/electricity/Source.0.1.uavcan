@@ -18,7 +18,7 @@ uavcan.si.unit.energy.Scalar.1.0 available_energy
 # ((full_energy-energy)/abs(power)).
 #
 # For the sake of illustration, if this type was used to represent the state of a braking resistor,
-# then this value would indicate the amount of dissipated energy.
+# then this value would be negative indicating the amount of dissipated energy.
 
 uavcan.si.unit.energy.Scalar.1.0 full_energy
 # A pessimistic estimate of the amount of energy that can be reclaimed from a fresh source (fully fueled generator
