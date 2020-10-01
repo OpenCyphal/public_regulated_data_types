@@ -59,12 +59,15 @@
 # This service does not support switching the control mode or setting the motion profile at runtime;
 # for that, please refer to the servo service.
 #
-#   0. Ratiometric control.
-#      Each setpoint scalar is a value normalized/saturated in [-1, +1] representing the intensity.
-#      The exact transfer function implemented by the drive is implementation-defined.
+#   0. Ratiometric voltage control. Each setpoint scalar is a value normalized/saturated in [-1, +1] representing
+#      the Q-axis/phase/armature (depending on the type of the drive) voltage as a fraction of the maximum.
+#      This control mode emulates the behavior of a typical RCPWM-controlled BLDC drive.
 #
-#   1. Speed control.
-#      Each setpoint scalar contains the target angular velocity of the load in radian/second.
+#   1. Ratiometric current/torque control. Each setpoint scalar is a value normalized/saturated in [-1, +1] representing
+#      the Q-axis/phase/armature (depending on the type of the drive) current as a fraction of the maximum.
+#      A negative setpoint during forward rotation (positive during reverse rotation) commands braking.
+#
+#   2. Speed control. Each setpoint scalar contains the target angular velocity of the load in radian/second.
 #
 #   -. More control modes may be added later. Which control modes are supported is implementation-defined.
 #
