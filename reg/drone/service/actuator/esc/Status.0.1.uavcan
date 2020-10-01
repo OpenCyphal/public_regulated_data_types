@@ -1,21 +1,16 @@
-# Detailed ESC status published at a low rate.
+# Auxiliary ESC status information published at a low rate.
 # The publication period should be consistent across the group.
 
 uint8 MAX_PUBLICATION_PERIOD = 1  # [second]
 
+uavcan.si.unit.temperature.Scalar.1.0 motor_temperature
+uavcan.si.unit.temperature.Scalar.1.0 driver_temperature
+# Sampled temperatures. If multiple values are available, reduction is implementation-defined.
+
 uint32 error_count
-# Incremented once per occurrence. Reset to zero when started.
+# Incremented once per occurrence. Reset to zero when armed.
 # The exact definition of what constitutes an error is implementation-dependent.
 
 FaultFlags.0.1 fault_flags
-
-reg.drone.service.actuator.util.Feedback.0.1 feedback
-# The feedback is included in its entirety so that a subscriber interested in receiving full information
-# at a low rate (e.g., for monitoring) would not have to subscribe to both Feedback and Status separately.
-
-float16 motor_temperature   # [kelvin]
-float16 driver_temperature  # [kelvin]
-# Sampled temperatures. If multiple values are available, reduction is implementation-defined.
-# We use raw float16 here instead of the more type-safe SI types to reduce the footprint.
 
 # TODO: add vibration
