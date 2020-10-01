@@ -1,0 +1,16 @@
+# TODO: the documentation is missing.
+
+reg.drone.service.util.Health.0.1 health
+# The abstract health assessment reflecting the status of this battery.
+
+uavcan.si.unit.temperature.Scalar.1.0[2] temperature_min_max
+# The minimum and maximum readings of the pack temperature sensors.
+# For example, if the pack is equipped with three distributed temperature sensors that read {288, 258.15, 360.5} K,
+# the reported array value would be {258.15, 360.5} K.
+# If there is only one temperature sensor, both elements shall be of the same value.
+
+FaultFlags.0.1 fault_flags
+
+float16[<256] cell_voltages  # [volt]
+# Individual cell voltages. Each element shall be a positive finite number.
+# The number of elements shall match the number of cells in the battery.

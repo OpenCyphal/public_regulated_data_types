@@ -1,0 +1,32 @@
+# A collection of detailed fault flags indicating problems detected by the service provider.
+# A fault flag is set when the corresponding parameter exceeds its safe operating area (SOA) as defined by the vendor;
+# see https://en.wikipedia.org/wiki/Safe_operating_area.
+# As long as at least one flag is set, the service health should not be NOMINAL.
+
+bool temperature_hot
+bool temperature_cold
+# The temperature of at least one cell/section of the battery or the battery electronics is above or below
+# the safe operating limits. Note that the flags are not mutually exclusive.
+
+bool overload
+# The charge or discharge rate exceeds the safe operating limits.
+
+bool bad_battery
+# The battery should not be used anymore.
+
+bool needs_service
+# The battery requires offline maintenance.
+
+bool bms_error
+# Internal error in the battery management system, not related to the battery itself.
+
+bool configuration
+# Configuration is missing or invalid.
+
+void8
+
+bool other
+# None of the above (vendor-specific).
+
+@assert _offset_ == {16}
+@final
