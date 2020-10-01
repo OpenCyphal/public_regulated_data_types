@@ -1,7 +1,4 @@
 # Auxiliary ESC status information published at a low rate.
-# The publication period should be consistent across the group.
-
-uint8 MAX_PUBLICATION_PERIOD = 1  # [second]
 
 uavcan.si.unit.temperature.Scalar.1.0 motor_temperature
 uavcan.si.unit.temperature.Scalar.1.0 driver_temperature
