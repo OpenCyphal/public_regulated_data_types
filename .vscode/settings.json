@@ -13,5 +13,10 @@
     ],
     "spellright.language": [
         "en_US"
-    ]
+    ],
+    "spellright.parserByClass": {
+        "dsdl": {
+            "parser": "code"
+        }
+    }
 }
