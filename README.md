@@ -172,7 +172,5 @@ so the quality of the documentation is very important.
 
 ## IDE setup
 
-For editing DSDL definitions, we recommend Visual Studio Code with the following extensions:
-
-* [`uavcan.dsdl`](https://marketplace.visualstudio.com/items?itemName=Uavcan.dsdl).
-* `ban.spellright` with the dictionary file `.vscode/spellright.dict`.
+For editing DSDL definitions, we recommend Visual Studio Code.
+See `.vscode/` for recommended extensions and workspace settings.

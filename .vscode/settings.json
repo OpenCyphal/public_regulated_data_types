@@ -1,0 +1,17 @@
+{
+    "editor.rulers": [
+        120
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "plaintext",
+        "dsdl"
+    ],
+    "spellright.ignoreFiles": [
+        "**/.gitignore",
+        "**/.spellignore"
+    ],
+    "spellright.language": [
+        "en_US"
+    ]
+}
