@@ -14,14 +14,14 @@ reg.drone.service.util.Health.0.1 health
 # The abstract health assessment reflecting the status of this actuator.
 # Extended health information is available in the actuator-specific slow status message.
 
+reg.drone.service.util.Readiness.0.1 readiness
+# If armed, the actuator provides service according to its nominal performance characteristics.
+# Otherwise, no availability guarantees are provided.
+
 int8 demand_factor_pct  # [percent]
 # Percentage of the maximum rated output intensity. May exceed +-100% in case of overload.
 # Positive value indicates that power is applied to the load; negative indicates that power is being sunk from the
 # load into the actuator power source.
 # The consumer of this message may leverage this information to manage the control loop saturation.
-
-bool armed
-# The actuator provides service according to its nominal performance characteristics.
-# If not set, no availability guarantees are provided.
 
 @extent 14 * 8
