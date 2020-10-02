@@ -11,6 +11,10 @@ bool temperature_cold
 bool overload
 # The charge or discharge rate exceeds the safe operating limits.
 
+bool overdischarge
+# The battery has been discharged beyond the design limits and may have incurred damage.
+# This flag would usually be set in combination with needs_service.
+
 bool bad_battery
 # The battery should not be used anymore.
 
@@ -23,7 +27,7 @@ bool bms_error
 bool configuration
 # Configuration is missing or invalid.
 
-void8
+void7
 
 bool other
 # None of the above (vendor-specific).

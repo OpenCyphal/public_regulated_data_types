@@ -12,6 +12,7 @@ uavcan.si.unit.temperature.Scalar.1.0[2] temperature_min_max
 
 FaultFlags.0.1 fault_flags
 
+void8
 float16[<256] cell_voltages  # [volt]
 # Individual cell voltages. Each element shall be a positive finite number.
-# The number of elements shall match the number of cells in the battery.
+# The number of elements shall match the number of cells connected in series in the battery.
