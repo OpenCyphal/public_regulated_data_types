@@ -143,26 +143,6 @@
 #                               power   | power
 #
 #
-#   STANDARD REGISTER NAMES
-#
-# There may be other standard register names defined by other applicable standards
-# (such as the core UAVCAN Specification, for example).
-#
-# All registers are persistent and mutable unless stated otherwise.
-# The value of 65535 represents an invalid/unconfigured subject (no subscription/publication).
-#
-# NAME                                  TYPE            DEFAULT DESCRIPTION
-# ---------------------------------------------------------------------------------------------------------------------
-# uavcan.sub.setpoint_array             Natural16[1]    65535   The subject-ID of the setpoint subject.
-# uavcan.pub.feedback                   Natural16[1]    -       Immutable; computed as specified above.
-# uavcan.pub.status                     Natural16[1]    -       Immutable; computed as specified above.
-# uavcan.pub.electric_power             Natural16[1]    -       Immutable; computed as specified above.
-# uavcan.pub.angular_kinetics           Natural16[1]    -       Immutable; computed as specified above.
-#
-# reg.drone.service.actuator.index      Natural8[1]     0       The index of the actuator.
-#
-# reg.drone.service.actuator.esc.mode   Natural8[1]     0       Active control mode; see numbering in the list above.
-#
 
 float32 SETPOINT_EXPIRATION_TIMEOUT = reg.drone.service.actuator.util.Feedback.0.1.SETPOINT_EXPIRATION_TIMEOUT
 # Disarm the drive if no setpoint messages have been received in this amount of time.
