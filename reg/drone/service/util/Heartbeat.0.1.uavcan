@@ -1,0 +1,7 @@
+# TODO
+
+Health.0.1 health
+Arming.0.1 arming
+
+@final
+@assert _offset_ / 8 == {2}

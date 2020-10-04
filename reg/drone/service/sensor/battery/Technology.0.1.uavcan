@@ -7,13 +7,13 @@
 uint6 value
 
 uint6 OTHER         = 0     # The technology is not specified in this enumeration. Please submit a pull request.
-uint6 LI_LCO        = 1     # Lithium cobalt oxide
-uint6 LI_LFP        = 2     # Lithium iron phosphate
+uint6 LI_LCO        = 1     # Lithium cobalt oxide (commonly known as just "lithium-ion")
+uint6 LI_LFP        = 2     # Lithium iron phosphate (LiFePO4)
 uint6 LI_NMC        = 3     # Lithium nickel manganese cobalt oxide
 uint6 LI_NCA        = 4     # Lithium nickel cobalt aluminium oxide
 uint6 LI_LMO        = 5     # Lithium manganese oxide
-uint6 LI_LCO_POUCH  = 6     # Commonly known as "lithium-ion polymer", or LiPo; this is LiCoO2 in pouch form factor.
-uint6 LI_LFP_POUCH  = 7
+uint6 LI_LCO_POUCH  = 6     # LiCoO2 in pouch form factor, commonly known as "lithium-ion polymer" or "LiPo".
+uint6 LI_LFP_POUCH  = 7     # LiFePO4 in pouch form factor, commonly known as "LiFePO4 polymer".
 uint6 NI_MH         = 8     # Nickel-metal hydride
 uint6 NI_CD         = 9     # Nickel-cadmium
 uint6 NI_ZN         = 10    # Nickel-zinc

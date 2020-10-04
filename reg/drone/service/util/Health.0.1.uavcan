@@ -5,7 +5,7 @@
 #   https://www.law.cornell.edu/cfr/text/14/23.1322
 #   https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_25.1322-1.pdf section 6
 
-truncated uint2 health
+truncated uint2 value
 
 uint2 NOMINAL  = 0
 # The service is functioning properly (nominal).
@@ -20,7 +20,5 @@ uint2 CAUTION  = 2
 
 uint2 WARNING  = 3
 # The service is no longer provided.
-
-# TODO: there are 6 unused bits. Add a vendor-specific health field?
 
 @final

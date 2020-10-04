@@ -24,10 +24,13 @@ bool needs_service
 bool bms_error
 # Internal error in the battery management system, not related to the battery itself.
 
+bool balancer
+# The battery balancing circuits are malfunctioning.
+
 bool configuration
 # Configuration is missing or invalid.
 
-void7
+void6
 
 bool other
 # None of the above (vendor-specific).

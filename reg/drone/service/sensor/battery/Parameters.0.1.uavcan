@@ -11,9 +11,12 @@ truncated uint64 unique_id
 # Needed for logging purposes. If the battery supports SBS, this value may be computed as CRC64WE of
 # (ManufacturerName + DeviceName + ManufactureDate + SerialNumber).
 # This value shall be invariant to the identity of the reporting node unless it is an integral part of the battery.
+# Vendors may use a constant random number for the 40 most significant bits for vendor identification purposes.
 
 uavcan.si.unit.mass.Scalar.1.0 mass
 # The total mass of the battery, including the packaging, electronics, cabling, and all auxiliary items, if any.
+# May be used for predicting the kinematic parameters of the vehicle.
+# NaN if unknown.
 
 uavcan.si.unit.electric_charge.Scalar.1.0 design_capacity
 # The maximum total charge of the pack, at 100% SoH, specified by the manufacturer.
@@ -26,24 +29,26 @@ uavcan.si.unit.electric_current.Scalar.1.0 discharge_current
 uavcan.si.unit.electric_current.Scalar.1.0 discharge_current_burst      # At least for 5 seconds.
 uavcan.si.unit.electric_current.Scalar.1.0 charge_current
 uavcan.si.unit.electric_current.Scalar.1.0 charge_current_fast
-uavcan.si.unit.electric_current.Scalar.1.0 charge_termination_current   # End-of-charging current threshold.
+uavcan.si.unit.electric_current.Scalar.1.0 charge_termination_treshold  # End-of-charging current threshold.
 uavcan.si.unit.voltage.Scalar.1.0          charge_voltage               # Total charging voltage (not per-cell).
 # The key (dis-)charge parameters specified by the manufacturer for the pack.
 # This is a reflection of similar parameters from the Smart Battery Data Specification.
-
-uavcan.si.unit.electric_charge.Scalar.1.0 available_charge
-# The electric charge currently stored in the battery. This is intended for charging and maintenance only.
 
 uint16 cycle_count
 # The number of charge-discharge cycles. Zero if the battery is new. May increase at runtime.
 # What constitutes a charge-discharge cycle is implementation-defined.
 
-Technology.0.1 technology
-# The battery technology information may be leveraged by the charger to choose the appropriate charging strategy.
+void8               # Reserved for possible expansion because batteries with >255 cells exist.
+uint8 series_cell_count
+# The number of cells connected in series.
 
 uint7 state_of_health_pct  # [percent]
 # The SoH of the battery, or best guess thereof; ranges from 0 (unusable) to 100 (new).
 void1
 
+Technology.0.1 technology
+# The battery technology information may be leveraged by the charger to choose the appropriate charging strategy.
+
 @print _offset_ / 8
-@extent 8 * 63  # Limit to a single-frame transfer over CAN FD.
+@assert _offset_.count == 1     # It is intended to be a fixed-size type (although it's not required).
+@extent 8 * 63                  # Limit to a single-frame transfer over CAN FD.

@@ -10,11 +10,7 @@ float32 SETPOINT_EXPIRATION_TIMEOUT = 1.0  # [seconds]
 # In this case, the arming flag would be cleared.
 # Implementations are allowed to reduce this value, but never increase it.
 
-reg.drone.service.util.Health.0.1 health
-# The abstract health assessment reflecting the status of this actuator.
-# Extended health information is available in the actuator-specific slow status message.
-
-reg.drone.service.util.Readiness.0.1 readiness
+reg.drone.service.util.Heartbeat.0.1 heartbeat
 # If armed, the actuator provides service according to its nominal performance characteristics.
 # Otherwise, no availability guarantees are provided.
 
@@ -24,4 +20,4 @@ int8 demand_factor_pct  # [percent]
 # load into the actuator power source.
 # The consumer of this message may leverage this information to manage the control loop saturation.
 
-@extent 14 * 8
+@extent 63 * 8  # Single-frame transfer over CAN FD.

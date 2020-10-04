@@ -1,7 +1,9 @@
 # TODO: add docs
 
-uint2 readiness
+truncated uint2 value
 
 uint2 SLEEP    = 0
 uint2 DISARMED = 1
 uint2 ARMED    = 2
+
+@final
