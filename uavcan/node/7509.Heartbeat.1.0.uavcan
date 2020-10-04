@@ -22,51 +22,18 @@ uint32 uptime                       # [second]
 # upon which time it should stay at 0xFFFFFFFF until the node is restarted.
 # Other nodes may detect that a remote node has restarted when this value leaps backwards.
 
-truncated uint2 health
-# Abstract node health information. See constants below.
-# Follows:
-#   https://www.law.cornell.edu/cfr/text/14/23.1322
-#   https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_25.1322-1.pdf section 6
+Health.1.0 health
+# The abstract health status of this node.
+# If the node performs multiple activities, the health status should reflect the worst-performing activity.
 
-uint2 HEALTH_NOMINAL  = 0
-# The node is functioning properly (nominal).
+Mode.1.0 mode
+# The abstract operating mode of the publishing node.
+# This field indicates the general level of readiness that can be further elaborated on a per-activity basis
+# using various specialized interfaces.
 
-uint2 HEALTH_ADVISORY = 1
-# A critical parameter went out of range or the node encountered a minor failure that does not prevent
-# the subsystem from performing any of its real-time functions.
-
-uint2 HEALTH_CAUTION  = 2
-# The node encountered a major failure and is performing in a degraded mode or outside of its designed limitations.
-
-uint2 HEALTH_WARNING  = 3
-# The node suffered a fatal malfunction and is unable to perform its intended function.
-
-truncated uint3 mode
-# The current operating mode. See constants below.
-#
-# The mode OFFLINE can be used for informing other network participants that the sending node has ceased its
-# activities or about to do so. In this case, other nodes will not have to wait for the OFFLINE_TIMEOUT to
-# expire before detecting that the sending node is no longer available.
-#
-# Reserved values can be used in future revisions of the specification.
-
-uint3 MODE_OPERATIONAL      = 0
-# Normal operating mode.
-
-uint3 MODE_INITIALIZATION   = 1
-# Initialization is in progress; this mode is entered immediately after startup.
-
-uint3 MODE_MAINTENANCE      = 2
-# E.g. calibration, self-test, etc.
-
-uint3 MODE_SOFTWARE_UPDATE  = 3
-# New software/firmware is being loaded or the bootloader is running.
-
-uint3 MODE_OFFLINE          = 7
-# The node is no longer available.
-
-truncated uint19 vendor_specific_status_code
+uint8 vendor_specific_status_code
 # Optional, vendor-specific node status code, e.g. a fault code or a status bitmask.
 
 @assert _offset_ % 8 == {0}
-@assert _offset_.max <= 56    # Shall fit into one CAN 2.0 frame (least capable transport, smallest MTU)
+@assert _offset_ == {56}  # Fits into a single-frame Classic CAN transfer (least capable transport, smallest MTU).
+@extent 63 * 8            # Reserve space up to the largest single-frame CAN FD transfer.
