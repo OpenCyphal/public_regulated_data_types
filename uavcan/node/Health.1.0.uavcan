@@ -1,4 +1,5 @@
-# Abstract component health information. See constants below.
+# Abstract component health information. If the node performs multiple activities (provides multiple network services),
+# its health status should reflect the status of the worst-performing activity (network service).
 # Follows:
 #   https://www.law.cornell.edu/cfr/text/14/23.1322
 #   https://www.faa.gov/documentLibrary/media/Advisory_Circular/AC_25.1322-1.pdf section 6

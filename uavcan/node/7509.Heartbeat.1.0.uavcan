@@ -24,7 +24,6 @@ uint32 uptime                       # [second]
 
 Health.1.0 health
 # The abstract health status of this node.
-# If the node performs multiple activities, the health status should reflect the worst-performing activity.
 
 Mode.1.0 mode
 # The abstract operating mode of the publishing node.

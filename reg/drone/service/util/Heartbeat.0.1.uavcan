@@ -1,6 +1,6 @@
 # TODO
 
-Health.0.1 health
+uavcan.node.Health.1.0 health
 Arming.0.1 arming
 
 @final
