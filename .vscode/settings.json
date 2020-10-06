@@ -18,5 +18,13 @@
         "dsdl": {
             "parser": "code"
         }
-    }
+    },
+    "auto-comment-next-line.list": [
+        {
+            "char": "#",
+            "languages": [
+                "dsdl"
+            ]
+        }
+    ]
 }
