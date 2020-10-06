@@ -17,3 +17,40 @@ A design that does not put these capabilities above the resource utilization con
 of the standard.
 Hence, when designing a new network service, put the clarity of your models first, then think about their performance
 implications.
+
+## Composable services 101
+
+Make sure you understand the basic principles of service-oriented design.
+As a quick primer, read Wikipedia: https://en.wikipedia.org/wiki/Service-oriented_architecture.
+For a more in-depth review, please read *The UAVCAN Guide*.
+
+The concrete service definitions given in the `service` namespace are intended for service implementers
+in the first place.
+If your objective is to depend on a service, then focus your attention on the other namespaces,
+because they provide a generalized view of common processes that is invariant to the means of their implementation.
+
+A real hardware node would typically implement multiple services concurrently.
+For example, a COTS ESC may realistically implement the following:
+
+- Naturally, the ESC service.
+- The servo service for generality.
+- Acoustic feedback by subscribing to `reg.drone.physics.acoustics.Node`.
+- Visual feedback via the LED by subscribing to `reg.drone.optics.HighColor`.
+
+Another service that is interested in tracking the state of, say, a propeller drive
+(say, for thrust estimation) would not need to concern itself with the ESC service at all.
+Instead, it would simply subscribe to the generalized subject of type
+`reg.drone.physics.kinetics.Angular1DTs` published by the unit that drives the propeller
+and extract its business-level information from that while being unaware of the specifics of the drive
+(the propeller drive may be changed from an electric motor to a turboprop engine without affecting the
+thrust estimation service).
+
+As another example, a flight control unit would not need to depend on the specifics of a GNSS positioning
+service to obtain the location of the vehicle.
+Instead, it would subscribe to a generic subject of a highly abstract type that models the location of
+the vehicle in space (along with other related information such as time and pose),
+which may as well be published by a mocap rig.
+
+Composability is desirable for high-integrity systems also because it facilitates subsystem isolation for
+testing and confines changes to a smaller number of subsystems,
+thus reducing the costs of validation and verification.
