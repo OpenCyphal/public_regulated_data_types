@@ -1,7 +1,0 @@
-# TODO
-
-uavcan.node.Health.1.0 health
-Arming.0.1 arming
-
-@final
-@assert _offset_ / 8 == {2}

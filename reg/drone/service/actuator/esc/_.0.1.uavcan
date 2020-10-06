@@ -1,4 +1,6 @@
 # The electronic speed controller (ESC) service is designed for controlling and monitoring electric drives.
+# From the standpoint of this standard, an electric drive is just a special case of a servo. For generality,
+# COTS electric drives are recommended to also support the servo interface defined in the adjacent namespace.
 #
 # ESCs (drives) are segregated into groups. Each ESC in a group has an index that is unique within the group.
 # Drives in a group are commanded synchronously by publishing a message containing an array of setpoints.
@@ -8,22 +10,28 @@
 #     Every message is consumed by all participants according to their index in the group.
 #     The setpoint subject defines the group. There may be an arbitrary number of such groups in the network.
 #
+#   - Arming subject. Every participant subscribes to the same arming subject which is used to command the
+#     state of the group: sleep, disarmed, or armed. In many cases there will be one global arming subject
+#     controlling the state of the entire system; in other cases there will be dedicated arming controls on a
+#     per-subsystem basis.
+#
 #   - Individual subjects, whose subject-ID is offset from the setpoint subject-ID `S` as a function of
 #     group member index `i` as specified below.
 #
-#                                                   SUBJECT             TYPE                            SUBJECT-ID
+#                                                   SUBJECT     TYPE                                        SUBJECT-ID
 #  +----------------+
-#  |   Controller   |-------+------------+------... setpoint            ...actuator.util.sp.*           S
-#  +----------------+       |            |
-#   ^ ^ ^ ^  ^ ^ ^ ^        v            v
+#  |   Controller   |---------+------------+----... setpoint    reg.drone.service.actuator.common.sp.*      S
+#  |                |-------+-)----------+-)----... arming      reg.drone.service.common.Arming             S+1
+#  +----------------+       | |          | |
+#   ^ ^ ^ ^  ^ ^ ^ ^        v v          v v
 #   | | | |  | | | |   +---------+  +---------+
 #   | | | |  | | | |   |Drive i=0|  |Drive i=1| ...
 #   | | | |  | | | |   +---------+  +---------+
 #   | | | |  | | | |     | | | |      | | | |
-#   | | | |  | | | +-----+ | | |      | | | |       feedback            ...actuator.util.Feedback       S+i*5+1
-#   | | | |  | | +---------+ | |      | | | |       status              Status                          S+i*5+2
-#   | | | |  | +-------------+ |      | | | |       electric power      ...physics.electricity.Power    S+i*5+3
-#   | | | |  +-----------------+      | | | |       angular kinetics    ...physics.kinetics.Angular1D   S+i*5+4
+#   | | | |  | | | +-----+ | | |      | | | |       feedback    reg.drone.service.actuator.common.Feedback  S+(i+1)*5+1
+#   | | | |  | | +---------+ | |      | | | |       status      reg.drone.service.actuator.common.Status    S+(i+1)*5+2
+#   | | | |  | +-------------+ |      | | | |       power       reg.drone.physics.electricity.PowerTs       S+(i+1)*5+3
+#   | | | |  +-----------------+      | | | |       kinetics    reg.drone.physics.kinetics.Angular1DTs      S+(i+1)*5+4
 #   | | | |                           | | | |
 #   | | | +---------------------------+ | | |
 #   | | +-------------------------------+ | |
@@ -33,29 +41,38 @@
 # Therefore, in order to configure a group member, one has to set up two parameters: the setpoint subject-ID and
 # the group member index.
 #
+# Notice that the physics subjects are timestamped.
+#
 # Vendor/application-specific subjects are not shown here; their subject-IDs are implementation-defined.
+# Vendors are encouraged to publish additional data (e.g., temperatures) on separate subjects.
 #
 #
 #   SETPOINT SUBJECT
+#
+# The setpoint subject is ignored unless the drive is ARMED. As long as the drive is not ARMED, it shall not apply
+# any power to the load excepting non-operational scenarios such as maintenance and diagnostics, which are
+# outside of the scope of this service definition. More on arming and safety in the next section.
 #
 # Upon reception of a setpoint message, a group participant fetches its setpoint from the array using the array
 # element whose index equals the index of the group participant. By virtue of the Implicit Zero Extension Rule,
 # if the message is too short, the setpoint will be interpreted as zero.
 #
-# The drive shall stop automatically if no valid setpoint was received in SETPOINT_EXPIRATION_TIMEOUT or a lower
-# implementation-specific value.
-# The minimum setpoint publication period should be at least twice lower than the expiration timeout.
+# If no valid setpoint was received in CONTROL_TIMEOUT or a lower implementation-specific value,
+# the drive should assume a zero setpoint for safety reasons.
+# The minimum setpoint publication period should be at least twice lower than its timeout.
 #
 # While stopped, the drive may either allow the load to freewheel or it may force it to a particular parking position,
 # depending on the implementation requirements. The actual state of the load may be continuously reported using the
-# angular kinetics subject.
+# kinetics subject. Notice that per the safety rule introduced earlier, the parking position may be impossile
+# to enforce unless the drive is ARMED because it may require delivering power to the load.
 #
 # The setpoint message types that can be used to command a group of drives are defined in
-# reg.drone.service.actuator.util.sp; please read the documentation related to that namespace for further information.
-# Additional setpoint message types may also be supported on an implementation-specific basis.
+# reg.drone.service.actuator.common.sp; please read the documentation related to that namespace for further information.
+# Servo setpoint message types may also be supported on an implementation-specific basis for enhanced interoperability.
 # If the group is controlled using different setpoint subjects concurrently, the behavior is implementation-defined.
 #
-# The following control modes are defined. The control mode in use is specified using the register API as defined later.
+# The following control modes are defined, none of which are mandatory to support.
+# The control mode in use is to be specified using the register API.
 # This service does not support switching the control mode or setting the motion profile at runtime;
 # for that, please refer to the servo service.
 #
@@ -72,46 +89,59 @@
 #   -. More control modes may be added later. Which control modes are supported is implementation-defined.
 #
 # Considerations that apply to all control modes:
-#
 #  -  Negative setpoint values represent reversal; a positive setpoint is co-directed with positive rotation/torque.
 #  -  If reverse operation is not supported, negative values should be clamped to zero.
 #  -  A non-finite setpoint is to be treated as zero.
-#  -  Absolute setpoint values smaller than the epsilon of the setpoint type
-#     (see https://en.wikipedia.org/wiki/Machine_epsilon) are to be treated as zero setpoint.
-#  -  Having received a non-zero setpoint, the drive shall operate at the minimum possible speed/power/torque
-#     (depending on the control mode) to indicate that it is armed and functional.
+#
+#
+#   ARMING SUBJECT
+#
+# The default state is DISARMED. While disarmed, the drive is not allowed to deliver power to the load,
+# and the setpoint subject is ignored. The drive shall enter the disarmed state automatically if the arming subject
+# is not updated for CONTROL_TIMEOUT.
+#
+# While the drive is ARMED, the setpoint commands are processed normally as described in the adjacent section.
+# If the drive does not support bidirectional operation, implementations are recommended to ensure that the load
+# is driven at some minimum power level (idling) while the drive is armed regardless of the commanded setpoint,
+# unless such behavior is deemed incompatible with the functional requirements of the controlled drive.
+#
+# If the selected arming state is SLEEP, the behavior is implementation-defined. Implementations are recommended to
+# power off the high-voltage circuitry and all non-essential components (e.g., LED indication, sensors, etc.)
+# to minimize the power consumption.
+#
+# Implementations are recommended to announce transitions between the arming states using audiovisual feedback.
+#
+# The worst-case state transition latency is not defined. The controlling element (that is, the unit that publishes
+# to the setpoint and arming subjects) is expected to monitor the actual arming status of each component using
+# the feedback subject. For example, a sensorless electric motor drive may choose to spool-up before entering the
+# ARMED state, which would obviously take time; as soon as the spool-up is finished, the drive would switch its
+# reported status from DISARMED to ARMED, thereby indicating that it is ready for normal operation.
 #
 #
 #   PUBLISHED SUBJECTS
 #
-# The following subjects shall be published immediately after a new setpoint is applied:
+# The following subjects shall be published immediately after a new setpoint is applied even if the drive is DISARMED:
 #
 #   SUBJECT             RECOMMENDED PRIORITY
 #   ---------------------------------------------
 #   feedback            same as the setpoint
-#   electric power      second to the setpoint
-#   angular kinetics    second to the setpoint
+#   power               second to the setpoint
+#   kinetics            second to the setpoint
 #
 # If no setpoint is being published, these subjects should continue being updated at least at 1/MAX_PUBLICATION_PERIOD.
+# The publication rate requirements do not apply if the arming state is SLEEP.
 #
-# If the setpoint publication rate exceeds 100 Hz, implementations are allowed (but not required) to throttle these
-# subjects by dropping some of the messages such that the publication rate of each subject does not exceed 100 Hz.
+# If the setpoint publication rate exceeds 50 Hz, implementations are allowed (but not required) to throttle these
+# subjects by dropping some of the messages such that the publication rate of each subject does not exceed 50 Hz.
 # Implementations operating over Classic CAN are recommended to do this.
 #
 # The other subjects may be published at an implementation-defined rate and priority,
 # which should be consistent across the group.
 #
-# The feedback data contains a flag that indicates if the publishing drive is armed. An armed drive is a drive
-# that is ready to deliver full rated power at the nominal performance characteristics. For example, the flight
-# management unit of an aircraft would check if all relevant drives are in the armed state before executing a
-# take off. For example, a sensorless motor drive may need to spool up the rotor before being able to operate normally.
-#
 # Implementations are encouraged to provide additional subjects for enhanced feedback and monitoring.
 #
 # The measurements carried by the published messages should be low-pass filtered with an adequate cutoff frequency to
-# avoid aliasing effects.
-#
-# Implementations should strive to sample all parameters simultaneously.
+# avoid aliasing effects. Implementations should strive to sample all parameters simultaneously.
 #
 # If a float-typed reported quantity is unknown, the corresponding value should be NaN.
 #
@@ -142,16 +172,5 @@
 #                               positive| negative
 #                               power   | power
 #
-#
-
-float32 SETPOINT_EXPIRATION_TIMEOUT = reg.drone.service.actuator.util.Feedback.0.1.SETPOINT_EXPIRATION_TIMEOUT
-# Disarm the drive if no setpoint messages have been received in this amount of time.
-# Implementations are allowed to reduce this value, but never increase it.
-
-uint8 MAX_PUBLICATION_PERIOD = 1  # [second]
-# This is the maximum publication period (minimum frequency) for all subjects described in this service.
-# Subjects that are clocked by the setpoint should continue being published at least at this rate when setpoint is not
-# being updated.
-# The publication periods should be consistent across the group.
 
 @extent 0  # This type is not intended for runtime use.

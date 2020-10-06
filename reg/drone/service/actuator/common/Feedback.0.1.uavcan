@@ -1,18 +1,15 @@
 # This high-rate feedback should be published once immediately after a setpoint is applied.
 # It follows that the publication rate of these messages equals that of the setpoint messages.
-# When setpoint messages are not being emitted, the publication rate is implementation-defined.
+# When setpoint messages are not being emitted, the publication rate is implementation-defined, but it should not
+# be lower than the defined limit.
 # The priority of this message should be the same as that of the corresponding setpoint message.
 
-float32 SETPOINT_EXPIRATION_TIMEOUT = 1.0  # [seconds]
-# The actuator is allowed to disarm/disengage itself (e.g., by entering a power-down mode, stopping the controlled
-# mechanism, disconnecting itself from the controlled entity, etc. depending on the specifics of the application
-# at hand) if no setpoint messages have been received in this amount of time.
-# In this case, the arming flag would be cleared.
-# Implementations are allowed to reduce this value, but never increase it.
-
-reg.drone.service.util.Heartbeat.0.1 heartbeat
+reg.drone.service.common.Heartbeat.0.1 heartbeat
 # If armed, the actuator provides service according to its nominal performance characteristics.
 # Otherwise, no availability guarantees are provided.
+# Notice that the feedback type is a structural subtype of the heartbeat type, so one can subscribe to a
+# feedback subject using the heartbeat type. Similarly, the heartbeat type is a structural subtype of the
+# Arming state type, meaning that one can use the Arming type as well.
 
 int8 demand_factor_pct  # [percent]
 # Percentage of the maximum rated output intensity. May exceed +-100% in case of overload.

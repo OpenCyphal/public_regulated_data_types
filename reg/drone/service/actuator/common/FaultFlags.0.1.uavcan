@@ -4,19 +4,19 @@
 # As long as at least one flag is set, the service health should not be NOMINAL.
 
 bool overload
-# Output power/current above SOA or regeneration below the SOA.
+# The load is above SOA or regeneration below the SOA.
 
-bool dc_voltage
-# DC link voltage above or below the SOA.
+bool voltage
+# Supply voltage is above or below the SOA.
 
 bool motor_temperature
-bool driver_temperature
+bool controller_temperature
 # Temperature is above or below the SOA.
 
-bool angular_velocity
-# Angular velocity of the load is above or below the SOA.
+bool velocity
+# The absolute velocity of the load is above the SOA.
 
-bool mechanical_fault
+bool mechanical
 # The load cannot be driven due to a mechanical failure.
 
 bool vibration
@@ -25,7 +25,10 @@ bool vibration
 bool configuration
 # Configuration is missing or invalid.
 
-void7
+bool control_mode
+# The requested control mode is not supported by the actuator.
+
+void6
 
 bool other
 # None of the above (vendor-specific).
