@@ -23,7 +23,8 @@
 #     state.
 #
 # If the advanced arming capabilities are not supported, the battery may not subscribe to the arming subject,
-# in which case it should permanently report its state as ARMED.
+# in which case it should permanently report its state as ARMED unless the battery is unfit for use (e.g., due
+# to degradation of a failure).
 #
 # By convention, positive power (current) flows from the DC network into the battery. Therefore, the current is
 # negative when the battery powers the system, and positive when it is being charged.

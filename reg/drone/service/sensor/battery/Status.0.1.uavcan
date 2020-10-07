@@ -30,8 +30,10 @@ uavcan.si.unit.voltage.Scalar.1.0[2] cell_voltage_min_max
 uavcan.si.unit.electric_charge.Scalar.1.0 available_charge
 # The estimated electric charge currently stored in the battery. This is intended for charging and maintenance only.
 # Do not use this parameter for endurance prediction! Instead, use the correct energy type from the physics namespace.
+# The depth of discharge (DoD), or the state of charge (SoC), can be derived by dividing this value by the
+# nominal battery capacity reported in the Parameters message.
 
-FaultFlags.0.1 fault_flags
+Error.0.1 error
 
 @print _offset_ / 8
 @extent 63 * 8  # Single-frame transfer over CAN FD.
