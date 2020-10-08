@@ -19,4 +19,4 @@ uint4 TAI = 1
 uint4 APPLICATION_SPECIFIC = 15
 # Application-specific time system of unknown properties.
 
-@final
+@sealed

@@ -15,4 +15,4 @@ uint3 MAINTENANCE = 2
 uint3 SOFTWARE_UPDATE = 3
 # New software/firmware is being loaded or the bootloader is running.
 
-@final
+@sealed

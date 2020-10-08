@@ -3,5 +3,5 @@
 uint9 value
 void7
 
-@final
+@sealed
 @assert _offset_ == {16}

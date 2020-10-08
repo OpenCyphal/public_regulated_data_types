@@ -6,5 +6,5 @@
 SubjectID.1.0 subject_id
 ServiceID.1.0 service_id
 
-@final
+@sealed
 @assert _offset_ == {24}

@@ -2,4 +2,4 @@
 
 uint8[<=50] name
 
-@final
+@sealed

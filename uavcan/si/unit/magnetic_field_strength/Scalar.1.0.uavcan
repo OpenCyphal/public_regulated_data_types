@@ -1,2 +1,2 @@
 float32 tesla
-@final
+@sealed

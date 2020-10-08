@@ -18,4 +18,4 @@ uint2 CAUTION = 2
 uint2 WARNING = 3
 # The component suffered a fatal malfunction and is unable to perform its intended function.
 
-@final
+@sealed

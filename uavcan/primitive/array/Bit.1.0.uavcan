@@ -2,6 +2,6 @@
 
 bool[<=2048] value
 
-@final
+@sealed
 @assert _offset_.min == 16
 @assert _offset_.max / 8 == 258

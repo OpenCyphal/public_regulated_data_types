@@ -1,2 +1,2 @@
 int16 value
-@final
+@sealed

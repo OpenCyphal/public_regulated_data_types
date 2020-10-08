@@ -15,4 +15,4 @@ uint16 NOT_SUPPORTED     = 38
 
 uint16 value
 
-@final
+@sealed

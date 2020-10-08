@@ -1,2 +1,2 @@
 float32 ampere
-@final
+@sealed

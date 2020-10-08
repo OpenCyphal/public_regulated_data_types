@@ -39,4 +39,4 @@ uint3 ALERT = 7
 # Notifications of dangerous circumstances that demand immediate attention.
 # Messages of this severity should be always enabled.
 
-@final
+@sealed

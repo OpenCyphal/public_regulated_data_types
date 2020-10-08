@@ -1,2 +1,2 @@
 float32 meter
-@final
+@sealed
