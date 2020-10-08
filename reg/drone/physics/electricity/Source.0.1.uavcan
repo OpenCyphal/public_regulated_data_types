@@ -24,4 +24,4 @@ uavcan.si.unit.energy.Scalar.1.0 full_energy
 # A pessimistic estimate of the amount of energy that can be reclaimed from a fresh source (fully fueled generator
 # or a fully charged battery) under the current conditions (SoH, temperature, load profile, etc).
 
-@final
+@sealed

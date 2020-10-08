@@ -34,4 +34,4 @@ bool other
 # None of the above (vendor-specific).
 
 @assert _offset_ == {16}
-@final
+@sealed

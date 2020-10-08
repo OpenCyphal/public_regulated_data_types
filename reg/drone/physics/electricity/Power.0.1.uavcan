@@ -7,4 +7,4 @@
 uavcan.si.unit.electric_current.Scalar.1.0 current
 uavcan.si.unit.voltage.Scalar.1.0 voltage
 
-@final
+@sealed

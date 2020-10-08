@@ -12,5 +12,5 @@ uint8 MAX_PUBLICATION_PERIOD = 1
 Arming.0.1 arming
 uavcan.node.Health.1.0 health
 
-@final
+@sealed
 @assert _offset_ / 8 == {2}

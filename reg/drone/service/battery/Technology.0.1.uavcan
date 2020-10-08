@@ -23,4 +23,4 @@ uint6 PB_AC_SEALED  = 13    # Also known as SLA
 
 # New types will appear in future revisions.
 
-@final
+@sealed

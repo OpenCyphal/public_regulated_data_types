@@ -16,4 +16,4 @@ uavcan.si.unit.power.Scalar.1.0 acoustic_power
 # The emitter should apply best effort to comply, but there are no accuracy requirements.
 # Emitters that are unable to adjust the acoustic power would ignore this parameter.
 
-@final
+@sealed

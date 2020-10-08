@@ -49,4 +49,4 @@ uint2 ARMED = 2
 # DISARMED states.
 # Some subsystems may not differentiate between DISARMED and ARMED (e.g., offboard communication hardware).
 
-@final
+@sealed

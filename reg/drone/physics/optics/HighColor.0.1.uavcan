@@ -15,4 +15,4 @@ uint6 MAX_GREEN = 2 ** 6 - 1
 uint5 MAX_BLUE  = MAX_RED
 
 @assert _offset_ == {16}
-@final
+@sealed

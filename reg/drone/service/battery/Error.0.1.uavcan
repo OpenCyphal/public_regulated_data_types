@@ -41,4 +41,4 @@ uint8 TEMPERATURE_HOT  = 100
 uint8 TEMPERATURE_COLD = 101
 # At least one cell is above/below the temperature SOA.
 
-@final
+@sealed
