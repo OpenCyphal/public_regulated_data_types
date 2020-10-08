@@ -4,4 +4,4 @@
 uint8 major
 uint8 minor
 
-@final
+@sealed

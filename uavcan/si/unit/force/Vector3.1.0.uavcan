@@ -1,2 +1,2 @@
 float32[3] newton
-@final
+@sealed

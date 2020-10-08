@@ -1,2 +1,2 @@
 float32 hertz
-@final
+@sealed

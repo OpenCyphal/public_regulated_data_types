@@ -1,2 +1,2 @@
 float32 volt
-@final
+@sealed

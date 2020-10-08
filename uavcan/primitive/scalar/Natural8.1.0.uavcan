@@ -1,2 +1,2 @@
 uint8 value
-@final
+@sealed

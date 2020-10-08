@@ -3,5 +3,5 @@
 uint13 value
 void3
 
-@final
+@sealed
 @assert _offset_ == {16}

@@ -1,2 +1,2 @@
 float32 second
-@final
+@sealed

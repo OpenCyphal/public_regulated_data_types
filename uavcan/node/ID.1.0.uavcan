@@ -5,5 +5,5 @@
 
 uint16 value
 
-@final
+@sealed
 @assert _offset_ == {16}
