@@ -2,16 +2,20 @@
 #
 # The type of load (translational or rotary) dictates which type is used for commanding the setpoint and reporting
 # the status:
-#   - reg.drone.physics.kinetics.Linear1DTs
-#   - reg.drone.physics.kinetics.Angular1DTs
+#   - reg.drone.physics.kinetics.Linear1D[Ts]
+#   - reg.drone.physics.kinetics.Angular1D[Ts]
 # For generality, either or both of these types are referred to as "*1DTs" (timestamped) or "*1D" (non-timestamped).
+#
+# The default arming state is DISARMED. While disarmed, the servo is not allowed to apply force to the load,
+# and the setpoint subject is ignored. The servo shall enter the disarmed state automatically if the arming subject
+# is not updated for CONTROL_TIMEOUT.
 #
 # The subjects defined by this service are shown on the following canvas. Implementers are encouraged to add
 # custom subjects with additional data. Notice that the physics subjects are timestamped.
 #
 #                    SUBJECT                            TYPE                                            RATE
 #
-#   +------------+   setpoint       +------------+      reg.drone.physics.kinetics.*1D                  R
+#   +------------+   setpoint       +------------+      reg.drone.physics.kinetics.*1D  (see below)     R
 #   |            |----------------->|            |
 #   |            |   arming         |            |      reg.drone.service.common.Arming                 any
 #   |            |----------------->|            |
@@ -25,9 +29,8 @@
 #   |            |<-----------------|            |
 #   +------------+                  +------------+
 #
-# The default arming state is DISARMED. While disarmed, the servo is not allowed to apply force to the load,
-# and the setpoint subject is ignored. The servo shall enter the disarmed state automatically if the arming subject
-# is not updated for CONTROL_TIMEOUT.
+# Should it be necessary to control a group of servos in lockstep, an arbitrary number of them may subscribe
+# to the same setpoint subject (their published subjects would be different of course).
 #
 # If the servo is ARMED, setpoint messages are processed as follows: the first field of the kinematic setpoint type
 # that contains a finite value is taken as the commanded setpoint. The following non-negative finite fields define
@@ -51,11 +54,41 @@
 # parameter cannot be controlled by the servo, the setpoint is to be ignored. For example, in the second example above,
 # if the servo does not support angular velocity control, the setpoint message would be discarded.
 #
+# The above describes the typical use case where each servo is controlled over a dedicated setpoint
+# subject independently (or a group of servos are controlled in lockstep using the same setpoint subject).
+# Some applications may require synchronous independent control of multiple servos in a group, similar to ESC.
+# To address this, a compliant servo should support another operating mode where the controlled quantity
+# (position, velocity, force, etc.) is selected statically along with the motion profile (using the register API),
+# and the servo subscribes to the setpoint subject of type "reg.drone.service.actuator.common.sp.*".
+# Having its index in the group configured statically, the servo fetches the setpoint from the appropriate
+# index in the setpoint array.
+# The resulting topology closely resembles that of the ESC service:
+#
+#                                                   SUBJECT     TYPE
+#  +----------------+
+#  |   Controller   |---------+------------+----... setpoint    reg.drone.service.actuator.common.sp.*
+#  |                |-------+-)----------+-)----... arming      reg.drone.service.common.Arming
+#  +----------------+       | |          | |
+#   ^ ^ ^ ^  ^ ^ ^ ^        v v          v v
+#   | | | |  | | | |   +---------+  +---------+
+#   | | | |  | | | |   |Servo i=0|  |Servo i=1| ...
+#   | | | |  | | | |   +---------+  +---------+
+#   | | | |  | | | |     | | | |      | | | |
+#   | | | |  | | | +-----+ | | |      | | | |       feedback    reg.drone.service.actuator.common.Feedback
+#   | | | |  | | +---------+ | |      | | | |       status      reg.drone.service.actuator.common.Status
+#   | | | |  | +-------------+ |      | | | |       power       reg.drone.physics.electricity.PowerTs
+#   | | | |  +-----------------+      | | | |       kinetics    reg.drone.physics.kinetics.*1DTs
+#   | | | |                           | | | |
+#   | | | +---------------------------+ | | |
+#   | | +-------------------------------+ | |
+#   | +-----------------------------------+ |
+#   +---------------------------------------+
+#
 # If the selected arming state is SLEEP, the behavior is implementation-defined. Implementations are recommended to
 # power off the high-voltage circuitry and all non-essential components (e.g., LED indication, sensors, etc.)
 # to minimize the power consumption. The publication rate requirements do not apply if the arming state is SLEEP.
 #
-# The worst-case state arming transition latency is not defined.
+# The worst-case arming state transition latency is not defined.
 #
 # The following subjects shall be published immediately after a new setpoint is applied even if the servo is DISARMED:
 #
@@ -78,7 +111,7 @@
 # avoid aliasing effects. Implementations should strive to sample all parameters simultaneously.
 #
 # It is assumed that the servo is powered from a DC electric power supply network. A positive electric current
-# represents current flowing from the network into the servo.
+# represents current flowing from the DC network into the servo (negative represents regeneration).
 #
 # Excepting edge cases and transients, torque/force and current are generally of the same sign (barring the difference
 # introduced by the power dissipated by the servo itself).
