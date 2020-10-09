@@ -1,6 +1,7 @@
 # Drone
 
 This namespace contains the application-specific regulated DSDL namespace for aerial vehicles.
+This is the core piece of the [DS-015 UAVCAN Drone Standard](https://github.com/pixhawk/Pixhawk-Standards).
 If you have any questions, feel free to bring them to the [UAVCAN Forum](https://forum.uavcan.org/c/sig/drone-sig/17).
 
 This namespace contains two nested namespaces:
