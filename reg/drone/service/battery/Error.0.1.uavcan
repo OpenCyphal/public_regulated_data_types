@@ -30,10 +30,11 @@ uint8 OVERDISCHARGE = 50
 uint8 OVERLOAD = 51
 # The charge or discharge rate exceeds the safe operating limits.
 
-uint8 CELL_OVERVOLTAGE = 60
+uint8 CELL_OVERVOLTAGE  = 60
+uint8 CELL_UNDERVOLTAGE = 61
 # Voltage of one of the battery cells exceeds its SOA.
 
-uint8 CELL_COUNT = 61
+uint8 CELL_COUNT = 62
 # The sum of cell voltages is far from the total pack voltage.
 # The threshold is implementation-defined.
 
