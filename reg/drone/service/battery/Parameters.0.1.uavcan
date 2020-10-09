@@ -33,6 +33,7 @@ uavcan.si.unit.electric_current.Scalar.1.0 charge_termination_treshold  # End-of
 uavcan.si.unit.voltage.Scalar.1.0          charge_voltage               # Total charging voltage (not per-cell).
 # The key (dis-)charge parameters specified by the manufacturer for the pack.
 # This is a reflection of similar parameters from the Smart Battery Data Specification.
+# For non-rechargeable batteries all "charge_*" parameters should be NaN.
 
 uint16 cycle_count
 # The number of charge-discharge cycles. Zero if the battery is new. May increase at runtime.
