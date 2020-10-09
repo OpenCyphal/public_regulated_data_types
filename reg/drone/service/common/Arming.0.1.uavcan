@@ -3,7 +3,7 @@
 # A simple system would usually have one arming command subject published by some central controller
 # that other components subscribe to. Said subject acts as a global power switch. Every subsystem controlled in
 # such way would usually report its arming status back to account for the fact that the transition between the arming
-# status may not be instantaneous. The arming status reporting is done by means of the service heartbeat type
+# states may not be instantaneous. The arming status reporting is done by means of the service heartbeat type
 # that is also defined in this namespace; the service heartbeat type is a structural subtype of this arming type.
 #
 #   +------------+
@@ -38,12 +38,15 @@ uint2 SLEEP = 0
 # regardless of other requirements, except that it shall be able to reactivate itself if an Arming message is
 # received commanding any state other than SLEEP.
 
-uint2 DISARMED = 1
+# Value 1 is invalid and shall never be commanded.
+# Implementations receiving this value should interpret it either as SLEEP or DISARMED.
+
+uint2 DISARMED = 2
 # The state of being ready to enter the normal operating mode in a short order.
 # A subsystem that is DISARMED should be able to participate in the normal network activity.
 # This is the default state that the subsystem should reside in after power-on until explicitly commanded otherwise.
 
-uint2 ARMED = 2
+uint2 ARMED = 3
 # When ARMED, the subsystem is performing its main intended function at the nominal performance characteristics.
 # A subsystem may require a short amount of time, possibly under a few seconds, to switch between the ARMED and
 # DISARMED states.
