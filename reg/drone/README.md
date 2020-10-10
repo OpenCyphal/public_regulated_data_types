@@ -69,3 +69,16 @@ To gauge the worst case bus utilization in a particular application, use the
 (create a private copy and edit that).
 Multi-frame transfers are not expected to cause performance issues because the official
 UAVCAN implementation libraries are optimized for handling multi-frame transfers efficiently.
+
+## Conventions
+
+All physical quantities except error variance should be represented as `float32` by default.
+Error variance and covariance matrices should use `float16` by default.
+
+Covariance matrices should be represented as their upper-right triangles using the matrix packing rules
+defined in the Specification.
+
+Types with covariance should be suffixed `Cov`; types with timestamp should be suffixed `Ts`;
+types with both should be suffixed `CovTs`.
+The timestamp field, if present, should be the first one;
+error (co)variance information should follow the data field(s) it relates to.
