@@ -31,7 +31,7 @@
 #   | | | |  | | | +-----+ | | |      | | | |       feedback    reg.drone.service.actuator.common.Feedback  S+(i+1)*5+1
 #   | | | |  | | +---------+ | |      | | | |       status      reg.drone.service.actuator.common.Status    S+(i+1)*5+2
 #   | | | |  | +-------------+ |      | | | |       power       reg.drone.physics.electricity.PowerTs       S+(i+1)*5+3
-#   | | | |  +-----------------+      | | | |       kinetics    reg.drone.physics.kinetics.Angular1DTs      S+(i+1)*5+4
+#   | | | |  +-----------------+      | | | |       dynamics    reg.drone.physics.dynamics.Angular1DTs      S+(i+1)*5+4
 #   | | | |                           | | | |
 #   | | | +---------------------------+ | | |
 #   | | +-------------------------------+ | |
@@ -63,7 +63,7 @@
 #
 # While stopped, the drive may either allow the load to freewheel or it may force it to a particular parking position,
 # depending on the implementation requirements. The actual state of the load may be continuously reported using the
-# kinetics subject. Notice that per the safety rule introduced earlier, the parking position may be impossile
+# dynamics subject. Notice that per the safety rule introduced earlier, the parking position may be impossile
 # to enforce unless the drive is ARMED because it may require delivering power to the load.
 #
 # The setpoint message types that can be used to command a group of drives are defined in
@@ -126,7 +126,7 @@
 #   ---------------------------------------------
 #   feedback            same as the setpoint
 #   power               second to the setpoint
-#   kinetics            second to the setpoint
+#   dynamics            second to the setpoint
 #
 # If no setpoint is being published, these subjects should continue being updated at least at 1/MAX_PUBLICATION_PERIOD.
 # The publication rate requirements do not apply if the arming state is SLEEP.

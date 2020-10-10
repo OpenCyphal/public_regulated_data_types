@@ -38,7 +38,7 @@ For example, a COTS ESC may realistically implement the following:
 Another service that is interested in tracking the state of, say, a propeller drive
 (say, for thrust estimation) would not need to concern itself with the ESC service at all.
 Instead, it would simply subscribe to the generalized subject of type
-`reg.drone.physics.kinetics.Angular1DTs` published by the unit that drives the propeller
+`reg.drone.physics.dynamics.Angular1DTs` published by the unit that drives the propeller
 and extract its business-level information from that while being unaware of the specifics of the drive
 (the propeller drive may be changed from an electric motor to a turboprop engine without affecting the
 thrust estimation service).

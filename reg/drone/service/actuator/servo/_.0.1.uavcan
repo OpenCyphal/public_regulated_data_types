@@ -2,8 +2,8 @@
 #
 # The type of load (translational or rotary) dictates which type is used for commanding the setpoint and reporting
 # the status:
-#   - reg.drone.physics.kinetics.Linear1D[Ts]
-#   - reg.drone.physics.kinetics.Angular1D[Ts]
+#   - reg.drone.physics.dynamics.Linear1D[Ts]
+#   - reg.drone.physics.dynamics.Angular1D[Ts]
 # For generality, either or both of these types are referred to as "*1DTs" (timestamped) or "*1D" (non-timestamped).
 #
 # The default arming state is DISARMED. While disarmed, the servo is not allowed to apply force to the load,
@@ -15,7 +15,7 @@
 #
 #                    SUBJECT                            TYPE                                            RATE
 #
-#   +------------+   setpoint       +------------+      reg.drone.physics.kinetics.*1D  (see below)     R
+#   +------------+   setpoint       +------------+      reg.drone.physics.dynamics.*1D  (see below)     R
 #   |            |----------------->|            |
 #   |            |   arming         |            |      reg.drone.service.common.Arming                 any
 #   |            |----------------->|            |
@@ -25,7 +25,7 @@
 #   |            |<-----------------|            |
 #   |            |   power          |            |      reg.drone.physics.electricity.PowerTs           R
 #   |            |<-----------------|            |
-#   |            |   kinetics       |            |      reg.drone.physics.kinetics.*1DTs                R
+#   |            |   dynamics       |            |      reg.drone.physics.dynamics.*1DTs                R
 #   |            |<-----------------|            |
 #   +------------+                  +------------+
 #
@@ -36,7 +36,7 @@
 # that contains a finite value is taken as the commanded setpoint. The following non-negative finite fields define
 # the motion profile, where negative and non-finite values are ignored.
 #
-# For example, a linear kinetics message containing the following values:
+# For example, a linear dynamics message containing the following values:
 #   position     = +0.35
 #   velocity     = NaN
 #   acceleration = NaN
@@ -77,7 +77,7 @@
 #   | | | |  | | | +-----+ | | |      | | | |       feedback    reg.drone.service.actuator.common.Feedback
 #   | | | |  | | +---------+ | |      | | | |       status      reg.drone.service.actuator.common.Status
 #   | | | |  | +-------------+ |      | | | |       power       reg.drone.physics.electricity.PowerTs
-#   | | | |  +-----------------+      | | | |       kinetics    reg.drone.physics.kinetics.*1DTs
+#   | | | |  +-----------------+      | | | |       dynamics    reg.drone.physics.dynamics.*1DTs
 #   | | | |                           | | | |
 #   | | | +---------------------------+ | | |
 #   | | +-------------------------------+ | |
@@ -96,7 +96,7 @@
 #   ---------------------------------------------
 #   feedback            same as the setpoint
 #   power               second to the setpoint
-#   kinetics            second to the setpoint
+#   dynamics            second to the setpoint
 #
 # If no setpoint is being published, these subjects should continue being updated at least at 1/MAX_PUBLICATION_PERIOD.
 #
