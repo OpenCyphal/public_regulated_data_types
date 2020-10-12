@@ -132,5 +132,6 @@ uint8[<=260] payload
 # communication equipment. Refer to RFC 791 and 2460 for an in-depth review.
 # UAVCAN further limits the maximum packet size to reduce the memory and traffic burden on the nodes.
 
+@extent 512 * 8
 @assert _offset_ % 8 == {0}
 @assert _offset_.max / 8 == 313
