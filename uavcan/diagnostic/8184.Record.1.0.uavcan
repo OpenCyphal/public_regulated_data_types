@@ -11,4 +11,5 @@ uint8[<=112] text
 # Message text.
 # Normally, messages should be kept as short as possible, especially those of high severity.
 
+@extent 256 * 8
 @assert _offset_.max <= (124 * 8)     # Two CAN FD frames max

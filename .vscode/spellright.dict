@@ -390,3 +390,6 @@ deserializer
 BLS
 evolvable
 Protobuf
+allocatees
+Allocatee
+ABCD

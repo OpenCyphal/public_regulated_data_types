@@ -6,5 +6,6 @@ uavcan.time.SynchronizedTimestamp.1.0 timestamp
 uint9 CAPACITY_BYTES = 256
 uint8[<=CAPACITY_BYTES] data
 
+@sealed
 @assert _offset_ % 8 == {0}
 @assert _offset_.max / 8 <= 313

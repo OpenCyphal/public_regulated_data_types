@@ -3,7 +3,6 @@
 # It cannot be changed while the network is running.
 
 truncated uint4 value
-void4
 
 uint4 MONOTONIC_SINCE_BOOT = 0
 # Monotonic time since boot.
