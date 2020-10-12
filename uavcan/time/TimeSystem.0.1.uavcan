@@ -3,7 +3,6 @@
 # It cannot be changed while the network is running.
 
 truncated uint4 value
-void4
 
 uint4 MONOTONIC_SINCE_BOOT = 0
 # Monotonic time since boot.
@@ -19,4 +18,4 @@ uint4 TAI = 1
 uint4 APPLICATION_SPECIFIC = 15
 # Application-specific time system of unknown properties.
 
-@assert _offset_ % 8 == {0}
+@sealed

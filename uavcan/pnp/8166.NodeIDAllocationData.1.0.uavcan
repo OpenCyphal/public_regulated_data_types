@@ -55,5 +55,6 @@ uavcan.node.ID.1.0[<=1] allocated_node_id
 # Shall be empty in request messages.
 # Shall be populated in response messages.
 
+@sealed
 @assert _offset_.min / 8 == 7        # This is for requests only.
 @assert _offset_.max / 8 == 9        # Responses are non-anonymous, so they can be multi-frame.

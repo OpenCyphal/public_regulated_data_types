@@ -39,5 +39,3 @@ uint8[<=50] data_type_full_name
 uavcan.node.Version.1.0 data_type_version
 # The version numbers of the data type used at this port.
 # Zeros if the port does not exist.
-
-@assert _offset_ % 8 == {0}

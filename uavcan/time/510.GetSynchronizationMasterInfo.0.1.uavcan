@@ -24,6 +24,3 @@ TimeSystem.0.1 time_system
 TAIInfo.0.1 tai_info
 # Actual information about TAI provided by this master, if supported.
 # The fields in this data type are optional.
-
-@assert _offset_ % 8 == {0}
-@assert _offset_.max <= 56   # It is nice to have the response fit into one transport frame, although not required.

@@ -39,10 +39,6 @@ void30
 Path.1.0 source
 Path.1.0 destination
 
-@assert _offset_ % 8 == {0}
-
 ---
 
 Error.1.0 error
-
-@assert _offset_ % 8 == {0}

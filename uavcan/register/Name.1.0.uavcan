@@ -2,4 +2,4 @@
 
 uint8[<=50] name
 
-@assert _offset_ % 8 == {0}
+@sealed

@@ -19,7 +19,3 @@ bool is_readable            # The item can be read by the caller (applies to fil
 bool is_writeable           # The item can be written by the caller (applies to files and directories).
 # If such entry does not exist, all flags should be cleared/ignored.
 void4
-
-void64
-
-@assert _offset_ % 8 == {0}

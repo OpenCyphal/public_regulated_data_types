@@ -126,6 +126,3 @@ Value.1.0 value
 # By comparing the returned value against the write request the caller can determine whether the register
 # was written successfully, unless write was not requested.
 # An empty value shall never be returned for an existing register.
-
-@assert _offset_.min % 8 == 0
-@assert _offset_.max % 8 == 0

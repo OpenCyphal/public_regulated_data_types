@@ -81,5 +81,3 @@ uint8 STATUS_BAD_STATE      = 5     # The current state of the node does not per
 uint8 STATUS_INTERNAL_ERROR = 6     # The operation should have succeeded but an unexpected failure occurred
 uint8 status
 # The result of the request.
-
-void48

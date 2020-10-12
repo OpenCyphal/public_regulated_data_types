@@ -189,5 +189,4 @@ uint8[16] unique_id
 # own unique-ID, and ignore the message if there is no match. If the IDs match, then the field node_id contains
 # the allocated node-ID value for this node.
 
-@assert _offset_ % 8 == {0}
 @assert _offset_.max / 8 == 18

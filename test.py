@@ -9,7 +9,7 @@ from functools import partial
 
 MAX_SERIALIZED_BIT_LENGTH = 313 * 8     # See README
 MAX_LINE_LENGTH = 120
-NAMESPACES_EXEMPTED_FROM_HEADER_COMMENT_REQUIREMENT = 'uavcan.primitive', 'uavcan.si'
+HEADER_COMMENT_NOT_REQUIRED_IF_SMALLER_THAN = 100
 ALLOWED_CHARACTERS = set(string.digits + string.ascii_letters + string.punctuation + ' ')
 
 
@@ -70,10 +70,8 @@ for t in output:
 
         # Check header comment.
         if index == 0 and not line.startswith('# '):
-            if not any(map(lambda e: t.full_namespace.startswith(e),
-                           NAMESPACES_EXEMPTED_FROM_HEADER_COMMENT_REQUIREMENT)):
-                abort('Every data type definition shall have a header comment unless it is a member of:',
-                      NAMESPACES_EXEMPTED_FROM_HEADER_COMMENT_REQUIREMENT)
+            if len(t.attributes) > 2 or len(text) >= HEADER_COMMENT_NOT_REQUIRED_IF_SMALLER_THAN:
+                abort('This definition is not exempted from the header comment requirement')
 
         # Check trailing comment placement.
         # TODO: this test breaks on string literals containing "#".
@@ -100,9 +98,10 @@ for t in output:
 
 
 def get_max_bit_length(ty) -> int:
+    if isinstance(ty, pydsdl.DelimitedType):
+        ty = ty.inner_type
     if isinstance(ty, pydsdl.ServiceType):
-        return max(map(max, (ty.request_type.bit_length_set,
-                             ty.response_type.bit_length_set)))
+        return max(map(get_max_bit_length, [ty.request_type, ty.response_type]))
     else:
         return max(ty.bit_length_set)
 
