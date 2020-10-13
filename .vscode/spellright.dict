@@ -390,6 +390,12 @@ deserializer
 BLS
 evolvable
 Protobuf
+composable
+setpoint
+ESC
+Composability
+mocap
+DS-015
 allocatees
 Allocatee
 ABCD

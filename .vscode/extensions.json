@@ -4,5 +4,6 @@
     "recommendations": [
         "uavcan.dsdl",
         "ban.spellright",
+        "ctf0.auto-comment-next-line",
     ]
 }

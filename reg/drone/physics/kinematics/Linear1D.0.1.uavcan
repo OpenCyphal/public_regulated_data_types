@@ -1,0 +1,5 @@
+# Movement along an axis.
+uavcan.si.unit.length.Scalar.1.0       position         # Required
+uavcan.si.unit.velocity.Scalar.1.0     velocity         # Required, best guess if unknown
+uavcan.si.unit.acceleration.Scalar.1.0 acceleration     # Required, best guess if unknown
+@sealed
