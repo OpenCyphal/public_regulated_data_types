@@ -2,6 +2,6 @@ language: python
 python:
   - "3.8"
 before_install:
-  - pip install https://github.com/UAVCAN/pydsdl/archive/beta.zip
+  - pip install pydsdl
 script:
   - ./test.py
