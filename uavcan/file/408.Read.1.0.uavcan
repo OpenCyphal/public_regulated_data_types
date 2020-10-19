@@ -31,8 +31,12 @@ truncated uint40 offset
 
 Path.1.0 path
 
+@extent 300 * 8
+
 ---
 
 Error.1.0 error
 
 uint8[<=256] data
+
+@extent 300 * 8

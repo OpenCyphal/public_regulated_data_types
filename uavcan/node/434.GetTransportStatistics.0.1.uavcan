@@ -1,6 +1,8 @@
 # Returns a set of general low-level transport statistical counters.
 # Servers are encouraged but not required to sample the data atomically.
 
+@sealed
+
 ---
 
 uint8 MAX_NETWORK_INTERFACES = 3
@@ -18,3 +20,4 @@ IOStatistics.0.1[<=MAX_NETWORK_INTERFACES] network_interface_statistics
 # The methods of counting are implementation-defined.
 
 @assert _offset_.max <= (63 * 8)      # One CAN FD frame
+@extent 192 * 8

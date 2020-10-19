@@ -14,3 +14,5 @@ uint32 error_count
 FaultFlags.0.1 fault_flags
 
 # TODO: add vibration
+
+@extent 63 * 8  # Single-frame transfer over CAN FD.

@@ -4,6 +4,7 @@
 ID.1.0 port_id  # The port of interest; can be either a service or a message.
 
 @assert _offset_ == {24}
+@sealed
 
 ---
 
@@ -26,3 +27,4 @@ uavcan.node.IOStatistics.0.1 statistics
 # The exact definition of an error and the methods of their counting are implementation-defined.
 
 @assert _offset_ == {15 * 8}      # 15 bytes max; this service is optimized for high-frequency polling
+@extent 48 * 8
