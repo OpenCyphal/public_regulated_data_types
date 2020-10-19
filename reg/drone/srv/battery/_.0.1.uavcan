@@ -1,9 +1,9 @@
 # This is the smart battery monitoring service. A smart battery is required to publish the following subjects:
 #
 #   SUBJECT                 TYPE                                            TYP. RATE [Hz]
-#   energy source state     reg.drone.physics.electricity.SourceTs          1...100
-#   battery status          reg.drone.service.sensor.battery.Status         ~1
-#   battery parameters      reg.drone.service.sensor.battery.Parameters     ~0.2
+#   energy source state     reg.drone.phy.electricity.SourceTs              1...100
+#   battery status          reg.drone.srv.sensor.battery.Status             ~1
+#   battery parameters      reg.drone.srv.sensor.battery.Parameters         ~0.2
 #
 # Observe that only the first subject can be used for estimating the endurance of the power source. The other subjects
 # are designed for monitoring, diagnostics, and maintenance.

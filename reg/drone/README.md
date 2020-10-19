@@ -6,8 +6,8 @@ If you have any questions, feel free to bring them to the [UAVCAN Forum](https:/
 
 This namespace contains the following nested namespaces:
 
-- `physics` -- abstract physical processes and states in the system.
-- `service` -- narrowly specialized types for common device classes.
+- `phy` -- abstract physical processes and states in the system.
+- `srv` -- narrowly specialized types for common device classes.
 
 ## Composable services
 
@@ -22,7 +22,7 @@ Make sure you understand the basic principles of service-oriented design.
 As a quick primer, [read Wikipedia](https://en.wikipedia.org/wiki/Service-oriented_architecture).
 For a more in-depth review, please read [The UAVCAN Guide](https://uavcan.org/guide).
 
-The concrete service definitions given in the `service` namespace are intended for service implementers
+The concrete service definitions given in the `srv` namespace are intended for service implementers
 in the first place.
 If your objective is to depend on a service, then focus your attention on the other namespaces,
 because they provide a generalized view of common processes that is invariant to the means of their implementation.
@@ -32,13 +32,13 @@ For example, a COTS ESC may realistically implement the following:
 
 - Naturally, the ESC service.
 - The servo service for generality.
-- Acoustic feedback by subscribing to `reg.drone.physics.acoustics.Note`.
-- Visual feedback via the LED by subscribing to `reg.drone.physics.optics.HighColor`.
+- Acoustic feedback by subscribing to `reg.drone.phy.acoustics.Note`.
+- Visual feedback via the LED by subscribing to `reg.drone.phy.optics.HighColor`.
 
 Another service that is interested in tracking the state of, say, a propeller drive
 (say, for thrust estimation) would not need to concern itself with the ESC service at all.
 Instead, it would simply subscribe to the generalized subject of type
-`reg.drone.physics.dynamics.Angular1DTs` published by the unit that drives the propeller
+`reg.drone.phy.dynamics.Angular1DTs` published by the unit that drives the propeller
 and extract its business-level information from that while being unaware of the specifics of the drive
 (the propeller drive may be changed from an electric motor to a turboprop engine without affecting the
 thrust estimation service).
