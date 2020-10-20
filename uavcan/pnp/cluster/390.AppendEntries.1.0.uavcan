@@ -87,9 +87,12 @@ Entry.1.0[<=1] entries
 # This is the amount of time it will take for a new Follower to reconstruct a full replica of the distributed log.
 
 @assert _offset_ % 8 == {0}
+@extent 96 * 8
 
 ---
 
 uint32 term
 bool success
 # Refer to the Raft paper for explanation.
+
+@extent 48 * 8

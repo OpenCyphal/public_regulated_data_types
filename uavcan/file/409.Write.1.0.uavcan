@@ -15,6 +15,10 @@ Path.1.0 path
 
 uint8[<=192] data   # 192 = 128 + 64; the write protocol permits usage of smaller chunks.
 
+@extent 600 * 8
+
 ---
 
 Error.1.0 error
+
+@extent 48 * 8
