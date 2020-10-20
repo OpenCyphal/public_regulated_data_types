@@ -53,13 +53,22 @@ Composability is desirable for high-integrity systems also because it facilitate
 testing and confines changes to a smaller number of subsystems,
 thus reducing the costs of validation and verification.
 
+## Typical applications
+
+The definitions in the `srv` namespace contain descriptions of some common use cases
+that can be addressed with this standard.
+Adopters are expected to mix and match various components to create new network services that were not originally
+envisioned by the authors of this standard.
+This is possible while retaining full vendor-agnostic compatibility thanks to the service composability capabilities
+described earlier.
+
 ## Bandwidth utilization
 
 Being forward-looking, this design is optimized for transports that offer
 the data rates of at least ~4 Mbps and the MTU of at least ~64 bytes.
 It is expected that in the foreseeable future all new applications will be leveraging transports whose
 data transfer capability is at this level or higher
-(this includes, for example, UAVCAN/CAN over CAN FD, UAVCAN/UDP over Ethernet, etc).
+(this includes, for example, UAVCAN/CAN over CAN FD, UAVCAN/UDP over Ethernet, UAVCAN/serial over RS-422 or USB, etc).
 
 Applications relying on Classic CAN (maximum data rate ca. 1 Mbps, MTU 8 bytes) can still deploy these network services,
 but the designer needs to be aware that most transfers will be multi-frame transfers and the resulting bus utilization
