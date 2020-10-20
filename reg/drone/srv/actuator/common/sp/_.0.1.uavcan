@@ -19,3 +19,5 @@
 float16 EPSILON = 2 ** -11
 # The float epsilon defined for convenience.
 # See https://en.wikipedia.org/wiki/Machine_epsilon.
+
+@extent 0  # This type is not intended for runtime use.

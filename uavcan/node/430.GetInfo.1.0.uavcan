@@ -2,6 +2,8 @@
 # All of the returned information shall be static (unchanged) while the node is running.
 # It is highly recommended to support this service on all nodes.
 
+@sealed
+
 ---
 
 Version.1.0 protocol_version
@@ -61,3 +63,4 @@ uint8[<=222] certificate_of_authenticity
 
 @assert _offset_ % 8 == {0}
 @assert _offset_.max == (313 * 8)     # At most five CAN FD frames
+@extent 448 * 8

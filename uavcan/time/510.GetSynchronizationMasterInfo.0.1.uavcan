@@ -7,6 +7,8 @@
 # An implication of this is that if there are redundant time synchronization masters, they all shall
 # use the same time system always.
 
+@extent 48 * 8
+
 ---
 
 float32 error_variance      # [second^2]
@@ -24,3 +26,5 @@ TimeSystem.0.1 time_system
 TAIInfo.0.1 tai_info
 # Actual information about TAI provided by this master, if supported.
 # The fields in this data type are optional.
+
+@extent 192 * 8

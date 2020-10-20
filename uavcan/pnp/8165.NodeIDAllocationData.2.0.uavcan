@@ -190,3 +190,4 @@ uint8[16] unique_id
 # the allocated node-ID value for this node.
 
 @assert _offset_.max / 8 == 18
+@extent 48 * 8

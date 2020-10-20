@@ -6,7 +6,11 @@
 
 uint16 index
 
+@sealed
+
 ---
 
 Name.1.0 name
 # Empty name in response means that the index is out of bounds, i.e., discovery is finished.
+
+@sealed

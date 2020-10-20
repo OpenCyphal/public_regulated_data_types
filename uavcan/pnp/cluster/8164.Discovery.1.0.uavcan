@@ -23,3 +23,4 @@ uavcan.node.ID.1.0[<=5] known_nodes
 # Node-IDs of the allocators that are known to the publishing allocator, including the publishing allocator itself.
 
 @assert _offset_ % 8 == {0}
+@extent 96 * 8
