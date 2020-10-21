@@ -1,4 +1,4 @@
-# A generic air data computer (ADC) service.
+# A generic air data computer service.
 #
 # An air data computer service is generally a non-interactive publish-only service: when activated,
 # it keeps publishing its measurements at a fixed rate over several subjects until deactivated.
@@ -6,17 +6,17 @@
 # The data update rates and other parameters are controlled via the Register API using implementation-defined
 # register names.
 #
-# An ADC whose arming state is SLEEP is allowed to cease all network activity.
+# An air data computer whose arming state is SLEEP is allowed to cease all network activity.
 #
-# An ADC whose arming state is DISARMED is recommended to behave as if its state was ARMED;
+# An air data computer whose arming state is DISARMED is recommended to behave as if its state was ARMED;
 # implementations are recommended to leverage this state to perform any necessary maintenance activities
-# such as calibration, self-heating, etc. The ADC should not report its own status as ARMED until said
+# such as calibration, self-heating, etc. The service should not report its own status as ARMED until said
 # maintenance activities have been completed. Therefore, the high-level controler (e.g., the flight
-# management unit) may delay the take-off until the ADC is ready.
+# management unit) may delay the take-off until the service is ready.
 #
-# An ADC whose arming state is ARMED is required to comply with the requirements set out below.
+# An air data computer whose arming state is ARMED is required to comply with the requirements set out below.
 #
-# An armed ADC should publish the following data subjects synchronously at the same configurable rate
+# An armed service should publish the following data subjects synchronously at the same configurable rate
 # which should not be lower than the specified limit. The measurements should be low-pass filtered
 # to avoid frequency aliasing effects.
 #
@@ -27,17 +27,18 @@
 #   static air data         reg.drone.phy.thermodynamics.PressureTempCovTs      pressure and OAT
 #
 # Observe that there is no subject for indicated airspeed. This is because per the principles of service-oriented
-# design, the ADC is responsible for applying the necessary transformations on its data to render it ready for
-# consumption by clients. If desired, indicated airspeed may be reported over an implementation-defined subject.
+# design, the air data computer is responsible for applying the necessary transformations on its data to render it
+# ready for consumption by clients. If desired, indicated airspeed may be reported over an implementation-defined
+# subject.
 #
-# In addition to the above, an armed ADC should publish the following service subjects at an implementation-defined
+# In addition to the above, an armed service should publish the following service subjects at an implementation-defined
 # rate that should not be lower than the specified limit:
 #
 #   PUBLISHED SUBJECT       TYPE
 #   heartbeat               reg.drone.srv.common.Heartbeat
 #
-# Despite being a non-interactive service, an ADC is recommended to subscribe to the arming command subject.
-# This recommendation may be omitted if the ADC does not support arming state selection, in which case it should
+# Despite being a non-interactive service, it is recommended to subscribe to the arming command subject.
+# This recommendation may be omitted if the service does not support arming state selection, in which case it should
 # always report itself as being ARMED.
 #
 #   SUBSCRIBED SUBJECT      TYPE
