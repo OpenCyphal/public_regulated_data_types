@@ -87,7 +87,7 @@ Error variance and covariance matrices should use `float16` by default.
 Covariance matrices should be represented as their upper-right triangles using the matrix packing rules
 defined in the Specification.
 
-Types with covariance should be suffixed `Cov`; types with timestamp should be suffixed `Ts`;
-types with both should be suffixed `CovTs`.
+Types with (co)variance should be suffixed `Var`; types with timestamp should be suffixed `Ts`;
+types with both should be suffixed `VarTs`.
 The timestamp field, if present, should be the first one;
 error (co)variance information should follow the data field(s) it relates to.
