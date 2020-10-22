@@ -103,3 +103,5 @@ Types with (co)variance should be suffixed `Var`; types with timestamp should be
 types with both should be suffixed `VarTs`.
 The timestamp field, if present, should be the first one;
 error (co)variance information should follow the data field(s) it relates to.
+
+Publishers of measurements or estimates should apply low-pass filtering to avoid frequency aliasing.
