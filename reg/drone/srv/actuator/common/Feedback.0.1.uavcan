@@ -4,7 +4,7 @@
 # be lower than the defined limit.
 # The priority of this message should be the same as that of the corresponding setpoint message.
 
-reg.drone.service.common.Heartbeat.0.1 heartbeat
+reg.drone.srv.common.Heartbeat.0.1 heartbeat
 # If armed, the actuator provides service according to its nominal performance characteristics.
 # Otherwise, no availability guarantees are provided.
 # Notice that the feedback type is a structural subtype of the heartbeat type, so one can subscribe to a
