@@ -64,19 +64,60 @@
 # The values of registers containing non-scalar numerical entities should be compared elementwise.
 #
 # The following table specifies the register name patterns that are reserved by the specification for
-# common functions. Implementers should always follow these conventions whenever applicable.
-# The table uses the following abbreviations for register flags:
-#   - M - mutable, I - immutable
-#   - P - persistent, V - volatile
+# common functions. These conventions are not mandatory to follow, but implementers are recommended to adhere because
+# they enable enhanced introspection capabilities and simplify device configuration and diagnostics.
 #
-#   Name pattern        | Flags | Type      | Purpose
-# ----------------------+-------+-----------+--------------------------------------------------------------------------
-#   uavcan.node_id      | MP    | uint16    | Contains the node-ID of the local node. Values above the maximum valid
-#                       |       |           | node-ID for the current transport indicate that the node-ID is not set;
-#                       |       |           | if plug-and-play is supported, it will be used by the node to obtain an
-#                       |       |           | automatic node-ID. Invalid values other than 65535 should be avoided for
-#                       |       |           | consistency. The factory-default value should be 65535.
-# ----------------------+-------+-----------+--------------------------------------------------------------------------
+#   REGISTER NAME PATTERN (POSIX ERE)                 TYPE            FLAGS                   RECOMMENDED DEFAULT
+# =====================================================================================================================
+#
+#   uavcan\.node\.id                                  natural16       mutable, persistent     65535 (unset/PnP)
+#
+# Contains the node-ID of the local node. Values above the maximum valid node-ID for the current transport
+# indicate that the node-ID is not set; if plug-and-play is supported, it will be used by the node to obtain an
+# automatic node-ID. Invalid values other than 65535 should be avoided for consistency.
+#
+# ---------------------------------------------------------------------------------------------------------------------
+#
+#   uavcan\.node\.description                         string          mutable, persistent     (empty)
+#
+# Human-readable verbose description of this specific node defined by the integrator (not vendor).
+#
+# ---------------------------------------------------------------------------------------------------------------------
+#
+#   uavcan\.cookie                                    string          mutable, persistent     (empty)
+#
+# Arbitrary data stored by an external autoconfiguration authority (e.g., a mission computer, an auto-configuration
+# utility, etc.). This data is never to be used by the node itself; instead, the node merely provides raw data
+# storage space.
+#
+# ---------------------------------------------------------------------------------------------------------------------
+#
+#   uavcan\.pub\.[a-zA-Z_][a-zA-Z0-9_]{0,34}\.id      natural16       mutable, persistent     65535 (unset, invalid)
+#   uavcan\.sub\.[a-zA-Z_][a-zA-Z0-9_]{0,34}\.id      ...             ...                     ...
+#   uavcan\.cln\.[a-zA-Z_][a-zA-Z0-9_]{0,34}\.id      ...             ...                     ...
+#   uavcan\.srv\.[a-zA-Z_][a-zA-Z0-9_]{0,34}\.id      ...             ...                     ...
+#
+# Publication/subscription/client/server port-ID, respectively. These registers are configured by the system integrator
+# when the node is connected to a network. The parenthesized pattern contains the human-friendly name of the port
+# which shall not be longer than 34 symbols due to the total register name length limit.
+# A port whose port-ID register is unset (invalid value) remains inactive (unused).
+# For example, a register named "uavcan.pub.measurement.id" defines the port-ID of a measurement published by this node.
+# The same name is used in other similar registers defined below. Network introspection and autoconfiguration tools
+# will expect to find a register of this form for every configurable port supported by the node.
+#
+# ---------------------------------------------------------------------------------------------------------------------
+#
+#   uavcan\.pub\.[a-zA-Z_][a-zA-Z0-9_]{0,34}\.type    string          immutable, persistent   N/A
+#   uavcan\.sub\.[a-zA-Z_][a-zA-Z0-9_]{0,34}\.type    ...             ...                     ...
+#   uavcan\.cln\.[a-zA-Z_][a-zA-Z0-9_]{0,34}\.type    ...             ...                     ...
+#   uavcan\.srv\.[a-zA-Z_][a-zA-Z0-9_]{0,34}\.type    ...             ...                     ...
+#
+# Publication/subscription/client/server full data type name and dot-separated version numbers, respectively.
+# These registers are set by the vendor once and typically they are to remain unchanged (hence "immutable").
+# The parenthesized pattern contains the human-friendly name of the port, same as above.
+# For example, a register named "uavcan.pub.measurement.type" may contain "uavcan.si.sample.angle.Quaternion.1.0".
+#
+# ---------------------------------------------------------------------------------------------------------------------
 
 Name.1.0 name
 # The name of the accessed register. Shall not be empty.
