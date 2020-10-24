@@ -7,12 +7,12 @@ reg.drone.srv.common.Heartbeat.0.1 heartbeat
 # after another, the depletion of energy in the first battery is not a fault condition and it should not be reported
 # as such. This follows from the good service design principles reviewed in https://uavcan.org/guide.
 #
-# The arming state depicts the ability of the battery (or its power electronics) to deliver full rated power
+# The readiness state depicts the ability of the battery (or its power electronics) to deliver full rated power
 # and whether the overdischarge protections are active.
-# When the battery is not armed, it may limit the output power below the nominal rated value and disconnect the load
+# When the battery is not ENGAGED, it may limit the output power below the nominal rated value and disconnect the load
 # should the charge level fall below the critical level.
-# When the battery is armed, it is not permitted to limit the output power or energy regardless of the risk of damage.
-# If the adaptive protection is not supported, the battery should always report its status as ARMED.
+# When the battery is ENGAGED, it is not permitted to limit the output power or energy regardless of the risk of damage.
+# If the adaptive protection is not supported, the battery should always report its status as ENGAGED.
 
 uavcan.si.unit.temperature.Scalar.1.0[2] temperature_min_max
 # The minimum and maximum readings of the pack temperature sensors.

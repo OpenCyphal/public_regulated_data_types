@@ -5,11 +5,11 @@
 # The priority of this message should be the same as that of the corresponding setpoint message.
 
 reg.drone.srv.common.Heartbeat.0.1 heartbeat
-# If armed, the actuator provides service according to its nominal performance characteristics.
+# If ENGAGED, the actuator provides service according to its nominal performance characteristics.
 # Otherwise, no availability guarantees are provided.
 # Notice that the feedback type is a structural subtype of the heartbeat type, so one can subscribe to a
 # feedback subject using the heartbeat type. Similarly, the heartbeat type is a structural subtype of the
-# Arming state type, meaning that one can use the Arming type as well.
+# Readiness type, meaning that one can use the Readiness type as well.
 
 int8 demand_factor_pct  # [percent]
 # Percentage of the maximum rated output intensity. May exceed +-100% in case of overload.

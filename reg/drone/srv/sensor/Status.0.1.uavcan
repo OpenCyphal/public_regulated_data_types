@@ -8,7 +8,7 @@ uavcan.si.unit.duration.Scalar.1.0 data_validity_period
 # Expired data should be discarded.
 
 uint32 error_count
-# Incremented once per occurrence. Reset to zero when armed.
+# Incremented once per occurrence. Reset to zero when the sensor is ENGAGED.
 # The exact definition of what constitutes an error is implementation-dependent.
 
 uavcan.si.unit.temperature.Scalar.1.0 sensor_temperature

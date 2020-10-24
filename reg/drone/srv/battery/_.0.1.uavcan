@@ -8,22 +8,22 @@
 # Observe that only the first subject can be used for estimating the endurance of the power source. The other subjects
 # are designed for monitoring, diagnostics, and maintenance.
 #
-# Optionally, the battery service can subscribe to an arming command subject (see drone.common.Arming), which enables
-# the following two optional capabilities:
+# Optionally, the battery service can subscribe to a readiness control subject (see reg.drone.srv.common.Readiness),
+# which enables the following two optional capabilities:
 #
-#   - SLEEP mode: when the arming subject commands the sleep state, the battery management system may enter a
+#   - SLEEP mode: when the readiness subject commands the sleep state, the battery management system may enter a
 #     low power consumption state, possibly deactivating some of its capabilities.
 #
-#   - DISARMED mode: the battery management system may implement additional safety protections that may otherwise
+#   - STANDBY mode: the battery management system may implement additional safety protections that may otherwise
 #     interfere with the normal operation of the vehicle. For example, the traction battery may limit the maximum
-#     load current and the depth of discharge unless the commanded state is ARMED. By doing so, the battery can
+#     load current and the depth of discharge unless the commanded state is ENGAGED. By doing so, the battery can
 #     protect itself and the supplied high-voltage DC network from accidental damage while the vehicle is parked.
 #     Limiting the output power or discharge of the traction battery might lead to catastrophic consequences in
-#     an aerial vehicle, hence such safety checks are to be disabled once the battery is commanded into the ARMED
+#     an aerial vehicle, hence such safety checks are to be disabled once the battery is commanded into the ENGAGED
 #     state.
 #
-# If the advanced arming capabilities are not supported, the battery may not subscribe to the arming subject,
-# in which case it should permanently report its state as ARMED unless the battery is unfit for use (e.g., due
+# If readiness state selection is not supported, the battery may not subscribe to the readiness control subject,
+# in which case it should permanently report its state as ENGAGED unless the battery is unfit for use (e.g., due
 # to degradation of a failure).
 #
 # By convention, positive power (current) flows from the DC network into the battery. Therefore, the current is

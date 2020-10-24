@@ -6,8 +6,8 @@
 #   - reg.drone.phy.dynamics.trans.Linear[Ts]
 # For generality, either or both of these types are referred to as "timestamped dynamics" or "non-timestamped dynamics".
 #
-# The default arming state is DISARMED. While disarmed, the servo is not allowed to apply force to the load,
-# and the setpoint subject is ignored. The servo shall enter the disarmed state automatically if the arming subject
+# The default readiness state is STANDBY. While in this state, the servo is not allowed to apply force to the load,
+# and the setpoint subject is ignored. The servo shall enter the STANDBY state automatically if the readiness subject
 # is not updated for CONTROL_TIMEOUT.
 #
 # The subjects defined by this service are shown on the following canvas. Implementers are encouraged to add
@@ -17,7 +17,7 @@
 #
 #   +------------+   setpoint       +------------+      (non-timestamped dynamics) (see below)          R
 #   |            |----------------->|            |
-#   |            |   arming         |            |      reg.drone.srv.common.Arming                     any
+#   |            |   readiness      |            |      reg.drone.srv.common.Readiness                  any
 #   |            |----------------->|            |
 #   |            |   feedback       |            |      reg.drone.srv.actuator.common.Feedback          R
 #   |            |<-----------------|            |
@@ -32,7 +32,7 @@
 # Should it be necessary to control a group of servos in lockstep, an arbitrary number of them may subscribe
 # to the same setpoint subject (their published subjects would be different of course).
 #
-# If the servo is ARMED, setpoint messages are processed as follows: the first field of the kinematic setpoint type
+# If the servo is ENGAGED, setpoint messages are processed as follows: the first field of the kinematic setpoint type
 # that contains a finite value is taken as the commanded setpoint. The following non-negative finite fields define
 # the motion profile, where negative and non-finite values are ignored.
 #
@@ -67,7 +67,7 @@
 #                                                   SUBJECT     TYPE
 #  +----------------+
 #  |   Controller   |---------+------------+----... setpoint    reg.drone.srv.actuator.common.sp.*
-#  |                |-------+-)----------+-)----... arming      reg.drone.srv.common.Arming
+#  |                |-------+-)----------+-)----... readiness   reg.drone.srv.common.Readiness
 #  +----------------+       | |          | |
 #   ^ ^ ^ ^  ^ ^ ^ ^        v v          v v
 #   | | | |  | | | |   +---------+  +---------+
@@ -84,13 +84,13 @@
 #   | +-----------------------------------+ |
 #   +---------------------------------------+
 #
-# If the selected arming state is SLEEP, the behavior is implementation-defined. Implementations are recommended to
+# If the selected readiness state is SLEEP, the behavior is implementation-defined. Implementations are recommended to
 # power off the high-voltage circuitry and all non-essential components (e.g., LED indication, sensors, etc.)
-# to minimize the power consumption. The publication rate requirements do not apply if the arming state is SLEEP.
+# to minimize the power consumption. The publication rate requirements do not apply if the state is SLEEP.
 #
-# The worst-case arming state transition latency is not defined.
+# The worst-case readiness state transition latency is not defined.
 #
-# The following subjects shall be published immediately after a new setpoint is applied even if the servo is DISARMED:
+# The following subjects shall be published immediately after a new setpoint is applied even if the servo is STANDBY:
 #
 #   SUBJECT             RECOMMENDED PRIORITY
 #   ---------------------------------------------
