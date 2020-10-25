@@ -1,7 +1,7 @@
 # Subject-ID. The ranges are defined by the specification.
 
+uint13 MAX = 8191
+
 uint13 value
-void3
 
 @sealed
-@assert _offset_ == {16}
