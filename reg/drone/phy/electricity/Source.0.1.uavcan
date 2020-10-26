@@ -3,8 +3,8 @@
 
 Power.0.1 power
 # Total instant load power.
-# Positive current flows into the source (regeneration/consumption).
-# Negative current flows from the source to the load (discharge/production).
+# Positive current flows into the source (power sinking).
+# Negative current flows from the source to the power supply network (power sourcing).
 
 uavcan.si.unit.energy.Scalar.1.0 energy
 # A pessimistic estimate of the amount of energy that can be reclaimed from the source in its current state.

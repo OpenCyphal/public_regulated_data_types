@@ -1,19 +1,9 @@
 # Description of a generic musical note in terms of basic physical quantities.
-# This type may be used to control sound notification emitters.
+#
+# This type may be used to control sound notification emitters assuming the best effort policy:
+# if the requested parameters exceed the capabilities of the emitter, the closest possible values should be assumed.
 
 uavcan.si.unit.frequency.Scalar.1.0 frequency
-# If the requested frequency is outside of the supported range, the command should be ignored.
-# A non-positive or non-finite value here renders the command invalid.
-
 uavcan.si.unit.duration.Scalar.1.0 duration
-# If the requested duration is longer than the supported maximum, the maximum valid duration should be assumed.
-# If a new command is received while another one is being played, the new command takes precedence and the old one
-# is canceled.
-# A non-positive or non-finite value here renders the command invalid.
-
 uavcan.si.unit.power.Scalar.1.0 acoustic_power
-# Desired acoustic power output.
-# The emitter should apply best effort to comply, but there are no accuracy requirements.
-# Emitters that are unable to adjust the acoustic power would ignore this parameter.
-
 @sealed

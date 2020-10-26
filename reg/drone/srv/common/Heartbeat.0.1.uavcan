@@ -4,12 +4,12 @@
 # The service heartbeat should be published either on a separate subject, or as a structural supertype of a
 # service-specific status subject. The publication rate is service-specific but it should not be lower than 1 Hz.
 #
-# This is a structural subtype of the Arming type.
+# This is a structural subtype of the Readiness type.
 
 uint8 MAX_PUBLICATION_PERIOD = 1
 # Any service that is not in the SLEEP state should publish its heartbeat (or a derived status) at least at this rate.
 
-Arming.0.1 arming
+Readiness.0.1 readiness
 uavcan.node.Health.1.0 health
 
 @sealed

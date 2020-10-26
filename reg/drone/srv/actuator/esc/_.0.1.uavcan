@@ -10,10 +10,9 @@
 #     Every message is consumed by all participants according to their index in the group.
 #     The setpoint subject defines the group. There may be an arbitrary number of such groups in the network.
 #
-#   - Arming subject. Every participant subscribes to the same arming subject which is used to command the
-#     state of the group: sleep, disarmed, or armed. In many cases there will be one global arming subject
-#     controlling the state of the entire system; in other cases there will be dedicated arming controls on a
-#     per-subsystem basis.
+#   - Readiness subject. Every participant subscribes to the same readiness control subject which is used to command
+#     the state of the group: sleep, standby, or engaged. In many cases there will be one global subject controlling
+#     the state of the entire system; in other cases there will be dedicated controls on a per-subsystem basis.
 #
 #   - Individual subjects, whose subject-ID is offset from the setpoint subject-ID `S` as a function of
 #     group member index `i` as specified below.
@@ -21,7 +20,7 @@
 #                                                   SUBJECT     TYPE                                        SUBJECT-ID
 #  +----------------+
 #  |   Controller   |---------+------------+----... setpoint    reg.drone.srv.actuator.common.sp.*          S
-#  |                |-------+-)----------+-)----... arming      reg.drone.srv.common.Arming                 S+1
+#  |                |-------+-)----------+-)----... readiness   reg.drone.srv.common.Readiness              S+1
 #  +----------------+       | |          | |
 #   ^ ^ ^ ^  ^ ^ ^ ^        v v          v v
 #   | | | |  | | | |   +---------+  +---------+
@@ -49,9 +48,9 @@
 #
 #   SETPOINT SUBJECT
 #
-# The setpoint subject is ignored unless the drive is ARMED. As long as the drive is not ARMED, it shall not apply
+# The setpoint subject is ignored unless the drive is ENGAGED. As long as the drive is not ENGAGED, it shall not apply
 # any power to the load excepting non-operational scenarios such as maintenance and diagnostics, which are
-# outside of the scope of this service definition. More on arming and safety in the next section.
+# outside of the scope of this service definition. More on readiness and safety in the next section.
 #
 # Upon reception of a setpoint message, a group participant fetches its setpoint from the array using the array
 # element whose index equals the index of the group participant. By virtue of the Implicit Zero Extension Rule,
@@ -64,7 +63,7 @@
 # While stopped, the drive may either allow the load to freewheel or it may force it to a particular parking position,
 # depending on the implementation requirements. The actual state of the load may be continuously reported using the
 # dynamics subject. Notice that per the safety rule introduced earlier, the parking position may be impossile
-# to enforce unless the drive is ARMED because it may require delivering power to the load.
+# to enforce unless the drive is ENGAGED because it may require delivering power to the load.
 #
 # The setpoint message types that can be used to command a group of drives are defined in
 # reg.drone.srv.actuator.common.sp; please read the documentation related to that namespace for further information.
@@ -94,33 +93,33 @@
 #  -  A non-finite setpoint is to be treated as zero.
 #
 #
-#   ARMING SUBJECT
+#   READINESS SUBJECT
 #
-# The default state is DISARMED. While disarmed, the drive is not allowed to deliver power to the load,
-# and the setpoint subject is ignored. The drive shall enter the disarmed state automatically if the arming subject
+# The default state is STANDBY. While in this state, the drive is not allowed to deliver power to the load,
+# and the setpoint subject is ignored. The drive shall enter this state automatically if the readiness subject
 # is not updated for CONTROL_TIMEOUT.
 #
-# While the drive is ARMED, the setpoint commands are processed normally as described in the adjacent section.
+# While the drive is ENGAGED, the setpoint commands are processed normally as described in the adjacent section.
 # If the drive does not support bidirectional operation, implementations are recommended to ensure that the load
-# is driven at some minimum power level (idling) while the drive is armed regardless of the commanded setpoint,
+# is driven at some minimum power level (idling) while the drive is ENGAGED regardless of the commanded setpoint,
 # unless such behavior is deemed incompatible with the functional requirements of the controlled drive.
 #
-# If the selected arming state is SLEEP, the behavior is implementation-defined. Implementations are recommended to
+# If the selected readiness state is SLEEP, the behavior is implementation-defined. Implementations are recommended to
 # power off the high-voltage circuitry and all non-essential components (e.g., LED indication, sensors, etc.)
 # to minimize the power consumption.
 #
-# Implementations are recommended to announce transitions between the arming states using audiovisual feedback.
+# Implementations are recommended to announce transitions between the readiness states using audiovisual feedback.
 #
 # The worst-case state transition latency is not defined. The controlling element (that is, the unit that publishes
-# to the setpoint and arming subjects) is expected to monitor the actual arming status of each component using
+# to the setpoint and readiness subjects) is expected to monitor the actual readiness status of each component using
 # the feedback subject. For example, a sensorless electric motor drive may choose to spool-up before entering the
-# ARMED state, which would obviously take time; as soon as the spool-up is finished, the drive would switch its
-# reported status from DISARMED to ARMED, thereby indicating that it is ready for normal operation.
+# ENGAGED state, which would obviously take time; as soon as the spool-up is finished, the drive would switch its
+# reported status from STANDBY to ENGAGED, thereby indicating that it is ready for normal operation.
 #
 #
 #   PUBLISHED SUBJECTS
 #
-# The following subjects shall be published immediately after a new setpoint is applied even if the drive is DISARMED:
+# The following subjects shall be published immediately after a new setpoint is applied even if the drive is STANDBY:
 #
 #   SUBJECT             RECOMMENDED PRIORITY
 #   ---------------------------------------------
@@ -129,7 +128,7 @@
 #   dynamics            second to the setpoint
 #
 # If no setpoint is being published, these subjects should continue being updated at least at 1/MAX_PUBLICATION_PERIOD.
-# The publication rate requirements do not apply if the arming state is SLEEP.
+# The publication rate requirements do not apply if the readiness state is SLEEP.
 #
 # If the setpoint publication rate exceeds 50 Hz, implementations are allowed (but not required) to throttle these
 # subjects by dropping some of the messages such that the publication rate of each subject does not exceed 50 Hz.

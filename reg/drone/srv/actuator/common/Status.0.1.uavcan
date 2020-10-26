@@ -8,7 +8,7 @@ uavcan.si.unit.temperature.Scalar.1.0 controller_temperature
 # Sampled temperatures. If multiple values are available, reduction is implementation-defined.
 
 uint32 error_count
-# Incremented once per occurrence. Reset to zero when armed.
+# Incremented once per occurrence. Reset to zero when ENGAGED.
 # The exact definition of what constitutes an error is implementation-dependent.
 
 FaultFlags.0.1 fault_flags

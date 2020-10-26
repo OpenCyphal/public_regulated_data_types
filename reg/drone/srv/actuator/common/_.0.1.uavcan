@@ -4,7 +4,7 @@
 
 float32 CONTROL_TIMEOUT = 1.0  # [seconds]
 # The actuator is allowed to enter a safe state (e.g., stop the controlled mechanism, disconnect itself from
-# the load, etc. depending on the specifics of the application at hand) if no setpoint or arming messages
+# the load, etc. depending on the specifics of the application at hand) if no setpoint or readiness control messages
 # have been received in this amount of time. Implementations are allowed to reduce this value, but never increase it.
 
 uint8 MAX_PUBLICATION_PERIOD = 1  # [second]
