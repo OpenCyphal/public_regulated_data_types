@@ -5,7 +5,7 @@
 uint16 CAPACITY = ServiceID.1.0.MAX + 1
 
 bool[CAPACITY] mask
-# The index represents the identifier value. True  -- present/used. False -- absent/unused.
+# The index represents the identifier value. True -- present/used. False -- absent/unused.
 
 @extent 1024  # Reserve space in case the range is extended in the future.
 
