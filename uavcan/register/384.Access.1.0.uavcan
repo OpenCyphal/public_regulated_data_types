@@ -86,14 +86,6 @@
 #
 # ---------------------------------------------------------------------------------------------------------------------
 #
-#   uavcan.cookie                                       string          mutable, persistent     (empty)
-#
-# Arbitrary data stored by an external autoconfiguration authority (e.g., a mission computer, an auto-configuration
-# utility, etc.). This data is never to be used by the node itself; instead, the node merely provides raw data
-# storage space.
-#
-# ---------------------------------------------------------------------------------------------------------------------
-#
 #   uavcan.pub.PORT_NAME.id                             natural16       mutable, persistent     65535 (unset, invalid)
 #   uavcan.sub.PORT_NAME.id                             ditto           ditto                   ditto
 #   uavcan.cln.PORT_NAME.id                             ditto           ditto                   ditto
