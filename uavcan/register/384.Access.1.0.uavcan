@@ -67,7 +67,7 @@
 # common functions. These conventions are not mandatory to follow, but implementers are recommended to adhere because
 # they enable enhanced introspection capabilities and simplify device configuration and diagnostics.
 #
-#   REGISTER NAME PATTERN                             TYPE            FLAGS                   RECOMMENDED DEFAULT
+#   REGISTER NAME PATTERN                               TYPE            FLAGS                   RECOMMENDED DEFAULT
 # =====================================================================================================================
 #
 #   uavcan.node.id                                      natural16       mutable, persistent     65535 (unset/PnP)
@@ -93,9 +93,9 @@
 # ---------------------------------------------------------------------------------------------------------------------
 #
 #   uavcan.pub.PORT_NAME.id                             natural16       mutable, persistent     65535 (unset, invalid)
-#   uavcan.sub.PORT_NAME.id                             ...             ...                     ...
-#   uavcan.cln.PORT_NAME.id                             ...             ...                     ...
-#   uavcan.srv.PORT_NAME.id                             ...             ...                     ...
+#   uavcan.sub.PORT_NAME.id                             ditto           ditto                   ditto
+#   uavcan.cln.PORT_NAME.id                             ditto           ditto                   ditto
+#   uavcan.srv.PORT_NAME.id                             ditto           ditto                   ditto
 #
 # Publication/subscription/client/server port-ID, respectively. These registers are configured by the system integrator
 # or an autoconfiguration authority when the node is first connected to a network.
@@ -116,9 +116,9 @@
 # ---------------------------------------------------------------------------------------------------------------------
 #
 #   uavcan.pub.PORT_NAME.type                           string          immutable, persistent   N/A
-#   uavcan.sub.PORT_NAME.type                           ...             ...                     ...
-#   uavcan.cln.PORT_NAME.type                           ...             ...                     ...
-#   uavcan.srv.PORT_NAME.type                           ...             ...                     ...
+#   uavcan.sub.PORT_NAME.type                           ditto           ditto                   ditto
+#   uavcan.cln.PORT_NAME.type                           ditto           ditto                   ditto
+#   uavcan.srv.PORT_NAME.type                           ditto           ditto                   ditto
 #
 # Publication/subscription/client/server full data type name and dot-separated version numbers, respectively.
 # These registers are set by the vendor once and typically they are to remain unchanged (hence "immutable").
