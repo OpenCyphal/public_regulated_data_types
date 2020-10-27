@@ -80,7 +80,9 @@
 #
 #   uavcan.node.description                             string          mutable, persistent     (empty)
 #
-# Human-readable verbose description of this specific node defined by the integrator (not vendor).
+# User/integrator-defined, human-readable description of this specific node.
+# This is intended for use by a system integrator and should not be set by the manufacturer of a component.
+# For example: on a quad-rotor drone this might read "motor 2" for one of the ESC nodes.
 #
 # ---------------------------------------------------------------------------------------------------------------------
 #
@@ -104,6 +106,9 @@
 # or a network service supported by the node. The name shall match the following POSIX ERE expression:
 #
 #   [a-zA-Z_][a-zA-Z0-9_]{0,34}
+#
+# The names are defined by the vendor of the node. The user/integrator is expected to uderstand their meaning and
+# relation to the functional capabilities of the node by reading the technical documentation provided by the vendor.
 #
 # A port whose port-ID register is unset (invalid value) remains inactive (unused); the corresponding function may
 # be disabled. For example, a register named "uavcan.pub.measurement.id" defines the subject-ID of a measurement
