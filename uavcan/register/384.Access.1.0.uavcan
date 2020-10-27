@@ -107,7 +107,7 @@
 #
 #   [a-zA-Z_][a-zA-Z0-9_]{0,34}
 #
-# The names are defined by the vendor of the node. The user/integrator is expected to uderstand their meaning and
+# The names are defined by the vendor of the node. The user/integrator is expected to understand their meaning and
 # relation to the functional capabilities of the node by reading the technical documentation provided by the vendor.
 #
 # A port whose port-ID register is unset (invalid value) remains inactive (unused); the corresponding function may
