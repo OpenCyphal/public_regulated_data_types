@@ -8,8 +8,6 @@
 # This message should be published using the fixed subject-ID as follows:
 # - At the OPTIONAL priority level at least every MAX_PUBLICATION_PERIOD seconds.
 # - At the OPTIONAL or SLOW priority level within MAX_PUBLICATION_PERIOD after the port configuration is changed.
-#
-# pragma: no-bit-length-limit
 
 uint8 MAX_PUBLICATION_PERIOD = 10  # [seconds]
 # If the port configuration is not updated in this amount of time, the node should publish this message anyway.

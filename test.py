@@ -104,12 +104,3 @@ def get_max_bit_length(ty) -> int:
         return max(map(get_max_bit_length, [ty.request_type, ty.response_type]))
     else:
         return max(ty.bit_length_set)
-
-
-for t in output:
-    max_bit_length = get_max_bit_length(t)
-    if max_bit_length > MAX_SERIALIZED_BIT_LENGTH:
-        text = open(t.source_file_path).read()
-        if '#pragma:no-bit-length-limit' not in text.replace(' ', ''):
-            print('The data type', t, 'exceeds the bit length limit of', MAX_SERIALIZED_BIT_LENGTH, file=sys.stderr)
-            sys.exit(1)

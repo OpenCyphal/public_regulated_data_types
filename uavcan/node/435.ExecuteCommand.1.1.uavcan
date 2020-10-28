@@ -1,8 +1,6 @@
 # Instructs the server node to execute or commence execution of a simple predefined command.
 # All standard commands are optional; i.e., not guaranteed to be supported by all nodes.
 
-@deprecated
-
 uint16 command
 # Standard pre-defined commands are at the top of the range (defined below).
 # Vendors can define arbitrary, vendor-specific commands in the bottom part of the range (starting from zero).
@@ -64,13 +62,11 @@ uint16 COMMAND_STORE_PERSISTENT_STATES = 65530
 # invoke this command in order to ensure that the data is stored even if the node doesn't implement automatic
 # persistence management.
 
-uint8[<=uavcan.file.Path.1.0.MAX_LENGTH] parameter
+uint8[<=uavcan.file.Path.2.0.MAX_LENGTH] parameter
 # A string parameter supplied to the command. The format and interpretation is command-specific.
 # The standard commands do not use this field (ignore it), excepting the following:
 #   - COMMAND_BEGIN_SOFTWARE_UPDATE
 
-@assert _offset_ % 8 == {0}
-@assert _offset_.max <= (124 * 8)     # Two CAN FD frames max
 @extent 300 * 8
 
 ---

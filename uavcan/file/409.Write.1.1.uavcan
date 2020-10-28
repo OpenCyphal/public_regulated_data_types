@@ -9,13 +9,11 @@
 #
 # When the write operation is complete, the server shall truncate the resulting file past the specified offset.
 
-@deprecated
-
 truncated uint40 offset
 
-Path.1.0 path
+Path.2.0 path
 
-uint8[<=192] data   # 192 = 128 + 64; the write protocol permits usage of smaller chunks.
+uavcan.primitive.Unstructured.1.0 data
 
 @extent 600 * 8
 

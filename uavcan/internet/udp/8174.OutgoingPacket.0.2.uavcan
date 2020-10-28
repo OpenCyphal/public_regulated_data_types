@@ -89,8 +89,6 @@
 # unlikely to be practical because the latency and throughput limitations introduced by the on-board radio
 # communication equipment are likely to vastly exceed those of the local CAN bus.
 
-@deprecated
-
 uint32 NAT_ENTRY_MIN_TTL = 24 * 60 * 60  # [second]
 # Modem nodes are required to keep the NAT table entries alive for at least this amount of time, unless the
 # table is overflowed, in which case they are allowed to remove least recently used entries in favor of
@@ -128,12 +126,9 @@ bool use_dtls           # Use Datagram Transport Layer Security. Drop the packet
 # Option flags.
 void6
 
-uint8[<=260] payload
+uint8[<=508] payload
 # Effective payload. This data will be forwarded to the remote host verbatim.
 # UDP packets that contain more than 508 bytes of payload may be dropped by some types of
 # communication equipment. Refer to RFC 791 and 2460 for an in-depth review.
-# UAVCAN further limits the maximum packet size to reduce the memory and traffic burden on the nodes.
 
 @extent 600 * 8
-@assert _offset_ % 8 == {0}
-@assert _offset_.max / 8 == 313

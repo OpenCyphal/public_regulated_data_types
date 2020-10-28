@@ -1,7 +1,5 @@
 # A generic UDP/IP frame.
 # Jumboframes are supported in the interest of greater application compatibility.
-#
-# pragma: no-bit-length-limit
 
 uavcan.time.SynchronizedTimestamp.1.0 timestamp
 
