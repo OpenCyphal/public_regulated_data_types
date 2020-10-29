@@ -14,13 +14,11 @@
 # that were listed earlier. The caller should handle that properly, either by ignoring the repeated items or by
 # restarting the listing operation from the beginning (index 0).
 
-@deprecated
-
 uint32 entry_index
 
 void32                  # Reserved for future use.
 
-Path.1.0 directory_path
+Path.2.0 directory_path
 
 @extent 300 * 8
 
@@ -28,7 +26,7 @@ Path.1.0 directory_path
 
 void32                  # Reserved for future use.
 
-Path.1.0 entry_base_name
+Path.2.0 entry_base_name
 # The base name of the referenced entry, i.e., relative to the outer directory.
 # The outer directory path is not included to conserve bandwidth.
 # Empty if such entry does not exist.

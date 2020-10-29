@@ -97,7 +97,7 @@
 # The "PORT_NAME" defines the human-friendly name of the port, which is related to the corresponding function
 # or a network service supported by the node. The name shall match the following POSIX ERE expression:
 #
-#   [a-zA-Z_][a-zA-Z0-9_]{0,34}
+#   [a-zA-Z_][a-zA-Z0-9_]*
 #
 # The names are defined by the vendor of the node. The user/integrator is expected to understand their meaning and
 # relation to the functional capabilities of the node by reading the technical documentation provided by the vendor.

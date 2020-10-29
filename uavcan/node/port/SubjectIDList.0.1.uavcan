@@ -2,8 +2,6 @@
 # The range of subject-ID is large, so using a fixed-size bitmask would make this type difficult to handle on
 # resource-constrained systems. To address that, we provide two extra options: a simple variable-length list,
 # and a special case that indicates that every subject-ID is in use.
-#
-# pragma: no-bit-length-limit
 
 @union
 

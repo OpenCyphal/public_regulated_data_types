@@ -32,14 +32,12 @@
 #   Fails if the path does not exist.
 #   Flags are ignored.
 
-@deprecated
-
 bool preserve_source            # Do not remove the source. Used to copy instead of moving.
 bool overwrite_destination      # If the destination exists, remove it beforehand.
 void30
 
-Path.1.0 source
-Path.1.0 destination
+Path.2.0 source
+Path.2.0 destination
 
 @extent 600 * 8
 

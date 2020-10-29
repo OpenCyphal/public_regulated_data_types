@@ -1,5 +1,5 @@
-# An ASCII register name.
+# An UTF8-encoded register name.
 
-uint8[<=50] name
+uint8[<256] name
 
 @sealed

@@ -1,8 +1,6 @@
 # Information about a remote file system entry (file, directory, etc).
 
-@deprecated
-
-Path.1.0 path
+Path.2.0 path
 
 @extent 300 * 8
 
