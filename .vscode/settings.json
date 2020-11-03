@@ -1,7 +1,12 @@
 {
+    "editor.wordWrapColumn": 120,
     "editor.rulers": [
         120
     ],
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
     "spellright.documentTypes": [
         "markdown",
         "plaintext",
