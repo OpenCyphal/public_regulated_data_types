@@ -1,0 +1,7 @@
+# A generic GNSS location sensor device.
+#
+#   SUBJECT                 TYPE                                            TYP. RATE [Hz]
+#   location data           reg.drone.srv.sensor.gnss.Location              1 - 10 Hz
+#
+
+@extent 0  # This type is not intended for runtime use.
