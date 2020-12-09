@@ -1,0 +1,22 @@
+# There are multiple satellite networks which provide autonomous geo-spatial positioning
+# with global coverage. These constants are used for identifying which of those satellite
+# networks are the source of the location data provided by the GNSS sensor node.
+
+truncated uint4 value
+
+uint4 GPS = 0
+# Position fix aquired via GPS satellite network.
+
+uint4 GLONASS = 1
+# Position fix aquired via GLONASS satellite network.
+
+uint4 Galileo = 2
+# Position fix aquired via Galileo satellite network.
+
+uint4 Beidou = 3
+# Position fix aquired via Beidou satellite network.
+
+uint4 GNSS = 4
+# Position fix aquired via GNSS (any of the sources mentioned before or a combination of them).
+
+@sealed
