@@ -17,7 +17,8 @@
 #   - Individual subjects, whose subject-ID is offset from the setpoint subject-ID `S` as a function of
 #     group member index `i` as specified below.
 #
-#                                                   SUBJECT     TYPE                                        SUBJECT-ID
+#                                                   SUBJECT
+#                                                   NAME        SUBJECT TYPE                                SUBJECT-ID
 #  +----------------+
 #  |   Controller   |---------+------------+----... setpoint    reg.drone.service.actuator.common.sp.*      S
 #  |                |-------+-)----------+-)----... readiness   reg.drone.service.common.Readiness          S+1

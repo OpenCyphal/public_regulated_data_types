@@ -13,7 +13,7 @@
 # The subjects defined by this service are shown on the following canvas. Implementers are encouraged to add
 # custom subjects with additional data. Notice that the physics subjects are timestamped.
 #
-#                    SUBJECT                            TYPE                                            RATE
+#                    SUBJECT NAME                       SUBJECT TYPE                                    RATE
 #
 #   +------------+   setpoint       +------------+      (non-timestamped dynamics) (see below)          R
 #   |            |----------------->|            |
@@ -64,7 +64,8 @@
 # index in the setpoint array.
 # The resulting topology closely resembles that of the ESC service:
 #
-#                                                   SUBJECT     TYPE
+#                                                   SUBJECT
+#                                                   NAME        SUBJECT TYPE
 #  +----------------+
 #  |   Controller   |---------+------------+----... setpoint    reg.drone.service.actuator.common.sp.*
 #  |                |-------+-)----------+-)----... readiness   reg.drone.service.common.Readiness
@@ -92,7 +93,7 @@
 #
 # The following subjects shall be published immediately after a new setpoint is applied even if the servo is STANDBY:
 #
-#   SUBJECT             RECOMMENDED PRIORITY
+#   SUBJECT NAME        RECOMMENDED PRIORITY
 #   ---------------------------------------------
 #   feedback            same as the setpoint
 #   power               second to the setpoint
