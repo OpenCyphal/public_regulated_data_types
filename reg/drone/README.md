@@ -6,8 +6,8 @@ If you have any questions, feel free to bring them to the [UAVCAN Forum](https:/
 
 This namespace contains the following nested namespaces:
 
-- `phy` -- abstract physical processes and states in the system.
-- `srv` -- narrowly specialized types for common device classes.
+- `physics` -- abstract physical processes and states in the system.
+- `service` -- narrowly specialized types for common device classes.
 
 ## Service-oriented architecture
 
@@ -45,7 +45,7 @@ which is necessitated by the increasing complexity of modern intravehicular soft
 
 ## Typical applications
 
-The definitions in the `srv` namespace contain descriptions of some common use cases
+The definitions in the `service` namespace contain descriptions of some common use cases
 that can be addressed with this standard.
 Adopters are expected to mix and match various components to create new network services that were not originally
 envisioned by the authors of this standard.
@@ -57,13 +57,13 @@ For example, a COTS (commercial off-the-shelf) electric drive may realistically 
 
 - Naturally, the ESC service.
 - The servo service for generality.
-- Acoustic feedback by subscribing to `reg.drone.phy.acoustics.Note`.
-- Visual feedback via the LED by subscribing to `reg.drone.phy.optics.HighColor`.
+- Acoustic feedback by subscribing to `reg.drone.physics.acoustics.Note`.
+- Visual feedback via the LED by subscribing to `reg.drone.physics.optics.HighColor`.
 
 Another service that is interested in tracking the state of, say, a propeller drive
 (say, for thrust estimation) would not need to concern itself with the ESC service at all.
 Instead, it would simply subscribe to the generalized subject of type
-`reg.drone.phy.dynamics.rotation.PlanarTs` published by the unit that drives the propeller
+`reg.drone.physics.dynamics.rotation.PlanarTs` published by the unit that drives the propeller
 and extract its business-level information from that while being unaware of the specifics of the drive
 (the propeller drive may be changed from an electric motor to a turboprop engine without affecting the
 thrust estimation service).
