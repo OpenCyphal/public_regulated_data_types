@@ -2,8 +2,8 @@
 #
 # The type of load (translational or rotational) dictates which type is used for commanding the setpoint and reporting
 # the status:
-#   - reg.drone.phy.dynamics.rotat.Planar[Ts]
-#   - reg.drone.phy.dynamics.trans.Linear[Ts]
+#   - reg.drone.phy.dynamics.rotation.Planar[Ts]
+#   - reg.drone.phy.dynamics.translation.Linear[Ts]
 # For generality, either or both of these types are referred to as "timestamped dynamics" or "non-timestamped dynamics".
 #
 # The default readiness state is STANDBY. While in this state, the servo is not allowed to apply force to the load,

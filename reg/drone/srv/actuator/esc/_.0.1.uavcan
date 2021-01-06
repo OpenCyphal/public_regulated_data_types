@@ -30,7 +30,7 @@
 #   | | | |  | | | +-----+ | | |      | | | |       feedback    reg.drone.srv.actuator.common.Feedback      S+(i+1)*5+1
 #   | | | |  | | +---------+ | |      | | | |       status      reg.drone.srv.actuator.common.Status        S+(i+1)*5+2
 #   | | | |  | +-------------+ |      | | | |       power       reg.drone.phy.electricity.PowerTs           S+(i+1)*5+3
-#   | | | |  +-----------------+      | | | |       dynamics    reg.drone.phy.dynamics.rotat.PlanarTs       S+(i+1)*5+4
+#   | | | |  +-----------------+      | | | |       dynamics    reg.drone.phy.dynamics.rotation.PlanarTs    S+(i+1)*5+4
 #   | | | |                           | | | |
 #   | | | +---------------------------+ | | |
 #   | | +-------------------------------+ | |

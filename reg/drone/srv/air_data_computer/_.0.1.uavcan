@@ -21,9 +21,9 @@
 # to avoid frequency aliasing effects.
 #
 #   PUBLISHED SUBJECT       TYPE                                                NOTE
-#   calibrated airspeed     reg.drone.phy.kinematics.trans.Velocity1VarTs
-#   true airspeed           reg.drone.phy.kinematics.trans.Velocity1VarTs       optional
-#   pressure altitude data  reg.drone.phy.kinematics.trans.LinearVarTs          assume ISA; NED frame (+down, -up)
+#   calibrated airspeed     reg.drone.phy.kinematics.translation.Velocity1VarTs
+#   true airspeed           reg.drone.phy.kinematics.translation.Velocity1VarTs optional
+#   pressure altitude data  reg.drone.phy.kinematics.translation.LinearVarTs    assume ISA; NED frame (+down, -up)
 #   static air data         reg.drone.phy.thermodynamics.PressureTempVarTs      pressure and OAT
 #
 # Observe that there is no subject for indicated airspeed. This is because per the principles of service-oriented
