@@ -1,5 +1,7 @@
 # A UDP/IP endpoint address specification.
 
+@deprecated  # Replaced by uavcan.metatransport.ethernet
+
 uint8[16] ip_address
 # The IP address of the host in the network byte order (big endian).
 # IPv6 addresses are represented as-is.
