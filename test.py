@@ -9,7 +9,6 @@ from functools import partial
 
 MAX_SERIALIZED_BIT_LENGTH = 313 * 8     # See README
 MAX_LINE_LENGTH = 120
-HEADER_COMMENT_NOT_REQUIRED_IF_SMALLER_THAN = 100
 ALLOWED_CHARACTERS = set(string.digits + string.ascii_letters + string.punctuation + ' ')
 
 
@@ -67,11 +66,6 @@ for t in output:
     for index, line in enumerate(text.split('\n')):
         line = line.strip('\r\n')
         abort = partial(die_at, t, index)
-
-        # Check header comment.
-        if index == 0 and not line.startswith('# '):
-            if len(t.attributes) > 2 or len(text) >= HEADER_COMMENT_NOT_REQUIRED_IF_SMALLER_THAN:
-                abort('This definition is not exempted from the header comment requirement')
 
         # Check trailing comment placement.
         # TODO: this test breaks on string literals containing "#".
