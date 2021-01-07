@@ -1,0 +1,7 @@
+# Pose and twist of a body in free space.
+# The pose defines a coordinate system transformation from the parent frame to the child frame.
+# The pose is specified in the parent frame, and the twist is specified in the child frame (body frame).
+
+Pose.0.1  pose
+Twist.0.1 twist
+@sealed

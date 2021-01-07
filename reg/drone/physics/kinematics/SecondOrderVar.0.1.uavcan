@@ -1,0 +1,4 @@
+# See SecondOrder for details. This type extends it with covariance matrices.
+PoseVar.0.1  pose
+TwistVar.0.1 twist
+@sealed
