@@ -12,3 +12,5 @@ float16[21] covariance_urt
 # X rotation    |
 # Y rotation    |                                  rad^2
 # Z rotation    |
+
+@sealed
