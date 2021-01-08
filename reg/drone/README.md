@@ -6,8 +6,8 @@ If you have any questions, feel free to bring them to the [UAVCAN Forum](https:/
 
 This namespace contains the following nested namespaces:
 
-- `phy` -- abstract physical processes and states in the system.
-- `srv` -- narrowly specialized types for common device classes.
+- `physics` -- abstract physical processes and states in the system.
+- `service` -- narrowly specialized types for common device classes.
 
 ## Service-oriented architecture
 
@@ -45,7 +45,7 @@ which is necessitated by the increasing complexity of modern intravehicular soft
 
 ## Typical applications
 
-The definitions in the `srv` namespace contain descriptions of some common use cases
+The definitions in the `service` namespace contain descriptions of some common use cases
 that can be addressed with this standard.
 Adopters are expected to mix and match various components to create new network services that were not originally
 envisioned by the authors of this standard.
@@ -57,13 +57,13 @@ For example, a COTS (commercial off-the-shelf) electric drive may realistically 
 
 - Naturally, the ESC service.
 - The servo service for generality.
-- Acoustic feedback by subscribing to `reg.drone.phy.acoustics.Note`.
-- Visual feedback via the LED by subscribing to `reg.drone.phy.optics.HighColor`.
+- Acoustic feedback by subscribing to `reg.drone.physics.acoustics.Note`.
+- Visual feedback via the LED by subscribing to `reg.drone.physics.optics.HighColor`.
 
 Another service that is interested in tracking the state of, say, a propeller drive
 (say, for thrust estimation) would not need to concern itself with the ESC service at all.
 Instead, it would simply subscribe to the generalized subject of type
-`reg.drone.phy.dynamics.rotat.PlanarTs` published by the unit that drives the propeller
+`reg.drone.physics.dynamics.rotation.PlanarTs` published by the unit that drives the propeller
 and extract its business-level information from that while being unaware of the specifics of the drive
 (the propeller drive may be changed from an electric motor to a turboprop engine without affecting the
 thrust estimation service).
@@ -93,6 +93,8 @@ UAVCAN implementation libraries are optimized for handling multi-frame transfers
 
 ## Conventions
 
+### Network service design conventions
+
 - All physical quantities except error variance should be represented as `float32` by default.
   Error variance and covariance matrices should use `float16` by default.
 
@@ -104,4 +106,76 @@ UAVCAN implementation libraries are optimized for handling multi-frame transfers
   The timestamp field, if present, should be the first one;
   error (co)variance information should follow the data field(s) it relates to.
 
-- Publishers of measurements or estimates should apply low-pass filtering to avoid frequency aliasing.
+### Port naming conventions
+
+In UAVCAN, the name of a port (i.e., subject or RPC-service) defines the names of related registers
+as described in the documentation for the standard RPC-service `uavcan.register.Access`.
+For instance, a node that publishes to the subject named `measurement` would have registers named
+`uavcan.pub.measurement.id` and `uavcan.pub.measurement.type` (among others).
+
+> N.B.: Contrary to other protocols, in UAVCAN, the name of a port is a node-local property that does not affect
+  network exchanges over that port.
+  This means that nodes can publish/subscribe to a port even if they name it differently
+  as long as they are configured to use the same numerical port-ID.
+  The details are given in the UAVCAN Specification.
+
+Network service specifications given here under the `service` namespace provide the recommended names for
+every defined port.
+For example, the smart battery network service specification defines subjects named `status` and `parameters`.
+
+Using the suggested names in practical implementations directly is not always possible because nodes that
+implement different network services (or multiple instances of the same service) would see naming conflicts
+(e.g., many services define a subject named `status`).
+Hence, implementations are advised to use the recommended port names with a prefix such that ports that
+relate to the same instance of a network service share the same prefix.
+
+Imagine a node that implements two smart battery services (primary and secondary)
+and a servo service (suppose we call it the main drive);
+then it might have the following registers (among others):
+
+    uavcan.pub.battery.primary.source.id
+    uavcan.pub.battery.primary.status.id
+    uavcan.pub.battery.primary.parameters.id
+    uavcan.pub.battery.secondary.source.id
+    uavcan.pub.battery.secondary.status.id
+    uavcan.pub.battery.secondary.parameters.id
+    uavcan.sub.main_drive.setpoint.id
+    uavcan.sub.main_drive.readiness.id
+    uavcan.pub.main_drive.feedback.id
+    uavcan.pub.main_drive.status.id
+    uavcan.pub.main_drive.power.id
+    uavcan.pub.main_drive.dynamics.id
+
+By virtue of sharing common prefixes, the registers clearly define three network services:
+
+- `battery.primary`
+- `battery.secondary`
+- `main_drive`
+
+The convention can be described in UML notation as follows:
+
+    +-----------------------------------+
+    |   Network service specification   |   E.g., the smart battery network service
+    +-----------------------------------+   defined under reg.drone.service.battery
+                    △ 0..*
+                    ┆
+                    ┆ implements
+                    ┆
+    +-----------------------------------+   Example group "battery.main":
+    |        Prefixed port group        |   - battery.main.source
+    +-----------------------------------+   - battery.main.status
+                    │                       - battery.main.parameters
+                    │ has
+                    │
+                    ♢ 1..*
+    +-----------------------------------+
+    |             Port                  |
+    |     (subject or RPC-service)      |
+    +-----------------------------------+
+
+Following this convention is highly recommended as it aids one's understanding of the node's functional capabilities
+and may enable some systems to implement automatic assignment of port identifiers.
+
+### Behavioral conventions
+
+Publishers of measurements or estimates should apply low-pass filtering to avoid frequency aliasing.

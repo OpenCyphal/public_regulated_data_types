@@ -17,20 +17,21 @@
 #   - Individual subjects, whose subject-ID is offset from the setpoint subject-ID `S` as a function of
 #     group member index `i` as specified below.
 #
-#                                                   SUBJECT     TYPE                                        SUBJECT-ID
+#                                                   SUBJECT
+#                                                   NAME        SUBJECT TYPE                                SUBJECT-ID
 #  +----------------+
-#  |   Controller   |---------+------------+----... setpoint    reg.drone.srv.actuator.common.sp.*          S
-#  |                |-------+-)----------+-)----... readiness   reg.drone.srv.common.Readiness              S+1
+#  |   Controller   |---------+------------+----... setpoint    reg.drone.service.actuator.common.sp.*      S
+#  |                |-------+-)----------+-)----... readiness   reg.drone.service.common.Readiness          S+1
 #  +----------------+       | |          | |
 #   ^ ^ ^ ^  ^ ^ ^ ^        v v          v v
 #   | | | |  | | | |   +---------+  +---------+
 #   | | | |  | | | |   |Drive i=0|  |Drive i=1| ...
 #   | | | |  | | | |   +---------+  +---------+
 #   | | | |  | | | |     | | | |      | | | |
-#   | | | |  | | | +-----+ | | |      | | | |       feedback    reg.drone.srv.actuator.common.Feedback      S+(i+1)*5+1
-#   | | | |  | | +---------+ | |      | | | |       status      reg.drone.srv.actuator.common.Status        S+(i+1)*5+2
-#   | | | |  | +-------------+ |      | | | |       power       reg.drone.phy.electricity.PowerTs           S+(i+1)*5+3
-#   | | | |  +-----------------+      | | | |       dynamics    reg.drone.phy.dynamics.rotat.PlanarTs       S+(i+1)*5+4
+#   | | | |  | | | +-----+ | | |      | | | |       feedback    reg.drone.service.actuator.common.Feedback   S+(i+1)*5+1
+#   | | | |  | | +---------+ | |      | | | |       status      reg.drone.service.actuator.common.Status     S+(i+1)*5+2
+#   | | | |  | +-------------+ |      | | | |       power       reg.drone.physics.electricity.PowerTs        S+(i+1)*5+3
+#   | | | |  +-----------------+      | | | |       dynamics    reg.drone.physics.dynamics.rotation.PlanarTs S+(i+1)*5+4
 #   | | | |                           | | | |
 #   | | | +---------------------------+ | | |
 #   | | +-------------------------------+ | |
@@ -66,7 +67,7 @@
 # to enforce unless the drive is ENGAGED because it may require delivering power to the load.
 #
 # The setpoint message types that can be used to command a group of drives are defined in
-# reg.drone.srv.actuator.common.sp; please read the documentation related to that namespace for further information.
+# reg.drone.service.actuator.common.sp; please read the documentation related to that namespace for further information.
 # Servo setpoint message types may also be supported on an implementation-specific basis for enhanced interoperability.
 # If the group is controlled using different setpoint subjects concurrently, the behavior is implementation-defined.
 #

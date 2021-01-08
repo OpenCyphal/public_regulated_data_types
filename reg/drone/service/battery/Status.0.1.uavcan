@@ -1,6 +1,6 @@
 # This low-rate battery status should be published at least once per second.
 
-reg.drone.srv.common.Heartbeat.0.1 heartbeat
+reg.drone.service.common.Heartbeat.0.1 heartbeat
 # Note that the health code generally should not reflect the battery charge unless the service provider knows
 # that the availability of energy in the battery is critical for the safe operation of the vehicle, which is usually
 # not the case. For example, if the vehicle is equipped with several batteries that are discharged in series, one
