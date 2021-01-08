@@ -1,9 +1,6 @@
 # Optional, extended information on the performance of the GNSS sensor.
 
-uavcan.time.SynchronizedTimestamp.1.0 timestamp
-# The moment of time when the related fix was made in the network-syncrhonized time system. Optional.
-# The timestamp can be used to match estimates with corresponding status messages, if needed.
-# This is not to be confused with time estimates.
+reg.drone.service.common.Heartbeat.0.1 heartbeat
 
 Sources.0.1 sources
 
