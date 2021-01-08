@@ -1,6 +1,8 @@
 # A generic UDP/IP frame.
 # Jumboframes are supported in the interest of greater application compatibility.
 
+@deprecated  # Replaced by uavcan.metatransport.ethernet
+
 uavcan.time.SynchronizedTimestamp.1.0 timestamp
 
 void8
