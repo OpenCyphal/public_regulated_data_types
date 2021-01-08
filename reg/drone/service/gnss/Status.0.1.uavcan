@@ -1,0 +1,19 @@
+# Optional, extended information on the performance of the GNSS sensor.
+
+uavcan.time.SynchronizedTimestamp.1.0 timestamp
+# The moment of time when the related fix was made in the network-syncrhonized time system. Optional.
+# The timestamp can be used to match estimates with corresponding status messages, if needed.
+# This is not to be confused with time estimates.
+
+Sources.0.1 sources
+
+DilutionOfPrecision.0.1 dop
+
+FixStatus.0.1 fix_status
+
+uint8 num_visible_satellites  # The number of space vehicles visible when the solution was computed.
+uint8 num_used_satellites     # The number of space vehicles whose signals have been utilized to derive the solution.
+
+bool rtk_fix    # True if the current mode is RTK and an RTK fix has been established. Also see Sources.
+
+@extent 8 * 124

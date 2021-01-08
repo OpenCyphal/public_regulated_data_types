@@ -1,4 +1,4 @@
-TAI64N.0.1 value
+TAI64.0.1 value
 
 float32 error_variance      # [second^2]
 # Error variance, in second squared, of the time estimate.

@@ -1,5 +1,0 @@
-# This message type provides location information as obtained via a GNSS sensor.
-
-Source.0.1 source
-
-@sealed

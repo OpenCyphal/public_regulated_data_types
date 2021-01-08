@@ -1,0 +1,13 @@
+# Status of the GNSS navigation solution. This information is needed for indication and general status monitoring only.
+# Data consumers should not use this info and rely on the error estimates reported via covariance matrices instead.
+# If the sensor is equipped with other means of deriving the navigation solution (dead reckoning, VIO, UWB, etc.),
+# then this value may not be representative of the actual status of the solution (only matrices are).
+
+uint2 NONE = 0
+uint2 TIME = 1  # Only time is available.
+uint2 D2   = 2  # The time, latitude, longitude, and NE-plane velocity are available.
+uint2 D3   = 3  # All estimates are available.
+
+uint2 value
+
+@sealed
