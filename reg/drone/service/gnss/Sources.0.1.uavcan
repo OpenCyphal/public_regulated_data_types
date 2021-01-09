@@ -24,7 +24,7 @@ bool gbas               # Ground-Based Augmentation System, DGPS (IMES, etc.)
 bool rtk_base           # Real-Time Kinematics base station data
 
 bool imu                # Inertial Measurement Unit
-bool vo                 # Visual Odometry
+bool visual_odometry
 bool dead_reckoning     # Any dead reckoning equipment (e.g., wheel odometry)
 
 bool magnetic_compass
