@@ -1,6 +1,15 @@
 # There are multiple satellite networks and other data sources which provide autonomous geo-spatial positioning
 # with global coverage. These flags are used for identifying which of those data sources
 # are the source of the location data provided by the GNSS sensor node.
+#
+# Note that these fields convey no information about the status the navigation solution. Here is a specific example:
+#
+# - Heartbeat.fix     - indicates that a standalone navigation solution is available.
+#
+# - Heartbeat.rtk_fix - indicates that an RTK fix is established and the integer wavelength ambiguity is resolved.
+#
+# - Sources.rtk_base  - indicates that base station data (usually encapsulated into RTCM stream) is available
+#                       to the receiver, but it says nothing about the status of the navigation solution.
 
 bool gps_l1             # 1575.42 MHz
 bool gps_l2             # 1227.60 MHz
