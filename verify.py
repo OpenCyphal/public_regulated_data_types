@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 
 import sys
-import time
 import string
 import pydsdl
 from functools import partial
 
 
-MAX_SERIALIZED_BIT_LENGTH = 313 * 8     # See README
 MAX_LINE_LENGTH = 120
-HEADER_COMMENT_NOT_REQUIRED_IF_SMALLER_THAN = 100
 ALLOWED_CHARACTERS = set(string.digits + string.ascii_letters + string.punctuation + ' ')
 
 
@@ -23,15 +20,6 @@ def on_print(file_path, line, value):
     print('%s:%d: %s' % (file_path, line, value), file=sys.stderr)
 
 
-def compute_max_num_frames_canfd(bit_length):
-    b = (bit_length + 7) // 8
-    if b <= 63:
-        return 1
-    else:
-        return (b + 2 + 62) // 63
-
-
-started_at = time.monotonic()
 ns_list = [
     'uavcan',
     'reg',
@@ -39,39 +27,25 @@ ns_list = [
 output = []
 for ns in ns_list:
     output += pydsdl.read_namespace(ns, ns_list, print_output_handler=on_print)
-elapsed_time = time.monotonic() - started_at
 
-print('Full data type name'.center(58),
-      'FSID'.center(5),
-      'CAN FD fr'.center(9))
-
+longest_name = max(map(lambda x: len(str(x)), output))
+print('Full data type name'.ljust(longest_name), 'Fixed port-ID', 'Bytes'.ljust(10), sep='\t')
 for t in output:
-    num_frames_to_str = lambda x: str(x) if x > 1 else ' '      # Return empty for single-frame transfers
     if isinstance(t, pydsdl.ServiceType):
-        max_canfd_frames = '  '.join([
-            num_frames_to_str(compute_max_num_frames_canfd(max(x.bit_length_set)))
-            for x in (t.request_type, t.response_type)
-        ])
+        n_bytes = ' '.join([f'{max(x.bit_length_set) // 8: 4}' for x in (t.request_type, t.response_type)])
     else:
-        max_canfd_frames = num_frames_to_str(compute_max_num_frames_canfd(max(t.bit_length_set)))
+        n_bytes = str(max(t.bit_length_set) // 8)
 
-    print(str(t).ljust(58),
-          str(t.fixed_port_id if t.has_fixed_port_id else '').rjust(5),
-          max_canfd_frames.rjust(7) + ' ')
-
-print('%d data types in %.1f seconds' % (len(output), elapsed_time),
-      file=sys.stderr)
+    print(str(t).ljust(longest_name),
+          str(t.fixed_port_id if t.has_fixed_port_id else '').rjust(13),
+          n_bytes.rjust(10) + ' ',
+          sep='\t')
 
 for t in output:
     text = open(t.source_file_path).read()
     for index, line in enumerate(text.split('\n')):
         line = line.strip('\r\n')
         abort = partial(die_at, t, index)
-
-        # Check header comment.
-        if index == 0 and not line.startswith('# '):
-            if len(t.attributes) > 2 or len(text) >= HEADER_COMMENT_NOT_REQUIRED_IF_SMALLER_THAN:
-                abort('This definition is not exempted from the header comment requirement')
 
         # Check trailing comment placement.
         # TODO: this test breaks on string literals containing "#".
@@ -95,12 +69,3 @@ for t in output:
 
     if not text.endswith('\n') or text.endswith('\n' * 2):
         abort('A file shall contain exactly one blank line at the end')
-
-
-def get_max_bit_length(ty) -> int:
-    if isinstance(ty, pydsdl.DelimitedType):
-        ty = ty.inner_type
-    if isinstance(ty, pydsdl.ServiceType):
-        return max(map(get_max_bit_length, [ty.request_type, ty.response_type]))
-    else:
-        return max(ty.bit_length_set)

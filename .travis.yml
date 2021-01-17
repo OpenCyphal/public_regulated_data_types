@@ -4,4 +4,4 @@ python:
 before_install:
   - pip install pydsdl
 script:
-  - ./test.py
+  - ./verify.py
