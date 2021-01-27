@@ -1,4 +1,3 @@
-@deprecated
 # This low-rate battery status should be published at least once per second.
 
 reg.drone.service.common.Heartbeat.0.1 heartbeat
@@ -21,12 +20,8 @@ uavcan.si.unit.temperature.Scalar.1.0[2] temperature_min_max
 # the reported array value would be {258.15, 360.5} K.
 # If there is only one temperature sensor, both elements shall be of the same value.
 
-uavcan.si.unit.voltage.Scalar.1.0[2] cell_voltage_min_max
-# If v(i) is the voltage of cell number i (or a group of cells connected in parallel), and there are N cells,
-# then the first array element is: min(v(x) for x in [0, N))
-# and the second array element is: max(v(x) for x in [0, N))
-# This information is used for gauging the degree of cell disbalance.
-# Note that the average cell voltage can be obtained by dividing the battery voltage by the number of cells.
+void64
+# Was cell_voltage_min_max in .0.1. Deprecated in favor of cell_voltages array.
 
 uavcan.si.unit.electric_charge.Scalar.1.0 available_charge
 # The estimated electric charge currently stored in the battery. This is intended for charging and maintenance only.
@@ -36,5 +31,9 @@ uavcan.si.unit.electric_charge.Scalar.1.0 available_charge
 
 Error.0.1 error
 
+uint8 MAX_CELLS = 255
+float16[<=MAX_CELLS] cell_voltages #[volt]
+# The voltages of individual cells in the battery pack. 
+
 @print _offset_ / 8
-@extent 63 * 8  # Single-frame transfer over CAN FD.
+@extent 600 * 8  # Single-frame transfer over CAN FD.
