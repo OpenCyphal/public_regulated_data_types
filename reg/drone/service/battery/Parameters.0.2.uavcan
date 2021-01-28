@@ -23,14 +23,17 @@ uavcan.si.unit.electric_charge.Scalar.1.0 design_capacity
 
 uavcan.si.unit.voltage.Scalar.1.0[2] design_cell_voltage_min_max
 # The minimum (end of discharge) and the maximum (end of charge) cell voltages specified by the manufacturer
-# at 100% SoH. Example: {2.8, 4.2} V
+# at 100% SoH. The cell voltages are measured when they have stabilized after discharge/charge has been terminated. Example: {2.8, 4.2} V
+# Voltage below the min may be observed during discharge due to the cell's internal resistance. Voltage above the max voltage may
+# be observed during regenerative braking/ charging etc due to the cell's internal resistance.
 
-uavcan.si.unit.electric_current.Scalar.1.0 discharge_current
-uavcan.si.unit.electric_current.Scalar.1.0 discharge_current_burst      # At least for 5 seconds.
-uavcan.si.unit.electric_current.Scalar.1.0 charge_current
-uavcan.si.unit.electric_current.Scalar.1.0 charge_current_fast
+uavcan.si.unit.electric_current.Scalar.1.0 discharge_current            # Recommended continuous discharge current of the battery
+uavcan.si.unit.electric_current.Scalar.1.0 discharge_current_burst      # Maximum safety current that may be discharged at least for 5 seconds.
+uavcan.si.unit.electric_current.Scalar.1.0 charge_current               # Recommended continuous charge current of the battery
+uavcan.si.unit.electric_current.Scalar.1.0 charge_current_fast          # Recommended safest highest continuous charge current for the battery. This 
+                                                                        # may be expected to result in accelerated aging for the battery.
 uavcan.si.unit.electric_current.Scalar.1.0 charge_termination_treshold  # End-of-charging current threshold.
-uavcan.si.unit.voltage.Scalar.1.0          charge_voltage               # Total charging voltage (not per-cell).
+uavcan.si.unit.voltage.Scalar.1.0          charge_voltage               # Total voltage of the resting battery pack after it reaching 100% SOC at 100% SOH (not per-cell).
 # The key (dis-)charge parameters specified by the manufacturer for the pack.
 # This is a reflection of similar parameters from the Smart Battery Data Specification.
 # For non-rechargeable batteries all "charge_*" parameters should be NaN.
