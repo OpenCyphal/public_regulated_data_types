@@ -21,7 +21,7 @@ uavcan.si.unit.temperature.Scalar.1.0[2] temperature_min_max
 # If there is only one temperature sensor, both elements shall be of the same value.
 
 void64
-# Was cell_voltage_min_max in .0.1. Deprecated in favor of cell_voltages array.
+# Was cell_voltage_min_max in v0.1. Deprecated in favor of cell_voltages array.
 
 uavcan.si.unit.electric_charge.Scalar.1.0 available_charge
 # The estimated electric charge currently stored in the battery. This is intended for charging and maintenance only.
