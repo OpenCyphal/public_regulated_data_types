@@ -11,7 +11,7 @@ truncated uint64 unique_id
 # Needed for logging purposes. If the battery supports SBS, this value may be computed as CRC64WE of
 # (ManufacturerName + DeviceName + ManufactureDate + SerialNumber).
 # This value shall be invariant to the identity of the reporting node unless it is an integral part of the battery.
-# Vendors may use a constant random number for the 40 most significant bits for vendor identification purposes.
+# Vendors may use a crc32c(ManufacturerName) for the 32 most significant bits for vendor identification purposes.
 
 uavcan.si.unit.mass.Scalar.1.0 mass
 # The total mass of the battery, including the packaging, electronics, cabling, and all auxiliary items, if any.
