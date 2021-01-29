@@ -43,7 +43,7 @@ uint16 cycle_count
 # What constitutes a charge-discharge cycle is implementation-defined.
 
 void16
-# Used in .0.1 for cell_count. Is now deducible from cell voltages in Status.0.2.
+# Was used in v0.1 for cell_count. It is now deducible from cell_voltages in Status.0.2.
 
 uint7 state_of_health_pct  # [percent]
 # The SoH of the battery, or best guess thereof; ranges from 0 (unusable) to 100 (new).
