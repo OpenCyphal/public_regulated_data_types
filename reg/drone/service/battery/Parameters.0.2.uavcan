@@ -45,7 +45,7 @@ uavcan.si.unit.electric_current.Scalar.1.0 charge_termination_threshold
 # End-of-charging current threshold. Charging may be terminated when charging current falls below this threshold.
 
 uavcan.si.unit.voltage.Scalar.1.0          charge_voltage
-# Total resting voltage of the battery pack at 100% SOC and 100% SOH (not per-cell).
+# The total voltage(not per-cell) that may be used by the charger to charge the battery pack.
 
 # The key (dis-)charge parameters specified by the manufacturer for the pack.
 # This is a reflection of similar parameters from the Smart Battery Data Specification.
