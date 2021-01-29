@@ -1,5 +1,5 @@
-@deprecated
 # This low-rate battery status should be published at least once per second.
+@deprecated
 
 reg.drone.service.common.Heartbeat.0.1 heartbeat
 # Note that the health code generally should not reflect the battery charge unless the service provider knows

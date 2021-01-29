@@ -1,4 +1,3 @@
-@deprecated
 # Smart battery parameter message. It is mostly intended for automated battery charging and maintenance systems.
 # This message is modeled after the Smart Battery Data Specification (SBS) and the MAVLink battery status messages.
 #
@@ -6,6 +5,7 @@
 # should not be higher than 0.2 Hz, and the priority should be either OPTIONAL or SLOW.
 #
 # All parameters are required unless specifically stated otherwise.
+@deprecated
 
 truncated uint64 unique_id
 # A statistically unique number that can be used to differentiate this exact battery from others.
