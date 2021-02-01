@@ -23,10 +23,10 @@ uavcan.si.unit.electric_charge.Scalar.1.0 design_capacity
 
 uavcan.si.unit.voltage.Scalar.1.0[2] design_cell_voltage_min_max
 # The minimum (end of discharge) and the maximum (end of charge) resting cell voltage specified by the manufacturer
-# at 100% SoH. Example: {2.8, 4.2} V. Resting voltage corresponds to a non-time-varying voltage measured at the cell
-# after charge/discharge. Voltage below the min may be observed during discharge due to the cell's internal resistance.
-# Voltage above the max voltage may be observed during regenerative braking/ charging etc due to the cell's internal
-# resistance.
+# at 100% SoH. Example: {2.8, 4.2} V. These voltages correspond to resting voltages i.e. the stabilized voltages after
+# the discharge/charge has been terminated. Voltage below the min may be observed during discharge due to the cell's
+# internal resistance. Voltage above the max voltage may be observed during regenerative braking/ charging etc due to
+# the cell's internal resistance.
 
 uavcan.si.unit.electric_current.Scalar.1.0 discharge_current
 # Recommended continuous discharge current of the battery
