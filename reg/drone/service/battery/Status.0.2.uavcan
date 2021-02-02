@@ -32,7 +32,7 @@ uavcan.si.unit.electric_charge.Scalar.1.0 available_charge
 Error.0.1 error
 
 uint8 MAX_CELLS = 255
-float16[<=MAX_CELLS] cell_voltages #[volt]
+float16[<=MAX_CELLS] cell_voltages  # [volt]
 # The voltages of individual cells in the battery pack.
 
 @print _offset_ / 8
