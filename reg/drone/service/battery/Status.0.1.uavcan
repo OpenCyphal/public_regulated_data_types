@@ -36,5 +36,4 @@ uavcan.si.unit.electric_charge.Scalar.1.0 available_charge
 
 Error.0.1 error
 
-@print _offset_ / 8
 @extent 63 * 8  # Single-frame transfer over CAN FD.
