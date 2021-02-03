@@ -5,13 +5,16 @@
 # should not be higher than 0.2 Hz, and the priority should be either OPTIONAL or SLOW.
 #
 # All parameters are required unless specifically stated otherwise.
+# For non-rechargeable batteries all "charge_*" parameters should be NaN.
 
 truncated uint64 unique_id
-# A statistically unique number that can be used to differentiate this exact battery from others.
-# Needed for logging purposes. If the battery supports SBS, this value may be computed as CRC64WE of
-# (ManufacturerName + DeviceName + ManufactureDate + SerialNumber).
-# This value shall be invariant to the identity of the reporting node unless it is an integral part of the battery.
-# Vendors may use a crc32c(ManufacturerName) for the 32 most significant bits for vendor identification purposes.
+# A statistically unique number that can be used to identify this exact battery for logging and diagnostic purposes.
+# This value should be invariant to the identity of the reporting node unless it is an integral part of the battery.
+# If the battery supports SBS, the recommended way to populate this field is from two CRC-32C (Castagnoli) values as:
+#   - 32 most significant bits identify the vendor as:   CRC32C(ManufacturerName)
+#   - 32 least significant bits identify the battery as: CRC32C(DeviceName + ManufactureDate + SerialNumber)
+# If the battery does not support SBS, the vendor may choose arbitrary random numbers.
+# Note that these are mere recommendations. The only hard requirement for this field is to be statistically unique.
 
 uavcan.si.unit.mass.Scalar.1.0 mass
 # The total mass of the battery, including the packaging, electronics, cabling, and all auxiliary items, if any.
@@ -23,33 +26,29 @@ uavcan.si.unit.electric_charge.Scalar.1.0 design_capacity
 
 uavcan.si.unit.voltage.Scalar.1.0[2] design_cell_voltage_min_max
 # The minimum (end of discharge) and the maximum (end of charge) resting cell voltage specified by the manufacturer
-# at 100% SoH. Example: {2.8, 4.2} V. These voltages correspond to resting voltages i.e. the stabilized voltages after
+# at 100% SoH. Example: {2.8, 4.2} V. These voltages correspond to resting voltages; i.e., the stabilized voltages after
 # the discharge/charge has been terminated. Voltage below the min may be observed during discharge due to the cell's
-# internal resistance. Voltage above the max voltage may be observed during regenerative braking/ charging etc due to
+# internal resistance. Voltage above the max voltage may be observed during regenerative braking/charging etc due to
 # the cell's internal resistance.
 
 uavcan.si.unit.electric_current.Scalar.1.0 discharge_current
-# Recommended continuous discharge current of the battery
+# Recommended continuous discharge current of the battery.
 
 uavcan.si.unit.electric_current.Scalar.1.0 discharge_current_burst
 # Maximum current that may be safely discharged at least for 5 seconds.
 
 uavcan.si.unit.electric_current.Scalar.1.0 charge_current
-# Recommended continuous charge current of the battery
+# Recommended continuous charge current of the battery.
 
 uavcan.si.unit.electric_current.Scalar.1.0 charge_current_fast
-# Recommended safest highest continuous charge current for the battery. This may be expected to accelerated aging for
-# the battery.
+# Recommended safest highest continuous charge current for the battery.
+# This may cause accelerated aging of the battery.
 
 uavcan.si.unit.electric_current.Scalar.1.0 charge_termination_threshold
-# End-of-charging current threshold. Charging may be terminated when charging current falls below this threshold.
+# End-of-charging current threshold. Charging may be terminated when the current falls below this threshold.
 
-uavcan.si.unit.voltage.Scalar.1.0          charge_voltage
+uavcan.si.unit.voltage.Scalar.1.0 charge_voltage
 # The total voltage(not per-cell) that may be used by the charger to charge the battery pack.
-
-# The key (dis-)charge parameters specified by the manufacturer for the pack.
-# This is a reflection of similar parameters from the Smart Battery Data Specification.
-# For non-rechargeable batteries all "charge_*" parameters should be NaN.
 
 uint16 cycle_count
 # The number of charge-discharge cycles. Zero if the battery is new. May increase at runtime.

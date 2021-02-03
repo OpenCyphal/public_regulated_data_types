@@ -35,5 +35,4 @@ uint8 MAX_CELLS = 255
 float16[<=MAX_CELLS] cell_voltages  # [volt]
 # The voltages of individual cells in the battery pack.
 
-@print _offset_ / 8
 @extent 600 * 8  # Single-frame transfer over CAN FD.
