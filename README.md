@@ -5,12 +5,14 @@ Regulated DSDL definitions
 [![Forum](https://img.shields.io/discourse/https/forum.uavcan.org/users.svg)](https://forum.uavcan.org)
 
 This repository contains definitions of the regulated UAVCAN v1 data types.
-[UAVCAN](http://uavcan.org) is an open lightweight protocol designed for reliable communication
-in aerospace and robotic applications via robust vehicle bus networks such as CAN, Ethernet, and similar.
+[UAVCAN](http://uavcan.org) is an open technology for real-time intravehicular distributed computing
+and communication based on modern networking standards.
 The name stands for *Uncomplicated Application-level Vehicular Computing And Networking*.
 
 Contributors must obey the guidelines defined in this document.
 Feedback and proposals are welcome on the [UAVCAN forum](https://forum.uavcan.org).
+
+A web-based DSDL compiler is available at [nunaweb.uavcan.org](https://nunaweb.uavcan.org).
 
 ## Namespaces
 
