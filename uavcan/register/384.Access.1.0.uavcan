@@ -1,8 +1,11 @@
-# This service is used to write and read a register. Write is optional, it is performed if the value provided in
-# the request is not empty.
+# Registers are strongly-typed named values used to store the configuration parameters of a node.
+# This service is used to write and read a register.
+#
+#
+#   READ/WRITE BEHAVIORS
 #
 # The write operation is performed first, unless skipped by sending an empty value in the request.
-# The server may attempt to convert the type of the value to the proper type if there is a type mismatch
+# The server may attempt to convert the type of the supplied value to the correct type if there is a type mismatch
 # (e.g. uint8 may be converted to uint16); however, servers are not required to perform implicit type conversion,
 # and the rules of such conversion are not explicitly specified, so this behavior should not be relied upon.
 #
@@ -15,14 +18,17 @@
 # case properly.
 #
 # The timestamp provided in the response corresponds to the time when the register was read. The timestamp may
-# be empty if the server does not support timestamping or its clock is not yet synchronized with the bus.
+# be empty if the server does not support timestamping or its clock is not (yet) synchronized with the network.
 #
-# If only read is desired, but not write, the caller shall provide a value of type Empty. That will signal the server
+# If only read is desired, but not write, the caller shall provide a value of type 'empty'. That will signal the server
 # that the write operation shall be skipped, and it will proceed to read the register immediately.
 #
 # If the requested register does not exist, the write operation will have no effect and the returned value will be
-# empty. Existing registers should not return Empty when read since that would make them indistinguishable from
+# empty. Existing registers should not return 'empty' when read since that would make them indistinguishable from
 # nonexistent registers.
+#
+#
+#   REGISTER DEFINITION REQUIREMENTS
 #
 # Registers shall never change their type or flags as long as the server is running. Meaning that:
 #   - Mutability and persistence flags cannot change their states.
@@ -30,18 +36,49 @@
 #     The dimensionality requirement does not apply to inherently variable-length values such as strings and
 #     unstructured chunks.
 #
-# In order to discover the type of a register, the caller needs to invoke this service with the write request set
-# to Empty. The response will contain the current value of the register with the type information (which doesn't
-# change).
+# Register name should contain only:
+#   - Lowercase ASCII alphanumeric characters (a-z, 0-9)
+#   - Full stop (.)
+#   - Low line (underscore) (_)
+# With the following limitations/recommendations:
+#   - The name shall not begin with a decimal digit (0-9).
+#   - The name shall neither begin nor end with a full stop.
+#   - A low line shall not be followed by a non-alphanumeric character.
+#   - The name should contain at least one full stop character.
+# Other patterns and ASCII characters are reserved for special function registers (introduced below).
 #
-# Register name may contain:
-#   - All ASCII alphanumeric characters (a-z, A-Z, 0-9)
-#   - Dot (.)
-#   - Underscore (_)
-#   - Minus (-)
-# All other printable non-whitespace ASCII characters are reserved for standard functions;
-# they may appear in register names to support such standard functions defined by the register protocol,
-# but they cannot be freely used by applications outside of such standard functions.
+#
+#   ENVIRONMENT VARIABLES
+#
+# This section applies only to software nodes executed in a high-level operating system that supports environment
+# variables or an equivalent mechanism.
+#
+# When a software node is launched, it is usually necessary to provide some of its configuration information early,
+# particularly that which is related to UAVCAN networking, before the node is started. Environment variables offer
+# a convenient way of addressing this. Software nodes that support the register interface should evaluate the
+# available environment variables during initialization and update their registers (whether they are stored in
+# a persistent storage or in memory) accoringly. This should be completed before the first register read access.
+#
+# A register name is mapped to an environment variable name as follows:
+#   - the name is upper-cased;
+#   - full stop characters are replaced with double low line characters.
+# For example: 'motor.inductance_dq' is mapped to 'MOTOR__INDUCTANCE_DQ'.
+#
+# Register values are represented in environment variables as follows:
+#   - string:                   utf-8 or platform-specific
+#   - unstructured:             as-is
+#   - bit, integer*, natural*:  space-separated decimals
+#   - real*:                    space-separated decimals with explicit decimal separators (point ".")
+#
+# If an environment variable matches the name of an existing register but its value cannot be converted to the
+# register's type, an error should be raised.
+#
+# If an environment variable does not match the name of any register, it may be ignored. However, if the implementation
+# can reliably deduce the type and purpose of the register, it may create one automatically. This provision is to
+# support applications where the register schema may be altered by configuration.
+#
+#
+#   SPECIAL FUNCTION REGISTERS
 #
 # The following optional special function register names are defined:
 #   - suffix '<' is used to define an immutable persistent value that contains the maximum value
@@ -56,12 +93,15 @@
 #   - default value is contained in the register named "system.parameter=" (optional)
 #
 # The type and dimensionality of the special function registers containing the minimum, maximum, and the default
-# value of a register shall be the same as those of the register.
+# value of a register shall be the same as those of the register they relate to.
 #
 # If a written value exceeds the minimum/maximum specified by the respective special function registers,
 # the server may either adjust the value automatically, or to retain the old value, depending on which behavior
 # suits the objectives of the application better.
 # The values of registers containing non-scalar numerical entities should be compared elementwise.
+#
+#
+#   STANDARD REGISTERS
 #
 # The following table specifies the register name patterns that are reserved by the specification for
 # common functions. These conventions are not mandatory to follow, but implementers are recommended to adhere because
@@ -128,13 +168,9 @@ Name.1.0 name
 # The name of the accessed register. Shall not be empty.
 # Use the List service to obtain the list of registers on the node.
 
-@assert _offset_ % 8 == {0}
-
 Value.1.0 value
 # Value to be written. Empty if no write is required.
 
-@assert _offset_.min % 8 == 0
-@assert _offset_.max % 8 == 0
 @sealed
 
 ---
