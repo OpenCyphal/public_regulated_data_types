@@ -110,7 +110,7 @@
 #   REGISTER NAME PATTERN                               TYPE            FLAGS                   RECOMMENDED DEFAULT
 # =====================================================================================================================
 #
-#   uavcan.node.id                                      natural16       mutable, persistent     65535 (unset/PnP)
+#   uavcan.node.id                                      natural16[1]    mutable, persistent     65535 (unset/PnP)
 #
 # Contains the node-ID of the local node. Values above the maximum valid node-ID for the current transport
 # indicate that the node-ID is not set; if plug-and-play is supported, it will be used by the node to obtain an
@@ -126,7 +126,7 @@
 #
 # ---------------------------------------------------------------------------------------------------------------------
 #
-#   uavcan.pub.PORT_NAME.id                             natural16       mutable, persistent     65535 (unset, invalid)
+#   uavcan.pub.PORT_NAME.id                             natural16[1]    mutable, persistent     65535 (unset, invalid)
 #   uavcan.sub.PORT_NAME.id                             ditto           ditto                   ditto
 #   uavcan.cln.PORT_NAME.id                             ditto           ditto                   ditto
 #   uavcan.srv.PORT_NAME.id                             ditto           ditto                   ditto
@@ -161,6 +161,41 @@
 # These registers are set by the vendor once and typically they are to remain unchanged (hence "immutable").
 # The "PORT_NAME" defines the human-friendly name of the port as specified above.
 # For example, a register named "uavcan.pub.measurement.type" may contain "uavcan.si.sample.angle.Quaternion.1.0".
+#
+# ---------------------------------------------------------------------------------------------------------------------
+#
+#   uavcan.diagnostic.*
+#
+# Prefix reserved for future use.
+#
+# ---------------------------------------------------------------------------------------------------------------------
+#
+#   uavcan.can.bitrate                                  natural32[2]    implementation-defined  implementation-defined
+#   uavcan.can.iface                                    string          mutable, persistent     implementation-defined
+#
+# These registers are only relevant for nodes that support UAVCAN/CAN.
+#
+# uavcan.can.bitrate defines the CAN bus bit rate: the first value is the arbitration bit rate, the second is the
+# data phase bit rate. Nodes that support only Classic CAN should ignore the second value. Nodes that support CAN FD
+# should initialize in the Classic CAN mode (MTU 8 bytes, BRS flag not set) if the values are equal. If CAN bitrate
+# is not configurable or is always auto-detected, this register may be omitted or made immutable; otherwise it should
+# be mutable and persistent.
+#
+# uavcan.can.iface is only relevant for software nodes or nodes that are capable of using different CAN interfaces.
+# The value is a space-separated list of CAN interface names to use. The name format is implementation-defined
+# (for example, "can0").
+#
+# ---------------------------------------------------------------------------------------------------------------------
+#
+#   uavcan.udp.*
+#
+# Prefix reserved for future use.
+#
+# ---------------------------------------------------------------------------------------------------------------------#
+#
+#   uavcan.serial.*
+#
+# Prefix reserved for future use.
 #
 # ---------------------------------------------------------------------------------------------------------------------
 
