@@ -65,10 +65,9 @@
 # For example: 'motor.inductance_dq' is mapped to 'MOTOR__INDUCTANCE_DQ'.
 #
 # Register values are represented in environment variables as follows:
-#   - string:                   utf-8 or platform-specific
-#   - unstructured:             as-is
-#   - bit, integer*, natural*:  space-separated decimals
-#   - real*:                    space-separated decimals with explicit decimal separators (point ".")
+#   - string:                         utf-8 or platform-specific
+#   - unstructured:                   as-is
+#   - bit, integer*, natural*, real*: space-separated decimals
 #
 # If an environment variable matches the name of an existing register but its value cannot be converted to the
 # register's type, an error should be raised.
