@@ -1,10 +1,10 @@
 # The readiness state is used to command or report the availability status of a networked service (subsystem).
 #
-# A simple system would usually have one readiness command subject published by some central controller
-# that other components subscribe to. Said subject acts as a global power switch. Every subsystem controlled in
-# such way would usually report its readiness status back to account for the fact that the transition between different
-# readiness states may not be instantaneous. The readiness status reporting is done by means of the service heartbeat
-# type that is also defined in this namespace; the service heartbeat type is a structural subtype of this type.
+# Any system shall have at least one readiness command subject that acts as a global power switch.
+# Every subsystem controlled in such way would usually report its readiness status back to account for the fact that
+# the transition between different readiness states may not be instantaneous.
+# The readiness status reporting is done by means of the service heartbeat type that is also defined in this namespace;
+# the service heartbeat type is a structural subtype of this type.
 #
 #   +------------+
 #   | Controller |----------+----------------+----------------+---------...     readiness command subject
