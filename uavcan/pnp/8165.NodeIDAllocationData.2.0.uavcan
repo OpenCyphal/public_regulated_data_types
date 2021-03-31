@@ -13,11 +13,6 @@
 # This feature relies on the concept of "anonymous message transfers", please consult with the UAVCAN transport
 # layer specification for details.
 #
-# An allocated node-ID should not be persistent. This means that if a node is configured to use plug-and-play node-ID
-# allocation, it shall perform a new allocation every time it is started or rebooted. The allocated node-ID value
-# should not be stored on the node itself, because there exist edge cases that may lead to node-ID conflicts under
-# certain circumstances (reviewed later).
-#
 # The process of plug-and-play node-ID allocation always involves two types of nodes: "allocators", which serve
 # allocation requests; and "allocatees", which request PnP node-ID from allocators. A UAVCAN network may implement
 # the following configurations of allocators:
@@ -27,7 +22,7 @@
 #
 #   - One allocator, in which case the feature of plug-and-play node-ID allocation will become unavailable
 #     if the allocator fails. In this configuration, the role of the allocator can be performed even by a very
-#     resource-constrained system, e.g. a low-end microcontroller.
+#     resource-constrained system, e.g., a low-end microcontroller.
 #
 #   - Three allocators, in which case the allocators will be using a replicated allocation table via a
 #     distributed consensus algorithm. In this configuration, the network can tolerate the loss of one

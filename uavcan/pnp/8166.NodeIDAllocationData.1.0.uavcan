@@ -1,6 +1,6 @@
 # This definition of the allocation message is intended for use with transports where anonymous transfers are limited
 # to 7 bytes of payload, such as Classic CAN. The definition is carried over from the original UAVCAN v0 specification
-# with some modifications. For transports other than Classic CAN (e.g., CAN FD, serial, UDP, etc.) there is a more
+# with some modifications. For transports other than Classic CAN (e.g., CAN FD, serial, etc.) there is a more
 # general, more capable definition NodeIDAllocationData v2.0. The PnP protocol itself is described in the documentation
 # for the v2 definition. The documentation provided here builds upon the general case, so read that first please.
 #
