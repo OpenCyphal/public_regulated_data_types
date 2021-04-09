@@ -6,7 +6,6 @@
 #
 # All parameters are required unless specifically stated otherwise.
 # For non-rechargeable batteries all "charge_*" parameters should be NaN.
-@deprecated
 
 truncated uint64 unique_id
 # A statistically unique number that can be used to identify this exact battery for logging and diagnostic purposes.
@@ -65,5 +64,8 @@ void1
 Technology.0.1 technology
 # The battery technology information may be leveraged by the charger to choose the appropriate charging strategy.
 
+uavcan.si.unit.voltage.Scalar.1.0 nominal_voltage
+# The average voltage(not per-cell) the battery outputs when charged.
+
 @assert _offset_.count == 1     # It is intended to be a fixed-size type (although it's not required).
-@extent 8 * 63                  # Limit to a single-frame transfer over CAN FD.
+@extent 8 * 67
