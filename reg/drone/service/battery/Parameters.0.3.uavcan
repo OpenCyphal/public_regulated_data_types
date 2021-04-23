@@ -66,8 +66,7 @@ Technology.0.1 technology
 
 uavcan.si.unit.voltage.Scalar.1.0 nominal_voltage
 # The nominal voltage of the battery pack (not per-cell) as defined by the vendor.
-# The Smart Battery Data Specification v1.1 uses the term "design voltage".
-# E.g., a typical 22S LiCoO2 pack might report 81.4 V here.
+# E.g., a typical 22S LiCoO2 pack would usually report 81.4 V here.
 
 @assert _offset_.count == 1     # It is intended to be a fixed-size type (although it's not required).
 @extent 8 * 67
