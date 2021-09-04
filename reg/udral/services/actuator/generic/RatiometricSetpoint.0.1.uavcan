@@ -1,0 +1,7 @@
+# Ratiometric setpoint for UDRAL actuators, including servo motors and electronic speed controllers (ESCs).
+# Commands an actuator to a specified fraction of its maximum drive capability.
+# Values are normalized between -8191 and 8192. 8192 represents maximum drive (RPM, deflection, etc) in the positive direction, while -8192 represents maximum drive in the negative direction.
+
+int14[32] ratiometric_value
+
+@extent 16 * 256
