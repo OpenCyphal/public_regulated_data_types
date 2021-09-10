@@ -16,20 +16,20 @@
 #
 #   - Feedback subjects published by each ESC separately, as shown on the diagram below.
 #
-#                                                   SUBJECT NAME          SUBJECT TYPE
+#                                                   SUBJECT NAME        SUBJECT TYPE
 #  +----------------+
-#  |   Controller   |---------+------------+----... udral.esc.setpoint    reg.udral.service.actuator.common.sp.*
-#  |                |-------+-)----------+-)----... udral.esc.readiness   reg.udral.service.common.Readiness
+#  |   Controller   |---------+------------+----... setpoint            reg.udral.service.actuator.common.sp.*
+#  |                |-------+-)----------+-)----... readiness           reg.udral.service.common.Readiness
 #  +----------------+       | |          | |
 #   ^ ^ ^ ^  ^ ^ ^ ^        v v          v v
 #   | | | |  | | | |   +---------+  +---------+
 #   | | | |  | | | |   |Drive i=0|  |Drive i=1| ...
 #   | | | |  | | | |   +---------+  +---------+
 #   | | | |  | | | |     | | | |      | | | |
-#   | | | |  | | | +-----+ | | |      | | | |       udral.esc.feedback    reg.udral.service.actuator.common.Feedback
-#   | | | |  | | +---------+ | |      | | | |       udral.esc.status      reg.udral.service.actuator.common.Status
-#   | | | |  | +-------------+ |      | | | |       udral.esc.power       reg.udral.physics.electricity.PowerTs
-#   | | | |  +-----------------+      | | | |       udral.esc.dynamics    reg.udral.physics.dynamics.rotation.PlanarTs
+#   | | | |  | | | +-----+ | | |      | | | |       feedback            reg.udral.service.actuator.common.Feedback
+#   | | | |  | | +---------+ | |      | | | |       status              reg.udral.service.actuator.common.Status
+#   | | | |  | +-------------+ |      | | | |       power               reg.udral.physics.electricity.PowerTs
+#   | | | |  +-----------------+      | | | |       dynamics            reg.udral.physics.dynamics.rotation.PlanarTs
 #   | | | |                           | | | |
 #   | | | +---------------------------+ | | |
 #   | | +-------------------------------+ | |
@@ -117,11 +117,11 @@
 #
 # The following subjects shall be published immediately after a new setpoint is applied even if the drive is STANDBY:
 #
-#   SUBJECT                     RECOMMENDED PRIORITY
+#   SUBJECT             RECOMMENDED PRIORITY
 #   ---------------------------------------------
-#   udral.esc.feedback          same as the setpoint
-#   udral.esc.power             second to the setpoint
-#   udral.esc.dynamics          second to the setpoint
+#   feedback            same as the setpoint
+#   power               second to the setpoint
+#   dynamics            second to the setpoint
 #
 # If no setpoint is being published, these subjects should continue being updated at least at 1/MAX_PUBLICATION_PERIOD.
 # The publication rate requirements do not apply if the readiness state is SLEEP.

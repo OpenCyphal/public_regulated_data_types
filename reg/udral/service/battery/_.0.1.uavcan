@@ -1,9 +1,9 @@
-# This is the smart battery monitoring service. A smart battery is required to publish the following subjects:
+# This is the smart battery monitoring service. A smart battery is required to publish on the following subjects:
 #
 #   SUBJECT                         TYPE                                            TYP. RATE [Hz]
-#   udral.battery.energy_source     reg.udral.physics.electricity.SourceTs          1...100
-#   udral.battery.status            reg.udral.service.battery.Status                ~1
-#   udral.battery.parameters        reg.udral.service.battery.Parameters            ~0.2
+#   energy_source                   reg.udral.physics.electricity.SourceTs          1...100
+#   status                          reg.udral.service.battery.Status                ~1
+#   parameters                      reg.udral.service.battery.Parameters            ~0.2
 #
 # Observe that only the first subject can be used for estimating the endurance of the power source. The other subjects
 # are designed for monitoring, diagnostics, and maintenance.
@@ -24,9 +24,9 @@
 #
 # If readiness state selection is not supported, the battery may not subscribe to the readiness control subject,
 # in which case it should permanently report its state as ENGAGED unless the battery is unfit for use (e.g., due
-# to degradation of a failure).
+# to degradation or a failure).
 #
-# By convention, positive power (current) flows from the DC network into the battery. Therefore, the current is
+# By convention, positive current flows from the DC network into the battery. Therefore, the current is
 # negative when the battery powers the system, and positive when it is being charged.
 #
 # Systems that leverage multiple battery packs simultaneously should be configured to publish the status of each

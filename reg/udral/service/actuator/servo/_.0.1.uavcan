@@ -15,17 +15,17 @@
 #
 #                  SUBJECT NAME                         SUBJECT TYPE                                    RATE
 #
-#   +------------+ udral.servo.setpoint +------------+  (non-timestamped dynamics) (see below)          R
+#   +------------+ setpoint             +------------+  (non-timestamped dynamics) (see below)          R
 #   |            |--------------------->|            |
-#   |            | udral.servo.readiness|            |  reg.udral.service.common.Readiness              any
+#   |            | readiness            |            |  reg.udral.service.common.Readiness              any
 #   |            |--------------------->|            |
-#   |            | udral.servo.feedback |            |  reg.udral.service.actuator.common.Feedback      R
+#   |            | feedback             |            |  reg.udral.service.actuator.common.Feedback      R
 #   |            |<---------------------|            |
-#   | Controller | udral.servo.status   |   Servo    |  reg.udral.service.actuator.common.Status        any
+#   | Controller | status               |   Servo    |  reg.udral.service.actuator.common.Status        any
 #   |            |<---------------------|            |
-#   |            | udral.servo.power    |            |  reg.udral.physics.electricity.PowerTs           R
+#   |            | power                |            |  reg.udral.physics.electricity.PowerTs           R
 #   |            |<---------------------|            |
-#   |            | udral.servo.dynamics |            |  (timestamped dynamics)                          R
+#   |            | dynamics             |            |  (timestamped dynamics)                          R
 #   |            |<---------------------|            |
 #   +------------+                      +------------+
 #
@@ -66,18 +66,18 @@
 #
 #                                                   SUBJECT NAME            SUBJECT TYPE
 #  +----------------+
-#  |   Controller   |---------+------------+----... udral.servo.setpoint    reg.udral.service.actuator.common.sp.*
-#  |                |-------+-)----------+-)----... udral.servo.readiness   reg.udral.service.common.Readiness
+#  |   Controller   |---------+------------+----... setpoint                reg.udral.service.actuator.common.sp.*
+#  |                |-------+-)----------+-)----... readiness               reg.udral.service.common.Readiness
 #  +----------------+       | |          | |
 #   ^ ^ ^ ^  ^ ^ ^ ^        v v          v v
 #   | | | |  | | | |   +---------+  +---------+
 #   | | | |  | | | |   |Servo i=0|  |Servo i=1| ...
 #   | | | |  | | | |   +---------+  +---------+
 #   | | | |  | | | |     | | | |      | | | |
-#   | | | |  | | | +-----+ | | |      | | | |       udral.servo.feedback    reg.udral.service.actuator.common.Feedback
-#   | | | |  | | +---------+ | |      | | | |       udral.servo.status      reg.udral.service.actuator.common.Status
-#   | | | |  | +-------------+ |      | | | |       udral.servo.power       reg.udral.physics.electricity.PowerTs
-#   | | | |  +-----------------+      | | | |       udral.servo.dynamics    (timestamped dynamics)
+#   | | | |  | | | +-----+ | | |      | | | |       feedback                reg.udral.service.actuator.common.Feedback
+#   | | | |  | | +---------+ | |      | | | |       status                  reg.udral.service.actuator.common.Status
+#   | | | |  | +-------------+ |      | | | |       power                   reg.udral.physics.electricity.PowerTs
+#   | | | |  +-----------------+      | | | |       dynamics                (timestamped dynamics)
 #   | | | |                           | | | |
 #   | | | +---------------------------+ | | |
 #   | | +-------------------------------+ | |
@@ -92,11 +92,11 @@
 #
 # The following subjects shall be published immediately after a new setpoint is applied even if the servo is STANDBY:
 #
-#   SUBJECT NAME            RECOMMENDED PRIORITY
+#   SUBJECT NAME        RECOMMENDED PRIORITY
 #   ---------------------------------------------
-#   udral.servo.feedback    same as the setpoint
-#   udral.servo.power       second to the setpoint
-#   udral.servo.dynamics    second to the setpoint
+#   feedback            same as the setpoint
+#   power               second to the setpoint
+#   dynamics            second to the setpoint
 #
 # If no setpoint is being published, these subjects should continue being updated at least at 1/MAX_PUBLICATION_PERIOD.
 #
