@@ -77,8 +77,8 @@ UAVCAN implementation libraries are optimized for handling multi-frame transfers
 
 The following resources are provided to help the integrator analyze bandwidth usage:
 
-- [UAVCAN/CAN bandwidth validation: Classic CAN](https://docs.google.com/spreadsheets/d/1kFx1hupmQrzEaEnaTDngViIM4W9Xd9Oq2I_2sb6320Q/edit)
-- [UAVCAN/CAN bandwidth validation: CAN FD](https://docs.google.com/spreadsheets/d/1GqZe3HzGumPf0zEKZv5BEdcqg2CAh-YjcYwV6i5bNX8/edit)
+- [UAVCAN/CAN bandwidth validation: Classic CAN](https://docs.google.com/spreadsheets/d/1zjpdPfmBf9oje2qjLYddlhFfkaQuTJ-VvQjHxzITils/edit)
+- [UAVCAN/CAN bandwidth validation: CAN FD](https://docs.google.com/spreadsheets/d/1iK0MegMuEC55c-zTW6ssWhrA_sGUuSlT0S26xv5gytE/edit)
 
 ## Typical applications
 
