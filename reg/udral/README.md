@@ -69,6 +69,9 @@ It is expected that in the foreseeable future all new applications will be lever
 data transfer capability is at this level or higher
 (this includes, for example, UAVCAN/UDP over Ethernet, UAVCAN/CAN over CAN FD, UAVCAN/serial over RS-422 or USB, etc).
 
+Note that UAVCAN v1 allows integrators to selectively disable irrelevant publications by reconfiguring the
+appropriate port-ID registers (`uavcan.pub.*.id`), which is a powerful bandwidth management tool.
+
 Applications relying on Classic CAN (maximum data rate 1 Mbps, MTU 8 bytes) can still deploy these network services,
 but the designer needs to be aware that most transfers will be multi-frame transfers and the resulting bus utilization
 may be comparatively high.
