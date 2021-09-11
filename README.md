@@ -1,7 +1,7 @@
 Regulated DSDL definitions
 ==========================
 
-[![Build Status](https://travis-ci.org/UAVCAN/public_regulated_data_types.svg?branch=master)](https://travis-ci.org/UAVCAN/public_regulated_data_types)
+[![Main Workflow](https://github.com/UAVCAN/public_regulated_data_types/actions/workflows/main.yml/badge.svg)](https://github.com/UAVCAN/public_regulated_data_types/actions/workflows/main.yml)
 [![Forum](https://img.shields.io/discourse/https/forum.uavcan.org/users.svg)](https://forum.uavcan.org)
 
 This repository contains definitions of the regulated UAVCAN v1 data types.
