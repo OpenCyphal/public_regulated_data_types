@@ -176,7 +176,9 @@ uavcan.node.ID.1.0 node_id
 # downward, until a free node-ID is found.
 
 uint8[16] unique_id
-# The unique-ID of the allocatee. This is the SAME value that is reported via uavcan.node.GetInfo.
+# The unique-ID of the allocatee. This is the SAME value that is reported via uavcan.node.GetInfo UNLESS using
+# low-MTU transports. When low-MTU transports are used then the uavcan.node.GetInfo will report the real
+# unique-ID, which will not be equal to this unique_id.
 # The value is subjected to the same set of constraints; e.g., it can't be changed while the node is running,
 # and the same value should be unlikely to be used by any two different nodes anywhere in the world.
 #
