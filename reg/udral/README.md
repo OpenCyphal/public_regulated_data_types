@@ -260,7 +260,8 @@ Example signature would look like `(u12{u8}a5[f16]=i8)`, and be interpreted as
  - `a` and `A` followed by length in items and brackets encode variable and fixed size arrays
  - `=` marks byte alignment point
 
-Sample code that generates type string from DSDL and compares two strings for compatibility can be seen at this 
+This is a draft and informal description which would likely change.
+Sample proof-of-concept code that generates type string from DSDL and compares two strings for compatibility can be seen at this 
 (temporary) location: <https://gitlab.com/vadimz1/dsdl-sig-gen/-/tree/main>.
 
 
