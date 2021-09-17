@@ -241,11 +241,18 @@ which permits addition of implementation-defined ports without breaking compatib
 
 In many use cases it is desirable to have the ability to statically check the compatibility between sender and 
 receiver of a message. This capability could be used both during automatic configuration and by manual configurator tools.
-The design allows this by adding an extra register to every service pub/sub group that contains a string _message type signature_.
+The design allows this by adding an optional register per port that contains a string _data type signature_.
 
-    uavcan.sub.main_drive.setpoint.type_sig
+    uavcan.pub.PORT_NAME.type_sig
+    uavcan.sub.PORT_NAME.type_sig
+    uavcan.cln.PORT_NAME.type_sig
+    uavcan.srv.PORT_NAME.type_sig
 
-Example signature would look like `(u12{u8}a5[f16]=i8)` , and be interpreted as
+Where `PORT_NAME` is a placeholder defined in the
+[documentation for `uavcan.register.Access`](https://github.com/UAVCAN/public_regulated_data_types/blob/b02e6899a319ddefbab41b820d167c95dd00174d/uavcan/register/384.Access.1.0.uavcan#L136-L139).
+For example: `uavcan.sub.main_drive.setpoint.type_sig`
+
+Example signature would look like `(u12{u8}a5[f16]=i8)`, and be interpreted as
 
  - `()` delimit sealed type
  - `{}` delimit extensible type
@@ -254,7 +261,7 @@ Example signature would look like `(u12{u8}a5[f16]=i8)` , and be interpreted as
  - `=` marks byte alignment point
 
 Sample code that generates type string from DSDL and compares two strings for compatibility can be seen at this 
-(temporary) [location](https://gitlab.com/vadimz1/dsdl-sig-gen/-/tree/main).
+(temporary) location: <https://gitlab.com/vadimz1/dsdl-sig-gen/-/tree/main>.
 
 
 ## Conventions
