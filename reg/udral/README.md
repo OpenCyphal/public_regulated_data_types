@@ -236,6 +236,35 @@ It is not necessary to include the leading and trailing name component separator
 Registers that are not known to the auto-configuration authority are to be silently ignored,
 which permits addition of implementation-defined ports without breaking compatibility with standard services.
 
+
+#### Type signature register
+
+In many use cases it is desirable to have the ability to statically check the compatibility between sender and 
+receiver of a message. This capability could be used both during automatic configuration and by manual configurator tools.
+The design allows this by adding an optional register per port that contains a string _data type signature_.
+
+    uavcan.pub.PORT_NAME.type_sig
+    uavcan.sub.PORT_NAME.type_sig
+    uavcan.cln.PORT_NAME.type_sig
+    uavcan.srv.PORT_NAME.type_sig
+
+Where `PORT_NAME` is a placeholder defined in the
+[documentation for `uavcan.register.Access`](https://github.com/UAVCAN/public_regulated_data_types/blob/b02e6899a319ddefbab41b820d167c95dd00174d/uavcan/register/384.Access.1.0.uavcan#L136-L139).
+For example: `uavcan.sub.main_drive.setpoint.type_sig`
+
+Example signature would look like `(u12{u8}a5[f16]=i8)`, and be interpreted as
+
+ - `()` delimit sealed type
+ - `{}` delimit extensible type
+ - `b`, `u`, `i`, `f`, `v` followed by size in bits encode primitive types
+ - `a` and `A` followed by length in items and brackets encode variable and fixed size arrays
+ - `=` marks byte alignment point
+
+This is a draft and informal description which would likely change.
+Sample proof-of-concept code that generates type string from DSDL and compares two strings for compatibility can be seen at this 
+(temporary) location: <https://gitlab.com/vadimz1/dsdl-sig-gen/-/tree/main>.
+
+
 ## Conventions
 
 - Conventions defined in the UAVCAN Specification shall be followed.
