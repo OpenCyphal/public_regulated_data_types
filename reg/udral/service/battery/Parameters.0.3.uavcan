@@ -48,13 +48,15 @@ uavcan.si.unit.electric_current.Scalar.1.0 charge_termination_threshold
 # End-of-charging current threshold. Charging may be terminated when the current falls below this threshold.
 
 uavcan.si.unit.voltage.Scalar.1.0 charge_voltage
-# The total voltage(not per-cell) that may be used by the charger to charge the battery pack.
+# The total voltage (not per-cell) that may be used by the charger to charge the battery pack.
 
 uint16 cycle_count
 # The number of charge-discharge cycles. Zero if the battery is new. May increase at runtime.
 # What constitutes a charge-discharge cycle is implementation-defined.
 
-void16
+void8
+uint8 series_cell_count
+# The number of cells connected in series. This value should match the array of cell voltages reported via Status.
 
 uint7 state_of_health_pct  # [percent]
 # The SoH of the battery, or best guess thereof; ranges from 0 (unusable) to 100 (new).
@@ -67,5 +69,11 @@ uavcan.si.unit.voltage.Scalar.1.0 nominal_voltage
 # The nominal voltage of the battery pack (not per-cell) as defined by the vendor.
 # E.g., a typical 22S LiCoO2 pack would usually report 81.4 V here.
 
-@assert _offset_.count == 1     # It is intended to be a fixed-size type (although it's not required).
-@extent 8 * 67
+truncated uint40 unix_manufacture_time
+# The approximate UNIX Epoch time when the battery was manufactured, zero if unknown.
+
+uint8[<=64] name
+# An arbitrary human-readable textual description of this battery. Empty if unknown/unused.
+# Batteries that support SBS are recommended to report the manufacturer name and the device name here.
+
+@extent 8 * 300
