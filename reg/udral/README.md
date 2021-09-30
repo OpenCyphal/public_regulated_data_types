@@ -228,9 +228,9 @@ Observe how the main drive group implements two distinct (but similar) services 
 
 Register name                    | Register type   | Value
 ---------------------------------|-----------------|-------------------------------------------
-`reg.drone.srv.battery`          | `string`        | `battery.primary battery.secondary`
-`reg.drone.srv.actuator.servo`   | `string`        | `main_drive`
-`reg.drone.srv.actuator.esc`     | `string`        | `main_drive`
+`reg.udral.srv.battery`          | `string`        | `battery.primary battery.secondary`
+`reg.udral.srv.actuator.servo`   | `string`        | `main_drive`
+`reg.udral.srv.actuator.esc`     | `string`        | `main_drive`
 
 It is not necessary to include the leading and trailing name component separators `.` in the prefix names.
 Registers that are not known to the auto-configuration authority are to be silently ignored,
@@ -239,7 +239,7 @@ which permits addition of implementation-defined ports without breaking compatib
 
 #### Type signature register
 
-In many use cases it is desirable to have the ability to statically check the compatibility between sender and 
+In many use cases it is desirable to have the ability to statically check the compatibility between sender and
 receiver of a message. This capability could be used both during automatic configuration and by manual configurator tools.
 The design allows this by adding an optional register per port that contains a string _data type signature_.
 
@@ -261,7 +261,7 @@ Example signature would look like `(u12{u8}a5[f16]=i8)`, and be interpreted as
  - `=` marks byte alignment point
 
 This is a draft and informal description which would likely change.
-Sample proof-of-concept code that generates type string from DSDL and compares two strings for compatibility can be seen at this 
+Sample proof-of-concept code that generates type string from DSDL and compares two strings for compatibility can be seen at this
 (temporary) location: <https://gitlab.com/vadimz1/dsdl-sig-gen/-/tree/main>.
 
 
