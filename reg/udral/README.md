@@ -143,10 +143,10 @@ Imagine a node that implements two smart battery services (primary and secondary
 and a servo service (suppose we call it the main drive);
 then it might have the following registers (among others):
 
-    uavcan.pub.battery.primary.enegy_source.id
+    uavcan.pub.battery.primary.energy_source.id
     uavcan.pub.battery.primary.status.id
     uavcan.pub.battery.primary.parameters.id
-    uavcan.pub.battery.secondary.enegy_source.id
+    uavcan.pub.battery.secondary.energy_source.id
     uavcan.pub.battery.secondary.status.id
     uavcan.pub.battery.secondary.parameters.id
     uavcan.sub.main_drive.setpoint.id
@@ -172,7 +172,7 @@ The convention can be described in UML notation as follows:
                     ┆ implements
                     ┆
     +-----------------------------------+   Example group "battery.primary":
-    |        Prefixed port group        |   - battery.primary.enegy_source
+    |        Prefixed port group        |   - battery.primary.energy_source
     +-----------------------------------+   - battery.primary.status
                     │                       - battery.primary.parameters
                     │ has
