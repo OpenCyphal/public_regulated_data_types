@@ -1,18 +1,17 @@
 Regulated DSDL definitions
 ==========================
 
-[![Main Workflow](https://github.com/UAVCAN/public_regulated_data_types/actions/workflows/main.yml/badge.svg)](https://github.com/UAVCAN/public_regulated_data_types/actions/workflows/main.yml)
-[![Forum](https://img.shields.io/discourse/https/forum.uavcan.org/users.svg)](https://forum.uavcan.org)
+[![Main Workflow](https://github.com/OpenCyphal/public_regulated_data_types/actions/workflows/main.yml/badge.svg)](https://github.com/OpenCyphal/public_regulated_data_types/actions/workflows/main.yml)
+[![Forum](https://img.shields.io/discourse/https/forum.opencyphal.org/users.svg)](https://forum.opencyphal.org)
 
-This repository contains definitions of the regulated UAVCAN v1 data types.
-[UAVCAN](http://uavcan.org) is an open technology for real-time intravehicular distributed computing
+This repository contains definitions of the regulated Cyphal data types.
+[Cyphal](http://opencyphal.org) is an open technology for real-time intravehicular distributed computing
 and communication based on modern networking standards.
-The name stands for *Uncomplicated Application-level Vehicular Computing And Networking*.
 
 Contributors must obey the guidelines defined in this document.
-Feedback and proposals are welcome on the [UAVCAN forum](https://forum.uavcan.org).
+Feedback and proposals are welcome on the [Cyphal forum](https://forum.opencyphal.org).
 
-A web-based DSDL compiler is available at [nunaweb.uavcan.org](https://nunaweb.uavcan.org).
+A web-based DSDL compiler is available at [nunaweb.opencyphal.org](https://nunaweb.opencyphal.org).
 
 ## Namespaces
 
@@ -129,13 +128,13 @@ Non-standard regulated data types are contained in the root namespace `reg`.
 The root namespace contains nested namespaces, one per application domain, named after the domain.
 
 Note for authors of ***unregulated*** data type definitions:
-the UAVCAN specification explicitly bans namespaces that share the same name but differ in their contents.
+the Cyphal specification explicitly bans namespaces that share the same name but differ in their contents.
 Users seeking to define unregulated data types shall not put those into the regulated namespace;
 instead, a new root namespace (named after the vendor) shall be used.
 
 ## Guidelines for data type authors
 
-Follow the interface design guidelines provided in [**The UAVCAN Guide**](https://uavcan.org/guide).
+Follow the interface design guidelines provided in [**The Cyphal Guide**](https://opencyphal.org/guide).
 
 Every data type definition should have a header comment.
 Every field should be followed by a comment, unless it is certain that it is completely self-explanatory.
