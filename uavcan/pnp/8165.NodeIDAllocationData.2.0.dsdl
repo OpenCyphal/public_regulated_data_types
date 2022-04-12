@@ -1,20 +1,20 @@
-# In order to be able to operate in a UAVCAN network, a node shall have a node-ID that is unique within the network.
+# In order to be able to operate in a Cyphal network, a node shall have a node-ID that is unique within the network.
 # Typically, a valid node-ID can be configured manually for each node; however, in certain use cases the manual
-# approach is either undesirable or impossible, therefore UAVCAN defines the high-level feature of plug-and-play
+# approach is either undesirable or impossible, therefore Cyphal defines the high-level feature of plug-and-play
 # nodes that allows nodes to obtain a node-ID value automatically upon connection to the network. When combined
 # with automatic physical layer configuration (such as auto bit rate detection), this feature allows one to implement
-# nodes that can join a UAVCAN network without any prior manual configuration whatsoever. Such nodes are referred to
+# nodes that can join a Cyphal network without any prior manual configuration whatsoever. Such nodes are referred to
 # as "plug-and-play nodes" (or "PnP nodes" for brevity).
 #
 # The feature is fundamentally non-deterministic and is likely to be unfit for some high-reliability systems;
 # the designers need to carefully consider the trade-offs involved before deciding to rely on this feature.
 # Normally, static node-ID settings should be preferred.
 #
-# This feature relies on the concept of "anonymous message transfers", please consult with the UAVCAN transport
+# This feature relies on the concept of "anonymous message transfers", please consult with the Cyphal transport
 # layer specification for details.
 #
 # The process of plug-and-play node-ID allocation always involves two types of nodes: "allocators", which serve
-# allocation requests; and "allocatees", which request PnP node-ID from allocators. A UAVCAN network may implement
+# allocation requests; and "allocatees", which request PnP node-ID from allocators. A Cyphal network may implement
 # the following configurations of allocators:
 #
 #   - Zero allocators, in which case plug-and-play node-ID allocation cannot be used, only nodes with statically
@@ -48,7 +48,7 @@
 # and all subsequent allocation requests from the same allocatee will be served with the same node-ID value.
 #
 # In configurations with redundant allocators, every allocator maintains a replica of the same allocation table
-# (a UAVCAN network cannot contain more than one allocation table, regardless of the number of allocators employed).
+# (a Cyphal network cannot contain more than one allocation table, regardless of the number of allocators employed).
 # While the allocation table is a write-only data structure that can only grow, it is still possible to wipe the
 # table completely (as long as it is removed from all redundant allocators on the network simultaneously),
 # forcing the allocators to forget known nodes and perform all future allocations anew.
@@ -57,7 +57,7 @@
 # "static nodes". It is assumed that allocators are always static nodes themselves since there is no other authority
 # on the network that can grant a PnP node-ID, so allocators are unable to request a PnP node-ID for themselves.
 # Excepting allocators, it is not recommended to mix PnP and static nodes on the same network; i.e., normally,
-# a UAVCAN network should contain either all static nodes, or all PnP nodes (excepting allocators). If this
+# a Cyphal network should contain either all static nodes, or all PnP nodes (excepting allocators). If this
 # recommendation cannot be followed, the following rules of safe co-existence of PnP nodes with static nodes should
 # be adopted:
 #   - It is safe to connect PnP nodes to the bus at any time.

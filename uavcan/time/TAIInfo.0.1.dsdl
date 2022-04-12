@@ -8,7 +8,7 @@
 #
 # Where "LS" is the current number of leap seconds: https://en.wikipedia.org/wiki/Leap_second.
 #
-# UAVCAN applications should only rely on TAI whenever a global time system is needed.
+# Cyphal applications should only rely on TAI whenever a global time system is needed.
 # GPS time is strongly discouraged for reasons of consistency across different positioning systems and applications.
 
 uint8 DIFFERENCE_TAI_MINUS_GPS = 19    # [second]

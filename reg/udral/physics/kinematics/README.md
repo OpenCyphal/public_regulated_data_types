@@ -18,7 +18,7 @@ Cartesian approximation is infeasible.
 Other than using a different coordinate system to express position, the data types are equal to their Cartesian
 counterparts and are to some extent interchangeable thanks to the structural subtyping/aliasing features of DSDL.
 
-See UAVCAN Specification chapter "Application layer" for the applicable conventions.
+See Cyphal Specification chapter "Application layer" for the applicable conventions.
 Key excerpts:
 
 - For world fixed frames, the North-East-Down (NED) right-handed notation is preferred:

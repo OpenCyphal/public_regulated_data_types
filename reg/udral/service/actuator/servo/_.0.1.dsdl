@@ -126,6 +126,6 @@
 #                               positive| negative
 #                               power   | power
 #
-# An example implementation is available at https://github.com/UAVCAN/demos
+# An example implementation is available at https://github.com/OpenCyphal/demos
 
 @extent 0

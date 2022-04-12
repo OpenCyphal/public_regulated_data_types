@@ -1,4 +1,4 @@
-# This message carries UDP packets sent from a remote host on the Internet or a LAN to a node on the local UAVCAN bus.
+# This message carries UDP packets sent from a remote host on the Internet or a LAN to a node on the local Cyphal bus.
 # Please refer to the definition of the message type OutgoingPacket for a general overview of the packet forwarding
 # logic.
 #
@@ -12,7 +12,7 @@
 # It should be noted that this data type definition intentionally leaves out the source address. This is done in
 # order to simplify the implementation, reduce the bus traffic overhead, and because the nature of the
 # communication patterns proposed by this set of messages does not provide a valid way to implement server hosts
-# on the local UAVCAN bus. It is assumed that local nodes can be only clients, and therefore, they will be able to
+# on the local Cyphal bus. It is assumed that local nodes can be only clients, and therefore, they will be able to
 # determine the address of the sender simply by mapping the field session_id to their internally maintained states.
 # Furthermore, it is uncertain what is the optimal way of representing the source address for
 # client nodes: it is assumed that the local nodes will mostly use DNS names rather than IP addresses, so if there
@@ -38,7 +38,7 @@ uint8[<=309] payload
 # Effective payload. This data will be forwarded from the remote host verbatim.
 # UDP packets that contain more than 508 bytes of payload may be dropped by some types of
 # communication equipment. Refer to RFC 791 and 2460 for an in-depth review.
-# UAVCAN further limits the maximum packet size to reduce the memory and traffic burden on the nodes.
+# Cyphal further limits the maximum packet size to reduce the memory and traffic burden on the nodes.
 # Datagrams that exceed the capacity of this field should be discarded by the modem node.
 
 @extent 600 * 8

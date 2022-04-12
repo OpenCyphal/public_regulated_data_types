@@ -7,7 +7,7 @@
 ---
 
 Version.1.0 protocol_version
-# The UAVCAN protocol version implemented on this node, both major and minor.
+# The Cyphal protocol version implemented on this node, both major and minor.
 # Not to be changed while the node is running.
 
 Version.1.0 hardware_version
@@ -15,7 +15,7 @@ Version.1.0 software_version
 # The version information shall not be changed while the node is running.
 # The correct hardware version shall be reported at all times, excepting software-only nodes, in which
 # case it should be set to zeros.
-# If the node is equipped with a UAVCAN-capable bootloader, the bootloader should report the software
+# If the node is equipped with a Cyphal-capable bootloader, the bootloader should report the software
 # version of the installed application, if there is any; if no application is found, zeros should be reported.
 
 uint64 software_vcs_revision_id
@@ -29,7 +29,7 @@ uint8[16] unique_id
 # The vendor shall ensure that the probability of a collision with any other node UID globally is negligibly low.
 # UID is defined once per hardware unit and should never be changed.
 # All zeros is not a valid UID.
-# If the node is equipped with a UAVCAN-capable bootloader, the bootloader shall use the same UID.
+# If the node is equipped with a Cyphal-capable bootloader, the bootloader shall use the same UID.
 
 @assert _offset_ == {30 * 8}
 # Manual serialization note: only fixed-size fields up to this point. The following fields are dynamically sized.
