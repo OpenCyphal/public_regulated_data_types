@@ -54,7 +54,7 @@
 # variables or an equivalent mechanism.
 #
 # When a software node is launched, it is usually necessary to provide some of its configuration information early,
-# particularly that which is related to UAVCAN networking, before the node is started. Environment variables offer
+# particularly that which is related to Cyphal networking, before the node is started. Environment variables offer
 # a convenient way of addressing this. Software nodes that support the register interface should evaluate the
 # available environment variables during initialization and update their registers (whether they are stored in
 # a persistent storage or in memory) accoringly. This should be completed before the first register read access.
@@ -172,7 +172,7 @@
 #   uavcan.can.bitrate                                  natural32[2]    implementation-defined  implementation-defined
 #   uavcan.can.iface                                    string          mutable, persistent     implementation-defined
 #
-# These registers are only relevant for nodes that support UAVCAN/CAN.
+# These registers are only relevant for nodes that support Cyphal/CAN.
 #
 # uavcan.can.bitrate defines the CAN bus bit rate: the first value is the arbitration bit rate, the second is the
 # data phase bit rate. Nodes that support only Classic CAN should ignore the second value. Nodes that support CAN FD
@@ -219,7 +219,7 @@ bool mutable
 
 bool persistent
 # Persistence means that the register retains its value permanently across power cycles or any other changes
-# in the state of the server, until it is explicitly overwritten (either via UAVCAN, any other interface,
+# in the state of the server, until it is explicitly overwritten (either via Cyphal, any other interface,
 # or by the device itself).
 #
 # The server is recommended to manage persistence automatically by committing changed register values to a

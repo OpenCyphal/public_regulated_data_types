@@ -48,7 +48,7 @@
 # be exhausted, it is allowed to remove old NAT entries earlier, following the policy of least recent use.
 #
 # Having received a UDP packet from a remote host, the modem node would check the NAT table in order
-# to determine where on the UAVCAN bus the received data should be forwarded to. If the NAT table
+# to determine where on the Cyphal bus the received data should be forwarded to. If the NAT table
 # contains no matches, the received data should be silently dropped. If a match is found, the
 # modem node will forward the data to the recipient node using the service HandleIncomingPacket.
 # If the service invocation times out, the modem node is permitted to remove the corresponding entry from
@@ -63,7 +63,7 @@
 #
 # To summarize, a typical data exchange occurrence should amount to the following actions:
 #
-#   - A local UAVCAN node broadcasts a message of type OutgoingPacket with the payload it needs
+#   - A local Cyphal node broadcasts a message of type OutgoingPacket with the payload it needs
 #     to forward. If the node expects the remote host to send any data back, it sets the masquerading flag.
 #
 #   - Every modem node on the bus receives the message and performs the following actions:
@@ -89,8 +89,6 @@
 # unlikely to be practical because the latency and throughput limitations introduced by the on-board radio
 # communication equipment are likely to vastly exceed those of the local CAN bus.
 
-@deprecated
-
 uint32 NAT_ENTRY_MIN_TTL = 24 * 60 * 60  # [second]
 # Modem nodes are required to keep the NAT table entries alive for at least this amount of time, unless the
 # table is overflowed, in which case they are allowed to remove least recently used entries in favor of
@@ -112,10 +110,10 @@ uint8[<=45] destination_address
 # node should take care to channel all traffic arriving at the opened port from any source to the node that
 # requested masquerading.
 # The full domain name length may not exceed 253 octets, according to the DNS specification.
-# UAVCAN imposes a stricter length limit in order to reduce the memory and traffic burden on the bus: 45 characters.
+# Cyphal imposes a stricter length limit in order to reduce the memory and traffic burden on the bus: 45 characters.
 # 45 characters is the amount of space that is required to represent the longest possible form of an IPv6 address
 # (an IPv4-mapped IPv6 address). Examples:
-#   "forum.uavcan.org"                              - domain name
+#   "forum.opencyphal.org"                          - domain name
 #   "192.168.1.1"                                   - IPv4 address
 #   "2001:0db8:85a3:0000:0000:8a2e:0370:7334"       - IPv6 address, full form
 #   "2001:db8:85a3::8a2e:370:7334"                  - IPv6 address, same as above, short form (preferred)
@@ -128,12 +126,9 @@ bool use_dtls           # Use Datagram Transport Layer Security. Drop the packet
 # Option flags.
 void6
 
-uint8[<=260] payload
+uint8[<=508] payload
 # Effective payload. This data will be forwarded to the remote host verbatim.
 # UDP packets that contain more than 508 bytes of payload may be dropped by some types of
 # communication equipment. Refer to RFC 791 and 2460 for an in-depth review.
-# UAVCAN further limits the maximum packet size to reduce the memory and traffic burden on the nodes.
 
 @extent 600 * 8
-@assert _offset_ % 8 == {0}
-@assert _offset_.max / 8 == 313

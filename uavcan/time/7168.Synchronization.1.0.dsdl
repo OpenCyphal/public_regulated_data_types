@@ -39,7 +39,7 @@
 #
 # Currently, there is a work underway to develop and validate a highly robust fault-operational time synchronization
 # algorithm where the slaves select the median time base among all available masters rather than using only the
-# one with the lowest node-ID value. Follow the work at https://forum.uavcan.org. When complete, this algorithm
+# one with the lowest node-ID value. Follow the work at https://forum.opencyphal.org. When complete, this algorithm
 # will be added in a backward-compatible way as an option for high-reliability systems.
 #
 # For networks with redundant transports, the timestamp value published on different interfaces is likely to be

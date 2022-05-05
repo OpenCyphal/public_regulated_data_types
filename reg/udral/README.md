@@ -1,8 +1,8 @@
 # UDRAL
 
 This namespace contains data type definitions, network service specifications, usage guidelines and best practices,
-and other documentation relating to the UAVCAN DRone Application Layer Specification (UDRAL).
-The specification defines the application layer for applying UAVCAN v1 to (un)manned aerial vehicles,
+and other documentation relating to the Cyphal drone application layer (UDRAL) specification.
+The specification defines the application layer for applying Cyphal to (un)manned aerial vehicles,
 including multirotors and fixed wing aircraft.
 
 The definitions are contained in two namespaces:
@@ -25,7 +25,7 @@ UDRAL is designed per the following goals:
 
 The user of this standard is advised to get familiar with the basic principles of service-oriented design.
 As a quick primer, [read Wikipedia](https://en.wikipedia.org/wiki/Service-oriented_architecture).
-For a more in-depth review, please read the [UAVCAN Guide](https://uavcan.org/guide).
+For a more in-depth review, please read the [Cyphal Guide](https://opencyphal.org/guide).
 
 The value of this or any other interoperability standard is in enabling compatible, composable,
 and extensible complex systems.
@@ -67,21 +67,21 @@ Being forward-looking, this design is optimized for transports that offer
 the data rates of at least ~4 Mbps and the MTU of at least ~64 bytes.
 It is expected that in the foreseeable future all new applications will be leveraging transports whose
 data transfer capability is at this level or higher
-(this includes, for example, UAVCAN/UDP over Ethernet, UAVCAN/CAN over CAN FD, UAVCAN/serial over RS-422 or USB, etc).
+(this includes, for example, Cyphal/UDP over Ethernet, Cyphal/CAN over CAN FD, Cyphal/serial over RS-422 or USB, etc).
 
-Note that UAVCAN v1 allows integrators to selectively disable irrelevant publications by reconfiguring the
+Note that Cyphal allows integrators to selectively disable irrelevant publications by reconfiguring the
 appropriate port-ID registers (`uavcan.pub.*.id`), which is a powerful bandwidth management tool.
 
 Applications relying on Classic CAN (maximum data rate 1 Mbps, MTU 8 bytes) can still deploy these network services,
 but the designer needs to be aware that most transfers will be multi-frame transfers and the resulting bus utilization
 may be comparatively high.
 Multi-frame transfers are not expected to cause performance issues because the official
-UAVCAN implementation libraries are optimized for handling multi-frame transfers efficiently.
+Cyphal implementation libraries are optimized for handling multi-frame transfers efficiently.
 
 The following resources are provided to help the integrator analyze bandwidth usage:
 
-- [UAVCAN/CAN bandwidth validation: Classic CAN](https://docs.google.com/spreadsheets/d/1zjpdPfmBf9oje2qjLYddlhFfkaQuTJ-VvQjHxzITils/edit)
-- [UAVCAN/CAN bandwidth validation: CAN FD](https://docs.google.com/spreadsheets/d/1iK0MegMuEC55c-zTW6ssWhrA_sGUuSlT0S26xv5gytE/edit)
+- [Cyphal/CAN bandwidth validation: Classic CAN](https://docs.google.com/spreadsheets/d/1zjpdPfmBf9oje2qjLYddlhFfkaQuTJ-VvQjHxzITils/edit)
+- [Cyphal/CAN bandwidth validation: CAN FD](https://docs.google.com/spreadsheets/d/1iK0MegMuEC55c-zTW6ssWhrA_sGUuSlT0S26xv5gytE/edit)
 
 ## Typical applications
 
@@ -118,16 +118,16 @@ which may as well be published by a mocap rig.
 
 ### Port name prefixes
 
-In UAVCAN, the name of a port (i.e., subject or RPC-service) defines the names of related registers
+In Cyphal, the name of a port (i.e., subject or RPC-service) defines the names of related registers
 as described in the documentation for the standard RPC-service `uavcan.register.Access`.
 For instance, a node that publishes to the subject named `measurement` would have registers named
 `uavcan.pub.measurement.id` and `uavcan.pub.measurement.type` (among others).
 
-> N.B.: Contrary to other protocols, in UAVCAN, the name of a port is a node-local property that does not affect
+> N.B.: Contrary to other protocols, in Cyphal, the name of a port is a node-local property that does not affect
   network exchanges over that port.
   This means that nodes can publish/subscribe to a port even if they name it differently
   as long as they are configured to use the same numerical port-ID.
-  The details are given in the UAVCAN Specification.
+  The details are given in the Cyphal Specification.
 
 Network service specifications given here under the `service` namespace provide the recommended names for
 every defined port.
@@ -249,7 +249,7 @@ The design allows this by adding an optional register per port that contains a s
     uavcan.srv.PORT_NAME.type_sig
 
 Where `PORT_NAME` is a placeholder defined in the
-[documentation for `uavcan.register.Access`](https://github.com/UAVCAN/public_regulated_data_types/blob/b02e6899a319ddefbab41b820d167c95dd00174d/uavcan/register/384.Access.1.0.uavcan#L136-L139).
+[documentation for `uavcan.register.Access`](https://github.com/OpenCyphal/public_regulated_data_types/blob/b02e6899a319ddefbab41b820d167c95dd00174d/uavcan/register/384.Access.1.0.uavcan#L136-L139).
 For example: `uavcan.sub.main_drive.setpoint.type_sig`
 
 Example signature would look like `(u12{u8}a5[f16]=i8)`, and be interpreted as
@@ -267,7 +267,7 @@ Sample proof-of-concept code that generates type string from DSDL and compares t
 
 ## Conventions
 
-- Conventions defined in the UAVCAN Specification shall be followed.
+- Conventions defined in the Cyphal Specification shall be followed.
 
 - All physical quantities except error variance should be represented as `float32` by default.
   Error variance and covariance matrices should use `float16` by default.

@@ -5,7 +5,7 @@ reg.udral.service.common.Heartbeat.0.1 heartbeat
 # that the availability of energy in the battery is critical for the safe operation of the vehicle, which is usually
 # not the case. For example, if the vehicle is equipped with several batteries that are discharged in series, one
 # after another, the depletion of energy in the first battery is not a fault condition and it should not be reported
-# as such. This follows from the good service design principles reviewed in https://uavcan.org/guide.
+# as such. This follows from the good service design principles reviewed in https://opencyphal.org/guide.
 #
 # The readiness state depicts the ability of the battery (or its power electronics) to deliver full rated power
 # and whether the overdischarge protections are active.

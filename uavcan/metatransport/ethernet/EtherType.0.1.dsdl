@@ -1,5 +1,5 @@
 # Standard EtherType constants as defined by IEEE Registration Authority and IANA.
-# This list is only a small subset of constants that are considered to be relevant for UAVCAN.
+# This list is only a small subset of constants that are considered to be relevant for Cyphal.
 
 uint16 value
 
