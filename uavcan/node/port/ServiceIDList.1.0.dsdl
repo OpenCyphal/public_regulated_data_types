@@ -2,8 +2,6 @@
 # This is a trivial constant-size bitmask with some reserved space in case the range of service-ID is increased
 # in a future revision of the protocol.
 
-@deprecated  # Replaced with v1.
-
 uint16 CAPACITY = ServiceID.1.0.MAX + 1
 
 bool[CAPACITY] mask

@@ -3,7 +3,6 @@
 # resource-constrained systems. To address that, we provide two extra options: a simple variable-length list,
 # and a special case that indicates that every subject-ID is in use.
 
-@deprecated  # Replaced with v1.
 @union
 
 uint16 CAPACITY = SubjectID.1.0.MAX + 1
