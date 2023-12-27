@@ -1,0 +1,6 @@
+uint8 module_min_temp
+uint8 module_max_temp
+uint8 module_ave_temp
+void40
+
+@sealed

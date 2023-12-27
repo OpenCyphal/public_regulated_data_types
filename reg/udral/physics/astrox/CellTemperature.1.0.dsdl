@@ -1,0 +1,6 @@
+uint8 cell_min_temp
+uint8 cell_max_temp
+uint8 cell_ave_temp
+void40
+
+@sealed

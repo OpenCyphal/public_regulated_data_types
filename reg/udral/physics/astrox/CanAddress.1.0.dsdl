@@ -1,0 +1,12 @@
+uint11 VoltParam_adr=1
+uint11 TempParam_adr=2
+uint11 BlncParam_adr=3
+uint11 CellTemp_adr=8
+uint11 IndvCellVolt_adr=11
+uint11 IndvModuleTemp_adr=12
+uint11 IndvBlnc_adr=13
+uint11 IndvCellTemp_adr=14
+uint11 Soc_adr=1280
+uint11 CanAddress
+
+@sealed

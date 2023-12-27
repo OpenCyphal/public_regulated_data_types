@@ -1,0 +1,6 @@
+uint8 min_blnc
+uint8 max_blnc
+uint8 ave_blnc
+void40
+
+@sealed

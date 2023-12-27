@@ -1,0 +1,7 @@
+int8 min_v
+int8 max_v
+int8 ave_v
+int32 total_v
+void8
+
+@sealed

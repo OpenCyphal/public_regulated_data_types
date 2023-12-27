@@ -1,0 +1,4 @@
+uint8 group_n
+uint8[7] indv_blnc
+
+@sealed

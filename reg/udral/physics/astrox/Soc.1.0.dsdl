@@ -1,0 +1,8 @@
+int16 current
+int16 est_charge
+
+void16
+uint7 soc
+void9
+
+@sealed
