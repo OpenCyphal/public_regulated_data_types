@@ -1,8 +1,6 @@
 # Instructs the server node to execute or commence execution of a simple predefined command.
 # All standard commands are optional; i.e., not guaranteed to be supported by all nodes.
 
-@deprecated
-
 uint16 command
 # Standard pre-defined commands are at the top of the range (defined below).
 # Vendors can define arbitrary, vendor-specific commands in the bottom part of the range (starting from zero).
@@ -63,6 +61,11 @@ uint16 COMMAND_STORE_PERSISTENT_STATES = 65530
 # nodes may lack this functionality, in which case this parameter should be used. Generic interfaces should always
 # invoke this command in order to ensure that the data is stored even if the node doesn't implement automatic
 # persistence management.
+
+uint16 COMMAND_IDENTIFY = 65529
+# This command instructs the node to physically identify itself in some way--e.g., by flashing a light or
+# emitting a sound. The duration and the nature of the identification process is implementation-defined.
+# This command can be useful for human operators to match assigned node-ID values to physical nodes during setup.
 
 uint8[<=uavcan.file.Path.2.0.MAX_LENGTH] parameter
 # A string parameter supplied to the command. The format and interpretation is command-specific.
