@@ -1,8 +1,6 @@
 # Instructs the server node to execute or commence execution of a simple predefined command.
 # All standard commands are optional; i.e., not guaranteed to be supported by all nodes.
 
-@deprecated
-
 uint16 command
 # Standard pre-defined commands are at the top of the range (defined below).
 # Vendors can define arbitrary, vendor-specific commands in the bottom part of the range (starting from zero).
@@ -88,4 +86,8 @@ uint8 STATUS_INTERNAL_ERROR = 6     # The operation should have succeeded but an
 uint8 status
 # The result of the request.
 
-@extent 48 * 8
+uint8[<=uavcan.file.Path.2.0.MAX_LENGTH] output
+# Any output that could be useful that has the capability to convey detailed information.
+# Users can send commands and receive specific data, like device status or measurements back in a streamlined manner
+
+@extent 257 * 8
