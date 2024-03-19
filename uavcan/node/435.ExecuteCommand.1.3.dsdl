@@ -86,9 +86,9 @@ uint8 STATUS_INTERNAL_ERROR = 6     # The operation should have succeeded but an
 uint8 status
 # The result of the request.
 
-uint8[<=uavcan.file.Path.2.0.MAX_LENGTH] output
+uint8[<=46] output
 # Any output that could be useful that has the capability to convey detailed information.
 # Users can send commands and receive specific data, like device status or measurements back in a streamlined manner.
 # The standard commands should leave this field empty unless explicitly specified otherwise.
 
-@extent 300 * 8
+@extent 48 * 8
