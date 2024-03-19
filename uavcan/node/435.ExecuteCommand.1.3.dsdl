@@ -91,4 +91,4 @@ uint8[<=uavcan.file.Path.2.0.MAX_LENGTH] output
 # Users can send commands and receive specific data, like device status or measurements back in a streamlined manner.
 # The standard commands should leave this field empty unless explicitly specified otherwise.
 
-@extent 257 * 8
+@extent 300 * 8
