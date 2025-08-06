@@ -1,0 +1,56 @@
+# Request to compute the CRC of a file or directory.
+#
+# The CRC is computed using the CRC-32C algorithm documented in the Cyphal specification.
+# The CRC is computed over the contents of the file or directory, not over the metadata.
+#
+# Case File:
+#   - If the path points to a file, the CRC is computed over the contents of the file.
+
+# Case Directory:
+#   - If the path points to a directory, the CRC is computed over a concatenation of the filenames.
+#   - The filenames are concatenated with a newline character (\n).
+#   - The filenames only contain the base name of the file, not the full path.
+#   - The content of sub-directories are not included in the CRC computation.
+#
+#   - Example:
+#      - Filesystem
+#        dir
+#        ├── sub-dir
+#        │   ├── sub-file1.txt
+#        │   └── sub-file2.txt
+#        ├── file1.txt
+#        └── file2.txt
+#
+#	   - The CRC request on the directory 'dir' will compute the CRC over the following content:
+#        """
+#            sub-dir
+#            file1.txt
+#            file2.txt
+#		 """
+#        i.e.: "sub-dir\nfile1.txt\nfile2.txt"
+# 	   - via python
+#       ``` python
+#           ls=[
+#               "sub-dir",
+#               "file1.txt",
+#               "file2.txt",
+#           ]
+#           crc = CRC32C()
+#           crc.add(bytes("\n".join(ls), encoding='ascii'))
+#           print(f"0x{crc.value:08x}")
+#       ```
+#      - The CRC-32C value will be 0xecd3cb62
+
+Path.2.0 path
+
+@extent 300 * 8
+
+---
+
+Error.1.0 error
+# Result of the operation.
+
+uint32 crc
+# CRC of the file or directory in little-endian byte order.
+
+@extent 48 * 8
