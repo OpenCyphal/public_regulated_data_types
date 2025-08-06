@@ -1,0 +1,13 @@
+[build-system]
+requires = ['setuptools', 'pycyphal~=1.20.0']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'public-regulated-data-types'
+version = '0.0.1'
+
+[tool.setuptools]
+packages = []
+exclude-package-data = { public_regulated_data_types = [
+	"*.dsdl",
+] } # don't include dsdl files in wheel
