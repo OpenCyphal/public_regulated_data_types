@@ -11,8 +11,6 @@ and communication based on modern networking standards.
 Contributors must obey the guidelines defined in this document.
 Feedback and proposals are welcome on the [Cyphal forum](https://forum.opencyphal.org).
 
-A web-based DSDL compiler is available at [nunaweb.opencyphal.org](https://nunaweb.opencyphal.org).
-
 ## Namespaces
 
 Regulated data types include the standard data types and domain-specific public definitions.
